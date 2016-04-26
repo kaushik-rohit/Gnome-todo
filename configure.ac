@@ -93,6 +93,20 @@ GNOME_TODO_ADD_PLUGIN([score], [Score], [yes])
 GNOME_TODO_ADD_PLUGIN([today-panel], [Today Panel], [yes])
 GNOME_TODO_ADD_PLUGIN([unscheduled-panel], [Unscheduled Tasks Panel], [yes])
 
+
+dnl ***********************************************************************
+dnl Support for gtk-doc Documentation Engine
+dnl ***********************************************************************
+GTK_DOC_CHECK([1.14],[--flavour no-tmpl])
+AM_CONDITIONAL(ENABLE_GTK_DOC, test "x$enable_gtk_doc" = "xyes")
+AC_ARG_ENABLE(doc-cross-references,
+              AS_HELP_STRING([--disable-doc-cross-references],
+                             [cross reference symbols from other libraries @<:@default=yes@:>@]),
+              enable_doc_cross_references=$enableval,
+              enable_doc_cross_references=yes)
+AM_CONDITIONAL(ENABLE_DOC_CROSS_REFERENCES, test x$enable_doc_cross_references != xno)
+
+
 AC_CONFIG_FILES([
       Makefile
       src/Makefile
@@ -100,6 +114,9 @@ AC_CONFIG_FILES([
       data/icons/Makefile
       data/gnome-todo.pc
       data/org.gnome.Todo.desktop.in
+      doc/Makefile
+      doc/reference/Makefile
+      doc/reference/version.xml
       plugins/Makefile
       po/Makefile.in
 ])
@@ -116,6 +133,7 @@ echo "
         compiler:      ${CC}
 	global flags:  ${CFLAGS} ${CPPFLAGS} ${LDFLAGS}
         release:       ${ax_is_release}
+        documentation: ${enable_gtk_doc}
 
     Plugins:
         Score ................... ${enable_score_plugin}

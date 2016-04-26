@@ -2,8 +2,8 @@ include $(top_srcdir)/common.am
 
 ACLOCAL_AMFLAGS = --install -I m4 ${ACLOCAL_FLAGS}
 
-SUBDIRS = plugins src data po
-DIST_SUBDIRS = src data plugins po
+SUBDIRS = plugins src data po doc
+DIST_SUBDIRS = $(SUBDIRS)
 
 INTLTOOL_FILES = \
 	intltool-extract.in \
@@ -25,6 +25,7 @@ DISTCLEANFILES = \
 
 DISTCHECK_CONFIGURE_FLAGS = \
 	--enable-appstream-util \
+	--disable-gtk-doc \
 	--enable-introspection
 
 # Remove doc directory on uninstall
@@ -38,6 +39,8 @@ GITIGNOREFILES = \
 	build-aux \
 	config \
 	config.h.in \
+	gtk-doc.m4 \
+	gtk-doc.make \
 	m4 \
 	src/.deps \
 	src/Makefile \
