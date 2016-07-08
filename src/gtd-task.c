@@ -40,6 +40,8 @@ typedef struct
   gchar           *description;
   GtdTaskList     *list;
   ECalComponent   *component;
+  GtdTask         *parent;
+  GList           *subtasks;
 } GtdTaskPrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (GtdTask, gtd_task, GTD_TYPE_OBJECT)
@@ -53,10 +55,20 @@ enum
   PROP_CREATION_DATE,
   PROP_DUE_DATE,
   PROP_LIST,
+  PROP_PARENT,
   PROP_PRIORITY,
   PROP_TITLE,
   LAST_PROP
 };
+
+enum
+{
+  SUBTASK_ADDED,
+  SUBTASK_REMOVED,
+  N_SIGNALS
+};
+
+static guint signals[N_SIGNALS] = { 0, };
 
 static GDateTime*
 gtd_task__convert_icaltime (const icaltimetype *date)
@@ -74,6 +86,75 @@ gtd_task__convert_icaltime (const icaltimetype *date)
                             date->is_date ? 0 : date->second);
 
   return dt;
+}
+
+static void
+real_add_subtask (GtdTask *self,
+                  GtdTask *subtask)
+{
+  GtdTaskPrivate *priv, *subtask_priv;
+  ECalComponentId *id;
+  ECalComponent *comp;
+  icalcomponent *ical_comp;
+  icalproperty *property;
+
+  priv = gtd_task_get_instance_private (self);
+
+  if (g_list_find (priv->subtasks, subtask))
+    return;
+
+  id = e_cal_component_get_id (priv->component);
+  subtask_priv = gtd_task_get_instance_private (subtask);
+  comp = subtask_priv->component;
+
+  ical_comp = e_cal_component_get_icalcomponent (comp);
+  property = icalcomponent_get_first_property (ical_comp, ICAL_RELATEDTO_PROPERTY);
+
+  if (property)
+    icalproperty_set_relatedto (property, id->uid);
+  else
+    icalcomponent_add_property (ical_comp, icalproperty_new_relatedto (id->uid));
+
+  /* Add to this task's list of subtasks */
+  priv->subtasks = g_list_prepend (priv->subtasks, subtask);
+
+  /* Update the subtask's parent property */
+  subtask_priv->parent = self;
+  g_object_notify (G_OBJECT (subtask), "parent");
+
+  e_cal_component_free_id (id);
+}
+
+static void
+real_remove_subtask (GtdTask *self,
+                     GtdTask *subtask)
+{
+  GtdTaskPrivate *priv, *subtask_priv;
+  icalcomponent *ical_comp;
+  icalproperty *property;
+
+  priv = gtd_task_get_instance_private (self);
+
+  if (!g_list_find (priv->subtasks, subtask))
+    return;
+
+  subtask_priv = gtd_task_get_instance_private (subtask);
+
+  /* Remove the parent link from the subtask's component */
+  ical_comp = e_cal_component_get_icalcomponent (subtask_priv->component);
+  property = icalcomponent_get_first_property (ical_comp, ICAL_RELATEDTO_PROPERTY);
+
+  if (!property)
+    return;
+
+  icalcomponent_remove_property (ical_comp, property);
+
+  /* Add to this task's list of subtasks */
+  priv->subtasks = g_list_remove (priv->subtasks, subtask);
+
+  /* Update the subtask's parent property */
+  subtask_priv->parent = NULL;
+  g_object_notify (G_OBJECT (subtask), "parent");
 }
 
 static void
@@ -161,6 +242,10 @@ gtd_task_get_property (GObject    *object,
       g_value_set_object (value, priv->list);
       break;
 
+    case PROP_PARENT:
+      g_value_set_object (value, priv->parent);
+      break;
+
     case PROP_PRIORITY:
       g_value_set_int (value, gtd_task_get_priority (self));
       break;
@@ -234,6 +319,9 @@ gtd_task_class_init (GtdTaskClass *klass)
 {
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
   GtdObjectClass *obj_class = GTD_OBJECT_CLASS (klass);
+
+  klass->subtask_added = real_add_subtask;
+  klass->subtask_removed = real_remove_subtask;
 
   object_class->finalize = gtd_task_finalize;
   object_class->get_property = gtd_task_get_property;
@@ -329,6 +417,20 @@ gtd_task_class_init (GtdTaskClass *klass)
                              G_PARAM_READWRITE));
 
   /**
+   * GtdTask::parent:
+   *
+   * The parent of the task.
+   */
+  g_object_class_install_property (
+        object_class,
+        PROP_PARENT,
+        g_param_spec_object ("parent",
+                              "Parent of the task",
+                              "The GtdTask that is parent of this task.",
+                              GTD_TYPE_TASK,
+                              G_PARAM_READABLE));
+
+  /**
    * GtdTask::priority:
    *
    * Priority of the task, 0 if not set.
@@ -357,6 +459,39 @@ gtd_task_class_init (GtdTaskClass *klass)
                              "The title of the task",
                              NULL,
                              G_PARAM_READWRITE));
+
+  /* Signals */
+  /**
+   * GtdTask:subtask-added:
+   *
+   * Emited when a subtask is added to @self.
+   */
+  signals[SUBTASK_ADDED] = g_signal_new ("subtask-added",
+                                         GTD_TYPE_TASK,
+                                         G_SIGNAL_RUN_LAST,
+                                         G_STRUCT_OFFSET (GtdTaskClass, subtask_added),
+                                         NULL,
+                                         NULL,
+                                         NULL,
+                                         G_TYPE_NONE,
+                                         1,
+                                         GTD_TYPE_TASK);
+
+  /**
+   * GtdTask:subtask-added:
+   *
+   * Emited when a subtask is added to @self.
+   */
+  signals[SUBTASK_REMOVED] = g_signal_new ("subtask-removed",
+                                           GTD_TYPE_TASK,
+                                           G_SIGNAL_RUN_LAST,
+                                           G_STRUCT_OFFSET (GtdTaskClass, subtask_removed),
+                                           NULL,
+                                           NULL,
+                                           NULL,
+                                           G_TYPE_NONE,
+                                           1,
+                                           GTD_TYPE_TASK);
 }
 
 static void
@@ -1055,3 +1190,92 @@ gtd_task_compare (GtdTask *t1,
 
   return retval;
 }
+
+/**
+ * gtd_task_get_parent:
+ * @self: a #GtdTask
+ *
+ * Retrieves the parent task of @self, or %NULL if none is set.
+ *
+ * Returns: (transfer none)(nullable): the #GtdTask that is parent of @self
+ */
+GtdTask*
+gtd_task_get_parent (GtdTask *self)
+{
+  GtdTaskPrivate *priv;
+
+  g_return_val_if_fail (GTD_IS_TASK (self), NULL);
+
+  priv = gtd_task_get_instance_private (self);
+
+  return priv->parent;
+}
+
+/**
+ * gtd_task_get_substasks:
+ * @self: a #GtdTask
+ *
+ * Retrieves the subtasks of @self, or %NULL if it has no subtasks.
+ *
+ * Returns: (transfer container)(nullable)(element-type Gtd.Task): the subtasks of @self
+ */
+GList*
+gtd_task_get_substasks (GtdTask *self)
+{
+  GtdTaskPrivate *priv;
+
+  g_return_val_if_fail (GTD_IS_TASK (self), NULL);
+
+  priv = gtd_task_get_instance_private (self);
+
+  return g_list_copy (priv->subtasks);
+}
+
+/**
+ * gtd_task_add_subtask:
+ * @self: a #GtdTask
+ * @subtask: the subtask to be added to @self
+ *
+ * Adds @subtask as a subtask of @self.
+ */
+void
+gtd_task_add_subtask (GtdTask *self,
+                      GtdTask *subtask)
+{
+  GtdTaskPrivate *priv;
+
+  g_return_if_fail (GTD_IS_TASK (self));
+  g_return_if_fail (GTD_IS_TASK (subtask));
+
+  priv = gtd_task_get_instance_private (self);
+
+  if (!g_list_find (priv->subtasks, subtask))
+    {
+      g_signal_emit (self, signals[SUBTASK_ADDED], 0, subtask);
+    }
+}
+
+/**
+ * gtd_task_remove_subtask:
+ * @self: a #GtdTask
+ * @subtask: the subtask to be removed to @self
+ *
+ * Removes @subtask from @self.
+ */
+void
+gtd_task_remove_subtask (GtdTask *self,
+                         GtdTask *subtask)
+{
+  GtdTaskPrivate *priv;
+
+  g_return_if_fail (GTD_IS_TASK (self));
+  g_return_if_fail (GTD_IS_TASK (subtask));
+
+  priv = gtd_task_get_instance_private (self);
+
+  if (g_list_find (priv->subtasks, subtask))
+    {
+      g_signal_emit (self, signals[SUBTASK_REMOVED], 0, subtask);
+    }
+}
+

@@ -34,7 +34,14 @@ struct _GtdTaskClass
 {
   GtdObjectClass parent;
 
-  gpointer       padding[10];
+  /*< signals >*/
+  void          (*subtask_added)                      (GtdTask              *self,
+                                                       GtdTask              *subtask);
+
+  void          (*subtask_removed)                    (GtdTask              *self,
+                                                       GtdTask              *subtask);
+
+  gpointer       padding[8];
 };
 
 GtdTask*            gtd_task_new                      (ECalComponent        *component);
@@ -79,6 +86,16 @@ void                gtd_task_save                     (GtdTask              *tas
 
 gint                gtd_task_compare                  (GtdTask              *t1,
                                                        GtdTask              *t2);
+
+GtdTask*            gtd_task_get_parent               (GtdTask              *self);
+
+GList*              gtd_task_get_substasks            (GtdTask              *self);
+
+void                gtd_task_add_subtask              (GtdTask              *self,
+                                                       GtdTask              *subtask);
+
+void                gtd_task_remove_subtask           (GtdTask              *self,
+                                                       GtdTask              *subtask);
 
 G_END_DECLS
 
