@@ -36,9 +36,18 @@
 
 typedef struct
 {
+  gchar   *parent_uid;
+  GtdTask *child;
+} PendingSubtaskData;
+
+typedef struct
+{
   GList               *tasks;
   GtdProvider         *provider;
   GdkRGBA             *color;
+
+  GHashTable          *uid_to_task;
+  GPtrArray           *pending_subtasks;
 
   gchar               *name;
   gboolean             removable : 1;
@@ -66,13 +75,101 @@ enum
   LAST_PROP
 };
 
+static PendingSubtaskData*
+pending_subtask_data_new (GtdTaskList *self,
+                          GtdTask     *child,
+                          const gchar *parent_uid)
+{
+  PendingSubtaskData *data;
+
+  data = g_new0 (PendingSubtaskData, 1);
+  data->child = child;
+  data->parent_uid = g_strdup (parent_uid);
+
+  return data;
+}
+
+static void
+pending_subtask_data_free (PendingSubtaskData *data)
+{
+  g_free (data->parent_uid);
+  g_free (data);
+}
+
+static void
+setup_parent_task (GtdTaskList *self,
+                   GtdTask     *task)
+{
+  GtdTaskListPrivate *priv;
+  ECalComponent *component;
+  icalcomponent *ical_comp;
+  icalproperty *property;
+  GtdTask *parent_task;
+  const gchar *parent_uid;
+
+  priv = gtd_task_list_get_instance_private (self);
+  component = gtd_task_get_component (task);
+  ical_comp = e_cal_component_get_icalcomponent (component);
+  property = icalcomponent_get_first_property (ical_comp, ICAL_RELATEDTO_PROPERTY);
+
+  if (!property)
+    return;
+
+  parent_uid = icalproperty_get_relatedto (property);
+  parent_task = g_hash_table_lookup (priv->uid_to_task, parent_uid);
+
+  if (parent_task)
+    {
+      gtd_task_add_subtask (parent_task, task);
+    }
+  else
+    {
+      PendingSubtaskData *data;
+
+      data = pending_subtask_data_new (self, task, parent_uid);
+
+      g_ptr_array_add (priv->pending_subtasks, data);
+    }
+}
+
+static void
+process_pending_subtasks (GtdTaskList *self,
+                          GtdTask     *task)
+{
+  GtdTaskListPrivate *priv;
+  ECalComponentId *id;
+  guint i;
+
+  priv = gtd_task_list_get_instance_private (self);
+  id = e_cal_component_get_id (gtd_task_get_component (task));
+
+  for (i = 0; i < priv->pending_subtasks->len; i++)
+    {
+      PendingSubtaskData *data;
+
+      data = g_ptr_array_index (priv->pending_subtasks, i);
+
+      if (g_strcmp0 (id->uid, data->parent_uid) == 0)
+        {
+          gtd_task_add_subtask (task, data->child);
+          g_ptr_array_remove (priv->pending_subtasks, data);
+          i--;
+        }
+    }
+
+  e_cal_component_free_id (id);
+}
+
 static void
 gtd_task_list_finalize (GObject *object)
 {
   GtdTaskList *self = (GtdTaskList*) object;
   GtdTaskListPrivate *priv = gtd_task_list_get_instance_private (self);
 
+  g_clear_object (&priv->pending_subtasks);
   g_clear_object (&priv->provider);
+
+  g_clear_pointer (&priv->uid_to_task, g_hash_table_destroy);
   g_clear_pointer (&priv->color, gdk_rgba_free);
   g_clear_pointer (&priv->name, g_free);
 
@@ -272,7 +369,16 @@ gtd_task_list_class_init (GtdTaskListClass *klass)
 static void
 gtd_task_list_init (GtdTaskList *self)
 {
-  ;
+  GtdTaskListPrivate *priv;
+
+  priv = gtd_task_list_get_instance_private (self);
+
+  priv->uid_to_task = g_hash_table_new_full (g_str_hash,
+                                             g_str_equal,
+                                             g_free,
+                                             NULL);
+
+  priv->pending_subtasks = g_ptr_array_new_with_free_func ((GDestroyNotify) pending_subtask_data_free);
 }
 
 /**
@@ -480,9 +586,19 @@ gtd_task_list_save_task (GtdTaskList *list,
     }
   else
     {
+      ECalComponentId *id;
+
+      id = e_cal_component_get_id (gtd_task_get_component (task));
+
       priv->tasks = g_list_append (priv->tasks, task);
 
+      g_hash_table_insert (priv->uid_to_task, g_strdup (id->uid), task);
+      process_pending_subtasks (list, task);
+      setup_parent_task (list, task);
+
       g_signal_emit (list, signals[TASK_ADDED], 0, task);
+
+      e_cal_component_free_id (id);
     }
 }
 
@@ -508,6 +624,8 @@ gtd_task_list_remove_task (GtdTaskList *list,
     return;
 
   priv->tasks = g_list_remove (priv->tasks, task);
+
+  g_hash_table_remove (priv->uid_to_task, gtd_object_get_uid (GTD_OBJECT (task)));
 
   g_signal_emit (list, signals[TASK_REMOVED], 0, task);
 }
