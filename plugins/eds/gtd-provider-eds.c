@@ -280,6 +280,8 @@ gtd_provider_eds_remove_source (GtdProviderEds *provider,
   priv = gtd_provider_eds_get_instance_private (provider);
   list = g_object_get_data (G_OBJECT (source), "task-list");
 
+  priv->task_lists = g_list_remove (priv->task_lists, list);
+
   g_hash_table_remove (priv->clients, source);
 
   /* Since all subclasses will have this signal given that they
