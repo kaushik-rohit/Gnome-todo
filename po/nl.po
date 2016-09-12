@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-todo master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
-"todo&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2016-03-03 01:00+0000\n"
-"PO-Revision-Date: 2016-03-03 12:58+0100\n"
+"todo&keywords=I18N+L10N&component=General\n"
+"POT-Creation-Date: 2016-08-18 20:13+0000\n"
+"PO-Revision-Date: 2016-09-12 16:58+0200\n"
 "Last-Translator: Hannie Dumoleyn <hannie@ubuntu-nl.org>\n"
 "Language-Team: Dutch <gnome-nl-list@gnome.org>\n"
 "Language: nl\n"
@@ -47,7 +47,7 @@ msgstr "Nieuwe lijst…"
 msgid "Change default storage location…"
 msgstr "De standaardopslaglocatie wijzigen…"
 
-#: ../data/gtk/menus.ui.h:3
+#: ../data/gtk/menus.ui.h:3 ../data/ui/plugin-dialog.ui.h:1
 msgid "Extensions"
 msgstr "Extensies"
 
@@ -99,8 +99,8 @@ msgstr "Eerste keer starten van Gnome Taken"
 msgid ""
 "Whether it's the first run of GNOME To Do (to run the initial setup) or not"
 msgstr ""
-"Of het de eerste keer opstarten van Gnome Taken (om de eerste installatie uit "
-"te voeren) is of niet"
+"Of het de eerste keer opstarten van Gnome Taken (om de eerste installatie "
+"uit te voeren) is of niet"
 
 #: ../data/org.gnome.todo.gschema.xml.h:9
 msgid "Default provider to add new lists to"
@@ -185,7 +185,7 @@ msgid "Cancel"
 msgstr "Annuleren"
 
 #: ../data/ui/initial-setup.ui.h:4 ../data/ui/list-view.ui.h:4
-#: ../src/gtd-task-list-view.c:426
+#: ../src/gtd-task-list-view.c:434
 msgid "Done"
 msgstr "Gereed"
 
@@ -222,7 +222,7 @@ msgstr "U kunt taken toevoegen aan lijsten in de <b>Lijsten</b>-weergave"
 msgid "Show or hide completed tasks"
 msgstr "Voltooide taken weergeven of verbergen"
 
-#: ../data/ui/plugin-dialog.ui.h:1
+#: ../data/ui/plugin-dialog.ui.h:2
 msgid "No extensions found"
 msgstr "Geen extensies gevonden"
 
@@ -297,7 +297,7 @@ msgstr[1] "%d dagen geleden"
 #. Setup a title
 #: ../plugins/eds/gtd-panel-scheduled.c:87 ../plugins/eds/gtd-panel-today.c:147
 #: ../plugins/eds/gtd-panel-today.c:152 ../plugins/eds/gtd-panel-today.c:314
-#: ../src/gtd-task-row.c:140
+#: ../plugins/score/score/__init__.py:95 ../src/gtd-task-row.c:140
 msgid "Today"
 msgstr "Vandaag"
 
@@ -330,55 +330,55 @@ msgstr "Fout bij laden van Evolution-Data-Server-backend"
 msgid "Error loading CSS from resource"
 msgstr "Fout bij laden van CSS van de bron"
 
-#: ../plugins/eds/gtd-provider-eds.c:119 ../plugins/eds/gtd-provider-eds.c:123
+#: ../plugins/eds/gtd-provider-eds.c:118 ../plugins/eds/gtd-provider-eds.c:122
 msgid "Error fetching tasks from list"
 msgstr "Ophalen taken van lijst mislukt"
 
-#: ../plugins/eds/gtd-provider-eds.c:187
+#: ../plugins/eds/gtd-provider-eds.c:182
 msgid "Task list source successfully connected"
 msgstr "Takenlijstbron succesvol verbonden"
 
-#: ../plugins/eds/gtd-provider-eds.c:194 ../plugins/eds/gtd-provider-eds.c:199
+#: ../plugins/eds/gtd-provider-eds.c:189 ../plugins/eds/gtd-provider-eds.c:194
 msgid "Failed to connect to task list source"
 msgstr "Verbinden met takenlijstbron mislukt"
 
-#: ../plugins/eds/gtd-provider-eds.c:311
+#: ../plugins/eds/gtd-provider-eds.c:306
 msgid "Failed to prompt for credentials"
 msgstr "Vragen om aanmeldgegevens mislukt"
 
-#: ../plugins/eds/gtd-provider-eds.c:334
+#: ../plugins/eds/gtd-provider-eds.c:329
 msgid "Failed to prompt for credentials for"
 msgstr "Vragen om aanmeldgegevens mislukt voor"
 
-#: ../plugins/eds/gtd-provider-eds.c:388
+#: ../plugins/eds/gtd-provider-eds.c:383
 msgid "Authentication failure"
 msgstr "Authentificatiefout"
 
-#: ../plugins/eds/gtd-provider-eds.c:440
+#: ../plugins/eds/gtd-provider-eds.c:435
 msgid "Error loading task manager"
 msgstr "Laden van takenbeheer mislukt"
 
-#: ../plugins/eds/gtd-provider-eds.c:546 ../plugins/eds/gtd-provider-eds.c:550
+#: ../plugins/eds/gtd-provider-eds.c:532 ../plugins/eds/gtd-provider-eds.c:536
 msgid "Error creating task"
 msgstr "Fout bij aanmaken van taak"
 
-#: ../plugins/eds/gtd-provider-eds.c:589 ../plugins/eds/gtd-provider-eds.c:593
+#: ../plugins/eds/gtd-provider-eds.c:575 ../plugins/eds/gtd-provider-eds.c:579
 msgid "Error updating task"
 msgstr "Fout bij bijwerken van taak"
 
-#: ../plugins/eds/gtd-provider-eds.c:625 ../plugins/eds/gtd-provider-eds.c:629
+#: ../plugins/eds/gtd-provider-eds.c:611 ../plugins/eds/gtd-provider-eds.c:615
 msgid "Error removing task"
 msgstr "Fout bij verwijderen van taak"
 
-#: ../plugins/eds/gtd-provider-eds.c:653 ../plugins/eds/gtd-provider-eds.c:657
+#: ../plugins/eds/gtd-provider-eds.c:639 ../plugins/eds/gtd-provider-eds.c:643
 msgid "Error creating task list"
 msgstr "Fout bij aanmaken van takenlijst"
 
-#: ../plugins/eds/gtd-provider-eds.c:674 ../plugins/eds/gtd-provider-eds.c:678
+#: ../plugins/eds/gtd-provider-eds.c:660 ../plugins/eds/gtd-provider-eds.c:664
 msgid "Error removing task list"
 msgstr "Fout bij verwijderen van takenlijst"
 
-#: ../plugins/eds/gtd-provider-eds.c:735 ../plugins/eds/gtd-provider-eds.c:739
+#: ../plugins/eds/gtd-provider-eds.c:721 ../plugins/eds/gtd-provider-eds.c:725
 #: ../plugins/eds/gtd-task-list-eds.c:69
 msgid "Error saving task list"
 msgstr "Fout bij opslaan van takenlijst"
@@ -395,6 +395,24 @@ msgstr "Op deze computer"
 #: ../plugins/eds/gtd-provider-local.c:137
 msgid "Error creating new task list"
 msgstr "Maken van nieuwe takenlijst mislukt"
+
+#: ../plugins/score/score/__init__.py:84
+msgid "No task completed today"
+msgstr "Vandaag geen taken voltooid"
+
+#: ../plugins/unscheduled-panel/unscheduled-panel/__init__.py:33
+msgid "unscheduled-panel"
+msgstr "Niet gepland-paneel"
+
+#: ../plugins/unscheduled-panel/unscheduled-panel/__init__.py:34
+#: ../plugins/unscheduled-panel/unscheduled-panel/__init__.py:85
+msgid "Unscheduled"
+msgstr "Niet gepland"
+
+#: ../plugins/unscheduled-panel/unscheduled-panel/__init__.py:87
+#, python-format
+msgid "Unscheduled (%d)"
+msgstr "Niet gepland (%d)"
 
 #: ../src/gtd-application.c:113
 #, c-format
@@ -425,12 +443,12 @@ msgstr "Fout bij laden van plug-in"
 msgid "Error unloading plugin"
 msgstr "Fout bij lossen van plug-in"
 
-#: ../src/gtd-task-list-view.c:326
+#: ../src/gtd-task-list-view.c:334
 #, c-format
 msgid "Task <b>%s</b> removed"
 msgstr "Taak <b>%s</b> verwijderd"
 
-#: ../src/gtd-task-list-view.c:357
+#: ../src/gtd-task-list-view.c:365
 msgid "Undo"
 msgstr "Ongedaan maken"
 
