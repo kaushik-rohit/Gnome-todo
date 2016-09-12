@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-todo master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-20 23:31+0100\n"
-"PO-Revision-Date: 2016-03-20 03:12+0100\n"
+"POT-Creation-Date: 2016-09-13 01:58+0200\n"
+"PO-Revision-Date: 2016-09-13 01:26+0200\n"
 "Last-Translator: scootergrisen\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
 "Language: da\n"
@@ -47,7 +47,7 @@ msgstr "Ny liste…"
 msgid "Change default storage location…"
 msgstr "Ændr standardplacering af lager…"
 
-#: ../data/gtk/menus.ui.h:3
+#: ../data/gtk/menus.ui.h:3 ../data/ui/plugin-dialog.ui.h:1
 msgid "Extensions"
 msgstr "Udvidelser"
 
@@ -184,7 +184,7 @@ msgid "Cancel"
 msgstr "Annullér"
 
 #: ../data/ui/initial-setup.ui.h:4 ../data/ui/list-view.ui.h:4
-#: ../src/gtd-task-list-view.c:426
+#: ../src/gtd-task-list-view.c:434
 msgid "Done"
 msgstr "Færdig"
 
@@ -221,7 +221,7 @@ msgstr "Du kan føje opgaver til lister i visningen <b>Lister</b>"
 msgid "Show or hide completed tasks"
 msgstr "Vis eller skjul færdiggjorte opgaver"
 
-#: ../data/ui/plugin-dialog.ui.h:1
+#: ../data/ui/plugin-dialog.ui.h:2
 msgid "No extensions found"
 msgstr "Ingen udvidelser fundet"
 
@@ -296,7 +296,8 @@ msgstr[1] "For %d dage siden"
 #. Setup a title
 #: ../plugins/eds/gtd-panel-scheduled.c:87
 #: ../plugins/eds/gtd-panel-today.c:147 ../plugins/eds/gtd-panel-today.c:152
-#: ../plugins/eds/gtd-panel-today.c:314 ../src/gtd-task-row.c:140
+#: ../plugins/eds/gtd-panel-today.c:314 ../plugins/score/score/__init__.py:95
+#: ../src/gtd-task-row.c:140
 msgid "Today"
 msgstr "I dag"
 
@@ -329,55 +330,55 @@ msgstr "Fejl ved indlæsning af Evolution-Data-Server-backend"
 msgid "Error loading CSS from resource"
 msgstr "Fejl ved indlæsning af CSS fra ressource"
 
-#: ../plugins/eds/gtd-provider-eds.c:119 ../plugins/eds/gtd-provider-eds.c:123
+#: ../plugins/eds/gtd-provider-eds.c:118 ../plugins/eds/gtd-provider-eds.c:122
 msgid "Error fetching tasks from list"
 msgstr "Fejl ved hentning af opgaver fra liste"
 
-#: ../plugins/eds/gtd-provider-eds.c:187
+#: ../plugins/eds/gtd-provider-eds.c:182
 msgid "Task list source successfully connected"
 msgstr "Opgavelistekilde tilsluttet"
 
-#: ../plugins/eds/gtd-provider-eds.c:194 ../plugins/eds/gtd-provider-eds.c:199
+#: ../plugins/eds/gtd-provider-eds.c:189 ../plugins/eds/gtd-provider-eds.c:194
 msgid "Failed to connect to task list source"
 msgstr "Kunne ikke forbinde til opgavelistekilde"
 
-#: ../plugins/eds/gtd-provider-eds.c:311
+#: ../plugins/eds/gtd-provider-eds.c:306
 msgid "Failed to prompt for credentials"
 msgstr "Kunne ikke forespørge om akkreditiver"
 
-#: ../plugins/eds/gtd-provider-eds.c:334
+#: ../plugins/eds/gtd-provider-eds.c:329
 msgid "Failed to prompt for credentials for"
 msgstr "Kunne ikke forespørge om akkreditiver for"
 
-#: ../plugins/eds/gtd-provider-eds.c:388
+#: ../plugins/eds/gtd-provider-eds.c:383
 msgid "Authentication failure"
 msgstr "Fejl ved autentifikation"
 
-#: ../plugins/eds/gtd-provider-eds.c:440
+#: ../plugins/eds/gtd-provider-eds.c:435
 msgid "Error loading task manager"
 msgstr "Fejl ved indlæsning af opgavehåndtering"
 
-#: ../plugins/eds/gtd-provider-eds.c:546 ../plugins/eds/gtd-provider-eds.c:550
+#: ../plugins/eds/gtd-provider-eds.c:532 ../plugins/eds/gtd-provider-eds.c:536
 msgid "Error creating task"
 msgstr "Fejl ved oprettelse af opgave"
 
-#: ../plugins/eds/gtd-provider-eds.c:589 ../plugins/eds/gtd-provider-eds.c:593
+#: ../plugins/eds/gtd-provider-eds.c:575 ../plugins/eds/gtd-provider-eds.c:579
 msgid "Error updating task"
 msgstr "Fejl ved opdatering af opgave"
 
-#: ../plugins/eds/gtd-provider-eds.c:625 ../plugins/eds/gtd-provider-eds.c:629
+#: ../plugins/eds/gtd-provider-eds.c:611 ../plugins/eds/gtd-provider-eds.c:615
 msgid "Error removing task"
 msgstr "Fejl ved fjernelse af opgave"
 
-#: ../plugins/eds/gtd-provider-eds.c:653 ../plugins/eds/gtd-provider-eds.c:657
+#: ../plugins/eds/gtd-provider-eds.c:639 ../plugins/eds/gtd-provider-eds.c:643
 msgid "Error creating task list"
 msgstr "Fejl ved oprettelse af opgaveliste"
 
-#: ../plugins/eds/gtd-provider-eds.c:674 ../plugins/eds/gtd-provider-eds.c:678
+#: ../plugins/eds/gtd-provider-eds.c:660 ../plugins/eds/gtd-provider-eds.c:664
 msgid "Error removing task list"
 msgstr "Fejl ved fjernelse af opgaveliste"
 
-#: ../plugins/eds/gtd-provider-eds.c:735 ../plugins/eds/gtd-provider-eds.c:739
+#: ../plugins/eds/gtd-provider-eds.c:721 ../plugins/eds/gtd-provider-eds.c:725
 #: ../plugins/eds/gtd-task-list-eds.c:69
 msgid "Error saving task list"
 msgstr "Fejl ved gemning af opgaveliste"
@@ -394,6 +395,25 @@ msgstr "På denne computer"
 #: ../plugins/eds/gtd-provider-local.c:137
 msgid "Error creating new task list"
 msgstr "Fejl ved oprettelse af ny opgaveliste"
+
+#: ../plugins/score/score/__init__.py:84
+msgid "No task completed today"
+msgstr "Ingen opgave fuldført i dag"
+
+# øhm??
+#: ../plugins/unscheduled-panel/unscheduled-panel/__init__.py:33
+msgid "unscheduled-panel"
+msgstr "ikke planlagt-panel"
+
+#: ../plugins/unscheduled-panel/unscheduled-panel/__init__.py:34
+#: ../plugins/unscheduled-panel/unscheduled-panel/__init__.py:85
+msgid "Unscheduled"
+msgstr "Ikke planlagt"
+
+#: ../plugins/unscheduled-panel/unscheduled-panel/__init__.py:87
+#, python-format
+msgid "Unscheduled (%d)"
+msgstr "Ikke planlagt (%d)"
 
 #: ../src/gtd-application.c:113
 #, c-format
@@ -422,12 +442,12 @@ msgstr "Fejl ved start af plugin"
 msgid "Error unloading plugin"
 msgstr "Fejl ved stop af plugin"
 
-#: ../src/gtd-task-list-view.c:326
+#: ../src/gtd-task-list-view.c:334
 #, c-format
 msgid "Task <b>%s</b> removed"
 msgstr "Opgaven <b>%s</b> fjernet"
 
-#: ../src/gtd-task-list-view.c:357
+#: ../src/gtd-task-list-view.c:365
 msgid "Undo"
 msgstr "Fortryd"
 
