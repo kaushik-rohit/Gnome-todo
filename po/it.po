@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-todo master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
-"todo&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2016-03-14 10:43+0000\n"
-"PO-Revision-Date: 2016-03-14 14:42+0100\n"
+"todo&keywords=I18N+L10N&component=General\n"
+"POT-Creation-Date: 2016-08-18 20:13+0000\n"
+"PO-Revision-Date: 2016-09-04 10:09+0200\n"
 "Last-Translator: Gianvito Cavasoli <gianvito@gmx.it>\n"
 "Language-Team: Italiano <gnome-it-list@gnome.org>\n"
 "Language: it\n"
@@ -29,14 +29,10 @@ msgid "To Do"
 msgstr "ToDo"
 
 #: ../data/appdata/org.gnome.Todo.appdata.xml.in.h:2
-#| msgid "Todo manager for GNOME"
 msgid "Task manager for GNOME"
 msgstr "Gestione delle attività per GNOME"
 
 #: ../data/appdata/org.gnome.Todo.appdata.xml.in.h:3
-#| msgid ""
-#| "GNOME Todo is a simple task management application designed to integrate "
-#| "with GNOME."
 msgid ""
 "GNOME To Do is a simple task management application designed to integrate "
 "with GNOME."
@@ -52,7 +48,7 @@ msgstr "Nuovo elenco…"
 msgid "Change default storage location…"
 msgstr "Modifica posizione di archiviazione predefinita…"
 
-#: ../data/gtk/menus.ui.h:3
+#: ../data/gtk/menus.ui.h:3 ../data/ui/plugin-dialog.ui.h:1
 msgid "Extensions"
 msgstr "Estensioni"
 
@@ -108,12 +104,10 @@ msgstr ""
 "configurazione iniziale)"
 
 #: ../data/org.gnome.todo.gschema.xml.h:9
-#| msgid "Default location to add new lists to"
 msgid "Default provider to add new lists to"
 msgstr "Fornitore predefinito per l'aggiunta di nuovi elenchi a"
 
 #: ../data/org.gnome.todo.gschema.xml.h:10
-#| msgid "The identifier of the default location to add new lists to"
 msgid "The identifier of the default provider to add new lists to"
 msgstr ""
 "L'identificatore del fornitore predefinito per l'aggiunta di nuovi elenchi a"
@@ -152,7 +146,6 @@ msgid "Priority"
 msgstr "Priorità"
 
 #: ../data/ui/edit-pane.ui.h:5 ../plugins/eds/edit-pane.ui.h:5
-#| msgid "None"
 msgctxt "taskpriority"
 msgid "None"
 msgstr "Nessuna"
@@ -175,7 +168,6 @@ msgid "Delete"
 msgstr "Elimina"
 
 #: ../data/ui/edit-pane.ui.h:10 ../plugins/eds/edit-pane.ui.h:10
-#| msgid "None"
 msgctxt "taskdate"
 msgid "None"
 msgstr "Nessuna"
@@ -194,7 +186,7 @@ msgid "Cancel"
 msgstr "Annulla"
 
 #: ../data/ui/initial-setup.ui.h:4 ../data/ui/list-view.ui.h:4
-#: ../src/gtd-task-list-view.c:426
+#: ../src/gtd-task-list-view.c:434
 msgid "Done"
 msgstr "Fatto"
 
@@ -208,7 +200,6 @@ msgid "Lists"
 msgstr "Elenchi"
 
 #: ../data/ui/list-selector-panel.ui.h:4
-#| msgid "No tasks"
 msgid "Tasks"
 msgstr "Attività"
 
@@ -234,8 +225,7 @@ msgstr ""
 msgid "Show or hide completed tasks"
 msgstr "Mostra o nasconde le attività completate"
 
-#: ../data/ui/plugin-dialog.ui.h:1
-#| msgid "No tasks found"
+#: ../data/ui/plugin-dialog.ui.h:2
 msgid "No extensions found"
 msgstr "Nessuna estensione trovata"
 
@@ -304,7 +294,6 @@ msgstr "Data non impostata"
 
 #: ../plugins/eds/gtd-panel-scheduled.c:83 ../src/gtd-task-row.c:148
 #, c-format
-#| msgid "Yesterday"
 msgid "Yesterday"
 msgid_plural "%d days ago"
 msgstr[0] "Ieri"
@@ -313,7 +302,7 @@ msgstr[1] "%d giorni fa"
 #. Setup a title
 #: ../plugins/eds/gtd-panel-scheduled.c:87 ../plugins/eds/gtd-panel-today.c:147
 #: ../plugins/eds/gtd-panel-today.c:152 ../plugins/eds/gtd-panel-today.c:314
-#: ../src/gtd-task-row.c:140
+#: ../plugins/score/score/__init__.py:95 ../src/gtd-task-row.c:140
 msgid "Today"
 msgstr "Oggi"
 
@@ -346,56 +335,56 @@ msgstr "Errore nel caricamento di Evolution-Data-Server"
 msgid "Error loading CSS from resource"
 msgstr "Errore nel caricamento del CSS dalla sorgente"
 
-#: ../plugins/eds/gtd-provider-eds.c:119 ../plugins/eds/gtd-provider-eds.c:123
+#: ../plugins/eds/gtd-provider-eds.c:118 ../plugins/eds/gtd-provider-eds.c:122
 msgid "Error fetching tasks from list"
 msgstr "Errore nel recupero delle attività dall'elenco"
 
-#: ../plugins/eds/gtd-provider-eds.c:187
+#: ../plugins/eds/gtd-provider-eds.c:182
 msgid "Task list source successfully connected"
 msgstr ""
 "Connessione alla sorgente degli elenchi di attività avvenuta con successo"
 
-#: ../plugins/eds/gtd-provider-eds.c:194 ../plugins/eds/gtd-provider-eds.c:199
+#: ../plugins/eds/gtd-provider-eds.c:189 ../plugins/eds/gtd-provider-eds.c:194
 msgid "Failed to connect to task list source"
 msgstr "Connessione alla sorgente degli elenchi di attività non riuscita"
 
-#: ../plugins/eds/gtd-provider-eds.c:311
+#: ../plugins/eds/gtd-provider-eds.c:306
 msgid "Failed to prompt for credentials"
 msgstr "Richiesta delle credenziali non riuscita"
 
-#: ../plugins/eds/gtd-provider-eds.c:334
+#: ../plugins/eds/gtd-provider-eds.c:329
 msgid "Failed to prompt for credentials for"
 msgstr "Richiesta non riuscita delle credenziali per"
 
-#: ../plugins/eds/gtd-provider-eds.c:388
+#: ../plugins/eds/gtd-provider-eds.c:383
 msgid "Authentication failure"
 msgstr "Autenticazione non riuscita"
 
-#: ../plugins/eds/gtd-provider-eds.c:440
+#: ../plugins/eds/gtd-provider-eds.c:435
 msgid "Error loading task manager"
 msgstr "Errore nel caricamento del gestore attività"
 
-#: ../plugins/eds/gtd-provider-eds.c:546 ../plugins/eds/gtd-provider-eds.c:550
+#: ../plugins/eds/gtd-provider-eds.c:532 ../plugins/eds/gtd-provider-eds.c:536
 msgid "Error creating task"
 msgstr "Errore nella creazione dell'attività"
 
-#: ../plugins/eds/gtd-provider-eds.c:589 ../plugins/eds/gtd-provider-eds.c:593
+#: ../plugins/eds/gtd-provider-eds.c:575 ../plugins/eds/gtd-provider-eds.c:579
 msgid "Error updating task"
 msgstr "Errore nell'aggiornamento dell'attività"
 
-#: ../plugins/eds/gtd-provider-eds.c:625 ../plugins/eds/gtd-provider-eds.c:629
+#: ../plugins/eds/gtd-provider-eds.c:611 ../plugins/eds/gtd-provider-eds.c:615
 msgid "Error removing task"
 msgstr "Errore nella rimozione dell'attività"
 
-#: ../plugins/eds/gtd-provider-eds.c:653 ../plugins/eds/gtd-provider-eds.c:657
+#: ../plugins/eds/gtd-provider-eds.c:639 ../plugins/eds/gtd-provider-eds.c:643
 msgid "Error creating task list"
 msgstr "Errore nella creazione dell'elenco attività"
 
-#: ../plugins/eds/gtd-provider-eds.c:674 ../plugins/eds/gtd-provider-eds.c:678
+#: ../plugins/eds/gtd-provider-eds.c:660 ../plugins/eds/gtd-provider-eds.c:664
 msgid "Error removing task list"
 msgstr "Errore nella rimozione dell'elenco attività"
 
-#: ../plugins/eds/gtd-provider-eds.c:735 ../plugins/eds/gtd-provider-eds.c:739
+#: ../plugins/eds/gtd-provider-eds.c:721 ../plugins/eds/gtd-provider-eds.c:725
 #: ../plugins/eds/gtd-task-list-eds.c:69
 msgid "Error saving task list"
 msgstr "Errore nel salvataggio dell'elenco attività"
@@ -413,6 +402,27 @@ msgstr "Su questo computer"
 msgid "Error creating new task list"
 msgstr "Errore nella creazione del nuovo elenco di attività"
 
+#: ../plugins/score/score/__init__.py:84
+msgid "No task completed today"
+msgstr "Nessuna attività completata oggi"
+
+#: ../plugins/unscheduled-panel/unscheduled-panel/__init__.py:33
+#| msgid "Scheduled"
+msgid "unscheduled-panel"
+msgstr "riquadro non pianificate"
+
+#: ../plugins/unscheduled-panel/unscheduled-panel/__init__.py:34
+#: ../plugins/unscheduled-panel/unscheduled-panel/__init__.py:85
+#| msgid "Scheduled"
+msgid "Unscheduled"
+msgstr "Non pianificate"
+
+#: ../plugins/unscheduled-panel/unscheduled-panel/__init__.py:87
+#, python-format
+#| msgid "Scheduled"
+msgid "Unscheduled (%d)"
+msgstr "Non pianificate (%d)"
+
 #: ../src/gtd-application.c:113
 #, c-format
 msgid "Copyright © %d The To Do authors"
@@ -425,24 +435,24 @@ msgstr "Copyright © %d–%d gli autori di ToDo"
 
 #: ../src/gtd-application.c:130
 msgid "translator-credits"
-msgstr "Claudio Arseni <claudio.arseni@ubuntu.com>"
+msgstr ""
+"Claudio Arseni <claudio.arseni@ubuntu.com>\n"
+"Gianvito Cavasoli <gianvito@gmx.it>"
 
 #: ../src/gtd-plugin-dialog-row.c:95
-#| msgid "Error loading task manager"
 msgid "Error loading plugin"
 msgstr "Errore nel caricamento del plugin"
 
 #: ../src/gtd-plugin-dialog-row.c:95
-#| msgid "Error loading task manager"
 msgid "Error unloading plugin"
 msgstr "Errore nel rimuovere il plugin"
 
-#: ../src/gtd-task-list-view.c:326
+#: ../src/gtd-task-list-view.c:334
 #, c-format
 msgid "Task <b>%s</b> removed"
 msgstr "Attività <b>%s</b> rimossa"
 
-#: ../src/gtd-task-list-view.c:357
+#: ../src/gtd-task-list-view.c:365
 msgid "Undo"
 msgstr "Annulla"
 
