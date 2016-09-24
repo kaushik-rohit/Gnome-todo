@@ -64,11 +64,13 @@ class UnscheduledPanel(Gtk.Box, Gtd.Panel):
 
         for tasklist in manager.get_task_lists():
             for task in tasklist.get_tasks():
-                if not task in current_tasks and task.get_due_date() is None:
-                    self.tasklist.save_task(task)
-                    self.task_counter += 1
+                if task.get_due_date() is None:
+                    if not task in current_tasks:
+                        self.tasklist.save_task(task)
+                    if not task.get_complete():
+                        self.task_counter += 1
 
-        if previous_task_counter == self.task_counter:
+        if previous_task_counter != self.task_counter:
             self.notify("title")
 
     def do_get_header_widgets(self):
