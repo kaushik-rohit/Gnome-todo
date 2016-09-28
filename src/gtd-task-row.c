@@ -23,8 +23,11 @@
 #include <glib/gi18n.h>
 #include <gtk/gtk.h>
 
-typedef struct
+struct _GtdTaskRow
 {
+  GtkListBoxRow      parent;
+
+  /*<selfate>*/
   GtkRevealer               *revealer;
   GtkStack                  *stack;
 
@@ -44,19 +47,11 @@ typedef struct
   /* data */
   gboolean                   new_task_mode;
   GtdTask                   *task;
-} GtdTaskRowPrivate;
-
-struct _GtdTaskRow
-{
-  GtkListBoxRow      parent;
-
-  /*<private>*/
-  GtdTaskRowPrivate *priv;
 };
 
 #define PRIORITY_ICON_SIZE         8
 
-G_DEFINE_TYPE_WITH_PRIVATE (GtdTaskRow, gtd_task_row, GTK_TYPE_LIST_BOX_ROW)
+G_DEFINE_TYPE (GtdTaskRow, gtd_task_row, GTK_TYPE_LIST_BOX_ROW)
 
 enum {
   ENTER,
@@ -207,14 +202,14 @@ gtd_task_row__entry_focus_out (GtkWidget     *widget,
                                GdkEventFocus *event,
                                gpointer       user_data)
 {
-  GtdTaskRowPrivate *priv = GTD_TASK_ROW (user_data)->priv;
+  GtdTaskRow *self = GTD_TASK_ROW (user_data);
 
   g_return_val_if_fail (GTD_IS_TASK_ROW (user_data), FALSE);
 
-  if (priv->new_task_mode)
-    gtk_stack_set_visible_child_name (priv->new_task_stack, "label");
+  if (self->new_task_mode)
+    gtk_stack_set_visible_child_name (self->new_task_stack, "label");
   else
-    gtk_stack_set_visible_child_name (priv->task_stack, "label");
+    gtk_stack_set_visible_child_name (self->task_stack, "label");
 
   return FALSE;
 }
@@ -223,19 +218,19 @@ static gboolean
 gtd_task_row__focus_in (GtkWidget *widget,
                         GdkEventFocus *event)
 {
-  GtdTaskRowPrivate *priv = GTD_TASK_ROW (widget)->priv;
+  GtdTaskRow *self = GTD_TASK_ROW (widget);
 
   g_return_val_if_fail (GTD_IS_TASK_ROW (widget), FALSE);
 
-  if (priv->new_task_mode)
+  if (self->new_task_mode)
     {
-      gtk_stack_set_visible_child_name (priv->new_task_stack, "entry");
-      gtk_widget_grab_focus (GTK_WIDGET (priv->new_task_entry));
+      gtk_stack_set_visible_child_name (self->new_task_stack, "entry");
+      gtk_widget_grab_focus (GTK_WIDGET (self->new_task_entry));
     }
   else
     {
-      gtk_stack_set_visible_child_name (priv->task_stack, "title");
-      gtk_widget_grab_focus (GTK_WIDGET (priv->title_entry));
+      gtk_stack_set_visible_child_name (self->task_stack, "title");
+      gtk_widget_grab_focus (GTK_WIDGET (self->title_entry));
     }
 
   return FALSE;
@@ -245,15 +240,15 @@ static gboolean
 gtd_task_row__key_press_event (GtkWidget   *row,
                                GdkEventKey *event)
 {
-  GtdTaskRowPrivate *priv = GTD_TASK_ROW (row)->priv;
+  GtdTaskRow *self = GTD_TASK_ROW (row);
 
   if (event->keyval == GDK_KEY_Escape && // Esc is pressed
       !(event->state & (GDK_SHIFT_MASK|GDK_CONTROL_MASK))) // No modifiers together
     {
-      if (priv->new_task_mode)
+      if (self->new_task_mode)
         {
-          gtk_stack_set_visible_child_name (priv->new_task_stack, "label");
-          gtk_entry_set_text (priv->new_task_entry, "");
+          gtk_stack_set_visible_child_name (self->new_task_stack, "label");
+          gtk_entry_set_text (self->new_task_entry, "");
           return TRUE;
         }
       else
@@ -269,24 +264,24 @@ static void
 gtd_task_row__entry_activated (GtkEntry *entry,
                                gpointer  user_data)
 {
-  GtdTaskRowPrivate *priv = GTD_TASK_ROW (user_data)->priv;
+  GtdTaskRow *self = GTD_TASK_ROW (user_data);
 
   g_return_if_fail (GTD_IS_TASK_ROW (user_data));
   g_return_if_fail (GTK_IS_ENTRY (entry));
 
-  if (entry == priv->new_task_entry)
+  if (entry == self->new_task_entry)
     {
       GtdTask *new_task;
 
       /* Cannot create empty tasks */
-      if (gtk_entry_get_text_length (priv->new_task_entry) == 0)
+      if (gtk_entry_get_text_length (self->new_task_entry) == 0)
         return;
 
-      new_task = gtd_task_row__create_task_for_name (gtk_entry_get_text (priv->new_task_entry));
+      new_task = gtd_task_row__create_task_for_name (gtk_entry_get_text (self->new_task_entry));
 
       g_signal_emit (user_data, signals[CREATE_TASK], 0, new_task);
 
-      gtk_entry_set_text (priv->new_task_entry, "");
+      gtk_entry_set_text (self->new_task_entry, "");
     }
 }
 
@@ -307,11 +302,11 @@ gtd_task_row_get_property (GObject    *object,
   switch (prop_id)
     {
     case PROP_NEW_TASK_MODE:
-      g_value_set_boolean (value, self->priv->new_task_mode);
+      g_value_set_boolean (value, self->new_task_mode);
       break;
 
     case PROP_TASK:
-      g_value_set_object (value, self->priv->task);
+      g_value_set_object (value, self->task);
       break;
 
     default:
@@ -355,18 +350,18 @@ gtd_task_row_destroy (GtkWidget *widget)
 {
   GtdTaskRow *row = GTD_TASK_ROW (widget);
 
-  if (!gtk_revealer_get_child_revealed (row->priv->revealer))
+  if (!gtk_revealer_get_child_revealed (row->revealer))
     {
       gtd_task_row__destroy_cb (GTK_WIDGET (row));
     }
   else
     {
-      g_signal_connect_swapped (row->priv->revealer,
+      g_signal_connect_swapped (row->revealer,
                                 "notify::child-revealed",
                                 G_CALLBACK (gtk_widget_destroy),
                                 row);
 
-      gtk_revealer_set_reveal_child (row->priv->revealer, FALSE);
+      gtk_revealer_set_reveal_child (row->revealer, FALSE);
     }
 }
 
@@ -478,17 +473,17 @@ gtd_task_row_class_init (GtdTaskRowClass *klass)
 
   gtk_widget_class_set_template_from_resource (widget_class, "/org/gnome/todo/ui/task-row.ui");
 
-  gtk_widget_class_bind_template_child_private (widget_class, GtdTaskRow, done_check);
-  gtk_widget_class_bind_template_child_private (widget_class, GtdTaskRow, stack);
-  gtk_widget_class_bind_template_child_private (widget_class, GtdTaskRow, new_task_entry);
-  gtk_widget_class_bind_template_child_private (widget_class, GtdTaskRow, new_task_stack);
-  gtk_widget_class_bind_template_child_private (widget_class, GtdTaskRow, revealer);
-  gtk_widget_class_bind_template_child_private (widget_class, GtdTaskRow, task_date_label);
-  gtk_widget_class_bind_template_child_private (widget_class, GtdTaskRow, task_list_label);
-  gtk_widget_class_bind_template_child_private (widget_class, GtdTaskRow, task_stack);
-  gtk_widget_class_bind_template_child_private (widget_class, GtdTaskRow, task_loading_spinner);
-  gtk_widget_class_bind_template_child_private (widget_class, GtdTaskRow, title_entry);
-  gtk_widget_class_bind_template_child_private (widget_class, GtdTaskRow, title_label);
+  gtk_widget_class_bind_template_child (widget_class, GtdTaskRow, done_check);
+  gtk_widget_class_bind_template_child (widget_class, GtdTaskRow, stack);
+  gtk_widget_class_bind_template_child (widget_class, GtdTaskRow, new_task_entry);
+  gtk_widget_class_bind_template_child (widget_class, GtdTaskRow, new_task_stack);
+  gtk_widget_class_bind_template_child (widget_class, GtdTaskRow, revealer);
+  gtk_widget_class_bind_template_child (widget_class, GtdTaskRow, task_date_label);
+  gtk_widget_class_bind_template_child (widget_class, GtdTaskRow, task_list_label);
+  gtk_widget_class_bind_template_child (widget_class, GtdTaskRow, task_stack);
+  gtk_widget_class_bind_template_child (widget_class, GtdTaskRow, task_loading_spinner);
+  gtk_widget_class_bind_template_child (widget_class, GtdTaskRow, title_entry);
+  gtk_widget_class_bind_template_child (widget_class, GtdTaskRow, title_label);
 
   gtk_widget_class_bind_template_callback (widget_class, gtd_task_row__entry_activated);
   gtk_widget_class_bind_template_callback (widget_class, gtd_task_row__entry_focus_out);
@@ -499,8 +494,6 @@ gtd_task_row_class_init (GtdTaskRowClass *klass)
 static void
 gtd_task_row_init (GtdTaskRow *self)
 {
-  self->priv = gtd_task_row_get_instance_private (self);
-
   gtk_widget_init_template (GTK_WIDGET (self));
 }
 
@@ -517,7 +510,7 @@ gtd_task_row_get_new_task_mode (GtdTaskRow *row)
 {
   g_return_val_if_fail (GTD_IS_TASK_ROW (row), FALSE);
 
-  return row->priv->new_task_mode;
+  return row->new_task_mode;
 }
 
 /**
@@ -536,18 +529,18 @@ gtd_task_row_set_new_task_mode (GtdTaskRow *row,
 {
   g_return_if_fail (GTD_IS_TASK_ROW (row));
 
-  if (row->priv->new_task_mode != new_task_mode)
+  if (row->new_task_mode != new_task_mode)
     {
-      row->priv->new_task_mode = new_task_mode;
+      row->new_task_mode = new_task_mode;
 
       if (new_task_mode)
         {
-          gtk_stack_set_visible_child_name (GTK_STACK (row->priv->stack), "new");
+          gtk_stack_set_visible_child_name (GTK_STACK (row->stack), "new");
           gtd_task_row_reveal (row);
         }
       else
         {
-          gtk_stack_set_visible_child_name (GTK_STACK (row->priv->stack), "task");
+          gtk_stack_set_visible_child_name (GTK_STACK (row->stack), "task");
         }
 
       g_object_notify (G_OBJECT (row), "new-task-mode");
@@ -568,7 +561,7 @@ gtd_task_row_get_task (GtdTaskRow *row)
 {
   g_return_val_if_fail (GTD_IS_TASK_ROW (row), NULL);
 
-  return row->priv->task;
+  return row->task;
 }
 
 /**
@@ -585,47 +578,43 @@ void
 gtd_task_row_set_task (GtdTaskRow *row,
                        GtdTask    *task)
 {
-  GtdTaskRowPrivate *priv;
-
   g_return_if_fail (GTD_IS_TASK_ROW (row));
 
-  priv = row->priv;
-
-  if (row->priv->task != task)
+  if (row->task != task)
     {
-      row->priv->task = task;
+      row->task = task;
 
       if (task)
         {
-          gtk_label_set_label (row->priv->task_list_label, gtd_task_list_get_name (gtd_task_get_list (task)));
+          gtk_label_set_label (row->task_list_label, gtd_task_list_get_name (gtd_task_get_list (task)));
 
           g_object_bind_property (task,
                                   "title",
-                                  priv->title_entry,
+                                  row->title_entry,
                                   "text",
                                   G_BINDING_BIDIRECTIONAL | G_BINDING_SYNC_CREATE);
 
           g_object_bind_property (task,
                                   "title",
-                                  priv->title_label,
+                                  row->title_label,
                                   "label",
                                   G_BINDING_DEFAULT | G_BINDING_SYNC_CREATE);
 
           g_object_bind_property (task,
                                   "complete",
-                                  row->priv->done_check,
+                                  row->done_check,
                                   "active",
                                   G_BINDING_BIDIRECTIONAL | G_BINDING_SYNC_CREATE);
 
           g_object_bind_property (task,
                                   "ready",
-                                  priv->task_loading_spinner,
+                                  row->task_loading_spinner,
                                   "visible",
                                   G_BINDING_INVERT_BOOLEAN | G_BINDING_SYNC_CREATE);
 
           g_object_bind_property_full (task,
                                        "due-date",
-                                       priv->task_date_label,
+                                       row->task_date_label,
                                        "label",
                                        G_BINDING_DEFAULT | G_BINDING_SYNC_CREATE,
                                        gtd_task_row__date_changed_binding,
@@ -663,7 +652,7 @@ gtd_task_row_set_list_name_visible (GtdTaskRow *row,
 {
   g_return_if_fail (GTD_IS_TASK_ROW (row));
 
-  gtk_widget_set_visible (GTK_WIDGET (row->priv->task_list_label), show_list_name);
+  gtk_widget_set_visible (GTK_WIDGET (row->task_list_label), show_list_name);
 }
 
 /**
@@ -679,5 +668,5 @@ gtd_task_row_reveal (GtdTaskRow *row)
 {
   g_return_if_fail (GTD_IS_TASK_ROW (row));
 
-  gtk_revealer_set_reveal_child (row->priv->revealer, TRUE);
+  gtk_revealer_set_reveal_child (row->revealer, TRUE);
 }
