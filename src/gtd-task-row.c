@@ -288,6 +288,10 @@ gtd_task_row__entry_activated (GtkEntry *entry,
 static void
 gtd_task_row_finalize (GObject *object)
 {
+  GtdTaskRow *self = GTD_TASK_ROW (object);
+
+  g_clear_object (&self->task);
+
   G_OBJECT_CLASS (gtd_task_row_parent_class)->finalize (object);
 }
 
@@ -580,10 +584,8 @@ gtd_task_row_set_task (GtdTaskRow *row,
 {
   g_return_if_fail (GTD_IS_TASK_ROW (row));
 
-  if (row->task != task)
+  if (g_set_object (&row->task, task))
     {
-      row->task = task;
-
       if (task)
         {
           gtk_label_set_label (row->task_list_label, gtd_task_list_get_name (gtd_task_get_list (task)));
