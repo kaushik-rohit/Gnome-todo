@@ -639,6 +639,9 @@ gtd_window_new (GtdApplication *application)
 static void
 gtd_window_finalize (GObject *object)
 {
+  GtdWindowPrivate *priv = GTD_WINDOW (object)->priv;
+
+  g_clear_object (&priv->loading_notification);
   G_OBJECT_CLASS (gtd_window_parent_class)->finalize (object);
 }
 
