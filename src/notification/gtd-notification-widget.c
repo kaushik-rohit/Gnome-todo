@@ -192,7 +192,7 @@ gtd_notification_widget_finalize (GObject *object)
   GtdNotificationWidget *self = (GtdNotificationWidget *)object;
   GtdNotificationWidgetPrivate *priv = gtd_notification_widget_get_instance_private (self);
 
-  g_queue_free (priv->queue);
+  g_queue_free_full (priv->queue, g_object_unref);
 
   G_OBJECT_CLASS (gtd_notification_widget_parent_class)->finalize (object);
 }
