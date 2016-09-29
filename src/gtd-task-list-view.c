@@ -1103,6 +1103,7 @@ gtd_task_list_view_set_task_list (GtdTaskListView *view,
                                        -1,
                                        NULL);
 
+      g_free (parsed_css);
       gdk_rgba_free (color);
       g_free (color_str);
 
