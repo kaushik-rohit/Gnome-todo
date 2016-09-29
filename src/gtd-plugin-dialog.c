@@ -124,6 +124,8 @@ plugin_loaded (GtdPluginManager *manager,
         }
     }
 
+  g_list_free (children);
+
   /* If we just loaded a plugin that is not yet added
    * to the plugin list, we shall do it now.
    */
