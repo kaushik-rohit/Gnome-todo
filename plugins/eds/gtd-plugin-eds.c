@@ -304,7 +304,11 @@ gtd_plugin_eds_finalize (GObject *object)
 {
   GtdPluginEds *self = (GtdPluginEds *)object;
 
+  g_list_free_full (self->panels, g_object_unref);
+  self->panels = NULL;
+
   g_list_free_full (self->providers, g_object_unref);
+  self->providers = NULL;
 
   G_OBJECT_CLASS (gtd_plugin_eds_parent_class)->finalize (object);
 }
