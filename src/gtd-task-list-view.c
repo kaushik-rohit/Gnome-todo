@@ -707,6 +707,9 @@ gtd_task_list_view__create_task (GtdTaskRow *row,
 static void
 gtd_task_list_view_finalize (GObject *object)
 {
+  GtdTaskListViewPrivate *priv = GTD_TASK_LIST_VIEW (object)->priv;
+
+  g_clear_pointer (&priv->list, g_list_free);
   G_OBJECT_CLASS (gtd_task_list_view_parent_class)->finalize (object);
 }
 
