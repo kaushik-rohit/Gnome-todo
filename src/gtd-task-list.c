@@ -80,8 +80,12 @@ gtd_task_list_get_property (GObject    *object,
   switch (prop_id)
     {
     case PROP_COLOR:
-      g_value_set_boxed (value, gtd_task_list_get_color (self));
-      break;
+      {
+        GdkRGBA *color = gtd_task_list_get_color (self);
+        g_value_set_boxed (value, color);
+        gdk_rgba_free (color);
+        break;
+      }
 
     case PROP_IS_REMOVABLE:
       g_value_set_boolean (value, gtd_task_list_is_removable (self));
