@@ -232,6 +232,7 @@ gtd_panel_today_finalize (GObject *object)
 {
   GtdPanelToday *self = (GtdPanelToday *)object;
 
+  g_clear_object (&self->menu);
   g_clear_object (&self->task_list);
 
   G_OBJECT_CLASS (gtd_panel_today_parent_class)->finalize (object);
