@@ -234,6 +234,7 @@ gtd_panel_today_finalize (GObject *object)
 
   g_clear_object (&self->menu);
   g_clear_object (&self->task_list);
+  g_clear_pointer (&self->title, g_free);
 
   G_OBJECT_CLASS (gtd_panel_today_parent_class)->finalize (object);
 }
