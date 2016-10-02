@@ -193,6 +193,17 @@ gtd_edit_pane_finalize (GObject *object)
 }
 
 static void
+gtd_edit_pane_dispose (GObject *object)
+{
+  GtdEditPanePrivate *priv = GTD_EDIT_PANE (object)->priv;
+
+  if (priv->task)
+    gtd_edit_pane_set_task (GTD_EDIT_PANE (object), NULL);
+
+  G_OBJECT_CLASS (gtd_edit_pane_parent_class)->dispose (object);
+}
+
+static void
 gtd_edit_pane_get_property (GObject    *object,
                             guint       prop_id,
                             GValue     *value,
@@ -237,6 +248,7 @@ gtd_edit_pane_class_init (GtdEditPaneClass *klass)
   GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
   object_class->finalize = gtd_edit_pane_finalize;
+  object_class->dispose = gtd_edit_pane_dispose;
   object_class->get_property = gtd_edit_pane_get_property;
   object_class->set_property = gtd_edit_pane_set_property;
 
