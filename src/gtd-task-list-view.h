@@ -68,11 +68,6 @@ GList*                    gtd_task_list_view_get_list           (GtdTaskListView
 void                      gtd_task_list_view_set_list           (GtdTaskListView        *view,
                                                                  GList                  *list);
 
-gboolean                  gtd_task_list_view_get_readonly       (GtdTaskListView        *view);
-
-void                      gtd_task_list_view_set_readonly       (GtdTaskListView        *view,
-                                                                 gboolean                readonly);
-
 GtdTaskList*              gtd_task_list_view_get_task_list      (GtdTaskListView        *view);
 
 void                      gtd_task_list_view_set_task_list      (GtdTaskListView        *view,
@@ -95,6 +90,11 @@ void                      gtd_task_list_view_set_header_func    (GtdTaskListView
 void                      gtd_task_list_view_set_sort_func      (GtdTaskListView           *view,
                                                                  GtdTaskListViewSortFunc    func,
                                                                  gpointer                   user_data);
+
+gboolean                  gtd_task_list_view_get_show_new_task_row (GtdTaskListView        *view);
+
+void                      gtd_task_list_view_set_show_new_task_row (GtdTaskListView        *view,
+                                                                    gboolean                show_new_task_row);
 
 G_END_DECLS
 

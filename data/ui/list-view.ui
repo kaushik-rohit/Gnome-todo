@@ -38,6 +38,13 @@
                         <property name="hexpand">True</property>
                         <property name="selection_mode">none</property>
                         <signal name="row-activated" handler="gtd_task_list_view__row_activated" object="GtdTaskListView" swapped="no" />
+                        <child>
+                          <object class="GtdTaskRow" id="new_task_row">
+                            <property name="visible">True</property>
+                            <property name="new-task-mode">True</property>
+                            <signal name="create-task" handler="gtd_task_list_view__create_task" object="GtdTaskListView" swapped="no" />
+                          </object>
+                        </child>
                         <style>
                           <class name="transparent" />
                         </style>

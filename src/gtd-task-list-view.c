@@ -46,7 +46,6 @@ typedef struct
   /* internal */
   gboolean               can_toggle;
   gint                   complete_tasks;
-  gboolean               readonly;
   gboolean               show_list_name;
   gboolean               show_completed;
   GList                 *list;
@@ -111,9 +110,9 @@ typedef struct
 
 enum {
   PROP_0,
-  PROP_READONLY,
   PROP_SHOW_COMPLETED,
   PROP_SHOW_LIST_NAME,
+  PROP_SHOW_NEW_TASK_ROW,
   LAST_PROP
 };
 
@@ -277,43 +276,29 @@ static void
 gtd_task_list_view__update_empty_state (GtdTaskListView *view)
 {
   GtdTaskListViewPrivate *priv;
+  gboolean is_empty;
+  GList *tasks;
+  GList *l;
 
   g_return_if_fail (GTD_IS_TASK_LIST_VIEW (view));
 
   priv = view->priv;
+  is_empty = TRUE;
+  tasks = gtd_task_list_view_get_list (view);
 
-  /*
-   * Here it explicitly check if it's readonly because we don't
-   * want to show the empty state for lists that can be edited. If
-   * we show the empty state there, the New Task row won't be show,
-   * and the user will get stuck.
-   *
-   * The empty state is meant to be visible from Today & Schedule
-   * task lists.
-   */
-  if (priv->readonly)
+  for (l = tasks; l != NULL; l = l->next)
     {
-      gboolean is_empty;
-      GList *tasks;
-      GList *l;
-
-      is_empty = TRUE;
-      tasks = gtd_task_list_view_get_list (view);
-
-      for (l = tasks; l != NULL; l = l->next)
+      if (!gtd_task_get_complete (l->data) ||
+          (priv->show_completed && gtd_task_get_complete (l->data)))
         {
-          if (!gtd_task_get_complete (l->data) ||
-              (priv->show_completed && gtd_task_get_complete (l->data)))
-            {
-              is_empty = FALSE;
-              break;
-            }
+          is_empty = FALSE;
+          break;
         }
-
-      gtk_stack_set_visible_child_name (GTK_STACK (priv->stack), is_empty ? "empty" : "list");
-
-      g_list_free (tasks);
     }
+
+  gtk_stack_set_visible_child_name (GTK_STACK (priv->stack), is_empty ? "empty" : "list");
+
+  g_list_free (tasks);
 }
 
 static void
@@ -691,7 +676,6 @@ gtd_task_list_view__create_task (GtdTaskRow *row,
   g_return_if_fail (GTD_IS_TASK_LIST_VIEW (user_data));
   g_return_if_fail (GTD_IS_TASK_ROW (row));
   g_return_if_fail (GTD_IS_TASK (task));
-  g_return_if_fail (!priv->readonly);
   g_return_if_fail (priv->task_list);
 
   /*
@@ -731,8 +715,8 @@ gtd_task_list_view_get_property (GObject    *object,
       g_value_set_boolean (value, self->priv->show_list_name);
       break;
 
-    case PROP_READONLY:
-      g_value_set_boolean (value, self->priv->readonly);
+    case PROP_SHOW_NEW_TASK_ROW:
+      g_value_set_boolean (value, gtk_widget_get_visible (GTK_WIDGET (self->priv->new_task_row)));
       break;
 
     default:
@@ -758,8 +742,8 @@ gtd_task_list_view_set_property (GObject      *object,
       gtd_task_list_view_set_show_list_name (self, g_value_get_boolean (value));
       break;
 
-    case PROP_READONLY:
-      gtd_task_list_view_set_readonly (self, g_value_get_boolean (value));
+    case PROP_SHOW_NEW_TASK_ROW:
+      gtd_task_list_view_set_show_new_task_row (self, g_value_get_boolean (value));
       break;
 
     default:
@@ -831,17 +815,19 @@ gtd_task_list_view_class_init (GtdTaskListViewClass *klass)
 
   widget_class->map = gtd_task_list_view_map;
 
+  g_type_ensure (GTD_TYPE_TASK_ROW);
+
   /**
-   * GtdTaskListView::readonly:
+   * GtdTaskListView::show-new-task-row:
    *
    * Whether the list shows the "New Task" row or not.
    */
   g_object_class_install_property (
         object_class,
-        PROP_READONLY,
-        g_param_spec_boolean ("readonly",
-                              "Whether the list is readonly",
-                              "Whether the list is readonly, i.e. doesn't show the New Task row, or not",
+        PROP_SHOW_NEW_TASK_ROW,
+        g_param_spec_boolean ("show-new-task-row",
+                              "Whether it shows the New Task row",
+                              "Whether the list shows the New Task row, or not",
                               TRUE,
                               G_PARAM_READWRITE));
 
@@ -882,9 +868,11 @@ gtd_task_list_view_class_init (GtdTaskListViewClass *klass)
   gtk_widget_class_bind_template_child_private (widget_class, GtdTaskListView, revealer);
   gtk_widget_class_bind_template_child_private (widget_class, GtdTaskListView, done_image);
   gtk_widget_class_bind_template_child_private (widget_class, GtdTaskListView, done_label);
+  gtk_widget_class_bind_template_child_private (widget_class, GtdTaskListView, new_task_row);
   gtk_widget_class_bind_template_child_private (widget_class, GtdTaskListView, viewport);
   gtk_widget_class_bind_template_child_private (widget_class, GtdTaskListView, stack);
 
+  gtk_widget_class_bind_template_callback (widget_class, gtd_task_list_view__create_task);
   gtk_widget_class_bind_template_callback (widget_class, gtd_task_list_view__done_button_clicked);
   gtk_widget_class_bind_template_callback (widget_class, gtd_task_list_view__edit_task_finished);
   gtk_widget_class_bind_template_callback (widget_class, gtd_task_list_view__remove_task_cb);
@@ -897,15 +885,7 @@ static void
 gtd_task_list_view_init (GtdTaskListView *self)
 {
   self->priv = gtd_task_list_view_get_instance_private (self);
-  self->priv->readonly = TRUE;
   self->priv->can_toggle = TRUE;
-  self->priv->new_task_row = GTD_TASK_ROW (gtd_task_row_new (NULL));
-  gtd_task_row_set_new_task_mode (self->priv->new_task_row, TRUE);
-
-  g_signal_connect (self->priv->new_task_row,
-                    "create-task",
-                    G_CALLBACK (gtd_task_list_view__create_task),
-                    self);
 
   gtk_widget_init_template (GTK_WIDGET (self));
 }
@@ -985,59 +965,35 @@ gtd_task_list_view_set_list (GtdTaskListView *view,
 }
 
 /**
- * gtd_task_list_view_get_readonly:
+ * gtd_task_list_view_get_show_new_task_row:
  * @view: a #GtdTaskListView
  *
- * Gets the readonly state of @view.
+ * Gets whether @view shows the new task row or not.
  *
- * Returns: %TRUE if @view is readonly, %FALSE otherwise
+ * Returns: %TRUE if @view is shows the new task row, %FALSE otherwise
  */
 gboolean
-gtd_task_list_view_get_readonly (GtdTaskListView *view)
+gtd_task_list_view_get_show_new_task_row (GtdTaskListView *self)
 {
-  g_return_val_if_fail (GTD_IS_TASK_LIST_VIEW (view), FALSE);
+  g_return_val_if_fail (GTD_IS_TASK_LIST_VIEW (self), FALSE);
 
-  return view->priv->readonly;
+  return gtk_widget_get_visible (GTK_WIDGET (self->priv->new_task_row));
 }
 
 /**
- * gtd_task_list_view_set_readonly:
+ * gtd_task_list_view_set_show_new_task_row:
  * @view: a #GtdTaskListView
  *
- * Sets the GtdTaskListView::readonly property of @view.
+ * Sets the GtdTaskListView::show-new-task-mode property of @view.
  */
 void
-gtd_task_list_view_set_readonly (GtdTaskListView *view,
-                                 gboolean         readonly)
+gtd_task_list_view_set_show_new_task_row (GtdTaskListView *view,
+                                          gboolean         show_new_task_row)
 {
   g_return_if_fail (GTD_IS_TASK_LIST_VIEW (view));
 
-  if (view->priv->readonly != readonly)
-    {
-      view->priv->readonly = readonly;
-
-      /* Add/remove the new task row */
-      if (gtk_widget_get_parent (GTK_WIDGET (view->priv->new_task_row)))
-        {
-          if (readonly)
-            {
-              gtk_container_remove (GTK_CONTAINER (view->priv->listbox), GTK_WIDGET (view->priv->new_task_row));
-              gtk_widget_hide (GTK_WIDGET (view->priv->new_task_row));
-            }
-        }
-      else
-        {
-          if (!readonly)
-            {
-              gtk_list_box_insert (view->priv->listbox,
-                                   GTK_WIDGET (view->priv->new_task_row),
-                                   -1);
-              gtk_widget_show (GTK_WIDGET (view->priv->new_task_row));
-            }
-        }
-
-      g_object_notify (G_OBJECT (view), "readonly");
-    }
+  gtk_widget_set_visible (GTK_WIDGET (view->priv->new_task_row), show_new_task_row);
+  g_object_notify (G_OBJECT (view), "show-new-task-row");
 }
 
 /**
