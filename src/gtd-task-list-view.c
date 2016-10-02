@@ -35,13 +35,13 @@ typedef struct
   GtdArrowFrame         *arrow_frame;
   GtdEditPane           *edit_pane;
   GtkRevealer           *edit_revealer;
+  GtkWidget             *empty_box;
   GtkListBox            *listbox;
   GtdTaskRow            *new_task_row;
   GtkRevealer           *revealer;
   GtkImage              *done_image;
   GtkLabel              *done_label;
   GtkScrolledWindow     *viewport;
-  GtkStack              *stack;
 
   /* internal */
   gboolean               can_toggle;
@@ -296,7 +296,7 @@ gtd_task_list_view__update_empty_state (GtdTaskListView *view)
         }
     }
 
-  gtk_stack_set_visible_child_name (GTK_STACK (priv->stack), is_empty ? "empty" : "list");
+  gtk_widget_set_visible (view->priv->empty_box, is_empty);
 
   g_list_free (tasks);
 }
@@ -864,13 +864,13 @@ gtd_task_list_view_class_init (GtdTaskListViewClass *klass)
   gtk_widget_class_bind_template_child_private (widget_class, GtdTaskListView, arrow_frame);
   gtk_widget_class_bind_template_child_private (widget_class, GtdTaskListView, edit_pane);
   gtk_widget_class_bind_template_child_private (widget_class, GtdTaskListView, edit_revealer);
+  gtk_widget_class_bind_template_child_private (widget_class, GtdTaskListView, empty_box);
   gtk_widget_class_bind_template_child_private (widget_class, GtdTaskListView, listbox);
   gtk_widget_class_bind_template_child_private (widget_class, GtdTaskListView, revealer);
   gtk_widget_class_bind_template_child_private (widget_class, GtdTaskListView, done_image);
   gtk_widget_class_bind_template_child_private (widget_class, GtdTaskListView, done_label);
   gtk_widget_class_bind_template_child_private (widget_class, GtdTaskListView, new_task_row);
   gtk_widget_class_bind_template_child_private (widget_class, GtdTaskListView, viewport);
-  gtk_widget_class_bind_template_child_private (widget_class, GtdTaskListView, stack);
 
   gtk_widget_class_bind_template_callback (widget_class, gtd_task_list_view__create_task);
   gtk_widget_class_bind_template_callback (widget_class, gtd_task_list_view__done_button_clicked);
