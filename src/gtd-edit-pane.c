@@ -348,46 +348,46 @@ gtd_edit_pane_set_task (GtdEditPane *pane,
 
   priv = pane->priv;
 
-  if (priv->task != task)
+  if (priv->task == task)
+    return;
+
+  if (priv->task)
     {
-      if (priv->task)
-        {
-          g_clear_pointer (&priv->notes_binding, g_binding_unbind);
-          g_clear_pointer (&priv->priority_binding, g_binding_unbind);
+      g_clear_pointer (&priv->notes_binding, g_binding_unbind);
+      g_clear_pointer (&priv->priority_binding, g_binding_unbind);
 
-          if (priv->should_save_task)
-            g_signal_emit (pane, signals[EDIT_FINISHED], 0, priv->task);
-        }
-
-      priv->task = task;
-      priv->should_save_task = FALSE;
-
-      if (task)
-        {
-          /* due date */
-          gtd_edit_pane_update_date (pane);
-
-          /* description */
-          gtk_text_buffer_set_text (gtk_text_view_get_buffer (priv->notes_textview),
-                                    gtd_task_get_description (task),
-                                    -1);
-          priv->notes_binding = g_object_bind_property (gtk_text_view_get_buffer (priv->notes_textview),
-                                                        "text",
-                                                        task,
-                                                        "description",
-                                                        G_BINDING_BIDIRECTIONAL);
-
-          /* priority */
-          gtk_combo_box_set_active (GTK_COMBO_BOX (priv->priority_combo), CLAMP (gtd_task_get_priority (task),
-                                                                                 0,
-                                                                                 3));
-          priv->priority_binding = g_object_bind_property (task,
-                                                           "priority",
-                                                           priv->priority_combo,
-                                                           "active",
-                                                           G_BINDING_BIDIRECTIONAL);
-        }
-
-      g_object_notify (G_OBJECT (pane), "task");
+      if (priv->should_save_task)
+        g_signal_emit (pane, signals[EDIT_FINISHED], 0, priv->task);
     }
+
+  priv->task = task;
+  priv->should_save_task = FALSE;
+
+  if (task)
+    {
+      /* due date */
+      gtd_edit_pane_update_date (pane);
+
+      /* description */
+      gtk_text_buffer_set_text (gtk_text_view_get_buffer (priv->notes_textview),
+                                gtd_task_get_description (task),
+                                -1);
+      priv->notes_binding = g_object_bind_property (gtk_text_view_get_buffer (priv->notes_textview),
+                                                    "text",
+                                                    task,
+                                                    "description",
+                                                    G_BINDING_BIDIRECTIONAL);
+
+      /* priority */
+      gtk_combo_box_set_active (GTK_COMBO_BOX (priv->priority_combo), CLAMP (gtd_task_get_priority (task),
+                                                                             0,
+                                                                             3));
+      priv->priority_binding = g_object_bind_property (task,
+                                                       "priority",
+                                                       priv->priority_combo,
+                                                       "active",
+                                                       G_BINDING_BIDIRECTIONAL);
+    }
+
+  g_object_notify (G_OBJECT (pane), "task");
 }
