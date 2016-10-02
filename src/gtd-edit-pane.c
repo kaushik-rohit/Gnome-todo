@@ -375,8 +375,10 @@ gtd_edit_pane_set_task (GtdEditPane *pane,
 
   if (priv->task)
     {
-      g_clear_pointer (&priv->notes_binding, g_binding_unbind);
-      g_clear_pointer (&priv->priority_binding, g_binding_unbind);
+      if (G_IS_BINDING (priv->notes_binding))
+        g_clear_pointer (&priv->notes_binding, g_binding_unbind);
+      if (G_IS_BINDING (priv->priority_binding))
+        g_clear_pointer (&priv->priority_binding, g_binding_unbind);
       g_signal_handlers_disconnect_by_func (gtk_text_view_get_buffer (priv->notes_textview),
                                             gtd_edit_pane__task_changed_cb, pane);
       g_signal_handlers_disconnect_by_func (priv->priority_combo,
