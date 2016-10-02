@@ -180,6 +180,7 @@ gtd_edit_pane__date_selected (GtkCalendar *calendar,
 
   gtd_task_set_due_date (priv->task, new_dt);
   gtk_label_set_label (priv->date_label, text);
+  priv->should_save_task = TRUE;
 
   g_date_time_unref (new_dt);
   g_free (text);
@@ -329,6 +330,15 @@ gtd_edit_pane_get_task (GtdEditPane *pane)
   return pane->priv->task;
 }
 
+static void
+gtd_edit_pane__task_changed_cb (GObject    *gobject,
+                                GParamSpec *pspec,
+                                gpointer    user_data)
+{
+  GtdEditPanePrivate *priv = GTD_EDIT_PANE (user_data)->priv;
+  priv->should_save_task = TRUE;
+}
+
 /**
  * gtd_edit_pane_set_task:
  * @pane: a #GtdEditPane
@@ -355,6 +365,10 @@ gtd_edit_pane_set_task (GtdEditPane *pane,
     {
       g_clear_pointer (&priv->notes_binding, g_binding_unbind);
       g_clear_pointer (&priv->priority_binding, g_binding_unbind);
+      g_signal_handlers_disconnect_by_func (gtk_text_view_get_buffer (priv->notes_textview),
+                                            gtd_edit_pane__task_changed_cb, pane);
+      g_signal_handlers_disconnect_by_func (priv->priority_combo,
+                                            gtd_edit_pane__task_changed_cb, pane);
 
       if (priv->should_save_task)
         g_signal_emit (pane, signals[EDIT_FINISHED], 0, priv->task);
@@ -365,18 +379,24 @@ gtd_edit_pane_set_task (GtdEditPane *pane,
 
   if (task)
     {
+      GtkTextBuffer *buffer;
+
       /* due date */
       gtd_edit_pane_update_date (pane);
 
       /* description */
-      gtk_text_buffer_set_text (gtk_text_view_get_buffer (priv->notes_textview),
+      buffer = gtk_text_view_get_buffer (priv->notes_textview);
+      gtk_text_buffer_set_text (buffer,
                                 gtd_task_get_description (task),
                                 -1);
-      priv->notes_binding = g_object_bind_property (gtk_text_view_get_buffer (priv->notes_textview),
+      priv->notes_binding = g_object_bind_property (buffer,
                                                     "text",
                                                     task,
                                                     "description",
                                                     G_BINDING_BIDIRECTIONAL);
+      g_signal_connect (buffer, "notify::text",
+                        G_CALLBACK (gtd_edit_pane__task_changed_cb),
+                        pane);
 
       /* priority */
       gtk_combo_box_set_active (GTK_COMBO_BOX (priv->priority_combo), CLAMP (gtd_task_get_priority (task),
@@ -387,6 +407,10 @@ gtd_edit_pane_set_task (GtdEditPane *pane,
                                                        priv->priority_combo,
                                                        "active",
                                                        G_BINDING_BIDIRECTIONAL);
+      g_signal_connect (priv->priority_combo, "notify::active",
+                        G_CALLBACK (gtd_edit_pane__task_changed_cb),
+                        pane);
+
     }
 
   g_object_notify (G_OBJECT (pane), "task");
