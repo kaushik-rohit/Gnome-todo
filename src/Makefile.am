@@ -38,8 +38,6 @@ gnome_todo_SOURCES = \
 	notification/gtd-notification.h \
 	notification/gtd-notification-widget.c \
 	notification/gtd-notification-widget.h \
-	provider/gtd-provider-dialog.c \
-	provider/gtd-provider-dialog.h \
 	provider/gtd-provider-popover.c \
 	provider/gtd-provider-popover.h \
 	provider/gtd-provider-row.c \

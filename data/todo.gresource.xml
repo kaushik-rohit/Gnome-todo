@@ -11,7 +11,6 @@
     <file compressed="true" preprocess="xml-stripblanks">ui/notification.ui</file>
     <file compressed="true" preprocess="xml-stripblanks">ui/plugin-dialog.ui</file>
     <file compressed="true" preprocess="xml-stripblanks">ui/plugin-row.ui</file>
-    <file compressed="true" preprocess="xml-stripblanks">ui/provider-dialog.ui</file>
     <file compressed="true" preprocess="xml-stripblanks">ui/provider-popover.ui</file>
     <file compressed="true" preprocess="xml-stripblanks">ui/provider-row.ui</file>
     <file compressed="true" preprocess="xml-stripblanks">ui/provider-selector.ui</file>

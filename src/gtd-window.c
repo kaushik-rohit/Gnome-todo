@@ -28,7 +28,6 @@
 #include "gtd-notification.h"
 #include "gtd-notification-widget.h"
 #include "gtd-plugin-manager.h"
-#include "gtd-provider-dialog.h"
 #include "gtd-task.h"
 #include "gtd-task-list.h"
 #include "gtd-window.h"
@@ -43,7 +42,6 @@ typedef struct
   GtdNotificationWidget         *notification_widget;
   GtkStack                      *stack;
   GtkStackSwitcher              *stack_switcher;
-  GtdProviderDialog             *provider_dialog;
 
   /* boxes */
   GtkWidget                     *extension_box_end;
@@ -73,15 +71,7 @@ struct _GtdWindow
 
 #define              SAVE_GEOMETRY_ID_TIMEOUT                    100 /* ms */
 
-static void          gtd_window__change_storage_action           (GSimpleAction         *simple,
-                                                                  GVariant              *parameter,
-                                                                  gpointer               user_data);
-
 G_DEFINE_TYPE_WITH_PRIVATE (GtdWindow, gtd_window, GTK_TYPE_APPLICATION_WINDOW)
-
-static const GActionEntry gtd_window_entries[] = {
-  { "change-storage", gtd_window__change_storage_action },
-};
 
 enum {
   PROP_0,
@@ -498,20 +488,6 @@ gtd_window__create_new_list (GSimpleAction *simple,
  */
 
 static void
-gtd_window__change_storage_action (GSimpleAction *simple,
-                                   GVariant      *parameter,
-                                   gpointer       user_data)
-{
-  GtdWindowPrivate *priv;
-
-  g_return_if_fail (GTD_IS_WINDOW (user_data));
-
-  priv = GTD_WINDOW (user_data)->priv;
-
-  gtk_dialog_run (GTK_DIALOG (priv->provider_dialog));
-}
-
-static void
 gtd_window__manager_ready_changed (GObject    *source,
                                    GParamSpec *spec,
                                    gpointer    user_data)
@@ -797,7 +773,6 @@ gtd_window_class_init (GtdWindowClass *klass)
   gtk_widget_class_bind_template_child_private (widget_class, GtdWindow, gear_menu_button);
   gtk_widget_class_bind_template_child_private (widget_class, GtdWindow, headerbar);
   gtk_widget_class_bind_template_child_private (widget_class, GtdWindow, notification_widget);
-  gtk_widget_class_bind_template_child_private (widget_class, GtdWindow, provider_dialog);
   gtk_widget_class_bind_template_child_private (widget_class, GtdWindow, stack);
   gtk_widget_class_bind_template_child_private (widget_class, GtdWindow, stack_switcher);
 
@@ -819,12 +794,6 @@ gtd_window_init (GtdWindow *self)
 
   self->priv->loading_notification = gtd_notification_new (_("Loading your task lists…"), 0);
   gtd_object_set_ready (GTD_OBJECT (self->priv->loading_notification), FALSE);
-
-  /* add actions */
-  g_action_map_add_action_entries (G_ACTION_MAP (self),
-                                   gtd_window_entries,
-                                   G_N_ELEMENTS (gtd_window_entries),
-                                   self);
 
   gtk_widget_init_template (GTK_WIDGET (self));
 
