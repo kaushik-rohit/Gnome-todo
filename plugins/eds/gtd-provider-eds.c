@@ -1002,3 +1002,22 @@ gtd_provider_eds_get_task_lists (GtdProviderEds *provider)
 
   return priv->task_lists;
 }
+
+GtdTaskList*
+gtd_provider_eds_get_default_task_list (GtdProviderEds *provider)
+{
+  GtdProviderEdsPrivate *priv;
+  GtdTaskList *default_task_list;
+  ESource *default_source;
+
+  priv = gtd_provider_eds_get_instance_private (provider);
+  default_source = e_source_registry_ref_default_task_list (priv->source_registry);
+  default_task_list = g_object_get_data (G_OBJECT (default_source), "task-list");
+
+  g_clear_object (&default_source);
+
+  if (gtd_task_list_get_provider (default_task_list) != GTD_PROVIDER (provider))
+    return NULL;
+
+  return default_task_list;
+}

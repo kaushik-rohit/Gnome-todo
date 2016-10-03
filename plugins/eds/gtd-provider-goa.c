@@ -160,6 +160,12 @@ gtd_provider_goa_get_task_lists (GtdProvider *provider)
   return gtd_provider_eds_get_task_lists (GTD_PROVIDER_EDS (provider));
 }
 
+static GtdTaskList*
+gtd_provider_goa_get_default_task_list (GtdProvider *provider)
+{
+  return gtd_provider_eds_get_default_task_list (GTD_PROVIDER_EDS (provider));
+}
+
 static void
 gtd_provider_iface_init (GtdProviderInterface *iface)
 {
@@ -176,6 +182,7 @@ gtd_provider_iface_init (GtdProviderInterface *iface)
   iface->update_task_list = gtd_provider_goa_update_task_list;
   iface->remove_task_list = gtd_provider_goa_remove_task_list;
   iface->get_task_lists = gtd_provider_goa_get_task_lists;
+  iface->get_default_task_list = gtd_provider_goa_get_default_task_list;
 }
 
 static void

@@ -334,6 +334,7 @@ gtd_provider_update_task_list (GtdProvider *provider,
 
   GTD_PROVIDER_GET_IFACE (provider)->update_task_list (provider, list);
 }
+
 /**
  * gtd_provider_remove_task_list:
  * @provider: a #GtdProvider
@@ -350,6 +351,7 @@ gtd_provider_remove_task_list (GtdProvider *provider,
 
   GTD_PROVIDER_GET_IFACE (provider)->remove_task_list (provider, list);
 }
+
 /**
  * gtd_provider_get_task_lists:
  * @provider: a #GtdProvider
@@ -365,4 +367,21 @@ gtd_provider_get_task_lists (GtdProvider *provider)
   g_return_val_if_fail (GTD_PROVIDER_GET_IFACE (provider)->get_task_lists, NULL);
 
   return GTD_PROVIDER_GET_IFACE (provider)->get_task_lists (provider);
+}
+
+/**
+ * gtd_provider_get_default_task_list:
+ * @provider: a #GtdProvider
+ *
+ * Retrieves the default tasklist of @provider.
+ *
+ * Returns: (transfer none)(nullable): the default tasklist, or %NULL
+ */
+GtdTaskList*
+gtd_provider_get_default_task_list (GtdProvider *provider)
+{
+  g_return_val_if_fail (GTD_IS_PROVIDER (provider), NULL);
+  g_return_val_if_fail (GTD_PROVIDER_GET_IFACE (provider)->get_default_task_list, NULL);
+
+  return GTD_PROVIDER_GET_IFACE (provider)->get_default_task_list (provider);
 }
