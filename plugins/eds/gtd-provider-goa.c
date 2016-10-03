@@ -27,6 +27,8 @@ struct _GtdProviderGoa
 
   GoaAccount             *account;
   GIcon                  *icon;
+
+  gchar                  *id;
 };
 
 static void          gtd_provider_iface_init                     (GtdProviderInterface *iface);
@@ -56,7 +58,7 @@ gtd_provider_goa_get_id (GtdProvider *provider)
 
   self = GTD_PROVIDER_GOA (provider);
 
-  return goa_account_get_provider_type (self->account);
+  return self->id;
 }
 
 static const gchar*
@@ -208,6 +210,11 @@ gtd_provider_goa_set_account (GtdProviderGoa *provider,
       g_set_object (&provider->icon, g_themed_icon_new (icon_name));
       g_object_notify (G_OBJECT (provider), "icon");
 
+      /* Provider id */
+      provider->id = g_strdup_printf ("%s@%s",
+                                      goa_account_get_provider_type (provider->account),
+                                      goa_account_get_id (provider->account));
+
       g_free (icon_name);
     }
 }
@@ -216,6 +223,8 @@ static void
 gtd_provider_goa_finalize (GObject *object)
 {
   GtdProviderGoa *self = (GtdProviderGoa *)object;
+
+  g_clear_pointer (&self->id, g_free);
 
   g_clear_object (&self->account);
   g_clear_object (&self->icon);
