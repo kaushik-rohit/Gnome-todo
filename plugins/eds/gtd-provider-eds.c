@@ -74,6 +74,20 @@ task_data_new (GtdProviderEds *provider,
 }
 
 static void
+gtd_provider_eds_set_default (GtdProviderEds *self,
+                              GtdTaskList    *list)
+{
+  GtdProviderEdsPrivate *priv;
+  ESource *source;
+
+  priv = gtd_provider_eds_get_instance_private (self);
+  source = gtd_task_list_eds_get_source (GTD_TASK_LIST_EDS (list));
+
+  gtd_manager_set_default_provider (gtd_manager_get_default (), GTD_PROVIDER (self));
+  e_source_registry_set_default_task_list (priv->source_registry, source);
+}
+
+static void
 gtd_provider_eds_fill_task_list (GObject      *client,
                                  GAsyncResult *result,
                                  gpointer      user_data)
@@ -537,11 +551,12 @@ gtd_provider_eds_create_task_finished (GObject      *client,
                                       error->message);
 
       g_error_free (error);
-      g_free (data);
-      return;
     }
   else
     {
+      /* Update the default tasklist */
+      gtd_provider_eds_set_default (data->provider, gtd_task_get_list (GTD_TASK (data->data)));
+
       /*
        * In the case the task UID changes because of creation proccess,
        * reapply it to the task.
@@ -551,9 +566,9 @@ gtd_provider_eds_create_task_finished (GObject      *client,
           gtd_object_set_uid (GTD_OBJECT (data->data), new_uid);
           g_free (new_uid);
         }
-
-      g_free (data);
     }
+
+  g_free (data);
 }
 
 static void
