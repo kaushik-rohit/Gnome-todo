@@ -42,6 +42,9 @@
             <property name="hexpand">True</property>
             <property name="vexpand">True</property>
             <property name="hscrollbar_policy">never</property>
+            <style>
+              <class name="background" />
+            </style>
             <child>
               <object class="GtkViewport" id="viewport">
                 <property name="visible">True</property>
