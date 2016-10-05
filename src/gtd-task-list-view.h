@@ -96,10 +96,15 @@ gboolean                  gtd_task_list_view_get_show_new_task_row (GtdTaskListV
 void                      gtd_task_list_view_set_show_new_task_row (GtdTaskListView        *view,
                                                                     gboolean                show_new_task_row);
 
-GDateTime*                gtd_task_list_view_get_default_date   (GtdTaskListView     *self);
+GDateTime*                gtd_task_list_view_get_default_date   (GtdTaskListView        *self);
 
-void                      gtd_task_list_view_set_default_date   (GtdTaskListView     *self,
-                                                                 GDateTime           *default_date);
+void                      gtd_task_list_view_set_default_date   (GtdTaskListView        *self,
+                                                                 GDateTime              *default_date);
+
+GdkRGBA*                  gtd_task_list_view_get_color          (GtdTaskListView        *self);
+
+void                      gtd_task_list_view_set_color          (GtdTaskListView        *self,
+                                                                 GdkRGBA                *color);
 
 G_END_DECLS
 
