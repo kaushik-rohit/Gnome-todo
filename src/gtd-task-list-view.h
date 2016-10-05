@@ -96,6 +96,11 @@ gboolean                  gtd_task_list_view_get_show_new_task_row (GtdTaskListV
 void                      gtd_task_list_view_set_show_new_task_row (GtdTaskListView        *view,
                                                                     gboolean                show_new_task_row);
 
+GDateTime*                gtd_task_list_view_get_default_date   (GtdTaskListView     *self);
+
+void                      gtd_task_list_view_set_default_date   (GtdTaskListView     *self,
+                                                                 GDateTime           *default_date);
+
 G_END_DECLS
 
 #endif /* GTD_TASK_LIST_VIEW_H */

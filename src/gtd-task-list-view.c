@@ -50,6 +50,7 @@ typedef struct
   gboolean               show_completed;
   GList                 *list;
   GtdTaskList           *task_list;
+  GDateTime             *default_date;
 
   /* color provider */
   GtkCssProvider        *color_provider;
@@ -685,6 +686,9 @@ gtd_task_list_view__create_task (GtdTaskRow *row,
   gtd_task_set_list (task, priv->task_list);
   gtd_task_list_save_task (priv->task_list, task);
 
+  if (priv->default_date)
+    gtd_task_set_due_date (task, priv->default_date);
+
   gtd_manager_create_task (gtd_manager_get_default (), task);
 }
 
@@ -693,7 +697,9 @@ gtd_task_list_view_finalize (GObject *object)
 {
   GtdTaskListViewPrivate *priv = GTD_TASK_LIST_VIEW (object)->priv;
 
+  g_clear_pointer (&priv->default_date, g_date_time_unref);
   g_clear_pointer (&priv->list, g_list_free);
+
   G_OBJECT_CLASS (gtd_task_list_view_parent_class)->finalize (object);
 }
 
@@ -1321,5 +1327,49 @@ gtd_task_list_view_set_sort_func (GtdTaskListView         *view,
                                   (GtkListBoxSortFunc) gtd_task_list_view__listbox_sort_func,
                                   NULL,
                                   NULL);
+    }
+}
+
+/**
+ * gtd_task_list_view_get_default_date:
+ * @self: a #GtdTaskListView
+ *
+ * Retrieves the current default date which new tasks are set to.
+ *
+ * Returns: (nullable): a #GDateTime, or %NULL
+ */
+GDateTime*
+gtd_task_list_view_get_default_date (GtdTaskListView *self)
+{
+  GtdTaskListViewPrivate *priv;
+
+  g_return_val_if_fail (GTD_IS_TASK_LIST_VIEW (self), NULL);
+
+  priv = gtd_task_list_view_get_instance_private (self);
+
+  return priv->default_date;
+}
+
+/**
+ * gtd_task_list_view_set_default_date:
+ * @self: a #GtdTaskListView
+ * @default_date: (nullable): the default_date, or %NULL
+ *
+ * Sets the current default date.
+ */
+void
+gtd_task_list_view_set_default_date   (GtdTaskListView *self,
+                                       GDateTime       *default_date)
+{
+  GtdTaskListViewPrivate *priv;
+
+  g_return_if_fail (GTD_IS_TASK_LIST_VIEW (self));
+
+  priv = gtd_task_list_view_get_instance_private (self);
+
+  if (priv->default_date != default_date)
+    {
+      g_clear_pointer (&priv->default_date, g_date_time_unref);
+      priv->default_date = default_date ? g_date_time_ref (default_date) : NULL;
     }
 }
