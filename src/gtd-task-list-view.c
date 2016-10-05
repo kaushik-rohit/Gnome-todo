@@ -21,6 +21,7 @@
 #include "gtd-task-list-view.h"
 #include "gtd-manager.h"
 #include "gtd-notification.h"
+#include "gtd-provider.h"
 #include "gtd-task.h"
 #include "gtd-task-list.h"
 #include "gtd-task-row.h"
@@ -672,19 +673,32 @@ gtd_task_list_view__create_task (GtdTaskRow *row,
                                  GtdTask    *task,
                                  gpointer    user_data)
 {
-  GtdTaskListViewPrivate *priv = GTD_TASK_LIST_VIEW (user_data)->priv;
+  GtdTaskListViewPrivate *priv;
+  GtdTaskList *list;
 
-  g_return_if_fail (GTD_IS_TASK_LIST_VIEW (user_data));
-  g_return_if_fail (GTD_IS_TASK_ROW (row));
-  g_return_if_fail (GTD_IS_TASK (task));
-  g_return_if_fail (priv->task_list);
+  priv = GTD_TASK_LIST_VIEW (user_data)->priv;
+  list = priv->task_list;
+
+  /*
+   * If there is no current list set, use the default list from the
+   * default provider.
+   */
+  if (!list)
+    {
+      GtdProvider *provider;
+
+      provider = gtd_manager_get_default_provider (gtd_manager_get_default ());
+      list = gtd_provider_get_default_task_list (provider);
+    }
+
+  g_return_if_fail (GTD_IS_TASK_LIST (list));
 
   /*
    * Newly created tasks are not aware of
    * their parent lists.
    */
-  gtd_task_set_list (task, priv->task_list);
-  gtd_task_list_save_task (priv->task_list, task);
+  gtd_task_set_list (task, list);
+  gtd_task_list_save_task (list, task);
 
   if (priv->default_date)
     gtd_task_set_due_date (task, priv->default_date);
