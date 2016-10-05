@@ -111,7 +111,6 @@ gtd_task_list_set_property (GObject      *object,
                             GParamSpec   *pspec)
 {
   GtdTaskList *self = GTD_TASK_LIST (object);
-  GtdTaskListPrivate *priv = gtd_task_list_get_instance_private (self);
 
   switch (prop_id)
     {
@@ -128,8 +127,7 @@ gtd_task_list_set_property (GObject      *object,
       break;
 
     case PROP_PROVIDER:
-      if (g_set_object (&priv->provider, g_value_get_object (value)))
-        g_object_notify (object, "provider");
+      gtd_task_list_set_provider (self, g_value_get_object (value));
       break;
 
     default:
@@ -200,7 +198,7 @@ gtd_task_list_class_init (GtdTaskListClass *klass)
                              "Provider of the list",
                              "The provider that handles the list",
                              GTD_TYPE_PROVIDER,
-                             G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
+                             G_PARAM_READWRITE));
 
   /**
    * GtdTaskList::task-added:
@@ -404,6 +402,27 @@ gtd_task_list_get_provider (GtdTaskList *list)
   priv = gtd_task_list_get_instance_private (list);
 
   return priv->provider;
+}
+
+/**
+ * gtd_task_list_set_provider:
+ * @self: a #GtdTaskList
+ * @provider: (nullable): a #GtdProvider, or %NULL
+ *
+ * Sets the provider of this tasklist.
+ */
+void
+gtd_task_list_set_provider (GtdTaskList *self,
+                            GtdProvider *provider)
+{
+  GtdTaskListPrivate *priv;
+
+  g_assert (GTD_IS_TASK_LIST (self));
+
+  priv = gtd_task_list_get_instance_private (self);
+
+  if (g_set_object (&priv->provider, provider))
+    g_object_notify (G_OBJECT (self), "provider");
 }
 
 /**
