@@ -30,7 +30,7 @@ from gettext import gettext as _
 class UnscheduledPanel(Gtk.Box, Gtd.Panel):
 
     menu = GObject.Property(type=Gio.Menu, default=None)
-    name = GObject.Property(type=str, default=_("unscheduled-panel"))
+    name = GObject.Property(type=str, default="unscheduled-panel")
     title = GObject.Property(type=str, default=_("Unscheduled"))
 
     def __init__(self):
@@ -82,8 +82,10 @@ class UnscheduledPanel(Gtk.Box, Gtd.Panel):
 
     def do_get_panel_title(self):
         if self.task_counter == 0:
+            # Translators: 'Unscheduled' as in 'Unscheduled tasks'
             return _("Unscheduled")
         else:
+            # Translators: 'Unscheduled' as in 'Unscheduled tasks'
             return _("Unscheduled (%d)" % self.task_counter)
 
 class UnscheduledPanelPlugin(GObject.Object, Gtd.Activatable):
