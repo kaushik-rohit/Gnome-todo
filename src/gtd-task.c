@@ -728,8 +728,7 @@ gtd_task_set_due_date (GtdTask   *task,
         g_object_notify (G_OBJECT (task), "due-date");
     }
 
-  if (current_dt)
-    g_date_time_unref (current_dt);
+  g_clear_pointer (&current_dt, g_date_time_unref);
 }
 
 /**
