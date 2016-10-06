@@ -123,7 +123,15 @@ gtd_list_selector_grid_item__render_thumbnail (GtdListSelectorGridItem *item)
    * font color.
    */
   if (LUMINANCE (color) < 0.5)
-    gtk_style_context_add_class (context, "dark");
+    {
+      gtk_style_context_add_class (context, "dark");
+      gtk_style_context_remove_class (context, "light");
+    }
+  else
+    {
+      gtk_style_context_add_class (context, "light");
+      gtk_style_context_remove_class (context, "dark");
+    }
 
   /*
    * Sort the list, so that the first tasks are similar to what
@@ -172,7 +180,7 @@ gtd_list_selector_grid_item__render_thumbnail (GtdListSelectorGridItem *item)
            * If we reach the last visible row, it should draw a
            * "…" mark and stop drawing anything else
            */
-          if (y + (padding.top + font_height + padding.bottom) + margin.bottom > 174)
+          if (y + font_height + 4 + margin.bottom + padding.bottom > THUMBNAIL_SIZE)
             {
               pango_layout_set_text (layout,
                                      "…",

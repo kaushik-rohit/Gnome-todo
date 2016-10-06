@@ -238,9 +238,15 @@ update_font_color (GtdTaskListView *view)
       color = gtd_task_list_get_color (priv->task_list);
 
       if (LUMINANCE (color) < 0.5)
-        gtk_style_context_add_class (context, "dark");
+        {
+          gtk_style_context_add_class (context, "dark");
+          gtk_style_context_remove_class (context, "light");
+        }
       else
-        gtk_style_context_remove_class (context, "dark");
+        {
+          gtk_style_context_add_class (context, "light");
+          gtk_style_context_remove_class (context, "dark");
+        }
 
       gdk_rgba_free (color);
     }

@@ -29,8 +29,8 @@ grid-item {
     background-color: transparent;
 }
 
-grid-item,
-task-list-view task-row {
+grid-item.light,
+task-list-view.light task-row label {
     color: #000003;
 }
 
