@@ -109,12 +109,9 @@ echo "
         gnome-todo $VERSION
         ==================
 
-        source at:     ${srcdir}
         prefix:        ${prefix}
         compiler:      ${CC}
 	global flags:  ${CFLAGS} ${CPPFLAGS} ${LDFLAGS}
-	project flags: ${GNOME_TODO_CFLAGS} ${GNOME_TODO_LIBS} ${LIBS}
-        warning flags: ${GNOME_TODO_WARN_CFLAGS} ${GNOME_TODO_WARN_LDFLAGS}
         release:       ${ax_is_release}
 
     Plugins:
