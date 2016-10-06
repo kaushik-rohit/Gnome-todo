@@ -13,11 +13,16 @@ row.thumbnail {
 }
 
 grid-item.thumbnail {
-    margin-left: 10px;
-    margin-right: 10px;
-    margin-top: 8px;
-    margin-bottom: 10px;
-    font-size: 9px;
+    padding: 6px;
+    font-size: 10px;
+}
+
+grid-item image {
+    margin: 12px 24px;
+    font-size: 10px;
+    border: solid 1px @borders;
+    border-radius: 4px;
+    box-shadow: 0px 0px 4px alpha(@borders, 0.8);
 }
 
 grid-item {

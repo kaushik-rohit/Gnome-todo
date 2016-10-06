@@ -37,6 +37,9 @@ struct _GtdListSelectorGridItem
   GtdTaskList               *list;
   GtdWindowMode              mode;
 
+  /* Custom CSS */
+  GtkCssProvider            *css_provider;
+
   /* flags */
   gint                      selected;
 
@@ -71,19 +74,22 @@ gtd_list_selector_grid_item__render_thumbnail (GtdListSelectorGridItem *item)
   GtkStateFlags state;
   PangoLayout *layout;
   GtdTaskList *list;
-  GdkPixbuf *thumbnail;
   GtkBorder margin;
   GtkBorder padding;
   GdkRGBA *color;
   cairo_t *cr;
-  GError *error = NULL;
   GList *tasks;
+  gint scale_factor;
+  gint width, height;
 
-  /* TODO: review size here, maybe not hardcoded */
   list = item->list;
+  color = gtd_task_list_get_color (list);
+  scale_factor = gtk_widget_get_scale_factor (GTK_WIDGET (item));
+  width = THUMBNAIL_SIZE * scale_factor;
+  height = THUMBNAIL_SIZE * scale_factor;
   surface = cairo_image_surface_create (CAIRO_FORMAT_ARGB32,
-                                        THUMBNAIL_SIZE,
-                                        THUMBNAIL_SIZE);
+                                        width,
+                                        height);
   cr = cairo_create (surface);
 
   /*
@@ -97,36 +103,6 @@ gtd_list_selector_grid_item__render_thumbnail (GtdListSelectorGridItem *item)
   gtk_style_context_save (context);
   gtk_style_context_add_class (context, "thumbnail");
 
-  /* Draw the thumbnail image */
-  thumbnail = gdk_pixbuf_new_from_resource ("/org/gnome/todo/theme/bg.svg", &error);
-
-  if (error)
-    {
-      g_warning ("Error loading thumbnail: %s", error->message);
-      g_error_free (error);
-      goto out;
-    }
-
-  gtk_render_icon (context,
-                   cr,
-                   thumbnail,
-                   0.0,
-                   0.0);
-
-  /* Draw the list's background color */
-  color = gtd_task_list_get_color (list);
-
-  gdk_cairo_set_source_rgba (cr, color);
-
-  cairo_rectangle (cr,
-                   33.0,
-                   9.0,
-                   126.0,
-                   174.0);
-
-  cairo_fill (cr);
-
-  /* Draw the first tasks from the list */
   gtk_style_context_get (context,
                          state,
                          "font", &font_desc,
@@ -138,9 +114,9 @@ gtd_list_selector_grid_item__render_thumbnail (GtdListSelectorGridItem *item)
                                  state,
                                  &padding);
 
+  /* Draw the first tasks from the list */
   layout = pango_cairo_create_layout (cr);
   tasks = gtd_task_list_get_tasks (list);
-
 
   /*
    * If the list color is way too dark, we draw the task names in a light
@@ -157,7 +133,7 @@ gtd_list_selector_grid_item__render_thumbnail (GtdListSelectorGridItem *item)
 
   pango_layout_set_font_description (layout, font_desc);
   pango_layout_set_ellipsize (layout, PANGO_ELLIPSIZE_END);
-  pango_layout_set_width (layout, (126 - margin.left - margin.right) * PANGO_SCALE);
+  pango_layout_set_width (layout, (width - margin.left - margin.right) * PANGO_SCALE * scale_factor);
 
   /*
    * If the list exists and it's first element is a completed task,
@@ -170,8 +146,8 @@ gtd_list_selector_grid_item__render_thumbnail (GtdListSelectorGridItem *item)
       gdouble x, y;
       GList *l;
 
-      x = 33.0 + margin.left;
-      y = 9.0 + margin.top;
+      x = margin.left + padding.left;
+      y = margin.top + padding.top;
 
       for (l = tasks; l != NULL; l = l->next)
         {
@@ -181,7 +157,8 @@ gtd_list_selector_grid_item__render_thumbnail (GtdListSelectorGridItem *item)
           if (gtd_task_get_complete (l->data))
             continue;
 
-          y += padding.top;
+          /* Hardcoded spacing between tasks */
+          y += 4;
 
           pango_layout_set_text (layout,
                                  gtd_task_get_title (l->data),
@@ -215,7 +192,7 @@ gtd_list_selector_grid_item__render_thumbnail (GtdListSelectorGridItem *item)
                              y,
                              layout);
 
-          y += font_height + padding.bottom;
+          y += font_height;
         }
 
       g_list_free (tasks);
@@ -237,11 +214,11 @@ gtd_list_selector_grid_item__render_thumbnail (GtdListSelectorGridItem *item)
                                    NULL,
                                    &font_height);
 
-      y = (THUMBNAIL_SIZE - font_height) / 2.0;
+      y = (THUMBNAIL_SIZE - font_height) * scale_factor / 2.0;
 
       gtk_render_layout (context,
                          cr,
-                         33.0 + margin.left,
+                         margin.left,
                          y,
                          layout);
     }
@@ -267,7 +244,6 @@ gtd_list_selector_grid_item__render_thumbnail (GtdListSelectorGridItem *item)
 
   gdk_rgba_free (color);
 
-out:
   gtk_style_context_restore (context);
   cairo_destroy (cr);
   return surface;
@@ -283,6 +259,29 @@ gtd_list_selector_grid_item__update_thumbnail (GtdListSelectorGridItem *item)
   gtk_image_set_from_surface (GTK_IMAGE (item->icon_image), surface);
 
   cairo_surface_destroy (surface);
+}
+
+static void
+color_changed (GtdListSelectorGridItem *self)
+{
+  GdkRGBA *color;
+  gchar *color_str, *css;
+
+  color = gtd_task_list_get_color (self->list);
+  color_str = gdk_rgba_to_string (color);
+  css = g_strdup_printf ("grid-item image { background-color: %s; }", color_str);
+
+  gtk_css_provider_load_from_data (self->css_provider,
+                                   css,
+                                   -1,
+                                   NULL);
+
+  gtd_list_selector_grid_item__update_thumbnail (self);
+
+
+  g_clear_pointer (&color_str, g_free);
+  g_clear_pointer (&color, gdk_rgba_free);
+  g_clear_pointer (&css, g_free);
 }
 
 static void
@@ -398,6 +397,10 @@ gtd_list_selector_item_iface_init (GtdListSelectorItemInterface *iface)
 static void
 gtd_list_selector_grid_item_finalize (GObject *object)
 {
+  GtdListSelectorGridItem *self = GTD_LIST_SELECTOR_GRID_ITEM (object);
+
+  g_clear_object (&self->css_provider);
+
   G_OBJECT_CLASS (gtd_list_selector_grid_item_parent_class)->finalize (object);
 }
 
@@ -481,7 +484,7 @@ gtd_list_selector_grid_item_set_property (GObject      *object,
                                 self);
       g_signal_connect_swapped (self->list,
                                 "notify::color",
-                                G_CALLBACK (gtd_list_selector_grid_item__update_thumbnail),
+                                G_CALLBACK (color_changed),
                                 self);
       g_signal_connect (self->list,
                        "task-added",
@@ -495,6 +498,8 @@ gtd_list_selector_grid_item_set_property (GObject      *object,
                        "task-updated",
                         G_CALLBACK (gtd_list_selector_grid_item__task_changed),
                         self);
+
+      color_changed (self);
       break;
 
     default:
@@ -558,4 +563,11 @@ static void
 gtd_list_selector_grid_item_init (GtdListSelectorGridItem *self)
 {
   gtk_widget_init_template (GTK_WIDGET (self));
+
+  /* CSS provider */
+  self->css_provider = gtk_css_provider_new ();
+
+  gtk_style_context_add_provider (gtk_widget_get_style_context (GTK_WIDGET (self->icon_image)),
+                                  GTK_STYLE_PROVIDER (self->css_provider),
+                                  GTK_STYLE_PROVIDER_PRIORITY_APPLICATION + 2);
 }
