@@ -168,6 +168,8 @@ gtd_panel_today_update_today_timeout_cb (GtdPanelToday *panel)
                                                          (GSourceFunc) gtd_panel_today_update_today_timeout_cb,
                                                          panel);
 
+  gtd_task_list_view_set_default_date (GTD_TASK_LIST_VIEW (panel->view), now);
+
   g_clear_pointer (&tomorrow, g_date_time_unref);
   g_clear_pointer (&today, g_date_time_unref);
   g_clear_pointer (&now, g_date_time_unref);
@@ -278,9 +280,11 @@ static void
 gtd_panel_today_init (GtdPanelToday *self)
 {
   GtdManager *manager;
+  GDateTime *now;
 
   /* Connect to GtdManager::list-* signals to update the title */
   manager = gtd_manager_get_default ();
+  now = g_date_time_new_now_local ();
 
   g_signal_connect_swapped (manager,
                             "list-added",
@@ -309,6 +313,7 @@ gtd_panel_today_init (GtdPanelToday *self)
   /* The main view */
   self->view = gtd_task_list_view_new ();
   gtd_task_list_view_set_show_list_name (GTD_TASK_LIST_VIEW (self->view), TRUE);
+  gtd_task_list_view_set_default_date (GTD_TASK_LIST_VIEW (self->view), now);
 
   gtk_widget_set_hexpand (self->view, TRUE);
   gtk_widget_set_vexpand (self->view, TRUE);
@@ -318,6 +323,8 @@ gtd_panel_today_init (GtdPanelToday *self)
 
   /* Start timer */
   gtd_panel_today_update_today_timeout_cb (self);
+
+  g_clear_pointer (&now, g_date_time_unref);
 }
 
 GtkWidget*
