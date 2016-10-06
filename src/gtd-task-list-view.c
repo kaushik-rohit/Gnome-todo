@@ -710,11 +710,11 @@ gtd_task_list_view__create_task (GtdTaskRow *row,
    * their parent lists.
    */
   gtd_task_set_list (task, list);
-  gtd_task_list_save_task (list, task);
 
   if (priv->default_date)
     gtd_task_set_due_date (task, priv->default_date);
 
+  gtd_task_list_save_task (list, task);
   gtd_manager_create_task (gtd_manager_get_default (), task);
 }
 
