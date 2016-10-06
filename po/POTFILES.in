@@ -8,7 +8,6 @@ data/org.gnome.todo.gschema.xml
 [type: gettext/glade]data/ui/list-selector-panel.ui
 [type: gettext/glade]data/ui/list-view.ui
 [type: gettext/glade]data/ui/plugin-dialog.ui
-[type: gettext/glade]data/ui/provider-dialog.ui
 [type: gettext/glade]data/ui/provider-popover.ui
 [type: gettext/glade]data/ui/provider-row.ui
 [type: gettext/glade]data/ui/provider-selector.ui
