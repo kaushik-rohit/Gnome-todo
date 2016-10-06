@@ -90,7 +90,7 @@
                   <object class="GtkLabel" id="empty_view_subtitle_label">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">You can add tasks to lists in the &lt;b&gt;Lists&lt;/b&gt; view</property>
+                    <property name="label" translatable="yes">You can add tasks using the &lt;b&gt;+&lt;/b&gt; above</property>
                     <property name="use_markup">True</property>
                     <style>
                       <class name="dim-label" />
