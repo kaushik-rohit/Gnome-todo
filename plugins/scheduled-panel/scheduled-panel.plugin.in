@@ -1,0 +1,13 @@
+[Plugin]
+Name = Scheduled tasks
+Module = scheduled-panel
+Description = A panel to show scheduled tasks
+Version = @VERSION@
+Authors = Georges Basile Stavracas Neto <gbsneto@gnome.org>
+Copyright = Copyleft © The To Do maintainers
+Website = https://wiki.gnome.org/Apps/Todo
+Builtin = true
+License = GPL
+Loader = C
+Embedded = gtd_plugin_scheduled_panel_register_types
+Depends =

@@ -31,6 +31,11 @@
     <file alias="plugins/eds/eds.plugin">../plugins/eds/eds.plugin</file>
   </gresource>
 
+  <!--Scheduled panel-->
+  <gresource prefix="/org/gnome/todo">
+    <file alias="plugins/scheduled-panel/scheduled-panel.plugin">../plugins/scheduled-panel/scheduled-panel.plugin</file>
+  </gresource>
+
   <!--Today panel-->
   <gresource prefix="/org/gnome/todo">
     <file alias="plugins/today-panel/today-panel.plugin">../plugins/today-panel/today-panel.plugin</file>

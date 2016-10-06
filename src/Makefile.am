@@ -94,6 +94,7 @@ gnome_todo_LDFLAGS = \
 	-Wl,--export-dynamic \
 	-Wl,--undefined=gtd_plugin_eds_register_types \
 	-Wl,--undefined=gtd_plugin_dark_theme_register_types \
+	-Wl,--undefined=gtd_plugin_scheduled_panel_register_types \
 	-Wl,--undefined=gtd_plugin_today_panel_register_types \
 	$(GNOME_TODO_WARN_LDFLAGS)
 
@@ -101,11 +102,13 @@ gnome_todo_LDADD = \
 	$(GNOME_TODO_LIBS) \
 	$(top_builddir)/plugins/eds/libeds.la \
 	$(top_builddir)/plugins/dark-theme/libdarktheme.la \
+	$(top_builddir)/plugins/scheduled-panel/libscheduledpanel.la \
 	$(top_builddir)/plugins/today-panel/libtodaypanel.la
 
 gnome_todo_DEPENDENCIES = \
 	$(top_builddir)/plugins/eds/libeds.la \
 	$(top_builddir)/plugins/dark-theme/libdarktheme.la \
+	$(top_builddir)/plugins/scheduled-panel/libscheduledpanel.la \
 	$(top_builddir)/plugins/today-panel/libtodaypanel.la
 
 #

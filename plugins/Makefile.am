@@ -1,4 +1,4 @@
-SUBDIRS = eds dark-theme today-panel
+SUBDIRS = eds dark-theme scheduled-panel today-panel
 
 if BUILD_SCORE_PLUGIN
 SUBDIRS += score

@@ -18,7 +18,6 @@
 
 #define G_LOG_DOMAIN "Evolution Data Server"
 
-#include "gtd-panel-scheduled.h"
 #include "gtd-plugin-eds.h"
 #include "gtd-provider-goa.h"
 #include "gtd-provider-local.h"
@@ -45,9 +44,6 @@ struct _GtdPluginEds
 
   GtkCssProvider         *provider;
   ESourceRegistry        *registry;
-
-  /* Panels */
-  GList                  *panels;
 
   /* Providers */
   GList                  *providers;
@@ -104,9 +100,7 @@ gtd_plugin_eds_get_preferences_panel (GtdActivatable *activatable)
 static GList*
 gtd_plugin_eds_get_panels (GtdActivatable *activatable)
 {
-  GtdPluginEds *plugin = GTD_PLUGIN_EDS (activatable);
-
-  return plugin->panels;
+  return NULL;
 }
 
 static GList*
@@ -305,9 +299,6 @@ gtd_plugin_eds_finalize (GObject *object)
 {
   GtdPluginEds *self = (GtdPluginEds *)object;
 
-  g_list_free_full (self->panels, g_object_unref);
-  self->panels = NULL;
-
   g_list_free_full (self->providers, g_object_unref);
   self->providers = NULL;
 
@@ -349,8 +340,6 @@ gtd_plugin_eds_init (GtdPluginEds *self)
 {
   GError *error = NULL;
   GFile* css_file;
-
-  self->panels = g_list_append (self->panels, gtd_panel_scheduled_new ());
 
   /* load the source registry */
   e_source_registry_new (NULL,
