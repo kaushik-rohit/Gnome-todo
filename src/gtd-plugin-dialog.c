@@ -87,7 +87,7 @@ add_plugin (GtdPluginDialog *dialog,
 {
   GtkWidget *row;
 
-  if (peas_plugin_info_is_hidden (info) || peas_plugin_info_is_builtin (info))
+  if (peas_plugin_info_is_hidden (info))
     return;
 
   /* Create a row for the plugin */
