@@ -35,7 +35,8 @@ task-list-view task-row:hover {
 
 grid-item.dark,
 task-list-view.dark task-row,
-task-list-view.dark label {
+task-list-view.dark overlay label,
+task-list-view.dark overlay image {
     color: #eeeeec;
 }
 
