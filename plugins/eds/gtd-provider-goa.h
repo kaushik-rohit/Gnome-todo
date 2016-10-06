@@ -19,6 +19,8 @@
 #ifndef GTD_PROVIDER_GOA_H
 #define GTD_PROVIDER_GOA_H
 
+#define GOA_API_IS_SUBJECT_TO_CHANGE 1
+
 #include "gtd-provider-eds.h"
 
 #include <glib.h>
