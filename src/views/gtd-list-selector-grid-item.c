@@ -236,8 +236,8 @@ gtd_list_selector_grid_item__render_thumbnail (GtdListSelectorGridItem *item)
 
       gtk_render_check (context,
                         cr,
-                        THUMBNAIL_SIZE - CHECK_SIZE * 1.5,
-                        THUMBNAIL_SIZE - CHECK_SIZE,
+                        THUMBNAIL_SIZE - CHECK_SIZE - padding.right - margin.right,
+                        THUMBNAIL_SIZE - CHECK_SIZE - padding.bottom,
                         CHECK_SIZE,
                         CHECK_SIZE);
     }
