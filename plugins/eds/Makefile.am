@@ -1,8 +1,8 @@
 include $(top_srcdir)/common.am
 
-noinst_LTLIBRARIES = libeds.a
+noinst_LTLIBRARIES = libeds.la
 
-libeds_a_SOURCES = \
+libeds_la_SOURCES = \
 	gtd-panel-today.c \
 	gtd-panel-today.h \
 	gtd-panel-scheduled.c \
@@ -18,7 +18,7 @@ libeds_a_SOURCES = \
 	gtd-task-list-eds.c \
 	gtd-task-list-eds.h
 
-libeds_a_CFLAGS = \
+libeds_la_CFLAGS = \
 	$(GNOME_TODO_PLUGIN_CFLAGS) \
 	$(GNOME_TODO_PLUGIN_WARN_CFLAGS) \
 	-DGOA_API_IS_SUBJECT_TO_CHANGE \
