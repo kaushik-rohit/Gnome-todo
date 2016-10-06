@@ -136,7 +136,7 @@ real_save_task (GtdTaskListView *self,
    */
   gtd_task_list_save_task (list, task);
 
-  if (priv->task_list != list)
+  if (priv->task_list != list && priv->task_list)
     gtd_task_list_save_task (priv->task_list, task);
 }
 
@@ -336,7 +336,7 @@ gtd_task_list_view__remove_task_cb (GtdEditPane *pane,
    * the task's list is different from the current list. We want to
    * remove the task from ~both~ lists.
    */
-  if (priv->task_list != list)
+  if (priv->task_list != list && priv->task_list)
     gtd_task_list_remove_task (priv->task_list, task);
 
   gtd_task_list_view__remove_row_for_task (GTD_TASK_LIST_VIEW (user_data), task);
