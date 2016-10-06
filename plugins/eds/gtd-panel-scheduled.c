@@ -30,7 +30,7 @@ struct _GtdPanelScheduled
 
   gchar              *title;
   guint               number_of_tasks;
-  GtdTaskList        *task_list;
+  GList              *task_list;
   GtkWidget          *view;
 };
 
@@ -283,20 +283,6 @@ gtd_panel_scheduled_sort_func (GtkListBoxRow     *row1,
 }
 
 static void
-gtd_panel_scheduled_clear (GtdPanelScheduled *panel)
-{
-  GList *tasks;
-  GList *t;
-
-  tasks = gtd_task_list_get_tasks (panel->task_list);
-
-  for (t = tasks; t != NULL; t = t->next)
-    gtd_task_list_remove_task (panel->task_list, t->data);
-
-  g_list_free (tasks);
-}
-
-static void
 gtd_panel_scheduled_count_tasks (GtdPanelScheduled *panel)
 {
   GtdManager *manager;
@@ -308,8 +294,7 @@ gtd_panel_scheduled_count_tasks (GtdPanelScheduled *panel)
   tasklists = gtd_manager_get_task_lists (manager);
   number_of_tasks = 0;
 
-  /* Reset list */
-  gtd_panel_scheduled_clear (panel);
+  g_clear_pointer (&panel->task_list, g_list_free);
 
   /* Recount tasks */
   for (l = tasklists; l != NULL; l = l->next)
@@ -331,7 +316,7 @@ gtd_panel_scheduled_count_tasks (GtdPanelScheduled *panel)
            */
           if (task_dt)
             {
-              gtd_task_list_save_task (panel->task_list, t->data);
+              panel->task_list = g_list_prepend (panel->task_list, t->data);
 
               if (!gtd_task_get_complete (t->data))
                 number_of_tasks++;
@@ -342,6 +327,9 @@ gtd_panel_scheduled_count_tasks (GtdPanelScheduled *panel)
 
       g_list_free (tasks);
     }
+
+  /* Add the tasks to the view */
+  gtd_task_list_view_set_list (GTD_TASK_LIST_VIEW (panel->view), panel->task_list);
 
   if (number_of_tasks != panel->number_of_tasks)
     {
@@ -489,9 +477,6 @@ gtd_panel_scheduled_init (GtdPanelScheduled *self)
   /* Setup a title */
   self->title = g_strdup (_("Scheduled"));
 
-  /* Task list */
-  self->task_list = gtd_task_list_new (NULL);
-
   /* Menu */
   self->menu = g_menu_new ();
   g_menu_append (self->menu,
@@ -501,7 +486,6 @@ gtd_panel_scheduled_init (GtdPanelScheduled *self)
   /* The main view */
   self->view = gtd_task_list_view_new ();
   gtd_task_list_view_set_show_list_name (GTD_TASK_LIST_VIEW (self->view), TRUE);
-  gtd_task_list_view_set_task_list (GTD_TASK_LIST_VIEW (self->view), self->task_list);
 
   gtk_widget_set_hexpand (self->view, TRUE);
   gtk_widget_set_vexpand (self->view, TRUE);
