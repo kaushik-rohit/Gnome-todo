@@ -666,6 +666,8 @@ gtd_task_list_view__task_completed (GObject    *object,
     {
       gtk_list_box_invalidate_sort (priv->listbox);
     }
+
+  gtd_task_list_view__update_empty_state (user_data);
 }
 
 static void
