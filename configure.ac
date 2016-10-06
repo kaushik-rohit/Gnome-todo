@@ -73,7 +73,7 @@ PKG_CHECK_MODULES(GNOME_TODO,
                   gio-2.0 >= 2.43.4
                   glib-2.0 >= 2.43.4
                   goa-1.0 >= 3.2.0
-                  gtk+-3.0 >= 3.19.5
+                  gtk+-3.0 >= 3.22.0
                   libecal-1.2 >= 3.13.90
                   libedataserver-1.2 >= 3.17.1
                   libedataserverui-1.2 >= 3.17.1
