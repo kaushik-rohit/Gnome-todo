@@ -27,7 +27,7 @@ struct _GtdTaskRow
 {
   GtkListBoxRow      parent;
 
-  /*<selfate>*/
+  /*<private>*/
   GtkRevealer               *revealer;
   GtkStack                  *stack;
 
@@ -47,6 +47,8 @@ struct _GtdTaskRow
   /* data */
   gboolean                   new_task_mode;
   GtdTask                   *task;
+
+  gint                       destroy_row_timeout_id;
 };
 
 #define PRIORITY_ICON_SIZE         8
@@ -183,10 +185,12 @@ gtd_task_row__create_task_for_name (const gchar *name)
   return task;
 }
 
-static void
-gtd_task_row__destroy_cb (GtkWidget *widget)
+static gboolean
+gtd_task_row__destroy_cb (GtkWidget *row)
 {
-  GTK_WIDGET_CLASS (gtd_task_row_parent_class)->destroy (widget);
+  gtk_widget_destroy (row);
+
+  return G_SOURCE_REMOVE;
 }
 
 GtkWidget*
@@ -350,26 +354,6 @@ gtd_task_row_activate (GtkListBoxRow *row)
 }
 
 static void
-gtd_task_row_destroy (GtkWidget *widget)
-{
-  GtdTaskRow *row = GTD_TASK_ROW (widget);
-
-  if (!gtk_revealer_get_child_revealed (row->revealer))
-    {
-      gtd_task_row__destroy_cb (GTK_WIDGET (row));
-    }
-  else
-    {
-      g_signal_connect_swapped (row->revealer,
-                                "notify::child-revealed",
-                                G_CALLBACK (gtk_widget_destroy),
-                                row);
-
-      gtk_revealer_set_reveal_child (row->revealer, FALSE);
-    }
-}
-
-static void
 gtd_task_row_class_init (GtdTaskRowClass *klass)
 {
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
@@ -380,7 +364,6 @@ gtd_task_row_class_init (GtdTaskRowClass *klass)
   object_class->get_property = gtd_task_row_get_property;
   object_class->set_property = gtd_task_row_set_property;
 
-  widget_class->destroy = gtd_task_row_destroy;
   widget_class->focus_in_event = gtd_task_row__focus_in;
   widget_class->key_press_event = gtd_task_row__key_press_event;
 
@@ -671,4 +654,32 @@ gtd_task_row_reveal (GtdTaskRow *row)
   g_return_if_fail (GTD_IS_TASK_ROW (row));
 
   gtk_revealer_set_reveal_child (row->revealer, TRUE);
+}
+
+/**
+ * gtd_task_row_destroy:
+ * @self: a #GtdTaskRow
+ *
+ * Destroy @self after hiding it.
+ */
+void
+gtd_task_row_destroy (GtdTaskRow *self)
+{
+  g_return_if_fail (GTD_IS_TASK_ROW (self));
+
+  if (!gtk_revealer_get_child_revealed (self->revealer))
+    {
+      gtk_widget_destroy (GTK_WIDGET (self));
+    }
+  else if (self->destroy_row_timeout_id == 0)
+    {
+      guint duration;
+
+      duration = gtk_revealer_get_transition_duration (self->revealer);
+
+      gtk_revealer_set_reveal_child (self->revealer, FALSE);
+      self->destroy_row_timeout_id = g_timeout_add (duration,
+                                                    (GSourceFunc) gtd_task_row__destroy_cb,
+                                                    self);
+    }
 }
