@@ -488,22 +488,25 @@ gtd_task_list_view__listbox_sort_func (GtdTaskRow *row1,
 }
 
 static void
-gtd_task_list_view__clear_list (GtdTaskListView *view)
+remove_task (GtdTaskListView *view,
+             GtdTask         *task)
 {
+  GtdTaskListViewPrivate *priv = view->priv;
   GList *children;
   GList *l;
 
-  g_return_if_fail (GTD_IS_TASK_LIST_VIEW (view));
-
-  view->priv->complete_tasks = 0;
   gtd_arrow_frame_set_row (view->priv->arrow_frame, NULL);
 
   children = gtk_container_get_children (GTK_CONTAINER (view->priv->listbox));
 
   for (l = children; l != NULL; l = l->next)
     {
-      if (l->data != view->priv->new_task_row)
+      if (l->data != priv->new_task_row &&
+          gtd_task_row_get_task (l->data) == task)
         {
+          if (gtd_task_get_complete (task))
+            priv->complete_tasks--;
+
           g_signal_handlers_disconnect_by_func (gtd_task_row_get_task (l->data),
                                                 gtd_task_list_view__task_completed,
                                                 view);
@@ -511,8 +514,8 @@ gtd_task_list_view__clear_list (GtdTaskListView *view)
         }
     }
 
-  gtk_revealer_set_reveal_child (view->priv->revealer, FALSE);
-  gtk_revealer_set_reveal_child (view->priv->edit_revealer, FALSE);
+  gtk_revealer_set_reveal_child (priv->revealer, FALSE);
+  gtk_revealer_set_reveal_child (priv->edit_revealer, FALSE);
 
   g_list_free (children);
 }
@@ -982,20 +985,27 @@ void
 gtd_task_list_view_set_list (GtdTaskListView *view,
                              GList           *list)
 {
-  GList *l;
+  GtdTaskListViewPrivate *priv;
+  GList *l, *old_list;
 
   g_return_if_fail (GTD_IS_TASK_LIST_VIEW (view));
 
-  if (view->priv->list)
-    g_list_free (view->priv->list);
+  priv = view->priv;
+  old_list = priv->list;
 
-  /* clear previous tasks */
-  gtd_task_list_view__clear_list (view);
-
-  view->priv->list = g_list_copy (list);
-
-  for (l = view->priv->list; l != NULL; l = l->next)
+  /* Remove the tasks that are in the current list, but not in the new list */
+  for (l = old_list; l != NULL; l = l->next)
     {
+      if (!g_list_find (list, l->data))
+        remove_task (view, l->data);
+    }
+
+  /* Add the tasks that are in the new list, but not in the current list */
+  for (l = list; l != NULL; l = l->next)
+    {
+      if (g_list_find (old_list, l->data))
+        continue;
+
       gtd_task_list_view__add_task (view, l->data);
 
       g_signal_connect (l->data,
@@ -1003,6 +1013,9 @@ gtd_task_list_view_set_list (GtdTaskListView *view,
                         G_CALLBACK (gtd_task_list_view__task_completed),
                         view);
     }
+
+  g_list_free (old_list);
+  priv->list = g_list_copy (list);
 
   /* Check if it should show the empty state */
   gtd_task_list_view__update_empty_state (view);
