@@ -32,7 +32,7 @@ struct _GtdPanelToday
 
   gchar              *title;
   guint               number_of_tasks;
-  GtdTaskList        *task_list;
+  GList              *task_list;
 };
 
 static void          gtd_panel_iface_init                        (GtdPanelInterface  *iface);
@@ -76,20 +76,6 @@ is_today (GDateTime *dt)
 }
 
 static void
-gtd_panel_today_clear (GtdPanelToday *panel)
-{
-  GList *tasks;
-  GList *t;
-
-  tasks = gtd_task_list_get_tasks (panel->task_list);
-
-  for (t = tasks; t != NULL; t = t->next)
-    gtd_task_list_remove_task (panel->task_list, t->data);
-
-  g_list_free (tasks);
-}
-
-static void
 gtd_panel_today_count_tasks (GtdPanelToday *panel)
 {
   GtdManager *manager;
@@ -101,8 +87,7 @@ gtd_panel_today_count_tasks (GtdPanelToday *panel)
   tasklists = gtd_manager_get_task_lists (manager);
   number_of_tasks = 0;
 
-  /* Reset list */
-  gtd_panel_today_clear (panel);
+  g_clear_pointer (&panel->task_list, g_list_free);
 
   /* Recount tasks */
   for (l = tasklists; l != NULL; l = l->next)
@@ -118,23 +103,22 @@ gtd_panel_today_count_tasks (GtdPanelToday *panel)
 
           task_dt = gtd_task_get_due_date (t->data);
 
-          /*
-           * GtdTaskListView automagically updates the list
-           * whever a task is added/removed/changed.
-           */
-          if (is_today (task_dt))
-            {
-              gtd_task_list_save_task (panel->task_list, t->data);
+          if (!is_today (task_dt))
+            continue;
 
-              if (!gtd_task_get_complete (t->data))
-                number_of_tasks++;
-            }
+          panel->task_list = g_list_prepend (panel->task_list, t->data);
+
+          if (!gtd_task_get_complete (t->data))
+            number_of_tasks++;
 
           g_clear_pointer (&task_dt, g_date_time_unref);
         }
 
       g_list_free (tasks);
     }
+
+  /* Add the tasks to the view */
+  gtd_task_list_view_set_list (GTD_TASK_LIST_VIEW (panel->view), panel->task_list);
 
   if (number_of_tasks != panel->number_of_tasks)
     {
@@ -233,8 +217,9 @@ gtd_panel_today_finalize (GObject *object)
   GtdPanelToday *self = (GtdPanelToday *)object;
 
   g_clear_object (&self->menu);
-  g_clear_object (&self->task_list);
   g_clear_pointer (&self->title, g_free);
+
+  g_list_free (self->task_list);
 
   G_OBJECT_CLASS (gtd_panel_today_parent_class)->finalize (object);
 }
@@ -315,9 +300,6 @@ gtd_panel_today_init (GtdPanelToday *self)
   /* Setup a title */
   self->title = g_strdup (_("Today"));
 
-  /* Task list */
-  self->task_list = gtd_task_list_new (NULL);
-
   /* Menu */
   self->menu = g_menu_new ();
   g_menu_append (self->menu,
@@ -327,7 +309,6 @@ gtd_panel_today_init (GtdPanelToday *self)
   /* The main view */
   self->view = gtd_task_list_view_new ();
   gtd_task_list_view_set_show_list_name (GTD_TASK_LIST_VIEW (self->view), TRUE);
-  gtd_task_list_view_set_task_list (GTD_TASK_LIST_VIEW (self->view), self->task_list);
 
   gtk_widget_set_hexpand (self->view, TRUE);
   gtk_widget_set_vexpand (self->view, TRUE);
