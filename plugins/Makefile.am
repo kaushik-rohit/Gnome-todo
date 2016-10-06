@@ -1,4 +1,4 @@
-SUBDIRS = eds
+SUBDIRS = eds dark-theme
 
 if BUILD_SCORE_PLUGIN
 SUBDIRS += score

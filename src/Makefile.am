@@ -93,14 +93,17 @@ gnome_todo_CFLAGS = \
 gnome_todo_LDFLAGS = \
 	-Wl,--export-dynamic \
 	-Wl,--undefined=gtd_plugin_eds_register_types \
+	-Wl,--undefined=gtd_plugin_dark_theme_register_types \
 	$(GNOME_TODO_WARN_LDFLAGS)
 
 gnome_todo_LDADD = \
 	$(GNOME_TODO_LIBS) \
-	$(top_builddir)/plugins/eds/libeds.a
+	$(top_builddir)/plugins/eds/libeds.a \
+	$(top_builddir)/plugins/dark-theme/libdarktheme.la
 
 gnome_todo_DEPENDENCIES = \
-	$(top_builddir)/plugins/eds/libeds.a
+	$(top_builddir)/plugins/eds/libeds.a \
+	$(top_builddir)/plugins/dark-theme/libdarktheme.la
 
 #
 # Export headers to [PREFIX]/include/gnome-todo

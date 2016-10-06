@@ -19,6 +19,11 @@
     <file compressed="true">theme/Adwaita.css</file>
   </gresource>
 
+  <!--Dark theme-->
+  <gresource prefix="/org/gnome/todo">
+    <file alias="plugins/dark-theme/dark-theme.plugin">../plugins/dark-theme/dark-theme.plugin</file>
+  </gresource>
+
   <!--EDS Plugin-->
   <gresource prefix="/org/gnome/todo">
     <file compressed="true" alias="ui/eds/edit-pane.ui">../plugins/eds/edit-pane.ui</file>
