@@ -30,4 +30,9 @@
     <file compressed="true" alias="theme/eds/Adwaita.css">../plugins/eds/theme/Adwaita.css</file>
     <file alias="plugins/eds/eds.plugin">../plugins/eds/eds.plugin</file>
   </gresource>
+
+  <!--Today panel-->
+  <gresource prefix="/org/gnome/todo">
+    <file alias="plugins/today-panel/today-panel.plugin">../plugins/today-panel/today-panel.plugin</file>
+  </gresource>
 </gresources>

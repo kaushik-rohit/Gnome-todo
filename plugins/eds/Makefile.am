@@ -3,8 +3,6 @@ include $(top_srcdir)/common.am
 noinst_LTLIBRARIES = libeds.la
 
 libeds_la_SOURCES = \
-	gtd-panel-today.c \
-	gtd-panel-today.h \
 	gtd-panel-scheduled.c \
 	gtd-panel-scheduled.h \
 	gtd-plugin-eds.c \

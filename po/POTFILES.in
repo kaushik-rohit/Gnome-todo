@@ -15,12 +15,12 @@ data/org.gnome.todo.gschema.xml
 [type: gettext/glade]data/ui/window.ui
 [type: gettext/glade]plugins/eds/edit-pane.ui
 plugins/eds/gtd-panel-scheduled.c
-plugins/eds/gtd-panel-today.c
 plugins/eds/gtd-plugin-eds.c
 plugins/eds/gtd-provider-eds.c
 plugins/eds/gtd-provider-local.c
 plugins/eds/gtd-task-list-eds.c
 plugins/score/score/__init__.py
+plugins/today-panel/gtd-panel-today.c
 plugins/unscheduled-panel/unscheduled-panel/__init__.py
 src/gtd-application.c
 src/gtd-edit-pane.c

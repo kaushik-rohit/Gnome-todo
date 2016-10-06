@@ -18,7 +18,6 @@
 
 #define G_LOG_DOMAIN "Evolution Data Server"
 
-#include "gtd-panel-today.h"
 #include "gtd-panel-scheduled.h"
 #include "gtd-plugin-eds.h"
 #include "gtd-provider-goa.h"
@@ -351,7 +350,6 @@ gtd_plugin_eds_init (GtdPluginEds *self)
   GError *error = NULL;
   GFile* css_file;
 
-  self->panels = g_list_append (NULL, gtd_panel_today_new ());
   self->panels = g_list_append (self->panels, gtd_panel_scheduled_new ());
 
   /* load the source registry */
