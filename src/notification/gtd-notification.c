@@ -21,6 +21,43 @@
 
 #include <glib/gi18n.h>
 
+/**
+ * SECTION:gtd-notification
+ * @short_description:a notification with actions
+ * @title:GtdNotification
+ * @image:notification.png
+ * @stability:Stable
+ *
+ * The #GtdNotification represents a notification shown at the top of
+ * the window. The action can have a primary action that is called when
+ * the notification is gone.
+ *
+ * Optionally, the notification may have a secondary action (see gtd_notification_set_secondary_action())
+ * shown as a button.
+ *
+ * The notification may also have a timeout, which is how long the notification
+ * is displayed. By default, the timeout is 7.5 seconds.
+ *
+ * Example:
+ * |[
+ * GtdNotification *notification;
+ *
+ * notification = gtd_notification_new ("Something happened!", 7500);
+ *
+ * gtd_notification_set_primary_action (notification,
+ *                                      called_when_notification_is_closed,
+ *                                      self);
+ *
+ * gtd_notification_set_secondary_action (notification,
+ *                                        "Details",
+ *                                        show_details,
+ *                                        self);
+ * [...]
+ *
+ * gtd_window_send_notification (window, notification);
+ * ]|
+ */
+
 typedef struct
 {
   gchar              *text;
@@ -426,7 +463,8 @@ gtd_notification_get_timeout (GtdNotification *notification)
  * @notification: a #GtdNotification
  * @timeout: the time to wait before running @notification, in miliseconds
  *
- * Sets the timeout of @notification to @timeout.
+ * Sets the timeout of @notification to @timeout. Set it to %0 to disable
+ * the timeout.
  */
 void
 gtd_notification_set_timeout (GtdNotification *notification,
@@ -496,7 +534,7 @@ gtd_notification_execute_secondary_action (GtdNotification *notification)
  * gtd_notification_start:
  * @notification: a #GtdNotification
  *
- * Starts the timeout of notification. Use @gtd_notification_stop
+ * Starts the timeout of notification. Use gtd_notification_stop()
  * to stop it.
  */
 void
@@ -526,7 +564,7 @@ gtd_notification_start (GtdNotification *notification)
  * gtd_notification_stop:
  * @notification: a #GtdNotification
  *
- * Stops the timeout of notification. Use @gtd_notification_start
+ * Stops the timeout of notification. Use gtd_notification_start()
  * to start it.
  */
 void

@@ -272,8 +272,6 @@ gtd_notification_widget_notify (GtdNotificationWidget *widget,
  *
  * Cancel @notification from being displayed. If @notification is not
  * queued, nothing happens.
- *
- * Returns:
  */
 void
 gtd_notification_widget_cancel (GtdNotificationWidget *widget,

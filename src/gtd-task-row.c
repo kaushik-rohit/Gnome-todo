@@ -558,8 +558,6 @@ gtd_task_row_get_task (GtdTaskRow *row)
  *
  * Sets the internal #GtdTask of @row. The task must be set to %NULL
  * before setting GtdObject::new-task-mode to %TRUE.
- *
- * Returns:
  */
 void
 gtd_task_row_set_task (GtdTaskRow *row,

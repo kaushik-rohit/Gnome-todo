@@ -34,6 +34,19 @@
 
 #include <glib/gi18n.h>
 
+/**
+ * SECTION:gtd-window
+ * @short_description:main window
+ * @title:GtdWindow
+ * @stability:Unstable
+ * @see_also:#GtdNotification
+ *
+ * The #GtdWindow is the main application window of GNOME To Do. Objects should
+ * use this class to send notifications (see gtd_window_notify()), cancel notifications
+ * (see gtd_window_cancel_notification()), change between selection and normal mode
+ * and fine-tune the headerbar.
+ */
+
 typedef struct
 {
   GtkWidget                     *cancel_selection_button;

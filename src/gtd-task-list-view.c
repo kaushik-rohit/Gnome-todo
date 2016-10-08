@@ -31,6 +31,34 @@
 #include <glib/gi18n.h>
 #include <gtk/gtk.h>
 
+/**
+ * SECTION:gtd-task-list-view
+ * @Short_description: A widget to display tasklists
+ * @Title:GtdTaskListView
+ *
+ * The #GtdTaskListView widget shows the tasks of a #GtdTaskList with
+ * various options to fine-tune the appearance. Alternatively, one can
+ * pass a #GList of #GtdTask objects.
+ *
+ * It supports custom sorting and header functions, so the tasks can be
+ * sorted in various ways. See the "Today" and "Scheduled" panels for reference
+ * implementations.
+ *
+ * Example:
+ * |[
+ * GtdTaskListView *view = gtd_task_list_view_new ();
+ *
+ * gtd_task_list_view_set_list (view, list);
+ *
+ * // Hide the '+ New task' row
+ * gtd_task_list_view_set_show_new_task_row (view, FALSE);
+ *
+ * // Date which tasks will be automatically assigned
+ * gtd_task_list_view_set_default_date (view, now);
+ * ]|
+ *
+ */
+
 typedef struct
 {
   GtdArrowFrame         *arrow_frame;
@@ -1049,7 +1077,7 @@ gtd_task_list_view_get_show_new_task_row (GtdTaskListView *self)
  * gtd_task_list_view_set_show_new_task_row:
  * @view: a #GtdTaskListView
  *
- * Sets the GtdTaskListView::show-new-task-mode property of @view.
+ * Sets the #GtdTaskListView:show-new-task-mode property of @view.
  */
 void
 gtd_task_list_view_set_show_new_task_row (GtdTaskListView *view,

@@ -24,6 +24,17 @@
 #include <libical/icaltime.h>
 #include <libical/icaltimezone.h>
 
+/**
+ * SECTION:gtd-task
+ * @short_description: a task
+ * @title:GtdTask
+ * @stability:Unstable
+ * @see_also:#GtdTaskList
+ *
+ * A #GtdTask is an object that represents a task. All #GtdTasks
+ * must be inside a #GtdTaskList.
+ */
+
 typedef struct
 {
   gchar           *description;

@@ -19,6 +19,20 @@
 #include "gtd-provider.h"
 #include "gtd-task-list.h"
 
+/**
+ * SECTION:gtd-provider
+ * @short_description:data sources for GNOME To do
+ * @title: GtdProvider
+ * @stability:Unstable
+ *
+ * The #GtdProvider is the interface that GNOME To Do uses to
+ * connect to data sources. It must provide ways to create, update
+ * and remove tasks and tasklists.
+ *
+ * A provider implementation must also expose which is the default
+ * tasklist among the tasklists it manages.
+ */
+
 G_DEFINE_INTERFACE (GtdProvider, gtd_provider, GTD_TYPE_OBJECT)
 
 enum

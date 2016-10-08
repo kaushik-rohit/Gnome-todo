@@ -23,6 +23,17 @@
 #include <glib/gi18n.h>
 #include <libecal/libecal.h>
 
+/**
+ * SECTION:gtd-task-list
+ * @short_description:a list of tasks
+ * @title:GtdTaskList
+ * @stability:Unstable
+ * @see_also:#GtdTask
+ *
+ * A #GtdTaskList represents a task list, and contains a list of tasks, a color,
+ * a name and the provider who generated it.
+ */
+
 typedef struct
 {
   GList               *tasks;

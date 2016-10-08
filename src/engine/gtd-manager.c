@@ -26,6 +26,21 @@
 
 #include <glib/gi18n.h>
 
+/**
+ * SECTION:gtd-manager
+ * @short_description:bridge between plugins and GNOME To Do
+ * @title:GtdManager
+ * @stability:Unstable
+ * @see_also:#GtdNotification,#GtdActivatable
+ *
+ * The #GtdManager object is a singleton object that exposes all the data
+ * inside the plugin to GNOME To Do, and vice-versa. From here, plugins have
+ * access to all the tasklists, tasks and panels of the other plugins.
+ *
+ * Objects can use gtd_manager_emit_error_message() to send errors to GNOME
+ * To Do. This will create a #GtdNotification internally.
+ */
+
 typedef struct
 {
   GSettings             *settings;
@@ -194,7 +209,7 @@ gtd_manager_class_init (GtdManagerClass *klass)
                              "The plugin manager",
                              "The plugin manager of the application",
                              GTD_TYPE_PLUGIN_MANAGER,
-                             G_PARAM_READABLE));
+                             G_PARAM_READABLE | G_PARAM_PRIVATE));
 
   /**
    * GtdManager::list-added:

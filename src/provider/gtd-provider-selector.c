@@ -547,8 +547,6 @@ gtd_provider_selector_new (void)
  * gtd_provider_selector_show_local:
  *
  * Shows a row for local provider item.
- *
- * Returns:
  */
 void
 gtd_provider_selector_show_local (GtdProviderSelector *selector,
@@ -592,8 +590,6 @@ gtd_provider_selector_get_select_default (GtdProviderSelector *selector)
  * @select_default: %TRUE to auto select the default provider location.
  *
  * Whether @selector should select the default provider location by default.
- *
- * Returns:
  */
 void
 gtd_provider_selector_set_select_default (GtdProviderSelector *selector,
@@ -675,8 +671,6 @@ gtd_provider_selector_get_selected_provider (GtdProviderSelector *selector)
  * @provider: a #GtdProvider
  *
  * Selects @provider in the given #GtdProviderSelector.
- *
- * Returns:
  */
 void
 gtd_provider_selector_set_selected_provider (GtdProviderSelector *selector,

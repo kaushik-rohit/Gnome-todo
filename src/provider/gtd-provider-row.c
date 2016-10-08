@@ -224,8 +224,6 @@ gtd_provider_row_get_selected (GtdProviderRow *row)
  * mark is visible)
  *
  * Sets @row as the currently selected row.
- *
- * Returns:
  */
 void
 gtd_provider_row_set_selected (GtdProviderRow *row,

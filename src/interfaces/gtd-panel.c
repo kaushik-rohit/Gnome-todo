@@ -18,6 +18,27 @@
 
 #include "gtd-panel.h"
 
+/**
+ * SECTION:gtd-panel
+ * @short_description: interface for panels
+ * @title:GtdPanel
+ * @stability:Unstable
+ *
+ * The #GtdPanel interface must be implemented by plugins that want
+ * a given widget to be shown as a panel in the main window. Examples
+ * of panels are the "Today" and "Scheduled" panels.
+ *
+ * A panel must have a unique name (see #GtdPanel:name) and a title.
+ * The title can change dynamically. Avoid long titles.
+ *
+ * The panel may also provide header widgets, which will be placed
+ * in the headerbar according to the #GtkWidget:halign property. See
+ * gtd_panel_get_header_widgets() for a detailed explanation.
+ *
+ * At last, a #GtdPanel implementation may provide a #GMenu that will
+ * be appended to the window menu.
+ */
+
 G_DEFINE_INTERFACE (GtdPanel, gtd_panel, GTK_TYPE_WIDGET)
 
 static void

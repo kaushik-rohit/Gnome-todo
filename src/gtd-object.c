@@ -20,6 +20,17 @@
 
 #include <glib/gi18n.h>
 
+/**
+ * SECTION:gtd-object
+ * @Short_description: base class for loadable and uniquely identifiable objects
+ * @Title: GtdObject
+ *
+ * #GtdObject is the base class of many object in GNOME To Do, and it useful for
+ * when a given object is loadable and/or uniquely identifiable. Some examples of
+ * it are #GtdTask, #GtdTaskList and #GtdNotification.
+ *
+ */
+
 typedef struct
 {
   gboolean       ready;

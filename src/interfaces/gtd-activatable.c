@@ -20,6 +20,33 @@
 #include "gtd-panel.h"
 #include "gtd-provider.h"
 
+/**
+ * SECTION:gtd-activatable
+ * @short_description:entry point for plugins
+ * @title:GtdActivatable
+ * @stability:Unstable
+ *
+ * The #GtdActivatable interface is the interface plugins must
+ * implement in order to be seen by GNOME To Do.
+ *
+ * When plugins are loaded, the gtd_activatable_activate() vfunc
+ * is called. Use this vfunc to load anything that depends on GNOME
+ * To Do.
+ *
+ * When plugins are unloaded, the gtd_activatable_deactivate() vfunc
+ * if called. Ideally, the implementation should undo everything that
+ * was done on gtd_activatable_activate().
+ *
+ * A plugin implementation may expose one or more #GtdProvider instances,
+ * which are the data sources of GNOME To Do. See the 'eds' plugin for
+ * a reference on how to expose one ('local') and multiple (Online Accounts)
+ * providers.
+ *
+ * Plugins may also expose one or more #GtdPanel implementations.
+ *
+ * Optionally, a plugin may expose a preferences panel. See gtd_activatable_get_preferences_panel().
+ */
+
 G_DEFINE_INTERFACE (GtdActivatable, gtd_activatable, G_TYPE_OBJECT)
 
 enum
