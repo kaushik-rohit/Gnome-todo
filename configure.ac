@@ -136,6 +136,7 @@ echo "
         documentation: ${enable_gtk_doc}
 
     Plugins:
+        Dark theme .............. ${enable_dark_theme_plugin}
         Scheduled panel ......... ${enable_scheduled_panel_plugin}
         Score ................... ${enable_score_plugin}
         Today panel ............. ${enable_today_panel_plugin}
