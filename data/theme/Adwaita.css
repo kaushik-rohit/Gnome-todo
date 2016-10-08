@@ -2,7 +2,7 @@
     background-color: transparent;
 }
 
-task-row {
+taskrow {
     border-bottom: 1px solid alpha(@borders, 0.4);
 }
 
@@ -30,22 +30,22 @@ grid-item {
 }
 
 grid-item.light,
-task-list-view.light task-row label {
+task-list-view.light taskrow label {
     color: #000003;
 }
 
-task-list-view task-row:hover {
+task-list-view taskrow:hover {
     background-color: alpha(#ededed, 0.4);
 }
 
 grid-item.dark,
-task-list-view.dark task-row,
+task-list-view.dark taskrow,
 task-list-view.dark overlay label,
 task-list-view.dark overlay image {
     color: #eeeeec;
 }
 
-task-list-view.dark task-row:hover {
+task-list-view.dark taskrow:hover {
     background-color: alpha(#393f3f, 0.4);
 }
 
@@ -70,32 +70,32 @@ label.main-title {
 }
 
 /* priority icons */
-task-row {
+taskrow {
     background-color: @transparent;
 }
 
-task-row.priority-low {
+taskrow.priority-low {
     background-color: alpha(#3465a4, 0.2);
 }
 
-task-row.priority-low:hover {
+taskrow.priority-low:hover {
     background-color: alpha(#3465a4, 0.4);
 }
 
 
-task-row.priority-medium {
+taskrow.priority-medium {
     background-color: alpha(#f57900, 0.2);
 }
 
-task-row.priority-medium:hover {
+taskrow.priority-medium:hover {
     background-color: alpha(#f57900, 0.4);
 }
 
-task-row.priority-hight {
+taskrow.priority-hight {
     background-color: alpha(#cc0000, 0.2);
 }
 
-task-row.priority-hight:hover {
+taskrow.priority-hight:hover {
     background-color: alpha(#cc0000, 0.4);
 }
 
