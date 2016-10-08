@@ -112,6 +112,21 @@ gtd_task_row__priority_changed_cb (GtdTaskRow *row,
   gtk_widget_queue_draw (GTK_WIDGET (row));
 }
 
+static void
+complete_changed_cb (GtdTaskRow *self,
+                     GParamSpec *pspec,
+                     GtdTask    *task)
+{
+  GtkStyleContext *context;
+
+  context = gtk_widget_get_style_context (GTK_WIDGET (self));
+
+  if (gtd_task_get_complete (task))
+    gtk_style_context_add_class (context, "complete");
+  else
+    gtk_style_context_remove_class (context, "complete");
+}
+
 static gboolean
 gtd_task_row__date_changed_binding (GBinding     *binding,
                                     const GValue *from_value,
@@ -613,6 +628,12 @@ gtd_task_row_set_task (GtdTaskRow *row,
           g_signal_connect_swapped (task,
                                     "notify::priority",
                                     G_CALLBACK (gtd_task_row__priority_changed_cb),
+                                    row);
+
+          complete_changed_cb (row, NULL, task);
+          g_signal_connect_swapped (task,
+                                    "notify::complete",
+                                    G_CALLBACK (complete_changed_cb),
                                     row);
         }
 

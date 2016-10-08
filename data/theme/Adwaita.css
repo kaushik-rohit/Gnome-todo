@@ -99,6 +99,10 @@ taskrow.priority-hight:hover {
     background-color: alpha(#cc0000, 0.4);
 }
 
+taskrow.complete label {
+    text-decoration-line: line-through;
+}
+
 /* extension list */
 list.extension-list row {
     border-bottom: solid 1px @borders
