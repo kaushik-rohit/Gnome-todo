@@ -541,11 +541,17 @@ gtd_provider_eds_create_task_finished (GObject      *client,
 
   if (error)
     {
+      GtdTask *task = GTD_TASK (data->data);
+
       g_warning ("%s: %s: %s",
                  G_STRFUNC,
                  _("Error creating task"),
                  error->message);
 
+      /* Remove from the tasklist */
+      gtd_task_list_remove_task (gtd_task_get_list (task), task);
+
+      /* Display a notification */
       gtd_manager_emit_error_message (gtd_manager_get_default (),
                                       _("Error creating task"),
                                       error->message);
