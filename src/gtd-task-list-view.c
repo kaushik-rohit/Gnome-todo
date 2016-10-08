@@ -1028,6 +1028,7 @@ gtd_task_list_view_set_list (GtdTaskListView *view,
 
   priv = view->priv;
   old_list = priv->list;
+  priv->complete_tasks = 0;
 
   /* Remove the tasks that are in the current list, but not in the new list */
   for (l = old_list; l != NULL; l = l->next)
