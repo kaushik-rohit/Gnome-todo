@@ -131,13 +131,14 @@ echo "
 
         prefix:        ${prefix}
         compiler:      ${CC}
-	global flags:  ${CFLAGS} ${CPPFLAGS} ${LDFLAGS}
+        global flags:  ${CFLAGS} ${CPPFLAGS} ${LDFLAGS}
         release:       ${ax_is_release}
         documentation: ${enable_gtk_doc}
 
     Plugins:
+        Scheduled panel ......... ${enable_scheduled_panel_plugin}
         Score ................... ${enable_score_plugin}
-        Today ................... ${enable_today_plugin}
+        Today panel ............. ${enable_today_panel_plugin}
         Unscheduled panel ....... ${enable_unscheduled_panel_plugin}
 
         Now type 'make' to build $PACKAGE
