@@ -16,6 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "gtd-provider.h"
 #include "gtd-task-row.h"
 #include "gtd-task.h"
 #include "gtd-task-list.h"
@@ -44,6 +45,13 @@ struct _GtdTaskRow
   GtkSpinner                *task_loading_spinner;
   GtkLabel                  *title_label;
 
+  /* dnd widgets */
+  GtkWidget                 *dnd_box;
+  GtkWidget                 *dnd_event_box;
+  GtkWidget                 *dnd_icon;
+  gdouble                    clicked_x;
+  gdouble                    clicked_y;
+
   /* data */
   gboolean                   new_task_mode;
   GtdTask                   *task;
@@ -70,7 +78,134 @@ enum {
   LAST_PROP
 };
 
+typedef enum
+{
+  CURSOR_NONE,
+  CURSOR_GRAB,
+  CURSOR_GRABBING
+} CursorType;
+
 static guint signals[NUM_SIGNALS] = { 0, };
+
+static void
+set_dnd_cursor (GtkWidget  *widget,
+                CursorType  type)
+{
+  GdkDisplay *display;
+  GdkCursor *cursor;
+
+  if (!gtk_widget_get_realized (widget))
+    return;
+
+  display = gtk_widget_get_display (widget);
+
+  switch (type)
+    {
+    case CURSOR_NONE:
+      cursor = NULL;
+      break;
+
+    case CURSOR_GRAB:
+      cursor = gdk_cursor_new_from_name (display, "grab");
+      break;
+
+    case CURSOR_GRABBING:
+      cursor = gdk_cursor_new_from_name (display, "grabbing");
+      break;
+
+    default:
+      cursor = NULL;
+    }
+
+  gdk_window_set_cursor (gtk_widget_get_window (widget), cursor);
+  gdk_display_flush (display);
+
+  g_clear_object (&cursor);
+}
+
+static GdkPixbuf*
+get_dnd_icon (GtdTaskRow *self)
+{
+  GdkWindow *window;
+  GdkPixbuf *pixbuf;
+  GtkWidget *widget;
+  gint real_x, real_y;
+
+  widget = GTK_WIDGET (self);
+  gtk_widget_translate_coordinates (widget,
+                                    gtk_widget_get_parent (widget),
+                                    0,
+                                    0,
+                                    &real_x,
+                                    &real_y);
+
+  window = gtk_widget_get_window (GTK_WIDGET (self));
+  pixbuf = gdk_pixbuf_get_from_window (window,
+                                       real_x,
+                                       real_y,
+                                       gtk_widget_get_allocated_width (widget),
+                                       gtk_widget_get_allocated_height (widget));
+
+  return pixbuf;
+}
+
+static gboolean
+mouse_out_event (GtkWidget  *widget,
+                 GdkEvent   *event,
+                 GtdTaskRow *self)
+{
+  set_dnd_cursor (widget, CURSOR_NONE);
+
+  return GDK_EVENT_STOP;
+}
+
+static gboolean
+mouse_over_event (GtkWidget  *widget,
+                  GdkEvent   *event,
+                  GtdTaskRow *self)
+{
+  set_dnd_cursor (widget, CURSOR_GRAB);
+
+  return GDK_EVENT_STOP;
+}
+
+static gboolean
+button_press_event (GtkWidget      *widget,
+                    GdkEventButton *event,
+                    GtdTaskRow     *self)
+{
+  self->clicked_x = event->x;
+  self->clicked_y = event->y;
+
+  return GDK_EVENT_PROPAGATE;
+}
+
+static void
+drag_begin_cb (GtkWidget      *widget,
+               GdkDragContext *context,
+               GtdTaskRow     *self)
+{
+  GdkPixbuf *pixbuf;
+  gint drag_x, drag_y;
+
+  pixbuf = get_dnd_icon (self);
+
+  set_dnd_cursor (widget, CURSOR_GRABBING);
+
+  gtk_widget_translate_coordinates (widget,
+                                    GTK_WIDGET (self),
+                                    0,
+                                    0,
+                                    &drag_x,
+                                    &drag_y);
+
+  gtk_drag_set_icon_pixbuf (context,
+                            pixbuf,
+                            drag_x + self->clicked_x,
+                            drag_y + self->clicked_y);
+
+  g_clear_object (&pixbuf);
+}
 
 static void
 gtd_task_row__priority_changed_cb (GtdTaskRow *row,
@@ -125,6 +260,26 @@ complete_changed_cb (GtdTaskRow *self,
     gtk_style_context_add_class (context, "complete");
   else
     gtk_style_context_remove_class (context, "complete");
+}
+
+static void
+parent_changed_cb (GtdTaskRow *self,
+                   GParamSpec *pspec,
+                   GtdTask    *task)
+{
+  GtdTask *aux;
+  guint depth;
+
+  depth = 0;
+  aux = gtd_task_get_parent (task);
+
+  while (aux)
+    {
+      aux = gtd_task_get_parent (aux);
+      depth++;
+    }
+
+  gtk_widget_set_margin_start (self->dnd_box, 48 * depth);
 }
 
 static gboolean
@@ -360,6 +515,90 @@ gtd_task_row_set_property (GObject      *object,
     }
 }
 
+static gboolean
+gtd_task_row_drag_drop (GtkWidget      *widget,
+                        GdkDragContext *context,
+                        gint            x,
+                        gint            y,
+                        guint           time)
+{
+  GtdProvider *provider;
+  GtkWidget *source_widget, *row;
+  GtdTask *row_task, *target_task;
+
+  row = NULL;
+  source_widget = gtk_drag_get_source_widget (context);
+
+  if (!source_widget)
+    {
+      gdk_drag_status (context, 0, time);
+      return FALSE;
+    }
+
+  row = gtk_widget_get_ancestor (source_widget, GTD_TYPE_TASK_ROW);
+
+  /* Do not allow dropping on itself, nor on the new task row */
+  if (!row || row == widget || GTD_TASK_ROW (row)->new_task_mode)
+    {
+      gdk_drag_status (context, 0, time);
+      return FALSE;
+    }
+
+  row_task = GTD_TASK_ROW (row)->task;
+  target_task = GTD_TASK_ROW (widget)->task;
+
+  gtd_task_add_subtask (target_task, row_task);
+
+  /* Save the task */
+  provider = gtd_task_list_get_provider (gtd_task_get_list (row_task));
+
+  gtd_task_save (row_task);
+  gtd_provider_update_task (provider, row_task);
+
+  return TRUE;
+}
+
+static void
+gtd_task_row_drag_leave (GtkWidget      *widget,
+                         GdkDragContext *context,
+                         guint           time)
+{
+  gtk_drag_unhighlight (widget);
+}
+
+static gboolean
+gtd_task_row_drag_motion (GtkWidget      *widget,
+                          GdkDragContext *context,
+                          gint            x,
+                          gint            y,
+                          guint           time)
+{
+  GtkWidget *source_widget, *row;
+
+  row = NULL;
+  source_widget = gtk_drag_get_source_widget (context);
+
+  if (!source_widget)
+    {
+      gdk_drag_status (context, 0, time);
+      return FALSE;
+    }
+
+  row = gtk_widget_get_ancestor (source_widget, GTD_TYPE_TASK_ROW);
+
+  /* Do not allow dropping on itself, nor on the new task row */
+  if (!row || row == widget || GTD_TASK_ROW (widget)->new_task_mode)
+    {
+      gdk_drag_status (context, 0, time);
+      return FALSE;
+    }
+
+  gdk_drag_status (context, GDK_ACTION_COPY, time);
+  gtk_drag_highlight (widget);
+
+  return TRUE;
+}
+
 static void
 gtd_task_row_activate (GtkListBoxRow *row)
 {
@@ -379,6 +618,9 @@ gtd_task_row_class_init (GtdTaskRowClass *klass)
   object_class->get_property = gtd_task_row_get_property;
   object_class->set_property = gtd_task_row_set_property;
 
+  widget_class->drag_drop = gtd_task_row_drag_drop;
+  widget_class->drag_leave = gtd_task_row_drag_leave;
+  widget_class->drag_motion = gtd_task_row_drag_motion;
   widget_class->focus_in_event = gtd_task_row__focus_in;
   widget_class->key_press_event = gtd_task_row__key_press_event;
 
@@ -475,6 +717,9 @@ gtd_task_row_class_init (GtdTaskRowClass *klass)
 
   gtk_widget_class_set_template_from_resource (widget_class, "/org/gnome/todo/ui/task-row.ui");
 
+  gtk_widget_class_bind_template_child (widget_class, GtdTaskRow, dnd_box);
+  gtk_widget_class_bind_template_child (widget_class, GtdTaskRow, dnd_event_box);
+  gtk_widget_class_bind_template_child (widget_class, GtdTaskRow, dnd_icon);
   gtk_widget_class_bind_template_child (widget_class, GtdTaskRow, done_check);
   gtk_widget_class_bind_template_child (widget_class, GtdTaskRow, stack);
   gtk_widget_class_bind_template_child (widget_class, GtdTaskRow, new_task_entry);
@@ -487,6 +732,10 @@ gtd_task_row_class_init (GtdTaskRowClass *klass)
   gtk_widget_class_bind_template_child (widget_class, GtdTaskRow, title_entry);
   gtk_widget_class_bind_template_child (widget_class, GtdTaskRow, title_label);
 
+  gtk_widget_class_bind_template_callback (widget_class, button_press_event);
+  gtk_widget_class_bind_template_callback (widget_class, drag_begin_cb);
+  gtk_widget_class_bind_template_callback (widget_class, mouse_out_event);
+  gtk_widget_class_bind_template_callback (widget_class, mouse_over_event);
   gtk_widget_class_bind_template_callback (widget_class, gtd_task_row__entry_activated);
   gtk_widget_class_bind_template_callback (widget_class, gtd_task_row__entry_focus_out);
 
@@ -497,6 +746,20 @@ static void
 gtd_task_row_init (GtdTaskRow *self)
 {
   gtk_widget_init_template (GTK_WIDGET (self));
+
+  /* The source of DnD is the drag icon */
+  gtk_drag_source_set (self->dnd_event_box,
+                       GDK_BUTTON1_MASK,
+                       NULL,
+                       0,
+                       GDK_ACTION_COPY);
+
+  /* And the destination is the row itself */
+  gtk_drag_dest_set (GTK_WIDGET (self),
+                     0,
+                     NULL,
+                     0,
+                     GDK_ACTION_MOVE);
 }
 
 /**
@@ -634,6 +897,12 @@ gtd_task_row_set_task (GtdTaskRow *row,
           g_signal_connect_swapped (task,
                                     "notify::complete",
                                     G_CALLBACK (complete_changed_cb),
+                                    row);
+
+          parent_changed_cb (row, NULL, task);
+          g_signal_connect_swapped (task,
+                                    "notify::parent",
+                                    G_CALLBACK (parent_changed_cb),
                                     row);
         }
 
