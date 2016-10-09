@@ -113,6 +113,63 @@ gtd_edit_pane__close_button_clicked (GtkButton *button,
 }
 
 static void
+today_button_clicked (GtkButton   *button,
+                      GtdEditPane *self)
+{
+  GtdEditPanePrivate *priv;
+  GDateTime *new_dt;
+
+  priv = self->priv;
+
+  new_dt = g_date_time_new_now_utc ();
+
+  gtd_task_set_due_date (priv->task, new_dt);
+  gtd_edit_pane_update_date (self);
+
+  g_clear_pointer (&new_dt, g_date_time_unref);
+}
+
+static void
+tomorrow_button_clicked (GtkButton   *button,
+                         GtdEditPane *self)
+{
+  GtdEditPanePrivate *priv;
+  GDateTime *current_date;
+  GDateTime *new_dt;
+
+  priv = self->priv;
+
+  current_date = g_date_time_new_now_utc ();
+  new_dt = g_date_time_add_days (current_date, 1);
+
+  gtd_task_set_due_date (priv->task, new_dt);
+  gtd_edit_pane_update_date (self);
+
+  g_clear_pointer (&current_date, g_date_time_unref);
+  g_clear_pointer (&new_dt, g_date_time_unref);
+}
+
+static void
+next_week_button_clicked (GtkButton   *button,
+                          GtdEditPane *self)
+{
+  GtdEditPanePrivate *priv;
+  GDateTime *current_date;
+  GDateTime *new_dt;
+
+  priv = self->priv;
+
+  current_date = g_date_time_new_now_utc ();
+  new_dt = g_date_time_add_days (current_date, 7);
+
+  gtd_task_set_due_date (priv->task, new_dt);
+  gtd_edit_pane_update_date (self);
+
+  g_clear_pointer (&current_date, g_date_time_unref);
+  g_clear_pointer (&new_dt, g_date_time_unref);
+}
+
+static void
 gtd_edit_pane_update_date (GtdEditPane *pane)
 {
   GtdEditPanePrivate *priv;
@@ -310,6 +367,9 @@ gtd_edit_pane_class_init (GtdEditPaneClass *klass)
   gtk_widget_class_bind_template_callback (widget_class, gtd_edit_pane__date_selected);
   gtk_widget_class_bind_template_callback (widget_class, gtd_edit_pane__delete_button_clicked);
   gtk_widget_class_bind_template_callback (widget_class, gtd_edit_pane__no_date_button_clicked);
+  gtk_widget_class_bind_template_callback (widget_class, next_week_button_clicked);
+  gtk_widget_class_bind_template_callback (widget_class, today_button_clicked);
+  gtk_widget_class_bind_template_callback (widget_class, tomorrow_button_clicked);
 }
 
 static void
