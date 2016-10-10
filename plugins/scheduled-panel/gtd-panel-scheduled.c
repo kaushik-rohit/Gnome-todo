@@ -127,7 +127,7 @@ create_label (const gchar *text,
                         "margin-left", 12,
                         "margin-bottom", 6,
                         "margin-top", first_header ? 6 : 18,
-                        "xalign", 0,
+                        "xalign", 0.0,
                         "hexpand", TRUE,
                         NULL);
 
