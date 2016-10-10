@@ -1249,7 +1249,7 @@ gtd_task_add_subtask (GtdTask *self,
 
   priv = gtd_task_get_instance_private (self);
 
-  if (!g_list_find (priv->subtasks, subtask))
+  if (!g_list_find (priv->subtasks, subtask) && !gtd_task_is_subtask (subtask, self))
     {
       g_signal_emit (self, signals[SUBTASK_ADDED], 0, subtask);
     }
@@ -1279,3 +1279,57 @@ gtd_task_remove_subtask (GtdTask *self,
     }
 }
 
+/**
+ * gtd_task_is_subtask:
+ * @self: a #GtdTask
+ * @subtask: a #GtdTask
+ *
+ * Checks if @subtask is a subtask of @self, directly or indirectly.
+ *
+ * Returns: %TRUE is @subtask is a subtask of @self, %FALSE otherwise
+ */
+gboolean
+gtd_task_is_subtask (GtdTask *self,
+                     GtdTask *subtask)
+{
+  GtdTask *aux;
+  GQueue *queue;
+  gboolean is_subtask;
+
+  g_return_val_if_fail (GTD_IS_TASK (self), FALSE);
+  g_return_val_if_fail (GTD_IS_TASK (subtask), FALSE);
+
+  aux = self;
+  queue = g_queue_new ();
+  is_subtask = FALSE;
+
+  do
+    {
+      GtdTaskPrivate *priv;
+      GList *l;
+
+      priv = gtd_task_get_instance_private (aux);
+
+      for (l = priv->subtasks; l != NULL; l = l->next)
+        {
+          /* Found it, no need to continue looping */
+          if (l->data == subtask)
+            {
+              is_subtask = TRUE;
+              break;
+            }
+
+          g_queue_push_tail (queue, l->data);
+        }
+
+      if (is_subtask)
+        break;
+
+      aux = g_queue_pop_head (queue);
+    }
+  while (!g_queue_is_empty (queue));
+
+  g_queue_free (queue);
+
+  return is_subtask;
+}

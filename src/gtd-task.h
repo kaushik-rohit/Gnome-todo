@@ -97,6 +97,9 @@ void                gtd_task_add_subtask              (GtdTask              *sel
 void                gtd_task_remove_subtask           (GtdTask              *self,
                                                        GtdTask              *subtask);
 
+gboolean            gtd_task_is_subtask               (GtdTask              *self,
+                                                       GtdTask              *subtask);
+
 G_END_DECLS
 
 #endif /* GTD_TASK_H */
