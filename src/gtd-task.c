@@ -42,6 +42,7 @@ typedef struct
   ECalComponent   *component;
   GtdTask         *parent;
   GList           *subtasks;
+  gint             depth;
 } GtdTaskPrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (GtdTask, gtd_task, GTD_TYPE_OBJECT)
@@ -51,6 +52,7 @@ enum
   PROP_0,
   PROP_COMPLETE,
   PROP_COMPONENT,
+  PROP_DEPTH,
   PROP_DESCRIPTION,
   PROP_CREATION_DATE,
   PROP_DUE_DATE,
@@ -89,6 +91,20 @@ gtd_task__convert_icaltime (const icaltimetype *date)
 }
 
 static void
+set_depth (GtdTask *self,
+           gint     depth)
+{
+  GtdTaskPrivate *priv = gtd_task_get_instance_private (self);
+  GList *l;
+
+  priv->depth = depth;
+  g_object_notify (G_OBJECT (self), "depth");
+
+  for (l = priv->subtasks; l != NULL; l = l->next)
+    set_depth (l->data, depth + 1);
+}
+
+static void
 real_add_subtask (GtdTask *self,
                   GtdTask *subtask)
 {
@@ -107,6 +123,10 @@ real_add_subtask (GtdTask *self,
   subtask_priv = gtd_task_get_instance_private (subtask);
   comp = subtask_priv->component;
 
+  /* First, remove the subtask from it's parent's subtasks list */
+  if (subtask_priv->parent)
+    gtd_task_remove_subtask (subtask_priv->parent, subtask);
+
   ical_comp = e_cal_component_get_icalcomponent (comp);
   property = icalcomponent_get_first_property (ical_comp, ICAL_RELATEDTO_PROPERTY);
 
@@ -121,6 +141,9 @@ real_add_subtask (GtdTask *self,
   /* Update the subtask's parent property */
   subtask_priv->parent = self;
   g_object_notify (G_OBJECT (subtask), "parent");
+
+  /* And also the task's depth */
+  set_depth (subtask, priv->depth + 1);
 
   e_cal_component_free_id (id);
 }
@@ -155,6 +178,9 @@ real_remove_subtask (GtdTask *self,
   /* Update the subtask's parent property */
   subtask_priv->parent = NULL;
   g_object_notify (G_OBJECT (subtask), "parent");
+
+  /* And also the task's depth */
+  set_depth (subtask, 0);
 }
 
 static void
@@ -228,6 +254,10 @@ gtd_task_get_property (GObject    *object,
 
     case PROP_CREATION_DATE:
       g_value_set_boxed (value, gtd_task_get_creation_date (self));
+      break;
+
+    case PROP_DEPTH:
+      g_value_set_uint (value, priv->depth);
       break;
 
     case PROP_DESCRIPTION:
@@ -372,6 +402,22 @@ gtd_task_class_init (GtdTaskClass *klass)
                             "The day the task was created.",
                             G_TYPE_DATE_TIME,
                             G_PARAM_READABLE));
+
+  /**
+   * GtdTask::depth:
+   *
+   * The depth of the task inside the subtask tree.
+   */
+  g_object_class_install_property (
+        object_class,
+        PROP_DEPTH,
+        g_param_spec_uint ("depth",
+                           "Depth of the task",
+                           "The depth of the task inside the subtasks tree.",
+                           0,
+                           G_MAXUINT,
+                           0,
+                           G_PARAM_READABLE));
 
   /**
    * GtdTask::description:
@@ -1332,4 +1378,24 @@ gtd_task_is_subtask (GtdTask *self,
   g_queue_free (queue);
 
   return is_subtask;
+}
+
+/**
+ * gtd_task_get_depth:
+ * @self: a #GtdTask
+ *
+ * Retrieves the depth of @self in the subtasks tree.
+ *
+ * Returns: the depth of the task.
+ */
+gint
+gtd_task_get_depth (GtdTask *self)
+{
+  GtdTaskPrivate *priv;
+
+  g_return_val_if_fail (GTD_IS_TASK (self), 0);
+
+  priv = gtd_task_get_instance_private (self);
+
+  return priv->depth;
 }

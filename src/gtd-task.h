@@ -100,6 +100,8 @@ void                gtd_task_remove_subtask           (GtdTask              *sel
 gboolean            gtd_task_is_subtask               (GtdTask              *self,
                                                        GtdTask              *subtask);
 
+gint                gtd_task_get_depth                (GtdTask              *self);
+
 G_END_DECLS
 
 #endif /* GTD_TASK_H */

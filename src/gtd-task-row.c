@@ -263,23 +263,11 @@ complete_changed_cb (GtdTaskRow *self,
 }
 
 static void
-parent_changed_cb (GtdTaskRow *self,
-                   GParamSpec *pspec,
-                   GtdTask    *task)
+depth_changed_cb (GtdTaskRow *self,
+                  GParamSpec *pspec,
+                  GtdTask    *task)
 {
-  GtdTask *aux;
-  guint depth;
-
-  depth = 0;
-  aux = gtd_task_get_parent (task);
-
-  while (aux)
-    {
-      aux = gtd_task_get_parent (aux);
-      depth++;
-    }
-
-  gtk_widget_set_margin_start (self->dnd_box, 48 * depth);
+  gtk_widget_set_margin_start (self->dnd_box, 32 * gtd_task_get_depth (task));
 }
 
 static gboolean
@@ -899,10 +887,10 @@ gtd_task_row_set_task (GtdTaskRow *row,
                                     G_CALLBACK (complete_changed_cb),
                                     row);
 
-          parent_changed_cb (row, NULL, task);
+          depth_changed_cb (row, NULL, task);
           g_signal_connect_swapped (task,
-                                    "notify::parent",
-                                    G_CALLBACK (parent_changed_cb),
+                                    "notify::depth",
+                                    G_CALLBACK (depth_changed_cb),
                                     row);
         }
 
