@@ -161,6 +161,14 @@ process_pending_subtasks (GtdTaskList *self,
 }
 
 static void
+task_changed_cb (GtdTask     *task,
+                 GParamSpec  *pspec,
+                 GtdTaskList *self)
+{
+  g_signal_emit (self, signals[TASK_UPDATED], 0, task);
+}
+
+static void
 gtd_task_list_finalize (GObject *object)
 {
   GtdTaskList *self = (GtdTaskList*) object;
@@ -596,6 +604,11 @@ gtd_task_list_save_task (GtdTaskList *list,
       process_pending_subtasks (list, task);
       setup_parent_task (list, task);
 
+      g_signal_connect (task,
+                        "notify",
+                        G_CALLBACK (task_changed_cb),
+                        list);
+
       g_signal_emit (list, signals[TASK_ADDED], 0, task);
 
       e_cal_component_free_id (id);
@@ -622,6 +635,10 @@ gtd_task_list_remove_task (GtdTaskList *list,
 
   if (!gtd_task_list_contains (list, task))
     return;
+
+  g_signal_handlers_disconnect_by_func (task,
+                                        task_changed_cb,
+                                        list);
 
   priv->tasks = g_list_remove (priv->tasks, task);
 
