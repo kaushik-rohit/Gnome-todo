@@ -1184,6 +1184,10 @@ gtd_task_list_view_set_task_list (GtdTaskListView *view,
                                 "notify::color",
                                 G_CALLBACK (gtd_task_list_view__color_changed),
                                 view);
+      g_signal_connect_swapped (list,
+                                "task-updated",
+                                G_CALLBACK (gtk_list_box_invalidate_sort),
+                                priv->listbox);
     }
 }
 
