@@ -72,6 +72,113 @@ enum
 
 static guint signals[N_SIGNALS] = { 0, };
 
+static gboolean
+share_same_ancestor (GtdTask *t1,
+                     GtdTask *t2)
+{
+  GtdTask *p1, *p2;
+  gboolean has_ancestor;
+
+  has_ancestor = FALSE;
+  p1 = t1;
+
+  for (p1 = t1; p1 != NULL; p1 = gtd_task_get_parent (p1))
+    {
+      for (p2 = t2; p2 != NULL; p2 = gtd_task_get_parent (p2))
+        {
+          if (p1 == p2)
+            {
+              has_ancestor = TRUE;
+              break;
+            }
+        }
+
+      if (has_ancestor)
+        break;
+    }
+
+  return has_ancestor;
+}
+
+static GtdTask*
+get_root_task (GtdTask *self)
+{
+  GtdTaskPrivate *priv = gtd_task_get_instance_private (self);
+  GtdTask *aux = self;
+
+  while (priv->parent)
+    {
+      aux = priv->parent;
+      priv = gtd_task_get_instance_private (aux);
+    }
+
+  return aux;
+}
+
+
+static gint
+compare_by_subtasks (GtdTask **t1,
+                     GtdTask **t2)
+{
+  GtdTask *task1, *task2;
+
+  if (!t1 && !t2)
+    return  0;
+  if (!t1)
+    return  1;
+  if (!t2)
+    return -1;
+
+  task1 = *t1;
+  task2 = *t2;
+
+  if (share_same_ancestor (task1, task2))
+    {
+      gint depth_difference;
+
+      depth_difference = ABS (gtd_task_get_depth (task1) - gtd_task_get_depth (task2));
+
+      if (depth_difference == 0)
+        return 0;
+
+      if (gtd_task_is_subtask (task1, task2))
+        {
+          return -1;
+        }
+      else if (gtd_task_is_subtask (task2, task1))
+        {
+          return 1;
+        }
+      else
+        {
+          gint i;
+
+          for (i = depth_difference; i > 0; i--)
+            {
+              if (gtd_task_get_depth (task1) > gtd_task_get_depth (task2))
+                task1 = gtd_task_get_parent (task1);
+              else
+                task2 = gtd_task_get_parent (task2);
+            }
+
+          *t1 = task1;
+          *t2 = task2;
+        }
+    }
+  else
+    {
+      /*
+       * If either t1 or t2 have a parent, we have to compare them
+       * solely based on the root task of the subtask tree.
+       */
+      *t1 = get_root_task (task1);
+      *t2 = get_root_task (task2);
+    }
+
+  return 0;
+}
+
+
 static GDateTime*
 gtd_task__convert_icaltime (const icaltimetype *date)
 {
@@ -1155,6 +1262,14 @@ gtd_task_compare (GtdTask *t1,
     return  1;
   if (!t2)
     return -1;
+
+  /*
+   * Zero, compare by subtask hierarchy
+   */
+  retval = compare_by_subtasks (&t1, &t2);
+
+  if (retval != 0)
+    return retval;
 
   /*
    * First, compare by ::complete.
