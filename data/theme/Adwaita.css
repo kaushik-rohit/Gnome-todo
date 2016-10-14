@@ -105,8 +105,8 @@ taskrow.complete label {
 
 /* dnd row */
 dndrow frame {
-    background: alpha(#333333, 0.5);
-    min-height: 36px;
+    background: alpha(@theme_bg_color, 0.66);
+    min-height: 32px;
 }
 
 /* extension list */
