@@ -1373,7 +1373,7 @@ gtd_task_get_parent (GtdTask *self)
 }
 
 /**
- * gtd_task_get_substasks:
+ * gtd_task_get_subtasks:
  * @self: a #GtdTask
  *
  * Retrieves the subtasks of @self, or %NULL if it has no subtasks.
@@ -1381,7 +1381,7 @@ gtd_task_get_parent (GtdTask *self)
  * Returns: (transfer container)(nullable)(element-type Gtd.Task): the subtasks of @self
  */
 GList*
-gtd_task_get_substasks (GtdTask *self)
+gtd_task_get_subtasks (GtdTask *self)
 {
   GtdTaskPrivate *priv;
 

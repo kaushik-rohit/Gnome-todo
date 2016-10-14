@@ -89,7 +89,7 @@ gint                gtd_task_compare                  (GtdTask              *t1,
 
 GtdTask*            gtd_task_get_parent               (GtdTask              *self);
 
-GList*              gtd_task_get_substasks            (GtdTask              *self);
+GList*              gtd_task_get_subtasks             (GtdTask              *self);
 
 void                gtd_task_add_subtask              (GtdTask              *self,
                                                        GtdTask              *subtask);

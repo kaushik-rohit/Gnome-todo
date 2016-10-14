@@ -169,7 +169,7 @@ real_save_task (GtdTaskListView *self,
     {
       GList *subtasks, *l;
 
-      subtasks = gtd_task_get_substasks (aux);
+      subtasks = gtd_task_get_subtasks (aux);
 
       /*
        * This will emit GtdTaskList::task-added and we'll readd
@@ -215,7 +215,7 @@ remove_task_action (GtdNotification *notification,
     {
       GList *subtasks, *l;
 
-      subtasks = gtd_task_get_substasks (aux);
+      subtasks = gtd_task_get_subtasks (aux);
 
       gtd_manager_remove_task (manager, aux);
 
@@ -445,7 +445,7 @@ recursively_remove_task (GtdTaskListView *self,
     {
       GList *subtasks, *l;
 
-      subtasks = gtd_task_get_substasks (aux);
+      subtasks = gtd_task_get_subtasks (aux);
 
       /* Remove the task from the list */
       gtd_task_list_remove_task (list, aux);
@@ -487,7 +487,7 @@ gtd_task_list_view__remove_task_cb (GtdEditPane *pane,
 
   g_return_if_fail (GTD_IS_TASK_LIST_VIEW (user_data));
 
-  subtasks = gtd_task_get_substasks (task);
+  subtasks = gtd_task_get_subtasks (task);
 
   /*
    * If the task has subtasks, ask the user if he/she really wants to
