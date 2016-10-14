@@ -79,6 +79,7 @@ typedef struct
   gint                   complete_tasks;
   gboolean               show_list_name;
   gboolean               show_completed;
+  gboolean               handle_subtasks : 1;
   GList                 *list;
   GtdTaskList           *task_list;
   GDateTime             *default_date;
@@ -144,6 +145,7 @@ typedef struct
 enum {
   PROP_0,
   PROP_COLOR,
+  PROP_HANDLE_SUBTASKS,
   PROP_SHOW_COMPLETED,
   PROP_SHOW_LIST_NAME,
   PROP_SHOW_NEW_TASK_ROW,
@@ -766,6 +768,12 @@ gtd_task_list_view__add_task (GtdTaskListView *view,
 
   new_row = gtd_task_row_new (task);
 
+  g_object_bind_property (view,
+                          "handle-subtasks",
+                          new_row,
+                          "handle-subtasks",
+                          G_BINDING_DEFAULT | G_BINDING_SYNC_CREATE);
+
   gtd_task_row_set_list_name_visible (GTD_TASK_ROW (new_row), priv->show_list_name);
 
   if (!gtd_task_get_complete (task))
@@ -962,6 +970,10 @@ gtd_task_list_view_get_property (GObject    *object,
 
   switch (prop_id)
     {
+    case PROP_HANDLE_SUBTASKS:
+      g_value_set_boolean (value, self->priv->handle_subtasks);
+      break;
+
     case PROP_SHOW_COMPLETED:
       g_value_set_boolean (value, self->priv->show_completed);
       break;
@@ -989,6 +1001,10 @@ gtd_task_list_view_set_property (GObject      *object,
 
   switch (prop_id)
     {
+    case PROP_HANDLE_SUBTASKS:
+      gtd_task_list_view_set_handle_subtasks (self, g_value_get_boolean (value));
+      break;
+
     case PROP_SHOW_COMPLETED:
       gtd_task_list_view_set_show_completed (self, g_value_get_boolean (value));
       break;
@@ -1222,6 +1238,20 @@ gtd_task_list_view_class_init (GtdTaskListViewClass *klass)
                             G_PARAM_READWRITE));
 
   /**
+   * GtdTaskListView::handle-subtasks:
+   *
+   * Whether the list is able to handle subtasks.
+   */
+  g_object_class_install_property (
+        object_class,
+        PROP_HANDLE_SUBTASKS,
+        g_param_spec_boolean ("handle-subtasks",
+                              "Whether it handles subtasks",
+                              "Whether the list handles subtasks, or not",
+                              TRUE,
+                              G_PARAM_READWRITE));
+
+  /**
    * GtdTaskListView::show-new-task-row:
    *
    * Whether the list shows the "New Task" row or not.
@@ -1291,6 +1321,7 @@ gtd_task_list_view_init (GtdTaskListView *self)
 {
   self->priv = gtd_task_list_view_get_instance_private (self);
   self->priv->can_toggle = TRUE;
+  self->priv->handle_subtasks = TRUE;
 
   gtk_widget_init_template (GTK_WIDGET (self));
 
@@ -1630,6 +1661,12 @@ gtd_task_list_view_set_show_completed (GtdTaskListView *view,
 
               new_row = gtd_task_row_new (l->data);
 
+              g_object_bind_property (view,
+                                      "handle-subtasks",
+                                      new_row,
+                                      "handle-subtasks",
+                                      G_BINDING_DEFAULT | G_BINDING_SYNC_CREATE);
+
               gtd_task_row_set_list_name_visible (GTD_TASK_ROW (new_row), priv->show_list_name);
 
 
@@ -1851,4 +1888,55 @@ gtd_task_list_view_set_color (GtdTaskListView *self,
 
       g_object_notify (G_OBJECT (self), "color");
     }
+}
+
+/**
+ * gtd_task_list_view_get_handle_subtasks:
+ * @self: a #GtdTaskListView
+ *
+ * Retirves whether @self handle subtasks, i.e. make the rows
+ * change padding depending on their depth, show an arrow button
+ * to toggle subtasks, among others.
+ *
+ * Returns: %TRUE if @self handles subtasks, %FALSE otherwise
+ */
+gboolean
+gtd_task_list_view_get_handle_subtasks (GtdTaskListView *self)
+{
+  GtdTaskListViewPrivate *priv;
+
+  g_return_val_if_fail (GTD_IS_TASK_LIST_VIEW (self), FALSE);
+
+  priv = gtd_task_list_view_get_instance_private (self);
+
+  return priv->handle_subtasks;
+}
+
+/**
+ * gtd_task_list_view_set_handle_subtasks:
+ * @self: a #GtdTaskListView
+ * @handle_subtasks: %TRUE to make @self handle subtasks, %FALSE to disable subtasks.
+ *
+ * If %TRUE, makes @self handle subtasks, adjust the task rows according to their
+ * hierarchy level at the subtask tree and show the arrow button to toggle subtasks
+ * of a given task.
+ *
+ * Drag and drop tasks will only work if @self handles subtasks as well.
+ */
+void
+gtd_task_list_view_set_handle_subtasks (GtdTaskListView *self,
+                                        gboolean         handle_subtasks)
+{
+  GtdTaskListViewPrivate *priv;
+
+  g_return_if_fail (GTD_IS_TASK_LIST_VIEW (self));
+
+  priv = gtd_task_list_view_get_instance_private (self);
+
+  if (priv->handle_subtasks == handle_subtasks)
+    return;
+
+  priv->handle_subtasks = handle_subtasks;
+
+  g_object_notify (G_OBJECT (self), "handle-subtasks");
 }

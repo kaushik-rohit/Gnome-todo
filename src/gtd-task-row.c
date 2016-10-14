@@ -52,6 +52,8 @@ struct _GtdTaskRow
   gdouble                    clicked_x;
   gdouble                    clicked_y;
 
+  gboolean                   handle_subtasks : 1;
+
   /* data */
   gboolean                   new_task_mode;
   GtdTask                   *task;
@@ -74,6 +76,7 @@ enum {
 
 enum {
   PROP_0,
+  PROP_HANDLE_SUBTASKS,
   PROP_NEW_TASK_MODE,
   PROP_TASK,
   LAST_PROP
@@ -266,7 +269,8 @@ depth_changed_cb (GtdTaskRow *self,
                   GParamSpec *pspec,
                   GtdTask    *task)
 {
-  gtk_widget_set_margin_start (self->dnd_box, 32 * gtd_task_get_depth (task));
+  gtk_widget_set_margin_start (self->dnd_box,
+                               self->handle_subtasks ? 32 * gtd_task_get_depth (task) : 0);
 }
 
 static gboolean
@@ -493,6 +497,10 @@ gtd_task_row_get_property (GObject    *object,
 
   switch (prop_id)
     {
+    case PROP_HANDLE_SUBTASKS:
+      g_value_set_boolean (value, self->handle_subtasks);
+      break;
+
     case PROP_NEW_TASK_MODE:
       g_value_set_boolean (value, self->new_task_mode);
       break;
@@ -516,6 +524,10 @@ gtd_task_row_set_property (GObject      *object,
 
   switch (prop_id)
     {
+    case PROP_HANDLE_SUBTASKS:
+      gtd_task_row_set_handle_subtasks (self, g_value_get_boolean (value));
+      break;
+
     case PROP_NEW_TASK_MODE:
       gtd_task_row_set_new_task_mode (self, g_value_get_boolean (value));
       break;
@@ -553,6 +565,20 @@ gtd_task_row_class_init (GtdTaskRowClass *klass)
   widget_class->key_press_event = gtd_task_row__key_press_event;
 
   row_class->activate = gtd_task_row_activate;
+
+  /**
+   * GtdTaskRow::handle-subtasks:
+   *
+   * If the row consider the task's subtasks to adjust various UI properties.
+   */
+  g_object_class_install_property (
+          object_class,
+          PROP_HANDLE_SUBTASKS,
+          g_param_spec_boolean ("handle-subtasks",
+                                "If the row adapts to subtasks",
+                                "Whether the row adapts to the task's subtasks",
+                                TRUE,
+                                G_PARAM_READWRITE));
 
   /**
    * GtdTaskRow::new-task-mode:
@@ -673,6 +699,8 @@ gtd_task_row_class_init (GtdTaskRowClass *klass)
 static void
 gtd_task_row_init (GtdTaskRow *self)
 {
+  self->handle_subtasks = TRUE;
+
   gtk_widget_init_template (GTK_WIDGET (self));
 
   /* The source of DnD is the drag icon */
@@ -920,4 +948,29 @@ gtd_task_row_is_drag_valid (GtdTaskRow     *self,
     return FALSE;
 
   return TRUE;
+}
+
+gboolean
+gtd_task_row_get_handle_subtasks (GtdTaskRow *self)
+{
+  g_return_val_if_fail (GTD_IS_TASK_ROW (self), FALSE);
+
+  return self->handle_subtasks;
+}
+
+void
+gtd_task_row_set_handle_subtasks (GtdTaskRow *self,
+                                  gboolean    handle_subtasks)
+{
+  g_return_if_fail (GTD_IS_TASK_ROW (self));
+
+  if (self->handle_subtasks == handle_subtasks)
+    return;
+
+  self->handle_subtasks = handle_subtasks;
+
+  gtk_widget_set_visible (self->dnd_event_box, handle_subtasks);
+  depth_changed_cb (self, NULL, self->task);
+
+  g_object_notify (G_OBJECT (self), "handle-subtasks");
 }

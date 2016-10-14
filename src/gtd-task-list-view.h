@@ -106,6 +106,11 @@ GdkRGBA*                  gtd_task_list_view_get_color          (GtdTaskListView
 void                      gtd_task_list_view_set_color          (GtdTaskListView        *self,
                                                                  GdkRGBA                *color);
 
+gboolean                  gtd_task_list_view_get_handle_subtasks (GtdTaskListView       *self);
+
+void                      gtd_task_list_view_set_handle_subtasks (GtdTaskListView       *self,
+                                                                  gboolean               handle_subtasks);
+
 G_END_DECLS
 
 #endif /* GTD_TASK_LIST_VIEW_H */
