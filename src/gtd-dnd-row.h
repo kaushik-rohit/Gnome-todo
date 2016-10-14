@@ -36,10 +36,7 @@ GtdTaskRow*          gtd_dnd_row_get_row_above                   (GtdDndRow     
 void                 gtd_dnd_row_set_row_above                   (GtdDndRow          *self,
                                                                   GtdTaskRow         *row);
 
-GtdTask*             gtd_dnd_row_get_source_task                 (GtdDndRow          *self);
 
-void                 gtd_dnd_row_set_source_task                 (GtdDndRow          *self,
-                                                                  GtdTask            *source_task);
 
 gboolean             gtd_dnd_row_has_dnd                         (GtdDndRow          *self);
 

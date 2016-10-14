@@ -32,7 +32,6 @@ struct _GtdDndRow
   GtkWidget          *icon;
 
   GtdTaskRow         *row_above;
-  GtdTask            *source_task;
   gint                depth;
   gboolean            has_dnd : 1;
 };
@@ -308,23 +307,6 @@ gtd_dnd_row_set_row_above (GtdDndRow  *self,
 
       g_object_notify_by_pspec (G_OBJECT (self), properties[PROP_ROW_ABOVE]);
     }
-}
-
-GtdTask*
-gtd_dnd_row_get_source_task (GtdDndRow *self)
-{
-  g_return_val_if_fail (GTD_IS_DND_ROW (self), NULL);
-
-  return self->source_task;
-}
-
-void
-gtd_dnd_row_set_source_task (GtdDndRow *self,
-                             GtdTask   *source_task)
-{
-  g_return_if_fail (GTD_IS_DND_ROW (self));
-
-  g_set_object (&self->source_task, source_task);
 }
 
 gboolean
