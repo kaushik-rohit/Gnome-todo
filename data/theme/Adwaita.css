@@ -104,8 +104,13 @@ taskrow.complete label {
 }
 
 /* dnd row */
+dndrow {
+    background-color: rgba(0, 0, 0, 0.1);
+    opacity: 0.5;
+}
+
 dndrow frame {
-    background: alpha(@theme_bg_color, 0.66);
+    background: rgba(0, 0, 0, 0.2);
     min-height: 32px;
 }
 
