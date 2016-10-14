@@ -2,6 +2,7 @@
 <gresources>
   <gresource prefix="/org/gnome/todo">
     <file alias="gtk/menus.ui">gtk/menus.ui</file>
+    <file compressed="true" preprocess="xml-stripblanks">ui/dnd-row.ui</file>
     <file compressed="true" preprocess="xml-stripblanks">ui/edit-pane.ui</file>
     <file compressed="true" preprocess="xml-stripblanks">ui/initial-setup.ui</file>
     <file compressed="true" preprocess="xml-stripblanks">ui/list-selector-grid-item.ui</file>

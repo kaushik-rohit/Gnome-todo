@@ -103,6 +103,12 @@ taskrow.complete label {
     text-decoration-line: line-through;
 }
 
+/* dnd row */
+dndrow frame {
+    background: alpha(#333333, 0.5);
+    min-height: 36px;
+}
+
 /* extension list */
 list.extension-list row {
     border-bottom: solid 1px @borders

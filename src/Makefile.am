@@ -62,6 +62,8 @@ gnome_todo_SOURCES = \
 	gtd-application.h \
 	gtd-arrow-frame.c \
 	gtd-arrow-frame.h \
+	gtd-dnd-row.c \
+	gtd-dnd-row.h \
 	gtd-edit-pane.c \
 	gtd-edit-pane.h \
 	gtd-enums.h \
@@ -96,6 +98,7 @@ gnome_todo_LDFLAGS = \
 	-Wl,--undefined=gtd_plugin_dark_theme_register_types \
 	-Wl,--undefined=gtd_plugin_scheduled_panel_register_types \
 	-Wl,--undefined=gtd_plugin_today_panel_register_types \
+	-lm \
 	$(GNOME_TODO_WARN_LDFLAGS)
 
 gnome_todo_LDADD = \
@@ -206,6 +209,8 @@ libgtd_la_SOURCES = \
 	gtd-application.h \
 	gtd-arrow-frame.c \
 	gtd-arrow-frame.h \
+	gtd-dnd-row.c \
+	gtd-dnd-row.h \
 	gtd-edit-pane.c \
 	gtd-edit-pane.h \
 	gtd-enum-types.c \
@@ -236,7 +241,8 @@ libgtd_la_CFLAGS = \
 	$(GNOME_TODO_WARN_CFLAGS)
 
 libgtd_la_LDFLAGS = \
-	-Wl,--export-dynamic
+	-Wl,--export-dynamic \
+	-lm
 
 endif
 

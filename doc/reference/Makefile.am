@@ -56,6 +56,7 @@ CFILE_GLOB = \
 IGNORE_HFILES = \
 	gtd-application.h \
 	gtd-arrow-frame.h \
+	gtd-dnd-row.h \
 	gtd-edit-pane.h \
 	gtd-enum-types.h \
 	gtd-initial-setup-window.h \
