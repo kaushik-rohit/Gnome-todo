@@ -60,6 +60,7 @@ struct _GtdTaskRow
 };
 
 #define PRIORITY_ICON_SIZE         8
+#define DND_ICON_SCALE             0.85
 
 G_DEFINE_TYPE (GtdTaskRow, gtd_task_row, GTK_TYPE_LIST_BOX_ROW)
 
@@ -123,22 +124,15 @@ set_dnd_cursor (GtkWidget  *widget,
   g_clear_object (&cursor);
 }
 
-static GdkPixbuf*
+static cairo_surface_t*
 get_dnd_icon (GtdTaskRow *self)
 {
-  GdkWindow *window;
-  GdkPixbuf *pixbuf;
+  cairo_surface_t *surface;
   GtkWidget *widget;
-  gint real_x, real_y;
+  cairo_t *cr;
+  gint real_x;
 
   widget = GTK_WIDGET (self);
-  gtk_widget_translate_coordinates (widget,
-                                    gtk_widget_get_parent (widget),
-                                    0,
-                                    0,
-                                    NULL,
-                                    &real_y);
-
   gtk_widget_translate_coordinates (self->dnd_event_box,
                                     gtk_widget_get_parent (widget),
                                     0,
@@ -146,14 +140,21 @@ get_dnd_icon (GtdTaskRow *self)
                                     &real_x,
                                     NULL);
 
-  window = gtk_widget_get_window (GTK_WIDGET (self));
-  pixbuf = gdk_pixbuf_get_from_window (window,
-                                       real_x,
-                                       real_y,
-                                       gtk_widget_get_allocated_width (widget) - real_x,
-                                       gtk_widget_get_allocated_height (widget));
+  /* Make it transparent */
+  surface = cairo_image_surface_create (CAIRO_FORMAT_ARGB32,
+                                        gtk_widget_get_allocated_width (widget) * DND_ICON_SCALE,
+                                        gtk_widget_get_allocated_height (widget) * DND_ICON_SCALE);
 
-  return pixbuf;
+  cr = cairo_create (surface);
+  cairo_scale (cr, DND_ICON_SCALE, DND_ICON_SCALE);
+
+  gtk_widget_draw (widget, cr);
+
+  cairo_surface_set_device_offset (surface,
+                                   -(self->clicked_x + real_x) * DND_ICON_SCALE,
+                                   -self->clicked_y * DND_ICON_SCALE);
+
+  return surface;
 }
 
 static gboolean
@@ -192,20 +193,17 @@ drag_begin_cb (GtkWidget      *widget,
                GdkDragContext *context,
                GtdTaskRow     *self)
 {
-  GdkPixbuf *pixbuf;
+  cairo_surface_t *surface;
 
-  pixbuf = get_dnd_icon (self);
+  surface = get_dnd_icon (self);
 
   set_dnd_cursor (widget, CURSOR_GRABBING);
 
-  gtk_drag_set_icon_pixbuf (context,
-                            pixbuf,
-                            self->clicked_x,
-                            self->clicked_y);
+  gtk_drag_set_icon_surface (context, surface);
 
   gtk_widget_hide (GTK_WIDGET (self));
 
-  g_clear_object (&pixbuf);
+  g_clear_pointer (&surface, cairo_surface_destroy);
 }
 
 static void
