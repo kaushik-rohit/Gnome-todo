@@ -312,6 +312,7 @@ gtd_panel_today_init (GtdPanelToday *self)
 
   /* The main view */
   self->view = gtd_task_list_view_new ();
+  gtd_task_list_view_set_handle_subtasks (GTD_TASK_LIST_VIEW (self->view), FALSE);
   gtd_task_list_view_set_show_list_name (GTD_TASK_LIST_VIEW (self->view), TRUE);
   gtd_task_list_view_set_default_date (GTD_TASK_LIST_VIEW (self->view), now);
 
