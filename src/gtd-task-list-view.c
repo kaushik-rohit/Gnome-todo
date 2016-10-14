@@ -989,6 +989,16 @@ gtd_task_list_view_drag_motion (GtkWidget      *widget,
       gtk_list_box_invalidate_sort (priv->listbox);
     }
 
+  /*
+   * Also pass the current motion to the DnD row, so it correctly
+   * adjusts itself - even when the DnD is hovering another row.
+   */
+  gtd_dnd_row_drag_motion (GTK_WIDGET (priv->dnd_row),
+                           context,
+                           x,
+                           y,
+                           time);
+
   gdk_drag_status (context, GDK_ACTION_COPY, time);
 
   return TRUE;
@@ -1002,20 +1012,14 @@ gtd_task_list_view_drag_drop (GtkWidget      *widget,
                               guint           time)
 {
   GtdTaskListViewPrivate *priv;
-  GtkWidget *source_widget, *row;
 
   priv = gtd_task_list_view_get_instance_private (GTD_TASK_LIST_VIEW (widget));
 
-  gtk_widget_hide (priv->dnd_row);
-
-  /*
-   * When the drag operation began, the source row was hidden. Now is the time
-   * to show it again.
-   */
-  source_widget = gtk_drag_get_source_widget (context);
-  row = gtk_widget_get_ancestor (source_widget, GTK_TYPE_LIST_BOX_ROW);
-
-  gtk_widget_show (row);
+  gtd_dnd_row_drag_drop (GTK_WIDGET (priv->dnd_row),
+                         context,
+                         x,
+                         y,
+                         time);
 
   return TRUE;
 }

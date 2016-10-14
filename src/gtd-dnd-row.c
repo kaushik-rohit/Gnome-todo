@@ -126,7 +126,7 @@ gtd_dnd_row_drag_leave (GtkWidget      *widget,
   self->has_dnd = FALSE;
 }
 
-static gboolean
+gboolean
 gtd_dnd_row_drag_motion (GtkWidget      *widget,
                          GdkDragContext *context,
                          gint            x,
@@ -162,7 +162,7 @@ gtd_dnd_row_drag_motion (GtkWidget      *widget,
   return TRUE;
 }
 
-static gboolean
+gboolean
 gtd_dnd_row_drag_drop (GtkWidget      *widget,
                        GdkDragContext *context,
                        gint            x,

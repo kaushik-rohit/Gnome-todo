@@ -37,6 +37,17 @@ void                 gtd_dnd_row_set_row_above                   (GtdDndRow     
                                                                   GtdTaskRow         *row);
 
 
+gboolean             gtd_dnd_row_drag_drop                       (GtkWidget          *widget,
+                                                                  GdkDragContext     *context,
+                                                                  gint                x,
+                                                                  gint                y,
+                                                                  guint               time);
+
+gboolean             gtd_dnd_row_drag_motion                     (GtkWidget          *widget,
+                                                                  GdkDragContext     *context,
+                                                                  gint                x,
+                                                                  gint                y,
+                                                                  guint               time);
 
 gboolean             gtd_dnd_row_has_dnd                         (GtdDndRow          *self);
 
