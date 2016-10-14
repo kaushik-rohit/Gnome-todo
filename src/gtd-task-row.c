@@ -136,14 +136,21 @@ get_dnd_icon (GtdTaskRow *self)
                                     gtk_widget_get_parent (widget),
                                     0,
                                     0,
-                                    &real_x,
+                                    NULL,
                                     &real_y);
+
+  gtk_widget_translate_coordinates (self->dnd_event_box,
+                                    gtk_widget_get_parent (widget),
+                                    0,
+                                    0,
+                                    &real_x,
+                                    NULL);
 
   window = gtk_widget_get_window (GTK_WIDGET (self));
   pixbuf = gdk_pixbuf_get_from_window (window,
                                        real_x,
                                        real_y,
-                                       gtk_widget_get_allocated_width (widget),
+                                       gtk_widget_get_allocated_width (widget) - real_x,
                                        gtk_widget_get_allocated_height (widget));
 
   return pixbuf;
@@ -186,23 +193,15 @@ drag_begin_cb (GtkWidget      *widget,
                GtdTaskRow     *self)
 {
   GdkPixbuf *pixbuf;
-  gint drag_x, drag_y;
 
   pixbuf = get_dnd_icon (self);
 
   set_dnd_cursor (widget, CURSOR_GRABBING);
 
-  gtk_widget_translate_coordinates (widget,
-                                    GTK_WIDGET (self),
-                                    0,
-                                    0,
-                                    &drag_x,
-                                    &drag_y);
-
   gtk_drag_set_icon_pixbuf (context,
                             pixbuf,
-                            drag_x + self->clicked_x,
-                            drag_y + self->clicked_y);
+                            self->clicked_x,
+                            self->clicked_y);
 
   gtk_widget_hide (GTK_WIDGET (self));
 
