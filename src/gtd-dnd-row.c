@@ -28,6 +28,7 @@ struct _GtdDndRow
 {
   GtkListBoxRow       parent;
 
+  GtkWidget          *box;
   GtkWidget          *icon;
 
   GtdTaskRow         *row_above;
@@ -140,9 +141,13 @@ gtd_dnd_row_drag_motion (GtkWidget      *widget,
   if (self->row_above)
     {
       GtdTask *task;
+      gint offset;
 
       task = gtd_task_row_get_task (self->row_above);
-      self->depth = CLAMP (floor (x / 32), 0, gtd_task_get_depth (task) + 1);
+      offset = gtk_widget_get_margin_start (self->box) + gtk_widget_get_allocated_width (self->icon) + 12;
+      self->depth = CLAMP (floor ((x - offset) / 32),
+                           0,
+                           gtd_task_get_depth (task) + 1);
     }
   else
     {
@@ -259,6 +264,7 @@ gtd_dnd_row_class_init (GtdDndRowClass *klass)
 
   gtk_widget_class_set_template_from_resource (widget_class, "/org/gnome/todo/ui/dnd-row.ui");
 
+  gtk_widget_class_bind_template_child (widget_class, GtdDndRow, box);
   gtk_widget_class_bind_template_child (widget_class, GtdDndRow, icon);
 
   gtk_widget_class_set_css_name (widget_class, "dndrow");
