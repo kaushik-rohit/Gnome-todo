@@ -159,7 +159,9 @@ gtd_list_selector_grid_item__render_thumbnail (GtdListSelectorGridItem *item)
 
       for (l = tasks; l != NULL; l = l->next)
         {
-          gint font_height;
+          GString *string;
+          gchar *formatted_title;
+          gint i, font_height;
 
           /* Don't render completed tasks */
           if (gtd_task_get_complete (l->data))
@@ -168,13 +170,26 @@ gtd_list_selector_grid_item__render_thumbnail (GtdListSelectorGridItem *item)
           /* Hardcoded spacing between tasks */
           y += 4;
 
+          /* Adjust the title according to the subtask hierarchy */
+          string = g_string_new ("");
+
+          for (i = 0; i < gtd_task_get_depth (l->data); i++)
+            g_string_append (string, "    ");
+
+          g_string_append (string, gtd_task_get_title (l->data));
+
+          formatted_title = g_string_free (string, FALSE);
+
+          /* Set the real title */
           pango_layout_set_text (layout,
-                                 gtd_task_get_title (l->data),
+                                 formatted_title,
                                  -1);
 
           pango_layout_get_pixel_size (layout,
                                        NULL,
                                        &font_height);
+
+          g_free (formatted_title);
 
           /*
            * If we reach the last visible row, it should draw a
