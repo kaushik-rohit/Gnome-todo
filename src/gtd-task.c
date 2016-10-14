@@ -1488,7 +1488,7 @@ gtd_task_is_subtask (GtdTask *self,
 
       aux = g_queue_pop_head (queue);
     }
-  while (!g_queue_is_empty (queue));
+  while (aux);
 
   g_queue_free (queue);
 
