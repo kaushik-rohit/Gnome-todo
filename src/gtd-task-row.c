@@ -204,6 +204,8 @@ drag_begin_cb (GtkWidget      *widget,
                             drag_x + self->clicked_x,
                             drag_y + self->clicked_y);
 
+  gtk_widget_hide (GTK_WIDGET (self));
+
   g_clear_object (&pixbuf);
 }
 
@@ -503,108 +505,6 @@ gtd_task_row_set_property (GObject      *object,
     }
 }
 
-static gboolean
-gtd_task_row_drag_drop (GtkWidget      *widget,
-                        GdkDragContext *context,
-                        gint            x,
-                        gint            y,
-                        guint           time)
-{
-  GtdProvider *provider;
-  GtkWidget *source_widget, *row;
-  GtdTask *row_task, *target_task;
-
-  row = NULL;
-  source_widget = gtk_drag_get_source_widget (context);
-
-  if (!source_widget)
-    {
-      gdk_drag_status (context, 0, time);
-      return FALSE;
-    }
-
-  row = gtk_widget_get_ancestor (source_widget, GTD_TYPE_TASK_ROW);
-
-  /* Do not allow dropping on itself, nor on the new task row */
-  if (!row || row == widget || GTD_TASK_ROW (row)->new_task_mode)
-    {
-      gdk_drag_status (context, 0, time);
-      return FALSE;
-    }
-
-  row_task = GTD_TASK_ROW (row)->task;
-  target_task = GTD_TASK_ROW (widget)->task;
-
-  /* Forbid adding the parent task as a subtask */
-  if (gtd_task_is_subtask (row_task, target_task))
-    {
-      gdk_drag_status (context, 0, time);
-      return FALSE;
-    }
-
-  gtd_task_add_subtask (target_task, row_task);
-
-  /* Save the task */
-  provider = gtd_task_list_get_provider (gtd_task_get_list (row_task));
-
-  gtd_task_save (row_task);
-  gtd_provider_update_task (provider, row_task);
-
-  return TRUE;
-}
-
-static void
-gtd_task_row_drag_leave (GtkWidget      *widget,
-                         GdkDragContext *context,
-                         guint           time)
-{
-  gtk_drag_unhighlight (widget);
-}
-
-static gboolean
-gtd_task_row_drag_motion (GtkWidget      *widget,
-                          GdkDragContext *context,
-                          gint            x,
-                          gint            y,
-                          guint           time)
-{
-  GtkWidget *source_widget, *row;
-  GtdTask *row_task, *target_task;
-
-  row = NULL;
-  source_widget = gtk_drag_get_source_widget (context);
-
-  if (!source_widget)
-    {
-      gdk_drag_status (context, 0, time);
-      return FALSE;
-    }
-
-  row = gtk_widget_get_ancestor (source_widget, GTD_TYPE_TASK_ROW);
-
-  /* Do not allow dropping on itself, nor on the new task row */
-  if (!row || row == widget || GTD_TASK_ROW (widget)->new_task_mode)
-    {
-      gdk_drag_status (context, 0, time);
-      return FALSE;
-    }
-
-  row_task = GTD_TASK_ROW (row)->task;
-  target_task = GTD_TASK_ROW (widget)->task;
-
-  /* Forbid adding the parent task as a subtask */
-  if (gtd_task_is_subtask (row_task, target_task))
-    {
-      gdk_drag_status (context, 0, time);
-      return FALSE;
-    }
-
-  gdk_drag_status (context, GDK_ACTION_COPY, time);
-  gtk_drag_highlight (widget);
-
-  return TRUE;
-}
-
 static void
 gtd_task_row_activate (GtkListBoxRow *row)
 {
@@ -624,9 +524,6 @@ gtd_task_row_class_init (GtdTaskRowClass *klass)
   object_class->get_property = gtd_task_row_get_property;
   object_class->set_property = gtd_task_row_set_property;
 
-  widget_class->drag_drop = gtd_task_row_drag_drop;
-  widget_class->drag_leave = gtd_task_row_drag_leave;
-  widget_class->drag_motion = gtd_task_row_drag_motion;
   widget_class->focus_in_event = gtd_task_row__focus_in;
   widget_class->key_press_event = gtd_task_row__key_press_event;
 
@@ -759,13 +656,6 @@ gtd_task_row_init (GtdTaskRow *self)
                        NULL,
                        0,
                        GDK_ACTION_COPY);
-
-  /* And the destination is the row itself */
-  gtk_drag_dest_set (GTK_WIDGET (self),
-                     0,
-                     NULL,
-                     0,
-                     GDK_ACTION_MOVE);
 }
 
 /**
@@ -976,4 +866,33 @@ gtd_task_row_destroy (GtdTaskRow *self)
                                                     (GSourceFunc) gtd_task_row__destroy_cb,
                                                     self);
     }
+}
+
+gboolean
+gtd_task_row_is_drag_valid (GtdTaskRow     *self,
+                            GdkDragContext *context)
+{
+  GtdTaskRow *row;
+  GtkWidget *source_widget;
+  GtdTask *row_task, *target_task;
+
+  source_widget = gtk_drag_get_source_widget (context);
+
+  if (!source_widget)
+    return FALSE;
+
+  row = GTD_TASK_ROW (gtk_widget_get_ancestor (source_widget, GTD_TYPE_TASK_ROW));
+
+  /* Do not allow dropping on itself, nor on the new task row */
+  if (row == self || self->new_task_mode)
+    return FALSE;
+
+  row_task = row->task;
+  target_task = self->task;
+
+  /* Forbid adding the parent task as a subtask */
+  if (gtd_task_is_subtask (row_task, target_task))
+    return FALSE;
+
+  return TRUE;
 }

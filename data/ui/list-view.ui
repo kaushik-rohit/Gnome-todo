@@ -47,6 +47,10 @@
                             <signal name="create-task" handler="gtd_task_list_view__create_task" object="GtdTaskListView" swapped="no" />
                           </object>
                         </child>
+                        <child>
+                          <object class="GtdDndRow" id="dnd_row">
+                          </object>
+                        </child>
                         <style>
                           <class name="transparent" />
                         </style>

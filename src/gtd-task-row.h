@@ -49,6 +49,9 @@ void                      gtd_task_row_reveal                   (GtdTaskRow     
 
 void                      gtd_task_row_destroy                  (GtdTaskRow          *row);
 
+gboolean                  gtd_task_row_is_drag_valid            (GtdTaskRow          *self,
+                                                                 GdkDragContext      *context);
+
 G_END_DECLS
 
 #endif /* GTD_TASK_ROW_H */
