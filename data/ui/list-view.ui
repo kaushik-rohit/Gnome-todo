@@ -49,6 +49,7 @@
                         </child>
                         <child>
                           <object class="GtdDndRow" id="dnd_row">
+                            <property name="no-show-all">True</property>
                           </object>
                         </child>
                         <style>
