@@ -459,6 +459,33 @@ gtd_task_row_finalize (GObject *object)
 }
 
 static void
+gtd_task_row_dispose (GObject *object)
+{
+  GtdTaskRow *self;
+  GtdTask *task;
+
+  self = GTD_TASK_ROW (object);
+  task = self->task;
+
+  if (task)
+    {
+      g_signal_handlers_disconnect_by_func (task,
+                                        depth_changed_cb,
+                                        self);
+
+      g_signal_handlers_disconnect_by_func (task,
+                                            complete_changed_cb,
+                                            self);
+
+      g_signal_handlers_disconnect_by_func (task,
+                                            gtd_task_row__priority_changed_cb,
+                                            self);
+    }
+
+  G_OBJECT_CLASS (gtd_task_row_parent_class)->dispose (object);
+}
+
+static void
 gtd_task_row_get_property (GObject    *object,
                            guint       prop_id,
                            GValue     *value,
@@ -519,6 +546,7 @@ gtd_task_row_class_init (GtdTaskRowClass *klass)
   GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
   GtkListBoxRowClass *row_class = GTK_LIST_BOX_ROW_CLASS (klass);
 
+  object_class->dispose = gtd_task_row_dispose;
   object_class->finalize = gtd_task_row_finalize;
   object_class->get_property = gtd_task_row_get_property;
   object_class->set_property = gtd_task_row_set_property;
