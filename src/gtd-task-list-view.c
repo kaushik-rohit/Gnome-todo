@@ -1086,7 +1086,7 @@ gtd_task_list_view_drag_motion (GtkWidget      *widget,
    * drop target. Otherwise, the user can drop at the space after the rows, and the row
    * that started the DnD operation is hidden forever.
    */
-  if (!hovered_row || GTD_IS_DND_ROW (hovered_row))
+  if (!hovered_row)
     {
       gtd_dnd_row_set_row_above (GTD_DND_ROW (priv->dnd_row), NULL);
       gtk_widget_hide (priv->dnd_row);
