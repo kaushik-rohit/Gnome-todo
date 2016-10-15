@@ -36,8 +36,7 @@
                       <object class="GtkListBox" id="listbox">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="valign">start</property>
-                        <property name="hexpand">True</property>
+                        <property name="vexpand">True</property>
                         <property name="selection_mode">none</property>
                         <signal name="row-activated" handler="gtd_task_list_view__row_activated" object="GtdTaskListView" swapped="no" />
                         <child>
