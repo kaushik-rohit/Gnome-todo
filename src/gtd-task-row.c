@@ -937,14 +937,7 @@ gtd_task_row_is_drag_valid (GtdTaskRow     *self,
   row = GTD_TASK_ROW (gtk_widget_get_ancestor (source_widget, GTD_TYPE_TASK_ROW));
 
   /* Do not allow dropping on itself, nor on the new task row */
-  if (row == self || self->new_task_mode)
-    return FALSE;
-
-  row_task = row->task;
-  target_task = self->task;
-
-  /* Forbid adding the parent task as a subtask */
-  if (gtd_task_is_subtask (row_task, target_task))
+  if (row == self)
     return FALSE;
 
   return TRUE;

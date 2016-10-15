@@ -1081,10 +1081,18 @@ gtd_task_list_view_drag_motion (GtkWidget      *widget,
   priv = gtd_task_list_view_get_instance_private (GTD_TASK_LIST_VIEW (widget));
   hovered_row = gtk_list_box_get_row_at_y (GTK_LIST_BOX (priv->listbox), y);
 
+  /*
+   * When not hovering any row, we still have to make sure that the listbox is a valid
+   * drop target. Otherwise, the user can drop at the space after the rows, and the row
+   * that started the DnD operation is hidden forever.
+   */
   if (!hovered_row || GTD_IS_DND_ROW (hovered_row))
     {
-      gdk_drag_status (context, 0, time);
-      return FALSE;
+      gtd_dnd_row_set_row_above (GTD_DND_ROW (priv->dnd_row), NULL);
+      gtk_widget_hide (priv->dnd_row);
+
+      gdk_drag_status (context, GDK_ACTION_COPY, time);
+      return TRUE;
     }
 
   task_row = GTD_TASK_ROW (hovered_row);
@@ -1104,41 +1112,66 @@ gtd_task_list_view_drag_motion (GtkWidget      *widget,
 
   gtk_widget_show (priv->dnd_row);
 
-  row_above_dnd = task_row;
   current_above_row = gtd_dnd_row_get_row_above (GTD_DND_ROW (priv->dnd_row));
 
   /*
    * If the pointer if in the top part of the row, move the DnD row to
-   * the previous row.
+   * the previous row. Also, when hovering the new task row, only show
+   * the dnd row over it (never below).
    */
-  if (row_y < row_height / 2)
+  if (row_y < row_height / 2 || gtd_task_row_get_new_task_mode (task_row))
     {
-      GtkListBoxRow *tmp;
-      gint row_index;
+      gint row_index, i;
 
       row_index = gtk_list_box_row_get_index (hovered_row);
-      tmp = NULL;
 
       /* Search for a valid task row */
-      while (!GTD_IS_TASK_ROW (tmp) && row_index >= 0)
-        tmp = gtk_list_box_get_row_at_index (GTK_LIST_BOX (priv->listbox), --row_index);
+      for (i = row_index - 1; i >= 0; i--)
+        {
+          GtkListBoxRow *aux;
 
-      row_above_dnd = GTD_TASK_ROW (tmp);
+          aux = gtk_list_box_get_row_at_index (GTK_LIST_BOX (priv->listbox), i);
+
+          /* Skip DnD, New task and hidden rows */
+          if (GTD_IS_DND_ROW (aux) ||
+              gtd_task_row_get_new_task_mode (GTD_TASK_ROW (aux)) ||
+              (aux && !gtk_widget_get_visible (GTK_WIDGET (aux))))
+            {
+              continue;
+            }
+
+
+          row_above_dnd = GTD_TASK_ROW (aux);
+
+          break;
+        }
     }
   else
     {
       row_above_dnd = task_row;
     }
 
-
-  /*
-   * Check it again here because row_above_dnd might be the row that started this
-   * Drag n' Drop
-   */
-  if (row_above_dnd && !gtd_task_row_is_drag_valid (row_above_dnd, context))
+  /* Check if we're not trying to add a subtask */
+  if (row_above_dnd)
     {
-      gdk_drag_status (context, 0, time);
-      return FALSE;
+      GtkWidget *dnd_widget, *dnd_row;
+      GtdTask *row_above_task, *dnd_task;
+
+      dnd_widget = gtk_drag_get_source_widget (context);
+      dnd_row = gtk_widget_get_ancestor (dnd_widget, GTK_TYPE_LIST_BOX_ROW);
+      dnd_task = gtd_task_row_get_task (GTD_TASK_ROW (dnd_row));
+      row_above_task = gtd_task_row_get_task (row_above_dnd);
+
+      /* Forbid DnD'ing a row into a subtask */
+      if (row_above_task && gtd_task_is_subtask (dnd_task, row_above_task))
+        {
+          gtd_dnd_row_set_row_above (GTD_DND_ROW (priv->dnd_row), NULL);
+          gtk_widget_hide (priv->dnd_row);
+
+          gdk_drag_status (context, 0, time);
+          return FALSE;
+        }
+
     }
 
   if (current_above_row != row_above_dnd)
