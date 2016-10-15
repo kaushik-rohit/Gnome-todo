@@ -1088,22 +1088,14 @@ gtd_task_list_view_drag_motion (GtkWidget      *widget,
    */
   if (!hovered_row)
     {
-      gtd_dnd_row_set_row_above (GTD_DND_ROW (priv->dnd_row), NULL);
       gtk_widget_hide (priv->dnd_row);
+      gtd_dnd_row_set_row_above (GTD_DND_ROW (priv->dnd_row), NULL);
 
-      gdk_drag_status (context, GDK_ACTION_COPY, time);
-      return TRUE;
-    }
-
-  task_row = GTD_TASK_ROW (hovered_row);
-
-  if (!gtd_task_row_is_drag_valid (task_row, context))
-    {
-      gdk_drag_status (context, 0, time);
-      return FALSE;
+      goto success;
     }
 
   row_above_dnd = NULL;
+  task_row = GTD_TASK_ROW (hovered_row);
   row_height = gtk_widget_get_allocated_height (GTK_WIDGET (hovered_row));
   gtk_widget_translate_coordinates (widget,
                                     GTK_WIDGET (hovered_row),
@@ -1165,11 +1157,10 @@ gtd_task_list_view_drag_motion (GtkWidget      *widget,
       /* Forbid DnD'ing a row into a subtask */
       if (row_above_task && gtd_task_is_subtask (dnd_task, row_above_task))
         {
-          gtd_dnd_row_set_row_above (GTD_DND_ROW (priv->dnd_row), NULL);
           gtk_widget_hide (priv->dnd_row);
+          gtd_dnd_row_set_row_above (GTD_DND_ROW (priv->dnd_row), NULL);
 
-          gdk_drag_status (context, 0, time);
-          return FALSE;
+          goto fail;
         }
 
     }
@@ -1190,9 +1181,13 @@ gtd_task_list_view_drag_motion (GtkWidget      *widget,
                            y,
                            time);
 
+success:
   gdk_drag_status (context, GDK_ACTION_COPY, time);
-
   return TRUE;
+
+fail:
+  gdk_drag_status (context, 0, time);
+  return FALSE;
 }
 
 static gboolean

@@ -922,28 +922,6 @@ gtd_task_row_destroy (GtdTaskRow *self)
 }
 
 gboolean
-gtd_task_row_is_drag_valid (GtdTaskRow     *self,
-                            GdkDragContext *context)
-{
-  GtdTaskRow *row;
-  GtkWidget *source_widget;
-  GtdTask *row_task, *target_task;
-
-  source_widget = gtk_drag_get_source_widget (context);
-
-  if (!source_widget)
-    return FALSE;
-
-  row = GTD_TASK_ROW (gtk_widget_get_ancestor (source_widget, GTD_TYPE_TASK_ROW));
-
-  /* Do not allow dropping on itself, nor on the new task row */
-  if (row == self)
-    return FALSE;
-
-  return TRUE;
-}
-
-gboolean
 gtd_task_row_get_handle_subtasks (GtdTaskRow *self)
 {
   g_return_val_if_fail (GTD_IS_TASK_ROW (self), FALSE);
