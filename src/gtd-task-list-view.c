@@ -1389,6 +1389,9 @@ gtd_task_list_view_set_list (GtdTaskListView *view,
   old_list = priv->list;
   priv->complete_tasks = 0;
 
+  /* Reset the DnD parent row */
+  gtd_dnd_row_set_row_above (GTD_DND_ROW (priv->dnd_row), NULL);
+
   /* Remove the tasks that are in the current list, but not in the new list */
   for (l = old_list; l != NULL; l = l->next)
     {
