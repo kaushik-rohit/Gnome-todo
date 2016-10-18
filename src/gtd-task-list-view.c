@@ -1051,42 +1051,46 @@ gtd_task_list_view_constructed (GObject *object)
                               NULL);
 }
 
+/*
+ * Listbox Drag n' Drop functions
+ */
 static void
-gtd_task_list_view_drag_leave (GtkWidget      *widget,
-                               GdkDragContext *context,
-                               guint           time)
+listbox_drag_leave (GtkListBox      *listbox,
+                    GdkDragContext  *context,
+                    guint            time,
+                    GtdTaskListView *self)
 {
   GtdTaskListViewPrivate *priv;
 
-  priv = gtd_task_list_view_get_instance_private (GTD_TASK_LIST_VIEW (widget));
+  priv = gtd_task_list_view_get_instance_private (self);
 
   gtk_widget_set_visible (priv->dnd_row, gtd_dnd_row_has_dnd (GTD_DND_ROW (priv->dnd_row)));
 
-  gtk_list_box_invalidate_sort (priv->listbox);
+  gtk_list_box_invalidate_sort (listbox);
 }
 
-
 static gboolean
-gtd_task_list_view_drag_motion (GtkWidget      *widget,
-                                GdkDragContext *context,
-                                gint            x,
-                                gint            y,
-                                guint           time)
+listbox_drag_motion (GtkListBox      *listbox,
+                     GdkDragContext  *context,
+                     gint             x,
+                     gint             y,
+                     guint            time,
+                     GtdTaskListView *self)
 {
   GtdTaskListViewPrivate *priv;
   GtkListBoxRow *hovered_row;
-  GtdTaskRow *task_row, *row_above_dnd, *current_above_row;
+  GtdTaskRow *task_row, *row_above_dnd;
   gint row_x, row_y, row_height;
 
-  priv = gtd_task_list_view_get_instance_private (GTD_TASK_LIST_VIEW (widget));
-  hovered_row = gtk_list_box_get_row_at_y (GTK_LIST_BOX (priv->listbox), y);
+  priv = gtd_task_list_view_get_instance_private (self);
+  hovered_row = gtk_list_box_get_row_at_y (listbox, y);
 
   /*
    * When not hovering any row, we still have to make sure that the listbox is a valid
    * drop target. Otherwise, the user can drop at the space after the rows, and the row
    * that started the DnD operation is hidden forever.
    */
-  if (!hovered_row)
+  if (!hovered_row || GTD_IS_DND_ROW (hovered_row))
     {
       gtk_widget_hide (priv->dnd_row);
       gtd_dnd_row_set_row_above (GTD_DND_ROW (priv->dnd_row), NULL);
@@ -1097,14 +1101,12 @@ gtd_task_list_view_drag_motion (GtkWidget      *widget,
   row_above_dnd = NULL;
   task_row = GTD_TASK_ROW (hovered_row);
   row_height = gtk_widget_get_allocated_height (GTK_WIDGET (hovered_row));
-  gtk_widget_translate_coordinates (widget,
+  gtk_widget_translate_coordinates (GTK_WIDGET (listbox),
                                     GTK_WIDGET (hovered_row),
                                     x, y,
                                     &row_x, &row_y);
 
   gtk_widget_show (priv->dnd_row);
-
-  current_above_row = gtd_dnd_row_get_row_above (GTD_DND_ROW (priv->dnd_row));
 
   /*
    * If the pointer if in the top part of the row, move the DnD row to
@@ -1165,11 +1167,7 @@ gtd_task_list_view_drag_motion (GtkWidget      *widget,
 
     }
 
-  if (current_above_row != row_above_dnd)
-    {
-      gtd_dnd_row_set_row_above (GTD_DND_ROW (priv->dnd_row), row_above_dnd);
-      gtk_list_box_invalidate_sort (priv->listbox);
-    }
+  gtd_dnd_row_set_row_above (GTD_DND_ROW (priv->dnd_row), row_above_dnd);
 
   /*
    * Also pass the current motion to the DnD row, so it correctly
@@ -1191,15 +1189,16 @@ fail:
 }
 
 static gboolean
-gtd_task_list_view_drag_drop (GtkWidget      *widget,
-                              GdkDragContext *context,
-                              gint            x,
-                              gint            y,
-                              guint           time)
+listbox_drag_drop (GtkWidget       *widget,
+                   GdkDragContext  *context,
+                   gint             x,
+                   gint             y,
+                   guint            time,
+                   GtdTaskListView *self)
 {
   GtdTaskListViewPrivate *priv;
 
-  priv = gtd_task_list_view_get_instance_private (GTD_TASK_LIST_VIEW (widget));
+  priv = gtd_task_list_view_get_instance_private (self);
 
   gtd_dnd_row_drag_drop (GTK_WIDGET (priv->dnd_row),
                          context,
@@ -1243,9 +1242,6 @@ gtd_task_list_view_class_init (GtdTaskListViewClass *klass)
   object_class->get_property = gtd_task_list_view_get_property;
   object_class->set_property = gtd_task_list_view_set_property;
 
-  widget_class->drag_drop = gtd_task_list_view_drag_drop;
-  widget_class->drag_leave = gtd_task_list_view_drag_leave;
-  widget_class->drag_motion = gtd_task_list_view_drag_motion;
   widget_class->map = gtd_task_list_view_map;
 
   g_type_ensure (GTD_TYPE_TASK_ROW);
@@ -1340,6 +1336,9 @@ gtd_task_list_view_class_init (GtdTaskListViewClass *klass)
   gtk_widget_class_bind_template_callback (widget_class, gtd_task_list_view__edit_task_finished);
   gtk_widget_class_bind_template_callback (widget_class, gtd_task_list_view__remove_task_cb);
   gtk_widget_class_bind_template_callback (widget_class, gtd_task_list_view__row_activated);
+  gtk_widget_class_bind_template_callback (widget_class, listbox_drag_drop);
+  gtk_widget_class_bind_template_callback (widget_class, listbox_drag_leave);
+  gtk_widget_class_bind_template_callback (widget_class, listbox_drag_motion);
 
   gtk_widget_class_set_css_name (widget_class, "task-list-view");
 }
@@ -1353,7 +1352,7 @@ gtd_task_list_view_init (GtdTaskListView *self)
 
   gtk_widget_init_template (GTK_WIDGET (self));
 
-  gtk_drag_dest_set (GTK_WIDGET (self),
+  gtk_drag_dest_set (GTK_WIDGET (self->priv->listbox),
                      0,
                      NULL,
                      0,

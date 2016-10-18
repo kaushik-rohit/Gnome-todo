@@ -175,6 +175,7 @@ gtd_dnd_row_drag_drop (GtkWidget      *widget,
   GtdTask *row_task, *target_task;
 
   self = GTD_DND_ROW (widget);
+  self->has_dnd = FALSE;
 
   /* Reset padding */
   update_row_padding (self);
