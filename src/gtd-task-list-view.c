@@ -766,6 +766,9 @@ gtd_task_list_view__add_task (GtdTaskListView *view,
   g_return_if_fail (GTD_IS_TASK_LIST_VIEW (view));
   g_return_if_fail (GTD_IS_TASK (task));
 
+  if (gtd_task_get_complete (task))
+    return;
+
   new_row = gtd_task_row_new (task);
 
   g_object_bind_property (view,
@@ -776,22 +779,10 @@ gtd_task_list_view__add_task (GtdTaskListView *view,
 
   gtd_task_row_set_list_name_visible (GTD_TASK_ROW (new_row), priv->show_list_name);
 
-  if (!gtd_task_get_complete (task))
-    {
-      gtk_list_box_insert (priv->listbox,
-                           new_row,
-                           0);
-      gtd_task_row_reveal (GTD_TASK_ROW (new_row));
-    }
-  else
-    {
-      priv->complete_tasks++;
-
-      gtd_task_list_view__update_done_label (view);
-
-      if (!gtk_revealer_get_reveal_child (priv->revealer))
-        gtk_revealer_set_reveal_child (priv->revealer, TRUE);
-    }
+  gtk_list_box_insert (priv->listbox,
+                       new_row,
+                       0);
+  gtd_task_row_reveal (GTD_TASK_ROW (new_row));
 
   /* Check if it should show the empty state */
   gtd_task_list_view__update_empty_state (view);
@@ -1414,7 +1405,6 @@ gtd_task_list_view_set_list (GtdTaskListView *view,
 
   priv = view->priv;
   old_list = priv->list;
-  priv->complete_tasks = 0;
 
   /* Reset the DnD parent row */
   gtd_dnd_row_set_row_above (GTD_DND_ROW (priv->dnd_row), NULL);
@@ -1442,6 +1432,14 @@ gtd_task_list_view_set_list (GtdTaskListView *view,
 
   g_list_free (old_list);
   priv->list = g_list_copy (list);
+
+  /* Update the completed tasks counter */
+  priv->complete_tasks = 0;
+
+  for (l = list; l != NULL; l = l->next)
+    priv->complete_tasks += gtd_task_get_complete (l->data);
+
+  gtd_task_list_view__update_done_label (view);
 
   /* Check if it should show the empty state */
   gtd_task_list_view__update_empty_state (view);
