@@ -9,12 +9,13 @@
 
   <description>
     <_p>
-      GNOME To Do is a simple task management application designed to integrate with GNOME.
+      GNOME To Do is a task management application designed to integrate with GNOME. It
+      is extensible through plugins and supports custom task providers.
     </_p>
   </description>
 
-  <url type="homepage">https://github.com/GeorgesStavracas/gnome-todo</url>
-  <url type="bugtracker">https://github.com/GeorgesStavracas/gnome-todo/issues</url>
+  <url type="homepage">https://wiki.gnome.org/Apps/Todo</url>
+  <url type="bugtracker">https://bugzilla.gnome.org/enter_bug.cgi?product=gnome-todo</url>
   <project_group>GNOME</project_group>
 
   <kudos>
