@@ -940,7 +940,7 @@ gtd_task_row_set_handle_subtasks (GtdTaskRow *self,
 
   self->handle_subtasks = handle_subtasks;
 
-  gtk_widget_set_visible (self->dnd_event_box, handle_subtasks);
+  gtk_widget_set_visible (self->dnd_box, handle_subtasks);
   depth_changed_cb (self, NULL, self->task);
 
   g_object_notify (G_OBJECT (self), "handle-subtasks");
