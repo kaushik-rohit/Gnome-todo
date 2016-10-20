@@ -152,17 +152,20 @@ enum {
   LAST_PROP
 };
 
+typedef gboolean     (*IterateSubtaskFunc)                       (GtdTaskListView    *self,
+                                                                  GtdTask            *task);
+
+/*
+ * Auxiliary function to iterate through a list of subtasks
+ */
 static void
-real_save_task (GtdTaskListView *self,
-                GtdTask         *task)
+iterate_subtasks (GtdTaskListView    *self,
+                  GtdTask            *task,
+                  IterateSubtaskFunc  func,
+                  gboolean            depth_first)
 {
-  GtdTaskListViewPrivate *priv;
-  GtdTaskList *list;
   GtdTask *aux;
   GQueue *queue;
-
-  priv = self->priv;
-  list = gtd_task_get_list (task);
 
   aux = task;
   queue = g_queue_new ();
@@ -170,21 +173,24 @@ real_save_task (GtdTaskListView *self,
   do
     {
       GList *subtasks, *l;
+      gboolean should_continue;
 
       subtasks = gtd_task_get_subtasks (aux);
 
-      /*
-       * This will emit GtdTaskList::task-added and we'll readd
-       * to the list.
-       */
-      gtd_task_list_save_task (list, aux);
+      /* Call the passed function */
+      should_continue = func (self, aux);
 
-      if (priv->task_list != list && priv->task_list)
-        gtd_task_list_save_task (priv->task_list, aux);
+      if (!should_continue)
+        break;
 
       /* Add the subtasks to the queue so we can keep iterating */
       for (l = subtasks; l != NULL; l = l->next)
-        g_queue_push_tail (queue, l->data);
+        {
+          if (depth_first)
+            g_queue_push_head (queue, l->data);
+          else
+            g_queue_push_tail (queue, l->data);
+        }
 
       g_clear_pointer (&subtasks, g_list_free);
 
@@ -195,43 +201,82 @@ real_save_task (GtdTaskListView *self,
   g_clear_pointer (&queue, g_queue_free);
 }
 
+static gboolean
+real_save_task (GtdTaskListView *self,
+                GtdTask         *task)
+{
+  GtdTaskListViewPrivate *priv;
+  GtdTaskList *list;
+
+  priv = self->priv;
+  list = gtd_task_get_list (task);
+
+  /*
+   * This will emit GtdTaskList::task-added and we'll readd
+   * to the list.
+   */
+  gtd_task_list_save_task (list, task);
+
+  if (priv->task_list != list && priv->task_list)
+    gtd_task_list_save_task (priv->task_list, task);
+
+  return TRUE;
+}
+
+static inline gboolean
+real_remove_task (GtdTaskListView *self,
+                  GtdTask         *task)
+{
+  gtd_manager_remove_task (gtd_manager_get_default (), task);
+
+  return TRUE;
+}
+
+static inline gboolean
+remove_task_from_list (GtdTaskListView *self,
+                       GtdTask         *task)
+{
+  GtdTaskListViewPrivate *priv;
+  GtdTaskList *list;
+
+  priv = self->priv;
+  list = gtd_task_get_list (task);
+
+  /* Remove the task from the list */
+  gtd_task_list_remove_task (list, task);
+
+  /*
+   * When we're dealing with the special lists (Today & Scheduled),
+   * the task's list is different from the current list. We want to
+   * remove the task from ~both~ lists.
+   */
+  if (priv->task_list != list && priv->task_list)
+    gtd_task_list_remove_task (priv->task_list, task);
+
+  gtd_task_list_view__remove_row_for_task (self, task);
+
+  return TRUE;
+}
 
 static void
 remove_task_action (GtdNotification *notification,
                     gpointer         user_data)
 {
   RemoveTaskData *data;
-  GtdManager *manager;
-  GtdTask *aux;
-  GQueue *queue;
+  GtdTask *task;
 
   data = user_data;
-  aux = data->task;
-  queue = g_queue_new ();
-  manager = gtd_manager_get_default ();
+  task = data->task;
 
-  if (gtd_task_get_parent (aux))
-    gtd_task_remove_subtask (gtd_task_get_parent (aux), aux);
+  if (gtd_task_get_parent (task))
+    gtd_task_remove_subtask (gtd_task_get_parent (task), task);
 
-  do
-    {
-      GList *subtasks, *l;
+  /* Remove the subtasks recursively */
+  iterate_subtasks (data->view,
+                    data->task,
+                    real_remove_task,
+                    FALSE);
 
-      subtasks = gtd_task_get_subtasks (aux);
-
-      gtd_manager_remove_task (manager, aux);
-
-      /* Add the subtasks to the queue so we can keep iterating */
-      for (l = subtasks; l != NULL; l = l->next)
-        g_queue_push_tail (queue, l->data);
-
-      g_clear_pointer (&subtasks, g_list_free);
-
-      aux = g_queue_pop_head (queue);
-    }
-  while (aux);
-
-  g_clear_pointer (&queue, g_queue_free);
   g_clear_pointer (&data, g_free);
 }
 
@@ -241,7 +286,11 @@ undo_remove_task_action (GtdNotification *notification,
 {
   RemoveTaskData *data = user_data;
 
-  real_save_task (data->view, data->task);
+  /* Save the subtasks recursively */
+  iterate_subtasks (data->view,
+                    data->task,
+                    real_save_task,
+                    FALSE);
 
   g_free (data);
 }
@@ -430,52 +479,6 @@ ask_subtask_removal_warning (GtdTaskListView *self)
 }
 
 static void
-recursively_remove_task (GtdTaskListView *self,
-                         GtdTask         *task)
-{
-  GtdTaskListViewPrivate *priv;
-  GtdTaskList *list;
-  GtdTask *aux;
-  GQueue *queue;
-
-  aux = task;
-  priv = self->priv;
-  list = gtd_task_get_list (task);
-  queue = g_queue_new ();
-
-  do
-    {
-      GList *subtasks, *l;
-
-      subtasks = gtd_task_get_subtasks (aux);
-
-      /* Remove the task from the list */
-      gtd_task_list_remove_task (list, aux);
-
-      /*
-       * When we're dealing with the special lists (Today & Scheduled),
-       * the task's list is different from the current list. We want to
-       * remove the task from ~both~ lists.
-       */
-      if (priv->task_list != list && priv->task_list)
-        gtd_task_list_remove_task (priv->task_list, aux);
-
-      gtd_task_list_view__remove_row_for_task (self, aux);
-
-      /* Add the subtasks to the queue so we can keep iterating */
-      for (l = subtasks; l != NULL; l = l->next)
-        g_queue_push_tail (queue, l->data);
-
-      g_clear_pointer (&subtasks, g_list_free);
-
-      aux = g_queue_pop_head (queue);
-    }
-  while (aux);
-
-  g_clear_pointer (&queue, g_queue_free);
-}
-
-static void
 gtd_task_list_view__remove_task_cb (GtdEditPane *pane,
                                     GtdTask     *task,
                                     gpointer     user_data)
@@ -515,7 +518,10 @@ gtd_task_list_view__remove_task_cb (GtdEditPane *pane,
   data->task = task;
 
   /* Always remove tasks and subtasks */
-  recursively_remove_task (user_data, task);
+  iterate_subtasks (user_data,
+                    task,
+                    remove_task_from_list,
+                    FALSE);
 
   /* Hide the edit panel */
   gtk_revealer_set_reveal_child (priv->edit_revealer, FALSE);
