@@ -66,6 +66,8 @@ gnome_todo_SOURCES = \
 	gtd-dnd-row.h \
 	gtd-edit-pane.c \
 	gtd-edit-pane.h \
+	gtd-empty-list-widget.c \
+	gtd-empty-list-widget.h \
 	gtd-enums.h \
 	gtd-initial-setup-window.c \
 	gtd-initial-setup-window.h \
@@ -213,6 +215,8 @@ libgtd_la_SOURCES = \
 	gtd-dnd-row.h \
 	gtd-edit-pane.c \
 	gtd-edit-pane.h \
+	gtd-empty-list-widget.c \
+	gtd-empty-list-widget.h \
 	gtd-enum-types.c \
 	gtd-enum-types.h \
 	gtd-enums.h \

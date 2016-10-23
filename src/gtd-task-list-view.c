@@ -19,6 +19,7 @@
 #include "gtd-arrow-frame.h"
 #include "gtd-dnd-row.h"
 #include "gtd-edit-pane.h"
+#include "gtd-empty-list-widget.h"
 #include "gtd-task-list-view.h"
 #include "gtd-manager.h"
 #include "gtd-notification.h"
@@ -543,6 +544,8 @@ gtd_task_list_view__update_empty_state (GtdTaskListView *view)
     }
 
   gtk_widget_set_visible (view->priv->empty_box, is_empty);
+  gtd_empty_list_widget_set_is_empty (GTD_EMPTY_LIST_WIDGET (view->priv->empty_box),
+                                      view->priv->complete_tasks == 0);
 
   g_list_free (tasks);
 }

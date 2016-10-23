@@ -4,6 +4,7 @@ data/appdata/org.gnome.Todo.appdata.xml.in
 data/org.gnome.Todo.desktop.in.in
 data/org.gnome.todo.gschema.xml
 [type: gettext/glade]data/ui/edit-pane.ui
+[type: gettext/glade]data/ui/empty-list.ui
 [type: gettext/glade]data/ui/initial-setup.ui
 [type: gettext/glade]data/ui/list-selector-panel.ui
 [type: gettext/glade]data/ui/list-view.ui
@@ -24,6 +25,7 @@ plugins/today-panel/gtd-panel-today.c
 plugins/unscheduled-panel/unscheduled-panel/__init__.py
 src/gtd-application.c
 src/gtd-edit-pane.c
+src/gtd-empty-list-widget.c
 src/gtd-plugin-dialog-row.c
 src/gtd-task-list-view.c
 src/gtd-task-row.c
