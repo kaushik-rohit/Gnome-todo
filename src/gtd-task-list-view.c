@@ -295,6 +295,65 @@ undo_remove_task_action (GtdNotification *notification,
   g_free (data);
 }
 
+/*
+ * Default sorting functions
+ */
+static gint
+compare_task_rows (GtdTaskRow *row1,
+                   GtdTaskRow *row2)
+{
+  if (gtd_task_row_get_new_task_mode (row1))
+    return 1;
+  else if (gtd_task_row_get_new_task_mode (row2))
+    return -1;
+  else
+    return gtd_task_compare (gtd_task_row_get_task (row1), gtd_task_row_get_task (row2));
+}
+
+static gint
+compare_dnd_rows (GtkListBoxRow *row1,
+                  GtkListBoxRow *row2)
+{
+  GtdTaskRow *row_above, *current_row;
+  gboolean reverse;
+
+  if (GTD_IS_DND_ROW (row1))
+    {
+      row_above = gtd_dnd_row_get_row_above (GTD_DND_ROW (row1));
+      current_row = GTD_TASK_ROW (row2);
+      reverse = FALSE;
+    }
+  else
+    {
+      row_above = gtd_dnd_row_get_row_above (GTD_DND_ROW (row2));
+      current_row = GTD_TASK_ROW (row1);
+      reverse = TRUE;
+    }
+
+  if (!row_above)
+    return reverse ? 1 : -1;
+
+  if (current_row == row_above)
+    return reverse ? -1 : 1;
+
+  return compare_task_rows (current_row, row_above) * (reverse ? 1 : -1);
+}
+
+static gint
+gtd_task_list_view__listbox_sort_func (GtkListBoxRow *row1,
+                                       GtkListBoxRow *row2,
+                                       gpointer       user_data)
+{
+  /* Automagically manage the DnD row */
+  if (GTD_IS_DND_ROW (row1) || GTD_IS_DND_ROW (row2))
+    return compare_dnd_rows (row1, row2);
+
+  return compare_task_rows (GTD_TASK_ROW (row1), GTD_TASK_ROW (row2));
+}
+
+/*
+ * Custom sorting functions
+ */
 static void
 internal_header_func (GtdTaskRow      *row,
                       GtdTaskRow      *before,
@@ -322,15 +381,11 @@ internal_header_func (GtdTaskRow      *row,
 }
 
 static gint
-internal_sort_func (GtdTaskRow      *row1,
-                    GtdTaskRow      *row2,
-                    GtdTaskListView *view)
-{
-  GtdTask *row1_task;
+internal_compare_task_rows (GtdTaskListView *self,
+                            GtdTaskRow      *row1,
+                            GtdTaskRow      *row2)
+{  GtdTask *row1_task;
   GtdTask *row2_task;
-
-  if (!view->priv->sort_func)
-    return 0;
 
   if (gtd_task_row_get_new_task_mode (row1))
     return 1;
@@ -345,11 +400,60 @@ internal_sort_func (GtdTaskRow      *row1,
   if (row2)
     row2_task = gtd_task_row_get_task (row2);
 
-  return view->priv->sort_func (GTK_LIST_BOX_ROW (row1),
+  return self->priv->sort_func (GTK_LIST_BOX_ROW (row1),
                                 row1_task,
                                 GTK_LIST_BOX_ROW (row2),
                                 row2_task,
-                                view->priv->header_user_data);
+                                self->priv->header_user_data);
+}
+
+static gint
+internal_compare_dnd_rows (GtdTaskListView *self,
+                           GtkListBoxRow   *row1,
+                           GtkListBoxRow   *row2)
+{
+  GtdTaskRow *row_above, *current_row;
+  gboolean reverse;
+
+  if (GTD_IS_DND_ROW (row1))
+    {
+      row_above = gtd_dnd_row_get_row_above (GTD_DND_ROW (row1));
+      current_row = GTD_TASK_ROW (row2);
+      reverse = FALSE;
+    }
+  else
+    {
+      row_above = gtd_dnd_row_get_row_above (GTD_DND_ROW (row2));
+      current_row = GTD_TASK_ROW (row1);
+      reverse = TRUE;
+    }
+
+  if (!row_above)
+    return reverse ? 1 : -1;
+
+  if (current_row == row_above)
+    return reverse ? -1 : 1;
+
+  return internal_compare_task_rows (self, current_row, row_above) * (reverse ? 1 : -1);
+}
+
+static gint
+internal_sort_func (GtkListBoxRow   *a,
+                    GtkListBoxRow   *b,
+                    GtdTaskListView *view)
+{
+  GtdTaskRow *row1, *row2;
+
+  if (!view->priv->sort_func)
+    return 0;
+
+  if (GTD_IS_DND_ROW (a) || GTD_IS_DND_ROW (b))
+    return internal_compare_dnd_rows (view, a, b);
+
+  row1 = GTD_TASK_ROW (a);
+  row2 = GTD_TASK_ROW (b);
+
+  return internal_compare_task_rows (view, row1, row2);
 }
 
 static void
@@ -655,59 +759,6 @@ gtd_task_list_view__done_button_clicked (GtkButton *button,
   g_timeout_add (205,
                  (GSourceFunc) can_toggle_show_completed,
                  user_data);
-}
-
-static gint
-compare_task_rows (GtdTaskRow *row1,
-                   GtdTaskRow *row2)
-{
-  if (gtd_task_row_get_new_task_mode (row1))
-    return 1;
-  else if (gtd_task_row_get_new_task_mode (row2))
-    return -1;
-  else
-    return gtd_task_compare (gtd_task_row_get_task (row1), gtd_task_row_get_task (row2));
-}
-
-static gint
-compare_dnd_rows (GtkListBoxRow *row1,
-                  GtkListBoxRow *row2)
-{
-  GtdTaskRow *row_above, *current_row;
-  gboolean reverse;
-
-  if (GTD_IS_DND_ROW (row1))
-    {
-      row_above = gtd_dnd_row_get_row_above (GTD_DND_ROW (row1));
-      current_row = GTD_TASK_ROW (row2);
-      reverse = FALSE;
-    }
-  else
-    {
-      row_above = gtd_dnd_row_get_row_above (GTD_DND_ROW (row2));
-      current_row = GTD_TASK_ROW (row1);
-      reverse = TRUE;
-    }
-
-  if (!row_above)
-    return reverse ? 1 : -1;
-
-  if (current_row == row_above)
-    return reverse ? -1 : 1;
-
-  return compare_task_rows (current_row, row_above) * (reverse ? 1 : -1);
-}
-
-static gint
-gtd_task_list_view__listbox_sort_func (GtkListBoxRow *row1,
-                                       GtkListBoxRow *row2,
-                                       gpointer       user_data)
-{
-  /* Automagically manage the DnD row */
-  if (GTD_IS_DND_ROW (row1) || GTD_IS_DND_ROW (row2))
-    return compare_dnd_rows (row1, row2);
-
-  return compare_task_rows (GTD_TASK_ROW (row1), GTD_TASK_ROW (row2));
 }
 
 static void
