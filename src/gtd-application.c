@@ -94,7 +94,7 @@ gtd_application_show_about (GSimpleAction *simple,
   static const gchar *authors[] = {
     "Emmanuele Bassi <ebassi@gnome.org>",
     "Georges Basile Stavracas Neto <georges.stavracas@gmail.com>",
-    "Isaque Galdino <igaldino@gmail.com>"
+    "Isaque Galdino <igaldino@gmail.com>",
     "Patrick Griffis <tingping@tingping.se>",
     "Saiful B. Khan <saifulbkhan@gmail.com>",
     NULL
