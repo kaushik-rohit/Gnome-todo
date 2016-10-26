@@ -667,7 +667,7 @@ gtd_task_list_contains (GtdTaskList *list,
 
   priv = gtd_task_list_get_instance_private (list);
 
-  return (g_list_find (priv->tasks, task) != NULL);
+  return g_list_find (priv->tasks, task) != NULL;
 }
 
 /**
