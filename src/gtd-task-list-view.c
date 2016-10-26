@@ -73,7 +73,8 @@ typedef struct
   GtkRevealer           *revealer;
   GtkImage              *done_image;
   GtkLabel              *done_label;
-  GtkScrolledWindow     *viewport;
+  GtkWidget             *viewport;
+  GtkWidget             *scrolled_window;
 
   /* internal */
   gboolean               can_toggle;
@@ -84,6 +85,10 @@ typedef struct
   GList                 *list;
   GtdTaskList           *task_list;
   GDateTime             *default_date;
+
+  /* DnD autoscroll */
+  guint                  scroll_timeout_id;
+  gboolean               scroll_up : 1;
 
   /* color provider */
   GtkCssProvider        *color_provider;
@@ -113,6 +118,8 @@ struct _GtdTaskListView
 #define LUMINANCE(c)   (0.299 * c->red + 0.587 * c->green + 0.114 * c->blue)
 
 #define TASK_REMOVED_NOTIFICATION_ID             "task-removed-id"
+
+#define DND_SCROLL_OFFSET                        24 // px
 
 /* prototypes */
 static void             gtd_task_list_view__clear_completed_tasks    (GSimpleAction     *simple,
@@ -1123,7 +1130,7 @@ gtd_task_list_view_constructed (GObject *object)
   /* css provider */
   self->priv->color_provider = gtk_css_provider_new ();
 
-  gtk_style_context_add_provider (gtk_widget_get_style_context (GTK_WIDGET (self->priv->viewport)),
+  gtk_style_context_add_provider (gtk_widget_get_style_context (self->priv->viewport),
                                   GTK_STYLE_PROVIDER (self->priv->color_provider),
                                   GTK_STYLE_PROVIDER_PRIORITY_APPLICATION + 2);
 
@@ -1137,6 +1144,70 @@ gtd_task_list_view_constructed (GObject *object)
 /*
  * Listbox Drag n' Drop functions
  */
+static inline gboolean
+scroll_to_dnd (gpointer user_data)
+{
+  GtdTaskListViewPrivate *priv;
+  GtkAdjustment *vadjustment;
+  gint value;
+
+  priv = gtd_task_list_view_get_instance_private (user_data);
+  vadjustment = gtk_scrolled_window_get_vadjustment (GTK_SCROLLED_WINDOW (priv->scrolled_window));
+  value = gtk_adjustment_get_value (vadjustment) + (priv->scroll_up ? -6 : 6);
+
+  gtk_adjustment_set_value (vadjustment,
+                            CLAMP (value, 0, gtk_adjustment_get_upper (vadjustment)));
+
+  return G_SOURCE_CONTINUE;
+}
+
+static void
+check_dnd_scroll (GtdTaskListView *self,
+                  gboolean         should_cancel,
+                  gint             y)
+{
+  GtdTaskListViewPrivate *priv = gtd_task_list_view_get_instance_private (self);
+  gint current_y, height;
+
+  if (should_cancel)
+    {
+      if (priv->scroll_timeout_id > 0)
+        {
+          g_source_remove (priv->scroll_timeout_id);
+          priv->scroll_timeout_id = 0;
+        }
+
+      return;
+    }
+
+  height = gtk_widget_get_allocated_height (priv->scrolled_window);
+  gtk_widget_translate_coordinates (GTK_WIDGET (priv->listbox),
+                                    priv->scrolled_window,
+                                    0, y,
+                                    NULL, &current_y);
+
+  if (current_y < DND_SCROLL_OFFSET || current_y > height - DND_SCROLL_OFFSET)
+    {
+      if (priv->scroll_timeout_id > 0)
+        return;
+
+      /* Start the autoscroll */
+      priv->scroll_up = current_y < DND_SCROLL_OFFSET;
+      priv->scroll_timeout_id = g_timeout_add (25,
+                                               scroll_to_dnd,
+                                               self);
+    }
+  else
+    {
+      if (priv->scroll_timeout_id == 0)
+        return;
+
+      /* Cancel the autoscroll */
+      g_source_remove (priv->scroll_timeout_id);
+      priv->scroll_timeout_id = 0;
+    }
+}
+
 static void
 listbox_drag_leave (GtkListBox      *listbox,
                     GdkDragContext  *context,
@@ -1147,7 +1218,9 @@ listbox_drag_leave (GtkListBox      *listbox,
 
   priv = gtd_task_list_view_get_instance_private (self);
 
-  gtk_widget_set_visible (priv->dnd_row, gtd_dnd_row_has_dnd (GTD_DND_ROW (priv->dnd_row)));
+  gtk_widget_set_visible (priv->dnd_row, FALSE);
+
+  check_dnd_scroll (self, TRUE, -1);
 
   gtk_list_box_invalidate_sort (listbox);
 }
@@ -1173,13 +1246,20 @@ listbox_drag_motion (GtkListBox      *listbox,
    * drop target. Otherwise, the user can drop at the space after the rows, and the row
    * that started the DnD operation is hidden forever.
    */
-  if (!hovered_row || GTD_IS_DND_ROW (hovered_row))
+  if (!hovered_row)
     {
       gtk_widget_hide (priv->dnd_row);
       gtd_dnd_row_set_row_above (GTD_DND_ROW (priv->dnd_row), NULL);
 
       goto success;
     }
+
+  /*
+   * Hovering the DnD row is perfectly valid, but we don't gather the
+   * related row - simply succeed.
+   */
+  if (GTD_IS_DND_ROW (hovered_row))
+    goto success;
 
   row_above_dnd = NULL;
   task_row = GTD_TASK_ROW (hovered_row);
@@ -1252,6 +1332,7 @@ listbox_drag_motion (GtkListBox      *listbox,
 
   gtd_dnd_row_set_row_above (GTD_DND_ROW (priv->dnd_row), row_above_dnd);
 
+success:
   /*
    * Also pass the current motion to the DnD row, so it correctly
    * adjusts itself - even when the DnD is hovering another row.
@@ -1262,12 +1343,13 @@ listbox_drag_motion (GtkListBox      *listbox,
                            y,
                            time);
 
-success:
+  check_dnd_scroll (self, FALSE, y);
+
   gdk_drag_status (context, GDK_ACTION_COPY, time);
+
   return TRUE;
 
 fail:
-  gdk_drag_status (context, 0, time);
   return FALSE;
 }
 
@@ -1288,6 +1370,8 @@ listbox_drag_drop (GtkWidget       *widget,
                          x,
                          y,
                          time);
+
+  check_dnd_scroll (self, TRUE, -1);
 
   return TRUE;
 }
@@ -1413,6 +1497,7 @@ gtd_task_list_view_class_init (GtdTaskListViewClass *klass)
   gtk_widget_class_bind_template_child_private (widget_class, GtdTaskListView, done_label);
   gtk_widget_class_bind_template_child_private (widget_class, GtdTaskListView, new_task_row);
   gtk_widget_class_bind_template_child_private (widget_class, GtdTaskListView, viewport);
+  gtk_widget_class_bind_template_child_private (widget_class, GtdTaskListView, scrolled_window);
 
   gtk_widget_class_bind_template_callback (widget_class, gtd_task_list_view__create_task);
   gtk_widget_class_bind_template_callback (widget_class, gtd_task_list_view__done_button_clicked);
@@ -1439,7 +1524,7 @@ gtd_task_list_view_init (GtdTaskListView *self)
                      0,
                      NULL,
                      0,
-                     GDK_ACTION_MOVE);
+                     GDK_ACTION_COPY);
 }
 
 /**

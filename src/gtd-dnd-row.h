@@ -49,8 +49,6 @@ gboolean             gtd_dnd_row_drag_motion                     (GtkWidget     
                                                                   gint                y,
                                                                   guint               time);
 
-gboolean             gtd_dnd_row_has_dnd                         (GtdDndRow          *self);
-
 G_END_DECLS
 
 #endif /* GTD_DND_ROW_H */

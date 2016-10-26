@@ -33,7 +33,6 @@ struct _GtdDndRow
 
   GtdTaskRow         *row_above;
   gint                depth;
-  gboolean            has_dnd : 1;
 };
 
 G_DEFINE_TYPE (GtdDndRow, gtd_dnd_row, GTK_TYPE_LIST_BOX_ROW)
@@ -117,13 +116,69 @@ gtd_dnd_row_set_property (GObject      *object,
 }
 
 static void
-gtd_dnd_row_drag_leave (GtkWidget      *widget,
-                        GdkDragContext *context,
-                        guint           time)
+gtd_dnd_row_class_init (GtdDndRowClass *klass)
 {
-  GtdDndRow *self = GTD_DND_ROW (widget);
+  GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
+  GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
-  self->has_dnd = FALSE;
+  object_class->finalize = gtd_dnd_row_finalize;
+  object_class->get_property = gtd_dnd_row_get_property;
+  object_class->set_property = gtd_dnd_row_set_property;
+
+  properties[PROP_ROW_ABOVE] = g_param_spec_object ("row-above",
+                                                    "Row above",
+                                                    "The task row above this row",
+                                                    GTD_TYPE_TASK_ROW,
+                                                    G_PARAM_READWRITE);
+
+  g_object_class_install_properties (object_class, N_PROPS, properties);
+
+  gtk_widget_class_set_template_from_resource (widget_class, "/org/gnome/todo/ui/dnd-row.ui");
+
+  gtk_widget_class_bind_template_child (widget_class, GtdDndRow, box);
+  gtk_widget_class_bind_template_child (widget_class, GtdDndRow, icon);
+
+  gtk_widget_class_set_css_name (widget_class, "dndrow");
+}
+
+static void
+gtd_dnd_row_init (GtdDndRow *self)
+{
+  gtk_widget_init_template (GTK_WIDGET (self));
+
+  gtk_drag_dest_set (GTK_WIDGET (self),
+                     0,
+                     NULL,
+                     0,
+                     GDK_ACTION_MOVE);
+}
+
+GtkWidget*
+gtd_dnd_row_new (void)
+{
+  return g_object_new (GTD_TYPE_DND_ROW, NULL);
+}
+
+GtdTaskRow*
+gtd_dnd_row_get_row_above (GtdDndRow *self)
+{
+  g_return_val_if_fail (GTD_IS_DND_ROW (self), NULL);
+
+  return self->row_above;
+}
+
+void
+gtd_dnd_row_set_row_above (GtdDndRow  *self,
+                           GtdTaskRow *row)
+{
+  g_return_if_fail (GTD_IS_DND_ROW (self));
+
+  if (g_set_object (&self->row_above, row))
+    {
+      update_row_padding (self);
+
+      g_object_notify_by_pspec (G_OBJECT (self), properties[PROP_ROW_ABOVE]);
+    }
 }
 
 gboolean
@@ -153,8 +208,6 @@ gtd_dnd_row_drag_motion (GtkWidget      *widget,
       self->depth = 0;
     }
 
-  self->has_dnd = TRUE;
-
   update_row_padding (self);
 
   gdk_drag_status (context, GDK_ACTION_COPY, time);
@@ -175,7 +228,6 @@ gtd_dnd_row_drag_drop (GtkWidget      *widget,
   GtdTask *row_task, *target_task;
 
   self = GTD_DND_ROW (widget);
-  self->has_dnd = FALSE;
 
   /* Reset padding */
   update_row_padding (self);
@@ -238,83 +290,5 @@ gtd_dnd_row_drag_drop (GtkWidget      *widget,
   gtk_list_box_invalidate_sort (GTK_LIST_BOX (gtk_widget_get_parent (widget)));
 
   return TRUE;
-}
-
-static void
-gtd_dnd_row_class_init (GtdDndRowClass *klass)
-{
-  GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
-  GObjectClass *object_class = G_OBJECT_CLASS (klass);
-
-  object_class->finalize = gtd_dnd_row_finalize;
-  object_class->get_property = gtd_dnd_row_get_property;
-  object_class->set_property = gtd_dnd_row_set_property;
-
-  widget_class->drag_drop = gtd_dnd_row_drag_drop;
-  widget_class->drag_leave = gtd_dnd_row_drag_leave;
-  widget_class->drag_motion = gtd_dnd_row_drag_motion;
-
-  properties[PROP_ROW_ABOVE] = g_param_spec_object ("row-above",
-                                                    "Row above",
-                                                    "The task row above this row",
-                                                    GTD_TYPE_TASK_ROW,
-                                                    G_PARAM_READWRITE);
-
-  g_object_class_install_properties (object_class, N_PROPS, properties);
-
-  gtk_widget_class_set_template_from_resource (widget_class, "/org/gnome/todo/ui/dnd-row.ui");
-
-  gtk_widget_class_bind_template_child (widget_class, GtdDndRow, box);
-  gtk_widget_class_bind_template_child (widget_class, GtdDndRow, icon);
-
-  gtk_widget_class_set_css_name (widget_class, "dndrow");
-}
-
-static void
-gtd_dnd_row_init (GtdDndRow *self)
-{
-  gtk_widget_init_template (GTK_WIDGET (self));
-
-  gtk_drag_dest_set (GTK_WIDGET (self),
-                     0,
-                     NULL,
-                     0,
-                     GDK_ACTION_MOVE);
-}
-
-GtkWidget*
-gtd_dnd_row_new (void)
-{
-  return g_object_new (GTD_TYPE_DND_ROW, NULL);
-}
-
-GtdTaskRow*
-gtd_dnd_row_get_row_above (GtdDndRow *self)
-{
-  g_return_val_if_fail (GTD_IS_DND_ROW (self), NULL);
-
-  return self->row_above;
-}
-
-void
-gtd_dnd_row_set_row_above (GtdDndRow  *self,
-                           GtdTaskRow *row)
-{
-  g_return_if_fail (GTD_IS_DND_ROW (self));
-
-  if (g_set_object (&self->row_above, row))
-    {
-      update_row_padding (self);
-
-      g_object_notify_by_pspec (G_OBJECT (self), properties[PROP_ROW_ABOVE]);
-    }
-}
-
-gboolean
-gtd_dnd_row_has_dnd (GtdDndRow *self)
-{
-  g_return_val_if_fail (GTD_IS_DND_ROW (self), FALSE);
-
-  return self->has_dnd;
 }
 
