@@ -800,7 +800,7 @@ remove_task (GtdTaskListView *view,
           if (gtd_task_get_complete (task))
             priv->complete_tasks--;
 
-          g_signal_handlers_disconnect_by_func (gtd_task_row_get_task (l->data),
+          g_signal_handlers_disconnect_by_func (task,
                                                 task_completed_cb,
                                                 view);
           gtd_task_row_destroy (l->data);
