@@ -637,6 +637,12 @@ gtd_task_list_view__remove_task_cb (GtdEditPane *pane,
                     remove_task_from_list,
                     FALSE);
 
+  /*
+   * Reset the DnD row, to avoid getting into an inconsistent state where
+   * the DnD row points to a row that is not present anymore.
+   */
+  gtd_dnd_row_set_row_above (GTD_DND_ROW (priv->dnd_row), NULL);
+
   /* Hide the edit panel */
   gtk_revealer_set_reveal_child (priv->edit_revealer, FALSE);
 
