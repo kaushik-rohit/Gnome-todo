@@ -804,6 +804,8 @@ remove_task (GtdTaskListView *view,
                                                 task_completed_cb,
                                                 view);
           gtd_task_row_destroy (l->data);
+
+          break;
         }
     }
 
@@ -902,6 +904,8 @@ gtd_task_list_view__remove_row_for_task (GtdTaskListView *view,
           gtd_task_row_get_task (l->data) == task)
         {
           gtd_task_row_destroy (l->data);
+
+          break;
         }
     }
 
