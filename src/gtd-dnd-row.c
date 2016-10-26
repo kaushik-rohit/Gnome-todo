@@ -145,12 +145,6 @@ static void
 gtd_dnd_row_init (GtdDndRow *self)
 {
   gtk_widget_init_template (GTK_WIDGET (self));
-
-  gtk_drag_dest_set (GTK_WIDGET (self),
-                     0,
-                     NULL,
-                     0,
-                     GDK_ACTION_MOVE);
 }
 
 GtkWidget*
