@@ -122,9 +122,11 @@
                     <property name="row_spacing">12</property>
                     <child>
                       <object class="GtkLabel" id="notes_dim_label">
+                        <property name="label" translatable="yes">_Notes</property>
+                        <property name="use_underline">True</property>
+                        <property name="mnemonic_widget">notes_textview</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="label" translatable="yes">Notes</property>
                         <property name="xalign">0</property>
                         <style>
                           <class name="dim-label"/>
@@ -183,7 +185,9 @@
                       <object class="GtkLabel" id="priority_dim_label">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="label" translatable="yes">Priority</property>
+                        <property name="label" translatable="yes">_Priority</property>
+                        <property name="use_underline">True</property>
+                        <property name="mnemonic_widget">priority_combo</property>
                         <property name="xalign">0</property>
                         <style>
                           <class name="dim-label"/>
@@ -215,7 +219,8 @@
                     </child>
                     <child>
                       <object class="GtkButton" id="remove_button">
-                        <property name="label" translatable="yes">Delete</property>
+                        <property name="label" translatable="yes">_Delete</property>
+                        <property name="use_underline">True</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
@@ -238,7 +243,8 @@
                         <property name="can_focus">False</property>
                         <child>
                           <object class="GtkButton" id="gtd_set_date_today">
-                            <property name="label" translatable="yes">Today</property>
+                            <property name="label" translatable="yes">_Today</property>
+                            <property name="use_underline">True</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">True</property>
@@ -248,7 +254,8 @@
                         </child>
                         <child>
                           <object class="GtkButton" id="tomorrow_button">
-                            <property name="label" translatable="yes">Tomorrow</property>
+                            <property name="label" translatable="yes">To_morrow</property>
+                            <property name="use_underline">True</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">True</property>
@@ -258,7 +265,8 @@
                         </child>
                         <child>
                           <object class="GtkButton" id="next_week_button">
-                            <property name="label" translatable="yes">Next Week</property>
+                            <property name="label" translatable="yes">Next _Week</property>
+                            <property name="use_underline">True</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">True</property>
