@@ -348,6 +348,7 @@ gtd_task_get_property (GObject    *object,
 {
   GtdTask *self = GTD_TASK (object);
   GtdTaskPrivate *priv = gtd_task_get_instance_private (self);
+  GDateTime *date;
 
   switch (prop_id)
     {
@@ -372,7 +373,9 @@ gtd_task_get_property (GObject    *object,
       break;
 
     case PROP_DUE_DATE:
-      g_value_set_boxed (value, gtd_task_get_due_date (self));
+      date = gtd_task_get_due_date (self);
+      g_value_set_boxed (value, date);
+      g_clear_pointer (&date, g_date_time_unref);
       break;
 
     case PROP_LIST:
