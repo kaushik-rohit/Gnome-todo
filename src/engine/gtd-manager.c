@@ -440,6 +440,9 @@ gtd_manager__list_removed (GtdProvider *provider,
 {
   GtdManagerPrivate *priv = gtd_manager_get_instance_private (self);
 
+  if (!list)
+      return;
+
   priv->tasklists = g_list_remove (priv->tasklists, list);
 
   g_signal_handlers_disconnect_by_func (list,
