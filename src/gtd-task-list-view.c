@@ -990,21 +990,22 @@ task_completed_cb (GtdTask         *task,
 }
 
 static void
-gtd_task_list_view__task_added (GtdTaskList *list,
-                                GtdTask     *task,
-                                gpointer     user_data)
+gtd_task_list_view__task_added (GtdTaskList     *list,
+                                GtdTask         *task,
+                                GtdTaskListView *self)
 {
-  g_return_if_fail (GTD_IS_TASK_LIST_VIEW (user_data));
-  g_return_if_fail (GTD_IS_TASK_LIST (list));
-  g_return_if_fail (GTD_IS_TASK (task));
+  GtdTaskListViewPrivate *priv = gtd_task_list_view_get_instance_private (self);
 
   /* Add the new task to the list */
-  gtd_task_list_view__add_task (GTD_TASK_LIST_VIEW (user_data), task);
+  gtd_task_list_view__add_task (self, task);
+
+  /* Also add to the list of current tasks */
+  priv->list = g_list_prepend (priv->list, task);
 
   g_signal_connect (task,
                     "notify::complete",
                     G_CALLBACK (task_completed_cb),
-                    user_data);
+                    self);
 }
 
 static void
