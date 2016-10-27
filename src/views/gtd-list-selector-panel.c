@@ -475,6 +475,16 @@ gtd_panel_iface_init (GtdPanelInterface *iface)
 }
 
 static void
+gtd_list_selector_panel_finalize (GObject *object)
+{
+  GtdListSelectorPanel *self = GTD_LIST_SELECTOR_PANEL (object);
+
+  g_clear_object (&self->menu);
+
+  G_OBJECT_CLASS (gtd_list_selector_panel_parent_class)->finalize (object);
+}
+
+static void
 gtd_list_selector_panel_get_property (GObject    *object,
                                       guint       prop_id,
                                       GValue     *value,
@@ -562,6 +572,7 @@ gtd_list_selector_panel_class_init (GtdListSelectorPanelClass *klass)
 
   object_class->get_property = gtd_list_selector_panel_get_property;
   object_class->set_property = gtd_list_selector_panel_set_property;
+  object_class->finalize = gtd_list_selector_panel_finalize;
 
   g_object_class_override_property (object_class,
                                     PROP_MENU,
