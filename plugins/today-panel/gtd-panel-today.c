@@ -67,6 +67,7 @@ is_today (GDateTime *dt)
       g_date_time_get_month (dt) == g_date_time_get_month (today) &&
       g_date_time_get_day_of_month (dt) == g_date_time_get_day_of_month (today))
     {
+      g_date_time_unref (today);
       return TRUE;
     }
 
