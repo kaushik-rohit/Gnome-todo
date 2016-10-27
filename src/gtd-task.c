@@ -941,6 +941,7 @@ gtd_task_get_due_date (GtdTask *task)
 {
   ECalComponentDateTime comp_dt;
   GtdTaskPrivate *priv;
+  GDateTime *date;
 
   g_return_val_if_fail (GTD_IS_TASK (task), NULL);
 
@@ -948,7 +949,9 @@ gtd_task_get_due_date (GtdTask *task)
 
   e_cal_component_get_due (priv->component, &comp_dt);
 
-  return gtd_task__convert_icaltime (comp_dt.value);
+  date = gtd_task__convert_icaltime (comp_dt.value);
+  e_cal_component_free_datetime (&comp_dt);
+  return date;
 }
 
 /**
