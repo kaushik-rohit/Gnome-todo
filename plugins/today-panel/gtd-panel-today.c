@@ -105,7 +105,10 @@ gtd_panel_today_count_tasks (GtdPanelToday *panel)
           task_dt = gtd_task_get_due_date (t->data);
 
           if (!is_today (task_dt))
-            continue;
+            {
+              g_clear_pointer (&task_dt, g_date_time_unref);
+              continue;
+            }
 
           panel->task_list = g_list_prepend (panel->task_list, t->data);
 
