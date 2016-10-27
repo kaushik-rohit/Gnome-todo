@@ -397,6 +397,7 @@ gtd_panel_scheduled_finalize (GObject *object)
 
   g_clear_object (&self->menu);
   g_clear_pointer (&self->title, g_free);
+  g_clear_pointer (&self->task_list, g_list_free);
 
   G_OBJECT_CLASS (gtd_panel_scheduled_parent_class)->finalize (object);
 }
