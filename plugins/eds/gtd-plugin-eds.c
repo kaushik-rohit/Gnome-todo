@@ -133,25 +133,24 @@ gtd_plugin_eds_goa_account_removed_cb (GoaClient    *client,
                                        GtdPluginEds *self)
 {
   GoaAccount *account;
+  GList *l;
 
   account = goa_object_peek_account (object);
 
-  if (g_strv_contains (supported_accounts, goa_account_get_provider_type (account)))
+  if (!g_strv_contains (supported_accounts, goa_account_get_provider_type (account)))
+    return;
+
+  for (l = self->providers; l != NULL; l = l->next)
     {
-      GList *l;
+      if (!GTD_IS_PROVIDER_GOA (l->data))
+        continue;
 
-      for (l = self->providers; l != NULL; l = l->next)
+      if (account == gtd_provider_goa_get_account (l->data))
         {
-          if (!GTD_IS_PROVIDER_GOA (l->data))
-            continue;
+          self->providers = g_list_remove (self->providers, l->data);
 
-          if (account == gtd_provider_goa_get_account (l->data))
-            {
-              self->providers = g_list_remove (self->providers, l->data);
-
-              g_signal_emit_by_name (self, "provider-removed", l->data);
-              break;
-            }
+          g_signal_emit_by_name (self, "provider-removed", l->data);
+          break;
         }
     }
 }
