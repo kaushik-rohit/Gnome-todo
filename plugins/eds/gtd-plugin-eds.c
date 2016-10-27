@@ -147,9 +147,10 @@ gtd_plugin_eds_goa_account_removed_cb (GoaClient    *client,
 
       if (account == gtd_provider_goa_get_account (l->data))
         {
+          GtdProviderGoa *provider = GTD_PROVIDER_GOA (l->data);
           self->providers = g_list_remove (self->providers, l->data);
 
-          g_signal_emit_by_name (self, "provider-removed", l->data);
+          g_signal_emit_by_name (self, "provider-removed", provider);
           break;
         }
     }
