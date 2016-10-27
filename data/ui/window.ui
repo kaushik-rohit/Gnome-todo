@@ -68,10 +68,11 @@
         </child>
         <child>
           <object class="GtkButton" id="cancel_selection_button">
+            <property name="label" translatable="yes">_Cancel</property>
+            <property name="use_underline">True</property>
             <property name="visible">False</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
-            <property name="label" translatable="yes">Cancel</property>
             <signal name="clicked" handler="gtd_window__cancel_selection_button_clicked" object="GtdWindow" swapped="no" />
           </object>
           <packing>

@@ -21,7 +21,8 @@
             <property name="column_spacing">12</property>
             <child>
               <object class="GtkButton" id="new_list_create_button">
-                <property name="label" translatable="yes">Create</property>
+                <property name="label" translatable="yes">Create _List</property>
+                <property name="use_underline">True</property>
                 <property name="visible">True</property>
                 <property name="sensitive">False</property>
                 <property name="can_focus">True</property>
@@ -38,7 +39,8 @@
             </child>
             <child>
               <object class="GtkButton" id="new_list_cancel_button">
-                <property name="label" translatable="yes">Cancel</property>
+                <property name="label" translatable="yes">_Cancel</property>
+                <property name="use_underline">True</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
