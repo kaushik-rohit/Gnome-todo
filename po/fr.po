@@ -5,26 +5,27 @@
 # Erwan Georget <dremor@dremor.info>, 2015.
 # Alain Lojewski <allomervan@gmail.com>, 2015.
 # Laurent de Burlet <thevedeburlet@gmail.com>, 2016.
+# Charles Monzat <superboa@hotmail.fr>, 2016.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-todo HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "todo&keywords=I18N+L10N&component=General\n"
-"POT-Creation-Date: 2016-08-18 20:13+0000\n"
-"PO-Revision-Date: 2016-08-22 11:04+0200\n"
-"Last-Translator: Alain Lojewski <allomervan@gmail.com>\n"
+"POT-Creation-Date: 2016-10-26 02:18+0000\n"
+"PO-Revision-Date: 2016-10-27 11:07+0200\n"
+"Last-Translator: Charles Monzat <superboa@hotmail.fr>\n"
 "Language-Team: français <gnomefr@traduc.org>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.4\n"
+"X-Generator: Poedit 1.8.9\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: ../data/appdata/org.gnome.Todo.appdata.xml.in.h:1
 #: ../data/org.gnome.Todo.desktop.in.in.h:1 ../src/gtd-application.c:123
-#: ../src/gtd-application.c:149 ../src/gtd-window.c:955
+#: ../src/gtd-application.c:149 ../src/gtd-window.c:940
 msgid "To Do"
 msgstr "To Do"
 
@@ -34,19 +35,20 @@ msgstr "Gestionnaire de tâches de GNOME"
 
 #: ../data/appdata/org.gnome.Todo.appdata.xml.in.h:3
 msgid ""
-"GNOME To Do is a simple task management application designed to integrate "
-"with GNOME."
+"GNOME To Do is a task management application designed to integrate with "
+"GNOME. It is extensible through plugins and supports custom task providers."
 msgstr ""
-"GNOME Tâches est un gestionnaire de tâches simple destiné à être intégré "
-"dans GNOME."
+"GNOME To Do est un gestionnaire de tâches destiné à être intégré dans GNOME. "
+"Il est extensible par le biais de greffons et prend en charge les "
+"fournisseurs de tâches personnalisés."
 
 #: ../data/gtk/menus.ui.h:1
 msgid "New List…"
-msgstr "Nouvelle Liste..."
+msgstr "Nouvelle Liste…"
 
 #: ../data/gtk/menus.ui.h:2
 msgid "Change default storage location…"
-msgstr "Modification de l'emplacement de stockage par défaut..."
+msgstr "Modification de l'emplacement de stockage par défaut…"
 
 #: ../data/gtk/menus.ui.h:3 ../data/ui/plugin-dialog.ui.h:1
 msgid "Extensions"
@@ -128,54 +130,74 @@ msgstr "Le sélecteur de liste actuel"
 msgid "The current list selector. Can be 'grid' or 'list'."
 msgstr "Le sélecteur de liste actuel. Peut être « grille » ou « liste »."
 
-#: ../data/ui/edit-pane.ui.h:1 ../plugins/eds/edit-pane.ui.h:1
-#: ../src/gtd-window.c:553
+# En considérant qu'il s'agit bien de chaine en rapport avec la priorité
+#: ../data/ui/edit-pane.ui.h:1 ../plugins/eds/edit-pane.ui.h:10
+msgctxt "taskdate"
+msgid "None"
+msgstr "Aucune"
+
+#: ../data/ui/edit-pane.ui.h:2 ../plugins/eds/edit-pane.ui.h:1
+#: ../src/gtd-window.c:542
 msgid "Details"
 msgstr "Détails"
 
-#: ../data/ui/edit-pane.ui.h:2 ../plugins/eds/edit-pane.ui.h:2
+#: ../data/ui/edit-pane.ui.h:3 ../plugins/eds/edit-pane.ui.h:2
 msgid "Notes"
 msgstr "Notes"
 
-#: ../data/ui/edit-pane.ui.h:3 ../plugins/eds/edit-pane.ui.h:3
+#: ../data/ui/edit-pane.ui.h:4 ../plugins/eds/edit-pane.ui.h:3
 msgid "Due Date"
 msgstr "Date d'échéance"
 
-#: ../data/ui/edit-pane.ui.h:4 ../plugins/eds/edit-pane.ui.h:4
+#: ../data/ui/edit-pane.ui.h:5 ../plugins/eds/edit-pane.ui.h:4
 msgid "Priority"
 msgstr "Priorité"
 
 # En considérant qu'il s'agit bien de chaine en rapport avec la priorité
-#: ../data/ui/edit-pane.ui.h:5 ../plugins/eds/edit-pane.ui.h:5
+#: ../data/ui/edit-pane.ui.h:6 ../plugins/eds/edit-pane.ui.h:5
 msgctxt "taskpriority"
 msgid "None"
 msgstr "Aucune"
 
 # En considérant qu'il s'agit bien de chaine en rapport avec la priorité
-#: ../data/ui/edit-pane.ui.h:6 ../plugins/eds/edit-pane.ui.h:6
+#: ../data/ui/edit-pane.ui.h:7 ../plugins/eds/edit-pane.ui.h:6
 msgid "Low"
 msgstr "Basse"
 
 # En considérant qu'il s'agit bien de chaine en rapport avec la priorité
-#: ../data/ui/edit-pane.ui.h:7 ../plugins/eds/edit-pane.ui.h:7
+#: ../data/ui/edit-pane.ui.h:8 ../plugins/eds/edit-pane.ui.h:7
 msgid "Medium"
 msgstr "Moyenne"
 
 # En considérant qu'il s'agit bien de chaine en rapport avec la priorité
-#: ../data/ui/edit-pane.ui.h:8 ../plugins/eds/edit-pane.ui.h:8
+#: ../data/ui/edit-pane.ui.h:9 ../plugins/eds/edit-pane.ui.h:8
 msgid "High"
 msgstr "Haute"
 
-#: ../data/ui/edit-pane.ui.h:9 ../data/ui/list-selector-panel.ui.h:2
+#: ../data/ui/edit-pane.ui.h:10 ../data/ui/list-selector-panel.ui.h:2
 #: ../plugins/eds/edit-pane.ui.h:9
 msgid "Delete"
 msgstr "Supprimer"
 
-# En considérant qu'il s'agit bien de chaine en rapport avec la priorité
-#: ../data/ui/edit-pane.ui.h:10 ../plugins/eds/edit-pane.ui.h:10
-msgctxt "taskdate"
-msgid "None"
-msgstr "Aucune"
+#. Setup a title
+#: ../data/ui/edit-pane.ui.h:11
+#: ../plugins/scheduled-panel/gtd-panel-scheduled.c:87
+#: ../plugins/score/score/__init__.py:95
+#: ../plugins/today-panel/gtd-panel-today.c:131
+#: ../plugins/today-panel/gtd-panel-today.c:136
+#: ../plugins/today-panel/gtd-panel-today.c:305 ../src/gtd-task-row.c:298
+msgid "Today"
+msgstr "Aujourd'hui"
+
+#: ../data/ui/edit-pane.ui.h:12
+#: ../plugins/scheduled-panel/gtd-panel-scheduled.c:91
+#: ../src/gtd-task-row.c:302
+msgid "Tomorrow"
+msgstr "Demain"
+
+#: ../data/ui/edit-pane.ui.h:13
+msgid "Next Week"
+msgstr "La semaine prochaine"
 
 #: ../data/ui/initial-setup.ui.h:1
 msgid "Welcome"
@@ -186,12 +208,13 @@ msgid "Login to online accounts to access your tasks"
 msgstr "S’authentifier à des comptes en ligne pour accéder à vos tâches"
 
 #: ../data/ui/initial-setup.ui.h:3 ../data/ui/provider-popover.ui.h:2
-#: ../data/ui/window.ui.h:1 ../src/views/gtd-list-selector-panel.c:386
+#: ../data/ui/window.ui.h:1 ../src/gtd-task-list-view.c:576
+#: ../src/views/gtd-list-selector-panel.c:386
 msgid "Cancel"
 msgstr "Annuler"
 
-#: ../data/ui/initial-setup.ui.h:4 ../data/ui/list-view.ui.h:4
-#: ../src/gtd-task-list-view.c:434
+#: ../data/ui/initial-setup.ui.h:4 ../data/ui/list-view.ui.h:2
+#: ../src/gtd-task-list-view.c:736
 msgid "Done"
 msgstr "Terminé"
 
@@ -217,28 +240,12 @@ msgid "New List"
 msgstr "Nouvelle liste"
 
 #: ../data/ui/list-view.ui.h:1
-msgid "No tasks found"
-msgstr "Aucune tâche trouvée"
-
-#: ../data/ui/list-view.ui.h:2
-msgid "You can add tasks to lists in the <b>Lists</b> view"
-msgstr "Vous pouvez ajouter des tâches dans la vue en <b>Liste</b>"
-
-#: ../data/ui/list-view.ui.h:3
 msgid "Show or hide completed tasks"
 msgstr "Afficher ou masquer les tâches terminées"
 
 #: ../data/ui/plugin-dialog.ui.h:2
 msgid "No extensions found"
 msgstr "Aucune extension trouvée"
-
-#: ../data/ui/provider-dialog.ui.h:1
-msgid "Select the default storage location to create task lists:"
-msgstr "Sélectionner l'emplacement par défaut où créer des listes de tâches :"
-
-#: ../data/ui/provider-dialog.ui.h:2
-msgid "Default storage location"
-msgstr "Emplacement de stockage par défaut"
 
 #: ../data/ui/provider-popover.ui.h:1
 msgid "Create"
@@ -286,105 +293,69 @@ msgstr "Sinon vous pouvez juste enregistrer vos tâches sur cet ordinateur"
 
 #: ../data/ui/task-row.ui.h:1
 msgid "New task…"
-msgstr "Nouvelle tâche..."
+msgstr "Nouvelle tâche…"
 
-#: ../plugins/eds/gtd-panel-scheduled.c:67 ../src/gtd-edit-pane.c:147
-#: ../src/gtd-task-row.c:170
-msgid "No date set"
-msgstr "Aucune date définie"
-
-#: ../plugins/eds/gtd-panel-scheduled.c:83 ../src/gtd-task-row.c:148
-#, c-format
-msgid "Yesterday"
-msgid_plural "%d days ago"
-msgstr[0] "Hier"
-msgstr[1] "Il y a %d jours"
-
-#. Setup a title
-#: ../plugins/eds/gtd-panel-scheduled.c:87 ../plugins/eds/gtd-panel-today.c:147
-#: ../plugins/eds/gtd-panel-today.c:152 ../plugins/eds/gtd-panel-today.c:314
-#: ../plugins/score/score/__init__.py:95 ../src/gtd-task-row.c:140
-msgid "Today"
-msgstr "Aujourd'hui"
-
-#: ../plugins/eds/gtd-panel-scheduled.c:91 ../src/gtd-task-row.c:144
-msgid "Tomorrow"
-msgstr "Demain"
-
-#. Setup a title
-#: ../plugins/eds/gtd-panel-scheduled.c:354
-#: ../plugins/eds/gtd-panel-scheduled.c:359
-#: ../plugins/eds/gtd-panel-scheduled.c:489
-msgid "Scheduled"
-msgstr "Prévu pour"
-
-#: ../plugins/eds/gtd-panel-scheduled.c:497
-#: ../plugins/eds/gtd-panel-today.c:322
-#: ../src/views/gtd-list-selector-panel.c:700
-msgid "Clear completed tasks…"
-msgstr "Effacer les tâches terminées…"
-
-#: ../plugins/eds/gtd-plugin-eds.c:249 ../plugins/eds/gtd-plugin-eds.c:253
+#: ../plugins/eds/gtd-plugin-eds.c:244 ../plugins/eds/gtd-plugin-eds.c:248
 msgid "Error loading GNOME Online Accounts"
 msgstr "Erreur de chargement des Comptes en ligne GNOME"
 
-#: ../plugins/eds/gtd-plugin-eds.c:278
+#: ../plugins/eds/gtd-plugin-eds.c:273
 msgid "Error loading Evolution-Data-Server backend"
 msgstr "Erreur de chargement de Evolution-Data-Server en arrière-plan"
 
-#: ../plugins/eds/gtd-plugin-eds.c:371 ../src/gtd-application.c:243
+#: ../plugins/eds/gtd-plugin-eds.c:364 ../src/gtd-application.c:243
 msgid "Error loading CSS from resource"
 msgstr "Erreur de chargement du CSS depuis les sources"
 
-#: ../plugins/eds/gtd-provider-eds.c:118 ../plugins/eds/gtd-provider-eds.c:122
+#: ../plugins/eds/gtd-provider-eds.c:132 ../plugins/eds/gtd-provider-eds.c:136
 msgid "Error fetching tasks from list"
 msgstr "Erreur de récupération de la tâche en provenance de la liste"
 
-#: ../plugins/eds/gtd-provider-eds.c:182
+#: ../plugins/eds/gtd-provider-eds.c:196
 msgid "Task list source successfully connected"
 msgstr "Source de la liste de tâches connectée avec succès"
 
-#: ../plugins/eds/gtd-provider-eds.c:189 ../plugins/eds/gtd-provider-eds.c:194
+#: ../plugins/eds/gtd-provider-eds.c:203 ../plugins/eds/gtd-provider-eds.c:208
 msgid "Failed to connect to task list source"
 msgstr "Échec de connexion avec la source de la liste de tâches"
 
-#: ../plugins/eds/gtd-provider-eds.c:306
+#: ../plugins/eds/gtd-provider-eds.c:322
 msgid "Failed to prompt for credentials"
 msgstr "Échec de demande d'identification"
 
-#: ../plugins/eds/gtd-provider-eds.c:329
+#: ../plugins/eds/gtd-provider-eds.c:345
 msgid "Failed to prompt for credentials for"
 msgstr "Échec de demande d'identification pour"
 
-#: ../plugins/eds/gtd-provider-eds.c:383
+#: ../plugins/eds/gtd-provider-eds.c:399
 msgid "Authentication failure"
 msgstr "Échec d'authentification"
 
-#: ../plugins/eds/gtd-provider-eds.c:435
+#: ../plugins/eds/gtd-provider-eds.c:451
 msgid "Error loading task manager"
 msgstr "Erreur de chargement du gestionnaire de tâches"
 
-#: ../plugins/eds/gtd-provider-eds.c:532 ../plugins/eds/gtd-provider-eds.c:536
+#: ../plugins/eds/gtd-provider-eds.c:550 ../plugins/eds/gtd-provider-eds.c:558
 msgid "Error creating task"
 msgstr "Erreur de création de la tâche"
 
-#: ../plugins/eds/gtd-provider-eds.c:575 ../plugins/eds/gtd-provider-eds.c:579
+#: ../plugins/eds/gtd-provider-eds.c:598 ../plugins/eds/gtd-provider-eds.c:602
 msgid "Error updating task"
 msgstr "Erreur de mise à jour de la tâche"
 
-#: ../plugins/eds/gtd-provider-eds.c:611 ../plugins/eds/gtd-provider-eds.c:615
+#: ../plugins/eds/gtd-provider-eds.c:634 ../plugins/eds/gtd-provider-eds.c:638
 msgid "Error removing task"
 msgstr "Erreur de suppression de la tâche"
 
-#: ../plugins/eds/gtd-provider-eds.c:639 ../plugins/eds/gtd-provider-eds.c:643
+#: ../plugins/eds/gtd-provider-eds.c:662 ../plugins/eds/gtd-provider-eds.c:666
 msgid "Error creating task list"
 msgstr "Erreur lors de la création de la liste de tâches"
 
-#: ../plugins/eds/gtd-provider-eds.c:660 ../plugins/eds/gtd-provider-eds.c:664
+#: ../plugins/eds/gtd-provider-eds.c:683 ../plugins/eds/gtd-provider-eds.c:687
 msgid "Error removing task list"
 msgstr "Erreur de suppression de la liste de tâches"
 
-#: ../plugins/eds/gtd-provider-eds.c:721 ../plugins/eds/gtd-provider-eds.c:725
+#: ../plugins/eds/gtd-provider-eds.c:744 ../plugins/eds/gtd-provider-eds.c:748
 #: ../plugins/eds/gtd-task-list-eds.c:69
 msgid "Error saving task list"
 msgstr "Erreur d'enregistrement de la tâche"
@@ -402,20 +373,44 @@ msgstr "Sur cet ordinateur"
 msgid "Error creating new task list"
 msgstr "Erreur lors de la création de la nouvelle liste de tâches"
 
+#: ../plugins/scheduled-panel/gtd-panel-scheduled.c:67
+#: ../src/gtd-edit-pane.c:204 ../src/gtd-task-row.c:328
+msgid "No date set"
+msgstr "Aucune date définie"
+
+#: ../plugins/scheduled-panel/gtd-panel-scheduled.c:83
+#: ../src/gtd-task-row.c:306
+#, c-format
+msgid "Yesterday"
+msgid_plural "%d days ago"
+msgstr[0] "Hier"
+msgstr[1] "Il y a %d jours"
+
+#. Setup a title
+#: ../plugins/scheduled-panel/gtd-panel-scheduled.c:342
+#: ../plugins/scheduled-panel/gtd-panel-scheduled.c:347
+#: ../plugins/scheduled-panel/gtd-panel-scheduled.c:478
+msgid "Scheduled"
+msgstr "Prévu pour"
+
+#: ../plugins/scheduled-panel/gtd-panel-scheduled.c:483
+#: ../plugins/today-panel/gtd-panel-today.c:310
+#: ../src/views/gtd-list-selector-panel.c:700
+msgid "Clear completed tasks…"
+msgstr "Effacer les tâches terminées…"
+
 #: ../plugins/score/score/__init__.py:84
 msgid "No task completed today"
 msgstr "Aucune tâche terminée aujourd'hui"
 
-#: ../plugins/unscheduled-panel/unscheduled-panel/__init__.py:33
-msgid "unscheduled-panel"
-msgstr ""
-
+#. Translators: 'Unscheduled' as in 'Unscheduled tasks'
 #: ../plugins/unscheduled-panel/unscheduled-panel/__init__.py:34
-#: ../plugins/unscheduled-panel/unscheduled-panel/__init__.py:85
+#: ../plugins/unscheduled-panel/unscheduled-panel/__init__.py:88
 msgid "Unscheduled"
 msgstr "Non programmée"
 
-#: ../plugins/unscheduled-panel/unscheduled-panel/__init__.py:87
+#. Translators: 'Unscheduled' as in 'Unscheduled tasks'
+#: ../plugins/unscheduled-panel/unscheduled-panel/__init__.py:91
 #, python-format
 msgid "Unscheduled (%d)"
 msgstr "Non programmée (%d)"
@@ -437,6 +432,50 @@ msgstr ""
 "Alain Lojewski <allomervan@gmail.com>\n"
 "Laurent de Burlet <thevedeburlet@gmail.com"
 
+#: ../src/gtd-empty-list-widget.c:49
+msgid "No more tasks left"
+msgstr "Aucunes tâches restantes"
+
+#: ../src/gtd-empty-list-widget.c:50
+msgid "Nothing else to do here"
+msgstr "Rien d'autre à faire ici"
+
+#: ../src/gtd-empty-list-widget.c:51
+msgid "You made it!"
+msgstr "Vous l'avez fait !"
+
+#: ../src/gtd-empty-list-widget.c:52
+msgid "Looks like there's nothing else left here"
+msgstr "Il semblerait qu'il ne reste rien d'autre ici"
+
+#: ../src/gtd-empty-list-widget.c:57
+msgid "Get some rest now"
+msgstr "Reposez-vous à présent"
+
+#: ../src/gtd-empty-list-widget.c:58
+msgid "Enjoy the rest of your day"
+msgstr "Passez une bonne journée"
+
+#: ../src/gtd-empty-list-widget.c:59
+msgid "Good job!"
+msgstr "Excellent travail !"
+
+#: ../src/gtd-empty-list-widget.c:60
+msgid "Meanwhile, spread the love"
+msgstr "En attendant, répandez de l'amour"
+
+#: ../src/gtd-empty-list-widget.c:61
+msgid "Working hard is always rewarded"
+msgstr "Travailler dur est toujours récompensé"
+
+#: ../src/gtd-empty-list-widget.c:72
+msgid "No tasks found"
+msgstr "Aucune tâche trouvée"
+
+#: ../src/gtd-empty-list-widget.c:73
+msgid "You can add tasks using the <b>+</b> above"
+msgstr "Vous pouvez ajouter des tâches en utilisant <b>+</b> ci-dessus"
+
 #: ../src/gtd-plugin-dialog-row.c:95
 msgid "Error loading plugin"
 msgstr "Erreur au chargement du greffon"
@@ -445,20 +484,34 @@ msgstr "Erreur au chargement du greffon"
 msgid "Error unloading plugin"
 msgstr "Erreur au déchargement du greffon"
 
-#: ../src/gtd-task-list-view.c:334
+#: ../src/gtd-task-list-view.c:570
+msgid "Removing this task will also remove its subtasks. Remove anyway?"
+msgstr ""
+"La suppression de cette tâche supprimera également ses sous-tâches. "
+"Supprimer quand même ?"
+
+#: ../src/gtd-task-list-view.c:573
+msgid "Once removed, the tasks cannot be recovered."
+msgstr "Une fois supprimée, les listes de tâches sont perdues définitivement."
+
+#: ../src/gtd-task-list-view.c:578
+msgid "Remove"
+msgstr "Supprimer"
+
+#: ../src/gtd-task-list-view.c:627
 #, c-format
 msgid "Task <b>%s</b> removed"
 msgstr "Tâche <b>%s</b> supprimée"
 
-#: ../src/gtd-task-list-view.c:365
+#: ../src/gtd-task-list-view.c:657
 msgid "Undo"
 msgstr "Annuler"
 
-#: ../src/gtd-window.c:817
+#: ../src/gtd-window.c:808
 msgid "Loading your task lists…"
-msgstr "Chargement de votre liste de tâches..."
+msgstr "Chargement de votre liste de tâches…"
 
-#: ../src/gtd-window.c:949
+#: ../src/gtd-window.c:934
 msgid "Click a task list to select"
 msgstr "Cliquez sur une liste de tâches pour la sélectionner"
 
@@ -481,320 +534,3 @@ msgstr "Une fois supprimée, la liste de tâches est perdue définitivement."
 #: ../src/views/gtd-list-selector-panel.c:394
 msgid "Remove task lists"
 msgstr "Supprimer la liste de tâches"
-
-#~ msgid "Todo"
-#~ msgstr "Tâches"
-
-#~ msgid "Skipping already loaded task list "
-#~ msgstr "Liste de tâches ignorée car déjà chargée"
-
-#~ msgid "Manager of this application"
-#~ msgstr "Gestionnaire de cette application"
-
-#~ msgid "The manager of the application"
-#~ msgstr "Le gestionnaire de l'application"
-
-#~ msgid "Task being edited"
-#~ msgstr "Tâche en cours de modification"
-
-#~ msgid "The task that is actually being edited"
-#~ msgstr "La tâche actuellement en cours de modification"
-
-#~ msgid "Manager of the task"
-#~ msgstr "Gestionnaire de la tâche"
-
-#~ msgid "The singleton manager instance of the task"
-#~ msgstr "L'unique instance du gestionnaire de la tâche "
-
-#~ msgid "The online accounts client of the manager"
-#~ msgstr "Le client des comptes en ligne du gestionnaire"
-
-#~ msgid ""
-#~ "The read-only GNOME online accounts client loaded and owned by the manager"
-#~ msgstr ""
-#~ "Le client des comptes en ligne GNOME chargé en lecture seule et propriété "
-#~ "du gestionnaire"
-
-#~ msgid "Whether GNOME Online Accounts client is ready"
-#~ msgstr "Indique si le client des Comptes en ligne GNOME est prêt"
-
-#~ msgid "Whether the read-only GNOME online accounts client is loaded"
-#~ msgstr ""
-#~ "Indique si le client des Comptes en ligne GNOME en lecture seule est "
-#~ "chargé"
-
-#~ msgid "The source registry of the manager"
-#~ msgstr "Le registre des sources du gestionnaire"
-
-#~ msgid "The read-only source registry loaded and owned by the manager"
-#~ msgstr ""
-#~ "Le registre des sources est chargé en lecture seule et détenu par le "
-#~ "gestionnaire"
-
-#~ msgid "Unique identifier of the object"
-#~ msgstr "Identifiant unique de l'objet"
-
-#~ msgid "The unique identifier of the object, defined by the backend"
-#~ msgstr "L'identifiant unique de l'objet, défini par le moteur de recherches"
-
-#~ msgid "Ready state of the object"
-#~ msgstr "L'objet est marqué prêt"
-
-#~ msgid "Whether the object is marked as ready or not"
-#~ msgstr "Indique si l'objet est marqué comme prêt ou non"
-
-#~ msgid "Whether the task is completed or not"
-#~ msgstr "Indique si la tâche est terminée ou non"
-
-#~ msgid "Whether the task is marked as completed by the user"
-#~ msgstr "Indique si la tâche est marquée comme terminée par l'utilisateur"
-
-#~ msgid "Component of the task"
-#~ msgstr "Composition de la tâche"
-
-#~ msgid "The #ECalComponent this task handles."
-#~ msgstr "Le #ECalComponent que cette tâche gère."
-
-#~ msgid "Description of the task"
-#~ msgstr "Description de la tâche"
-
-#~ msgid "Optional string describing the task"
-#~ msgstr "Chaîne optionnelle décrivant la tâche"
-
-#~ msgid "End date of the task"
-#~ msgstr "Date de fin de la tâche"
-
-#~ msgid "The day the task is supposed to be completed"
-#~ msgstr "Le jour où la tâche est sensée être terminée"
-
-#~ msgid "The list that owns this task"
-#~ msgstr "La liste propriétaire de cette tâche"
-
-#~ msgid "Priority of the task"
-#~ msgstr "Priorité de la tâche"
-
-#~ msgid ""
-#~ "The priority of the task. 0 means no priority set, and tasks will be "
-#~ "sorted alphabetically."
-#~ msgstr ""
-#~ "La priorité de la tâche. 0 signifie qu'il n'y a pas de priorité définie "
-#~ "et que les tâches seront triées dans l'ordre alphabétique."
-
-#~ msgid "Title of the task"
-#~ msgstr "Titre de la tâche"
-
-#~ msgid "The title of the task"
-#~ msgstr "Le titre de la tâche"
-
-#~ msgid "Color of the list"
-#~ msgstr "Couleur de la liste"
-
-#~ msgid "The color of the list"
-#~ msgstr "La couleur de la liste"
-
-#~ msgid "Whether the task list is removable"
-#~ msgstr "Indique si la tâche est supprimable "
-
-#~ msgid "Whether the task list can be removed from the system"
-#~ msgstr "Indique si la liste de tâches peut être supprimée du système"
-
-#~ msgid "Name of the list"
-#~ msgstr "Nom de la liste"
-
-#~ msgid "The name of the list"
-#~ msgstr "Le nom de la liste"
-
-#~ msgid "Data origin of the list"
-#~ msgstr "Provenance des données de la liste"
-
-#~ msgid "The data origin location of the list"
-#~ msgstr "La provenance des données de la liste"
-
-#~ msgid "Source of the list"
-#~ msgstr "Source de la liste"
-
-#~ msgid "The parent source that handles the list"
-#~ msgstr "La source parente qui gère la liste"
-
-#~ msgid "Mode of this item"
-#~ msgstr "Mode de cet élément"
-
-#~ msgid "The mode of this item, inherited from the parent's mode"
-#~ msgstr "Le mode de cet élément, hérité du mode du parent"
-
-#~ msgid "Whether the task list is selected"
-#~ msgstr "Indique si la liste de tâches est sélectionnée"
-
-#~ msgid "Whether the task list is selected when in selection mode"
-#~ msgstr ""
-#~ "Indique si la liste de tâches est sélectionnée lorsqu'elle est en mode "
-#~ "sélection"
-
-#~ msgid "The task list associated with this item"
-#~ msgstr "La liste de tâches associée à cet élément"
-
-#~ msgid "Manager of this window's application"
-#~ msgstr "Gestionnaire de la fenêtre de cette application"
-
-#~ msgid "The manager of the window's application"
-#~ msgstr "Les gestionnaire de la fenêtre de cette application"
-
-#~ msgid "Whether the list is readonly"
-#~ msgstr "Indique si cette liste est en lecture seule"
-
-#~ msgid ""
-#~ "Whether the list is readonly, i.e. doesn't show the New Task row, or not"
-#~ msgstr ""
-#~ "Indique si cette liste est en lecture seule, c.à.d. affiche ou non la "
-#~ "ligne Nouvelle Tâche"
-
-#~ msgid "Whether task rows show the list name"
-#~ msgstr "Indique si les lignes de tâches affichent le nom de la liste"
-
-#~ msgid "Whether task rows show the list name at the end of the row"
-#~ msgstr ""
-#~ "Indique si les lignes de tâches affichent le nom de la liste à la fin de "
-#~ "chaque ligne"
-
-#~ msgid "Whether completed tasks are shown"
-#~ msgstr "Indique si les tâches terminées doivent être affichées"
-
-#~ msgid "Whether completed tasks are visible or not"
-#~ msgstr "Indique si les tâches terminées doivent être visibles"
-
-#~ msgid "If the row is used to add a new task"
-#~ msgstr "Si cette ligne est utilisée pour ajouter une nouvelle tâche"
-
-#~ msgid "Whether the row is used to add a new task"
-#~ msgstr "Indique si cette ligne est utilisée pour ajouter une nouvelle tâche"
-
-#~ msgid "Task of the row"
-#~ msgstr "Tâche de la ligne"
-
-#~ msgid "The task that this row represents"
-#~ msgstr "La tâche que cette ligne représente"
-
-#~ msgid "Mode of this window"
-#~ msgstr "Mode de cette fenêtre"
-
-#~ msgid "The interaction mode of the window"
-#~ msgstr "Le mode d’interaction de la fenêtre"
-
-#~ msgid "Whether the storage is enabled"
-#~ msgstr "Indique si le stockage est activé"
-
-#~ msgid "Whether the storage is available to be used."
-#~ msgstr "Indique si le stockage est prêt à être utilisé."
-
-#~ msgid "Icon of the storage"
-#~ msgstr "Icône du support de stockage"
-
-#~ msgid "The icon representing the storage location."
-#~ msgstr "L'icône indiquant l'emplacement du stockage."
-
-#~ msgid "Identifier of the storage"
-#~ msgstr "Identifiant du stockage"
-
-#~ msgid "The unique identifier of the storage location."
-#~ msgstr "L'identifiant unique de l'emplacement de stockage."
-
-#~ msgid "Whether the storage is the default"
-#~ msgstr "Indique si le support de stockage est celui par défaut"
-
-#~ msgid "Whether the storage is the default storage location to be used."
-#~ msgstr ""
-#~ "Indique si le support de stockage est l'emplacement par défaut à utiliser."
-
-#~ msgid "Name of the storage"
-#~ msgstr "Nom du support de stockage"
-
-#~ msgid "The user-visible name of the storage location."
-#~ msgstr "Le nom visible à l'utilisateur de l'emplacement de stockage."
-
-#~ msgid "Name of the data provider of the storage"
-#~ msgstr "Nom du fournisseur de données du support de stockage"
-
-#~ msgid "The user-visible name of the data provider of the storage location."
-#~ msgstr ""
-#~ "Le nom visible à l'utilisateur du fournisseur de données de l'emplacement "
-#~ "de stockage."
-
-#~ msgid "GoaObject of the storage"
-#~ msgstr "GoaObject du support de stockage"
-
-#~ msgid "The GoaObject this storage location represents."
-#~ msgstr "Le GoaObject que cet emplacement de stockage représente."
-
-#~ msgid "Parent of the storage"
-#~ msgstr "Parent du support de stockage"
-
-#~ msgid "The parent source identifier of the storage location."
-#~ msgstr "L'identifiant de source parente de l'emplacement de stockage."
-
-#~ msgid "Storage of the row"
-#~ msgstr "Stockage de la ligne"
-
-#~ msgid "The storage that this row holds"
-#~ msgstr "Le stockage que contient cette ligne"
-
-#~ msgid "Show local storage row"
-#~ msgstr "Afficher la ligne du stockage local"
-
-#~ msgid "Whether should show a local storage row instead of a checkbox"
-#~ msgstr ""
-#~ "Indique s'il faut afficher une ligne de stockage local à la place d'une "
-#~ "case à cocher"
-
-#~ msgid "Show stub rows"
-#~ msgstr "Afficher les lignes incomplètes"
-
-#~ msgid "Whether should show stub rows for non-added accounts"
-#~ msgstr ""
-#~ "Indique s'il faut afficher les lignes incomplètes de comptes n'ayant pas "
-#~ "été ajoutés"
-
-#~ msgid "Selects default storage row"
-#~ msgstr "Sélectionne la ligne de stockage par défaut"
-
-#~ msgid "Whether should select the default storage row"
-#~ msgstr "Indique s'il faut sélectionner la ligne de stockage par défaut"
-
-#~ msgid "Whether the notification has a primary action"
-#~ msgstr "Indique si la notification a une action principale"
-
-#~ msgid ""
-#~ "Whether the notification has the primary action, activated on timeout or "
-#~ "dismiss"
-#~ msgstr ""
-#~ "Indique si la notification a une action principale, activée par "
-#~ "dépassement de sa durée de vie ou par rejet"
-
-#~ msgid "Whether the notification has a secondary action"
-#~ msgstr "Indique si la notification a une action secondaire"
-
-#~ msgid ""
-#~ "Whether the notification has the secondary action, activated by the user"
-#~ msgstr ""
-#~ "Indique si la notification a une action secondaire, activée par "
-#~ "l'utilisateur"
-
-#~ msgid "Text of the secondary action button"
-#~ msgstr "Texte du bouton de l'action secondaire"
-
-#~ msgid "The text of the secondary action button"
-#~ msgstr "Le texte du bouton de l'action secondaire"
-
-#~ msgid "Notification message"
-#~ msgstr "Message de notification"
-
-#~ msgid "The main message of the notification"
-#~ msgstr "Le message principal de la notification"
-
-#~ msgid "Notification timeout"
-#~ msgstr "Temps d'affichage de la notification"
-
-#~ msgid "The time the notification is displayed"
-#~ msgstr "Affiche le temps d'affichage de la notification"
-
-#~ msgid "Account of the storage"
-#~ msgstr "Compte du support de stockage"
