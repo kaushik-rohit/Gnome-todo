@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-todo master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
-"todo&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2016-06-17 21:44+0000\n"
-"PO-Revision-Date: 2016-08-18 22:12+0200\n"
+"todo&keywords=I18N+L10N&component=General\n"
+"POT-Creation-Date: 2016-10-23 04:31+0000\n"
+"PO-Revision-Date: 2016-10-28 12:52+0200\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: čeština <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -24,7 +24,7 @@ msgstr ""
 
 #: ../data/appdata/org.gnome.Todo.appdata.xml.in.h:1
 #: ../data/org.gnome.Todo.desktop.in.in.h:1 ../src/gtd-application.c:123
-#: ../src/gtd-application.c:149 ../src/gtd-window.c:955
+#: ../src/gtd-application.c:149 ../src/gtd-window.c:940
 msgid "To Do"
 msgstr "Úkoly"
 
@@ -34,11 +34,12 @@ msgstr "Správa úkolů pro GNOME"
 
 #: ../data/appdata/org.gnome.Todo.appdata.xml.in.h:3
 msgid ""
-"GNOME To Do is a simple task management application designed to integrate "
-"with GNOME."
+"GNOME To Do is a task management application designed to integrate with "
+"GNOME. It is extensible through plugins and supports custom task providers."
 msgstr ""
-"Úkoly GNOME je jednoduchá aplikace pro správu úkolů navržená tak, aby se "
-"zapadla do GNOME."
+"Úkoly GNOME je aplikace pro správu úkolů navržená tak, aby zapadla do GNOME. "
+"Dá se rozšiřovat pomocí zásuvných modulů a podporuje vlastní poskytovatele "
+"úkolů."
 
 #: ../data/gtk/menus.ui.h:1
 msgid "New List…"
@@ -128,49 +129,69 @@ msgid "The current list selector. Can be 'grid' or 'list'."
 msgstr ""
 "Aktuálně vybraný typ seznamu. Může být „grid“ (mřížka) nebo „list“ (seznam)."
 
-#: ../data/ui/edit-pane.ui.h:1 ../plugins/eds/edit-pane.ui.h:1
-#: ../src/gtd-window.c:553
+#: ../data/ui/edit-pane.ui.h:1 ../plugins/eds/edit-pane.ui.h:10
+msgctxt "taskdate"
+msgid "None"
+msgstr "Žádné"
+
+#: ../data/ui/edit-pane.ui.h:2 ../plugins/eds/edit-pane.ui.h:1
+#: ../src/gtd-window.c:542
 msgid "Details"
 msgstr "Podrobnosti"
 
-#: ../data/ui/edit-pane.ui.h:2 ../plugins/eds/edit-pane.ui.h:2
+#: ../data/ui/edit-pane.ui.h:3 ../plugins/eds/edit-pane.ui.h:2
 msgid "Notes"
 msgstr "Poznámky"
 
-#: ../data/ui/edit-pane.ui.h:3 ../plugins/eds/edit-pane.ui.h:3
+#: ../data/ui/edit-pane.ui.h:4 ../plugins/eds/edit-pane.ui.h:3
 msgid "Due Date"
 msgstr "Datum splnění"
 
-#: ../data/ui/edit-pane.ui.h:4 ../plugins/eds/edit-pane.ui.h:4
+#: ../data/ui/edit-pane.ui.h:5 ../plugins/eds/edit-pane.ui.h:4
 msgid "Priority"
 msgstr "Priorita"
 
-#: ../data/ui/edit-pane.ui.h:5 ../plugins/eds/edit-pane.ui.h:5
+#: ../data/ui/edit-pane.ui.h:6 ../plugins/eds/edit-pane.ui.h:5
 msgctxt "taskpriority"
 msgid "None"
 msgstr "žádná"
 
-#: ../data/ui/edit-pane.ui.h:6 ../plugins/eds/edit-pane.ui.h:6
+#: ../data/ui/edit-pane.ui.h:7 ../plugins/eds/edit-pane.ui.h:6
 msgid "Low"
 msgstr "nízká"
 
-#: ../data/ui/edit-pane.ui.h:7 ../plugins/eds/edit-pane.ui.h:7
+#: ../data/ui/edit-pane.ui.h:8 ../plugins/eds/edit-pane.ui.h:7
 msgid "Medium"
 msgstr "střední"
 
-#: ../data/ui/edit-pane.ui.h:8 ../plugins/eds/edit-pane.ui.h:8
+#: ../data/ui/edit-pane.ui.h:9 ../plugins/eds/edit-pane.ui.h:8
 msgid "High"
 msgstr "vysoká"
 
-#: ../data/ui/edit-pane.ui.h:9 ../data/ui/list-selector-panel.ui.h:2
+#: ../data/ui/edit-pane.ui.h:10 ../data/ui/list-selector-panel.ui.h:2
 #: ../plugins/eds/edit-pane.ui.h:9
 msgid "Delete"
 msgstr "Odstranit"
 
-#: ../data/ui/edit-pane.ui.h:10 ../plugins/eds/edit-pane.ui.h:10
-msgctxt "taskdate"
-msgid "None"
-msgstr "Žádné"
+#. Setup a title
+#: ../data/ui/edit-pane.ui.h:11
+#: ../plugins/scheduled-panel/gtd-panel-scheduled.c:87
+#: ../plugins/score/score/__init__.py:95
+#: ../plugins/today-panel/gtd-panel-today.c:131
+#: ../plugins/today-panel/gtd-panel-today.c:136
+#: ../plugins/today-panel/gtd-panel-today.c:305 ../src/gtd-task-row.c:298
+msgid "Today"
+msgstr "Dnes"
+
+#: ../data/ui/edit-pane.ui.h:12
+#: ../plugins/scheduled-panel/gtd-panel-scheduled.c:91
+#: ../src/gtd-task-row.c:302
+msgid "Tomorrow"
+msgstr "Zítra"
+
+#: ../data/ui/edit-pane.ui.h:13
+msgid "Next Week"
+msgstr "Následující týden"
 
 #: ../data/ui/initial-setup.ui.h:1
 msgid "Welcome"
@@ -181,12 +202,13 @@ msgid "Login to online accounts to access your tasks"
 msgstr "Přihlášení k účtům on-line pro přístup k vašim úkolům"
 
 #: ../data/ui/initial-setup.ui.h:3 ../data/ui/provider-popover.ui.h:2
-#: ../data/ui/window.ui.h:1 ../src/views/gtd-list-selector-panel.c:386
+#: ../data/ui/window.ui.h:1 ../src/gtd-task-list-view.c:569
+#: ../src/views/gtd-list-selector-panel.c:386
 msgid "Cancel"
 msgstr "Zrušit"
 
-#: ../data/ui/initial-setup.ui.h:4 ../data/ui/list-view.ui.h:4
-#: ../src/gtd-task-list-view.c:434
+#: ../data/ui/initial-setup.ui.h:4 ../data/ui/list-view.ui.h:2
+#: ../src/gtd-task-list-view.c:723
 msgid "Done"
 msgstr "Hotovo"
 
@@ -212,28 +234,12 @@ msgid "New List"
 msgstr "Nový seznam"
 
 #: ../data/ui/list-view.ui.h:1
-msgid "No tasks found"
-msgstr "Žádné úkoly nenalezeny"
-
-#: ../data/ui/list-view.ui.h:2
-msgid "You can add tasks to lists in the <b>Lists</b> view"
-msgstr "Úkoly do seznamů je možné přidat v zobrazení <b>Seznamy</b>"
-
-#: ../data/ui/list-view.ui.h:3
 msgid "Show or hide completed tasks"
 msgstr "Zobrazit nebo skrýt splněné úkoly"
 
 #: ../data/ui/plugin-dialog.ui.h:2
 msgid "No extensions found"
 msgstr "Nebylo nalezeno žádné rozšíření"
-
-#: ../data/ui/provider-dialog.ui.h:1
-msgid "Select the default storage location to create task lists:"
-msgstr "Vybrat umístění výchozího úložiště pro vytváření seznamů úkolů:"
-
-#: ../data/ui/provider-dialog.ui.h:2
-msgid "Default storage location"
-msgstr "Umístění výchozího úložiště"
 
 #: ../data/ui/provider-popover.ui.h:1
 msgid "Create"
@@ -283,104 +289,67 @@ msgstr "Nebo můžete své úkoly jednoduše ukládat na tomto počítači."
 msgid "New task…"
 msgstr "Nový úkol…"
 
-#: ../plugins/eds/gtd-panel-scheduled.c:67 ../src/gtd-edit-pane.c:147
-#: ../src/gtd-task-row.c:170
-msgid "No date set"
-msgstr "Nebylo nastaveno datum"
-
-#: ../plugins/eds/gtd-panel-scheduled.c:83 ../src/gtd-task-row.c:148
-#, c-format
-msgid "Yesterday"
-msgid_plural "%d days ago"
-msgstr[0] "Včera"
-msgstr[1] "Před %d dny"
-msgstr[2] "Před %d dny"
-
-#. Setup a title
-#: ../plugins/eds/gtd-panel-scheduled.c:87 ../plugins/eds/gtd-panel-today.c:147
-#: ../plugins/eds/gtd-panel-today.c:152 ../plugins/eds/gtd-panel-today.c:314
-#: ../plugins/score/score/__init__.py:95 ../src/gtd-task-row.c:140
-msgid "Today"
-msgstr "Dnes"
-
-#: ../plugins/eds/gtd-panel-scheduled.c:91 ../src/gtd-task-row.c:144
-msgid "Tomorrow"
-msgstr "Zítra"
-
-#. Setup a title
-#: ../plugins/eds/gtd-panel-scheduled.c:354
-#: ../plugins/eds/gtd-panel-scheduled.c:359
-#: ../plugins/eds/gtd-panel-scheduled.c:489
-msgid "Scheduled"
-msgstr "Naplánováno"
-
-#: ../plugins/eds/gtd-panel-scheduled.c:497
-#: ../plugins/eds/gtd-panel-today.c:322
-#: ../src/views/gtd-list-selector-panel.c:700
-msgid "Clear completed tasks…"
-msgstr "Vymazat splněné úkoly…"
-
-#: ../plugins/eds/gtd-plugin-eds.c:249 ../plugins/eds/gtd-plugin-eds.c:253
+#: ../plugins/eds/gtd-plugin-eds.c:244 ../plugins/eds/gtd-plugin-eds.c:248
 msgid "Error loading GNOME Online Accounts"
 msgstr "Chyba při načítání Účtů on-line GNOME"
 
-#: ../plugins/eds/gtd-plugin-eds.c:278
+#: ../plugins/eds/gtd-plugin-eds.c:273
 msgid "Error loading Evolution-Data-Server backend"
 msgstr "Chyba při načítání modulu Evolution-Data-Server"
 
-#: ../plugins/eds/gtd-plugin-eds.c:371 ../src/gtd-application.c:243
+#: ../plugins/eds/gtd-plugin-eds.c:364 ../src/gtd-application.c:243
 msgid "Error loading CSS from resource"
 msgstr "Chyba při načítání CSS z prostředku"
 
-#: ../plugins/eds/gtd-provider-eds.c:118 ../plugins/eds/gtd-provider-eds.c:122
+#: ../plugins/eds/gtd-provider-eds.c:132 ../plugins/eds/gtd-provider-eds.c:136
 msgid "Error fetching tasks from list"
 msgstr "Chyba při získávání úkolů ze seznamu"
 
-#: ../plugins/eds/gtd-provider-eds.c:182
+#: ../plugins/eds/gtd-provider-eds.c:196
 msgid "Task list source successfully connected"
 msgstr "Zdroj seznamu úkolů byl úspěšně připojen"
 
-#: ../plugins/eds/gtd-provider-eds.c:189 ../plugins/eds/gtd-provider-eds.c:194
+#: ../plugins/eds/gtd-provider-eds.c:203 ../plugins/eds/gtd-provider-eds.c:208
 msgid "Failed to connect to task list source"
 msgstr "Připojení ke zdroji seznamu úkolů selhalo"
 
-#: ../plugins/eds/gtd-provider-eds.c:306
+#: ../plugins/eds/gtd-provider-eds.c:322
 msgid "Failed to prompt for credentials"
 msgstr "Selhal dotaz na přihlašovací údaje"
 
-#: ../plugins/eds/gtd-provider-eds.c:329
+#: ../plugins/eds/gtd-provider-eds.c:345
 msgid "Failed to prompt for credentials for"
 msgstr "Selhal dotaz na přihlašovací údaje pro"
 
-#: ../plugins/eds/gtd-provider-eds.c:383
+#: ../plugins/eds/gtd-provider-eds.c:399
 msgid "Authentication failure"
 msgstr "Ověření selhalo"
 
-#: ../plugins/eds/gtd-provider-eds.c:435
+#: ../plugins/eds/gtd-provider-eds.c:451
 msgid "Error loading task manager"
 msgstr "Chyba při načítaní správy úkolů"
 
-#: ../plugins/eds/gtd-provider-eds.c:532 ../plugins/eds/gtd-provider-eds.c:536
+#: ../plugins/eds/gtd-provider-eds.c:550 ../plugins/eds/gtd-provider-eds.c:558
 msgid "Error creating task"
 msgstr "Chyba při vytváření úkolu"
 
-#: ../plugins/eds/gtd-provider-eds.c:575 ../plugins/eds/gtd-provider-eds.c:579
+#: ../plugins/eds/gtd-provider-eds.c:598 ../plugins/eds/gtd-provider-eds.c:602
 msgid "Error updating task"
 msgstr "Chyba při aktualizaci úkolu"
 
-#: ../plugins/eds/gtd-provider-eds.c:611 ../plugins/eds/gtd-provider-eds.c:615
+#: ../plugins/eds/gtd-provider-eds.c:634 ../plugins/eds/gtd-provider-eds.c:638
 msgid "Error removing task"
 msgstr "Chyba při odstraňování úkolu"
 
-#: ../plugins/eds/gtd-provider-eds.c:639 ../plugins/eds/gtd-provider-eds.c:643
+#: ../plugins/eds/gtd-provider-eds.c:662 ../plugins/eds/gtd-provider-eds.c:666
 msgid "Error creating task list"
 msgstr "Chyba při vytváření seznamu úkolů"
 
-#: ../plugins/eds/gtd-provider-eds.c:660 ../plugins/eds/gtd-provider-eds.c:664
+#: ../plugins/eds/gtd-provider-eds.c:683 ../plugins/eds/gtd-provider-eds.c:687
 msgid "Error removing task list"
 msgstr "Chyba při odstraňování seznamu úkolů"
 
-#: ../plugins/eds/gtd-provider-eds.c:721 ../plugins/eds/gtd-provider-eds.c:725
+#: ../plugins/eds/gtd-provider-eds.c:744 ../plugins/eds/gtd-provider-eds.c:748
 #: ../plugins/eds/gtd-task-list-eds.c:69
 msgid "Error saving task list"
 msgstr "Chyba při ukládání seznamu úkolů"
@@ -398,24 +367,46 @@ msgstr "Na tomto počítači"
 msgid "Error creating new task list"
 msgstr "Chyba při vytváření nového seznamu úkolů"
 
+#: ../plugins/scheduled-panel/gtd-panel-scheduled.c:67
+#: ../src/gtd-edit-pane.c:204 ../src/gtd-task-row.c:328
+msgid "No date set"
+msgstr "Nebylo nastaveno datum"
+
+#: ../plugins/scheduled-panel/gtd-panel-scheduled.c:83
+#: ../src/gtd-task-row.c:306
+#, c-format
+msgid "Yesterday"
+msgid_plural "%d days ago"
+msgstr[0] "Včera"
+msgstr[1] "Před %d dny"
+msgstr[2] "Před %d dny"
+
+#. Setup a title
+#: ../plugins/scheduled-panel/gtd-panel-scheduled.c:342
+#: ../plugins/scheduled-panel/gtd-panel-scheduled.c:347
+#: ../plugins/scheduled-panel/gtd-panel-scheduled.c:478
+msgid "Scheduled"
+msgstr "Naplánováno"
+
+#: ../plugins/scheduled-panel/gtd-panel-scheduled.c:483
+#: ../plugins/today-panel/gtd-panel-today.c:310
+#: ../src/views/gtd-list-selector-panel.c:700
+msgid "Clear completed tasks…"
+msgstr "Vymazat splněné úkoly…"
+
 #: ../plugins/score/score/__init__.py:84
 msgid "No task completed today"
 msgstr "Dnes nebyl dokončen žádný úkol"
 
-#: ../plugins/unscheduled-panel/unscheduled-panel/__init__.py:33
-#| msgid "Scheduled"
-msgid "unscheduled-panel"
-msgstr "panel-neplanovano"
-
+#. Translators: 'Unscheduled' as in 'Unscheduled tasks'
 #: ../plugins/unscheduled-panel/unscheduled-panel/__init__.py:34
-#: ../plugins/unscheduled-panel/unscheduled-panel/__init__.py:85
-#| msgid "Scheduled"
+#: ../plugins/unscheduled-panel/unscheduled-panel/__init__.py:88
 msgid "Unscheduled"
 msgstr "Neplánováno"
 
-#: ../plugins/unscheduled-panel/unscheduled-panel/__init__.py:87
+#. Translators: 'Unscheduled' as in 'Unscheduled tasks'
+#: ../plugins/unscheduled-panel/unscheduled-panel/__init__.py:91
 #, python-format
-#| msgid "Scheduled"
 msgid "Unscheduled (%d)"
 msgstr "Neplánováno (%d)"
 
@@ -435,6 +426,50 @@ msgstr ""
 "Zdeněk Hataš <zdenek.hatas@gmail.com>\n"
 "Marek Černocký <marek@manet.cz>"
 
+#: ../src/gtd-empty-list-widget.c:49
+msgid "No more tasks left"
+msgstr "Nezbývá žádný další úkol"
+
+#: ../src/gtd-empty-list-widget.c:50
+msgid "Nothing else to do here"
+msgstr "Zde již není potřeba nic dělat"
+
+#: ../src/gtd-empty-list-widget.c:51
+msgid "You made it!"
+msgstr "Splnili jste to!"
+
+#: ../src/gtd-empty-list-widget.c:52
+msgid "Looks like there's nothing else left here"
+msgstr "Vypadá to, že zde již nic nezbývá"
+
+#: ../src/gtd-empty-list-widget.c:57
+msgid "Get some rest now"
+msgstr "Trochu si odpočiňte"
+
+#: ../src/gtd-empty-list-widget.c:58
+msgid "Enjoy the rest of your day"
+msgstr "Užívejte si zbytek dne"
+
+#: ../src/gtd-empty-list-widget.c:59
+msgid "Good job!"
+msgstr "Dobrá práce!"
+
+#: ../src/gtd-empty-list-widget.c:60
+msgid "Meanwhile, spread the love"
+msgstr "Mezi tím můžete šířit dobro a lásku"
+
+#: ../src/gtd-empty-list-widget.c:61
+msgid "Working hard is always rewarded"
+msgstr "Tvrdá práce se vždy vyplatí"
+
+#: ../src/gtd-empty-list-widget.c:72
+msgid "No tasks found"
+msgstr "Žádné úkoly nebyly nalezeny"
+
+#: ../src/gtd-empty-list-widget.c:73
+msgid "You can add tasks using the <b>+</b> above"
+msgstr "Úkoly můžete přidat pomocí <b>+</b> níže"
+
 #: ../src/gtd-plugin-dialog-row.c:95
 msgid "Error loading plugin"
 msgstr "Chyba při načítaní zásuvného modulu"
@@ -443,20 +478,34 @@ msgstr "Chyba při načítaní zásuvného modulu"
 msgid "Error unloading plugin"
 msgstr "Chyba při ukončování zásuvného modulu"
 
-#: ../src/gtd-task-list-view.c:334
+#: ../src/gtd-task-list-view.c:563
+msgid "Removing this task will also remove its subtasks. Remove anyway?"
+msgstr ""
+"Odstraněním tohoto úkolu se odstraní i jeho dílčí části. Má se i tak "
+"odstranit?"
+
+#: ../src/gtd-task-list-view.c:566
+msgid "Once removed, the tasks cannot be recovered."
+msgstr "Jakmile jej odstraníte, již jej nelze obnovit."
+
+#: ../src/gtd-task-list-view.c:571
+msgid "Remove"
+msgstr "Odstranit"
+
+#: ../src/gtd-task-list-view.c:620
 #, c-format
 msgid "Task <b>%s</b> removed"
 msgstr "Úkol <b>%s</b> byl odstraněn"
 
-#: ../src/gtd-task-list-view.c:365
+#: ../src/gtd-task-list-view.c:644
 msgid "Undo"
 msgstr "Zpět"
 
-#: ../src/gtd-window.c:817
+#: ../src/gtd-window.c:808
 msgid "Loading your task lists…"
 msgstr "Načítají se vaše seznamy úkolů…"
 
-#: ../src/gtd-window.c:949
+#: ../src/gtd-window.c:934
 msgid "Click a task list to select"
 msgstr "Kliknutím vyberte seznam úkolů"
 
