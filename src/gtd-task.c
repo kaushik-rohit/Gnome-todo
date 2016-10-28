@@ -634,9 +634,9 @@ gtd_task_class_init (GtdTaskClass *klass)
                                          GTD_TYPE_TASK);
 
   /**
-   * GtdTask:subtask-added:
+   * GtdTask:subtask-removed:
    *
-   * Emited when a subtask is added to @self.
+   * Emited when a subtask is removed from @self.
    */
   signals[SUBTASK_REMOVED] = g_signal_new ("subtask-removed",
                                            GTD_TYPE_TASK,
