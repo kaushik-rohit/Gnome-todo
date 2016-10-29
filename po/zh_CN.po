@@ -2,36 +2,40 @@
 # Copyright (C) 2015 gnome-todo's COPYRIGHT HOLDER
 # This file is distributed under the same license as the gnome-todo package.
 # Arthur2e5 <arthur2e5@aosc.xyz>, 2015.
+# Jeff Bai <jeffbai@aosc.xyz>, 2016.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-todo master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
-"todo&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2015-11-14 22:36+0000\n"
-"PO-Revision-Date: 2015-12-23 13:11+0800\n"
-"Last-Translator: Mingye Wang (Arthur2e5) <arthur200126@gmail.com>\n"
+"todo&keywords=I18N+L10N&component=General\n"
+"POT-Creation-Date: 2016-08-26 20:55+0000\n"
+"PO-Revision-Date: 2016-10-29 23:32+0800\n"
+"Last-Translator: Jeff Bai <jeffbai@aosc.xyz>\n"
 "Language-Team: Chinese (simplified) <i18n-zh@googlegroups.com>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 1.8.11\n"
 
 #: ../data/appdata/org.gnome.Todo.appdata.xml.in.h:1
-#: ../data/org.gnome.Todo.desktop.in.in.h:1
-msgid "Todo"
+#: ../data/org.gnome.Todo.desktop.in.in.h:1 ../src/gtd-application.c:123
+#: ../src/gtd-application.c:149 ../src/gtd-window.c:955
+msgid "To Do"
 msgstr "待办事项"
 
 #: ../data/appdata/org.gnome.Todo.appdata.xml.in.h:2
-msgid "Todo manager for GNOME"
-msgstr "GNOME 待办事项"
+msgid "Task manager for GNOME"
+msgstr "GNOME 待办事项管理器"
 
 #: ../data/appdata/org.gnome.Todo.appdata.xml.in.h:3
 msgid ""
-"GNOME Todo is a simple task management application designed to integrate "
+"GNOME To Do is a simple task management application designed to integrate "
 "with GNOME."
-msgstr "GNOME 待办事项是一个简单的任务管理应用程序，为与 GNOME 集成而设计。"
+msgstr ""
+"GNOME 待办事项是一个简单的待办事项管理应用程序，为与 GNOME 集成而设计。"
 
 #: ../data/gtk/menus.ui.h:1
 msgid "New List…"
@@ -41,17 +45,17 @@ msgstr "新建列表..."
 msgid "Change default storage location…"
 msgstr "更改默认存储位置..."
 
-#: ../data/gtk/menus.ui.h:3
+#: ../data/gtk/menus.ui.h:3 ../data/ui/plugin-dialog.ui.h:1
+msgid "Extensions"
+msgstr "扩展"
+
+#: ../data/gtk/menus.ui.h:4
 msgid "_About"
 msgstr "关于(_A)"
 
-#: ../data/gtk/menus.ui.h:4
+#: ../data/gtk/menus.ui.h:5
 msgid "_Quit"
 msgstr "退出(_Q)"
-
-#: ../data/gtk/menus.ui.h:5
-msgid "Clear completed tasks…"
-msgstr "清除已完成任务..."
 
 #: ../data/org.gnome.Todo.desktop.in.in.h:2
 msgid "Manage your personal tasks"
@@ -59,7 +63,7 @@ msgstr "管理您的个人任务"
 
 #: ../data/org.gnome.Todo.desktop.in.in.h:3
 msgid "Task;Productivity;"
-msgstr "Task;Productivity;任务;生产力;"
+msgstr "Task;Productivity;任务;生产力;待办;"
 
 #: ../data/org.gnome.todo.gschema.xml.h:1
 msgid "Window maximized"
@@ -95,51 +99,73 @@ msgid ""
 msgstr "是否为第一次运行 GNOME 待办事项(以运行初始化设置)"
 
 #: ../data/org.gnome.todo.gschema.xml.h:9
-msgid "Default location to add new lists to"
+#, fuzzy
+#| msgid "Default location to add new lists to"
+msgid "Default provider to add new lists to"
 msgstr "要加入到新列表的默认位置"
 
 #: ../data/org.gnome.todo.gschema.xml.h:10
-msgid "The identifier of the default location to add new lists to"
+#, fuzzy
+#| msgid "The identifier of the default location to add new lists to"
+msgid "The identifier of the default provider to add new lists to"
 msgstr "要加入到新列表的默认位置的标识符"
 
-#: ../data/ui/edit-pane.ui.h:1 ../src/gtd-window.c:813
+#: ../data/org.gnome.todo.gschema.xml.h:11
+msgid "List of active extensions"
+msgstr "已激活扩展列表"
+
+#: ../data/org.gnome.todo.gschema.xml.h:12
+msgid "The list of active extensions"
+msgstr "已激活扩展列表"
+
+#: ../data/org.gnome.todo.gschema.xml.h:13
+msgid "The current list selector"
+msgstr "当前列表选择器"
+
+#: ../data/org.gnome.todo.gschema.xml.h:14
+msgid "The current list selector. Can be 'grid' or 'list'."
+msgstr "当前列表选择器。可为“grid”或“list”。"
+
+#: ../data/ui/edit-pane.ui.h:1 ../plugins/eds/edit-pane.ui.h:1
+#: ../src/gtd-window.c:553
 msgid "Details"
 msgstr "细节"
 
-#: ../data/ui/edit-pane.ui.h:2
+#: ../data/ui/edit-pane.ui.h:2 ../plugins/eds/edit-pane.ui.h:2
 msgid "Notes"
 msgstr "备注"
 
-#: ../data/ui/edit-pane.ui.h:3
+#: ../data/ui/edit-pane.ui.h:3 ../plugins/eds/edit-pane.ui.h:3
 msgid "Due Date"
 msgstr "截止日期"
 
-#: ../data/ui/edit-pane.ui.h:4
+#: ../data/ui/edit-pane.ui.h:4 ../plugins/eds/edit-pane.ui.h:4
 msgid "Priority"
 msgstr "优先级"
 
-#: ../data/ui/edit-pane.ui.h:5
+#: ../data/ui/edit-pane.ui.h:5 ../plugins/eds/edit-pane.ui.h:5
 msgctxt "taskpriority"
 msgid "None"
 msgstr "无"
 
-#: ../data/ui/edit-pane.ui.h:6
+#: ../data/ui/edit-pane.ui.h:6 ../plugins/eds/edit-pane.ui.h:6
 msgid "Low"
 msgstr "低"
 
-#: ../data/ui/edit-pane.ui.h:7
+#: ../data/ui/edit-pane.ui.h:7 ../plugins/eds/edit-pane.ui.h:7
 msgid "Medium"
 msgstr "中"
 
-#: ../data/ui/edit-pane.ui.h:8
+#: ../data/ui/edit-pane.ui.h:8 ../plugins/eds/edit-pane.ui.h:8
 msgid "High"
 msgstr "高"
 
-#: ../data/ui/edit-pane.ui.h:9 ../data/ui/window.ui.h:5
+#: ../data/ui/edit-pane.ui.h:9 ../data/ui/list-selector-panel.ui.h:2
+#: ../plugins/eds/edit-pane.ui.h:9
 msgid "Delete"
 msgstr "删除"
 
-#: ../data/ui/edit-pane.ui.h:10
+#: ../data/ui/edit-pane.ui.h:10 ../plugins/eds/edit-pane.ui.h:10
 msgctxt "taskdate"
 msgid "None"
 msgstr "无"
@@ -152,15 +178,36 @@ msgstr "欢迎"
 msgid "Login to online accounts to access your tasks"
 msgstr "登录在线帐户以访问您的任务"
 
-#: ../data/ui/initial-setup.ui.h:3 ../data/ui/storage-popover.ui.h:2
-#: ../data/ui/window.ui.h:7 ../src/gtd-window.c:314
+#: ../data/ui/initial-setup.ui.h:3 ../data/ui/provider-popover.ui.h:2
+#: ../data/ui/window.ui.h:1 ../src/views/gtd-list-selector-panel.c:386
 msgid "Cancel"
 msgstr "取消"
 
 #: ../data/ui/initial-setup.ui.h:4 ../data/ui/list-view.ui.h:4
-#: ../src/gtd-task-list-view.c:363
+#: ../src/gtd-task-list-view.c:434
 msgid "Done"
 msgstr "完成"
+
+#: ../data/ui/list-selector-panel.ui.h:1
+msgid "Rename"
+msgstr "重命名"
+
+#: ../data/ui/list-selector-panel.ui.h:3
+#: ../src/views/gtd-list-selector-panel.c:465
+msgid "Lists"
+msgstr "列表"
+
+#: ../data/ui/list-selector-panel.ui.h:4
+msgid "Tasks"
+msgstr "任务"
+
+#: ../data/ui/list-selector-panel.ui.h:5
+msgid "Name of the task list"
+msgstr "任务列表的名称"
+
+#: ../data/ui/list-selector-panel.ui.h:6
+msgid "New List"
+msgstr "新建列表"
 
 #: ../data/ui/list-view.ui.h:1
 msgid "No tasks found"
@@ -174,55 +221,59 @@ msgstr "您可以将工作加入<b>列表</b>视图"
 msgid "Show or hide completed tasks"
 msgstr "显示或隐藏已完成的任务"
 
-#: ../data/ui/storage-dialog.ui.h:1
+#: ../data/ui/plugin-dialog.ui.h:2
+msgid "No extensions found"
+msgstr "未发现扩展"
+
+#: ../data/ui/provider-dialog.ui.h:1
 msgid "Select the default storage location to create task lists:"
 msgstr "选择创建任务列表时的默认存储位置："
 
-#: ../data/ui/storage-dialog.ui.h:2
+#: ../data/ui/provider-dialog.ui.h:2
 msgid "Default storage location"
 msgstr "默认存储位置"
 
-#: ../data/ui/storage-popover.ui.h:1
+#: ../data/ui/provider-popover.ui.h:1
 msgid "Create"
 msgstr "创建"
 
-#: ../data/ui/storage-popover.ui.h:3
+#: ../data/ui/provider-popover.ui.h:3
 msgid "List Name"
 msgstr "列表名称"
 
-#: ../data/ui/storage-popover.ui.h:4
+#: ../data/ui/provider-popover.ui.h:4
 msgid "Select a storage location"
 msgstr "选择存储位置"
 
-#: ../data/ui/storage-row.ui.h:1
+#: ../data/ui/provider-row.ui.h:1
 msgid "Off"
 msgstr "关"
 
-#: ../data/ui/storage-selector.ui.h:1
+#: ../data/ui/provider-selector.ui.h:1
 msgid "Click to add a new Google account"
 msgstr "单击此处以添加新的谷歌帐户"
 
-#: ../data/ui/storage-selector.ui.h:2
+#: ../data/ui/provider-selector.ui.h:2
 msgid "Google"
 msgstr "谷歌"
 
-#: ../data/ui/storage-selector.ui.h:3
+#: ../data/ui/provider-selector.ui.h:3
 msgid "Click to add a new ownCloud account"
 msgstr "单击此处以添加一个新的 ownCloud 帐户"
 
-#: ../data/ui/storage-selector.ui.h:4
+#: ../data/ui/provider-selector.ui.h:4
 msgid "ownCloud"
 msgstr "ownCloud"
 
-#: ../data/ui/storage-selector.ui.h:5
+#: ../data/ui/provider-selector.ui.h:5
 msgid "Click to add a new Microsoft Exchange account"
 msgstr "单击此处以添加新的 Microsoft Exchange 帐户"
 
-#: ../data/ui/storage-selector.ui.h:6
+#: ../data/ui/provider-selector.ui.h:6
 msgid "Microsoft Exchange"
 msgstr "Microsoft Exchange"
 
-#: ../data/ui/storage-selector.ui.h:7
+#: ../data/ui/provider-selector.ui.h:7
 msgid "Or you can just store your tasks on this computer"
 msgstr "或者您可以只将任务存在此计算机上"
 
@@ -230,175 +281,183 @@ msgstr "或者您可以只将任务存在此计算机上"
 msgid "New task…"
 msgstr "增加新任务..."
 
-#: ../data/ui/window.ui.h:1
-msgid "Lists"
-msgstr "列表"
+#: ../plugins/eds/gtd-panel-scheduled.c:67 ../src/gtd-edit-pane.c:147
+#: ../src/gtd-task-row.c:170
+msgid "No date set"
+msgstr "没有设定日期"
 
-#: ../data/ui/window.ui.h:2 ../src/gtd-task-row.c:140 ../src/gtd-window.c:517
-#: ../src/gtd-window.c:522
+#: ../plugins/eds/gtd-panel-scheduled.c:83 ../src/gtd-task-row.c:148
+#, c-format
+msgid "Yesterday"
+msgid_plural "%d days ago"
+msgstr[0] "%d 天前"
+
+#. Setup a title
+#: ../plugins/eds/gtd-panel-scheduled.c:87 ../plugins/eds/gtd-panel-today.c:147
+#: ../plugins/eds/gtd-panel-today.c:152 ../plugins/eds/gtd-panel-today.c:314
+#: ../src/gtd-task-row.c:140
 msgid "Today"
 msgstr "今日"
 
-#: ../data/ui/window.ui.h:3 ../src/gtd-window.c:517 ../src/gtd-window.c:522
+#: ../plugins/eds/gtd-panel-scheduled.c:91 ../src/gtd-task-row.c:144
+msgid "Tomorrow"
+msgstr "明天"
+
+#. Setup a title
+#: ../plugins/eds/gtd-panel-scheduled.c:354
+#: ../plugins/eds/gtd-panel-scheduled.c:359
+#: ../plugins/eds/gtd-panel-scheduled.c:489
 msgid "Scheduled"
 msgstr "已计划"
 
-#: ../data/ui/window.ui.h:4
-msgid "Rename"
-msgstr "重命名"
+#: ../plugins/eds/gtd-panel-scheduled.c:497
+#: ../plugins/eds/gtd-panel-today.c:322
+#: ../src/views/gtd-list-selector-panel.c:700
+msgid "Clear completed tasks…"
+msgstr "清除已完成任务..."
 
-#: ../data/ui/window.ui.h:6
-msgid "New List"
-msgstr "新建列表"
+#: ../plugins/eds/gtd-plugin-eds.c:249 ../plugins/eds/gtd-plugin-eds.c:253
+msgid "Error loading GNOME Online Accounts"
+msgstr "加载 GNOME 在线帐户时出错"
 
-#: ../data/ui/window.ui.h:8
-msgid "Name of the task list"
-msgstr "任务列表的名称"
+#: ../plugins/eds/gtd-plugin-eds.c:278
+msgid "Error loading Evolution-Data-Server backend"
+msgstr "载入 Evolution-Data-Server 后端时出错"
+
+#: ../plugins/eds/gtd-plugin-eds.c:371 ../src/gtd-application.c:243
+msgid "Error loading CSS from resource"
+msgstr "从资源加载 CSS 时出错"
+
+#: ../plugins/eds/gtd-provider-eds.c:118 ../plugins/eds/gtd-provider-eds.c:122
+msgid "Error fetching tasks from list"
+msgstr "从列表中获取任务时出错"
+
+#: ../plugins/eds/gtd-provider-eds.c:182
+msgid "Task list source successfully connected"
+msgstr "成功连接到任务列表来源"
+
+#: ../plugins/eds/gtd-provider-eds.c:189 ../plugins/eds/gtd-provider-eds.c:194
+msgid "Failed to connect to task list source"
+msgstr "未能连接到任务列表来源"
+
+#: ../plugins/eds/gtd-provider-eds.c:306
+msgid "Failed to prompt for credentials"
+msgstr "提示请求凭据失败"
+
+#: ../plugins/eds/gtd-provider-eds.c:329
+msgid "Failed to prompt for credentials for"
+msgstr "为如下项目提示请求凭据失败："
+
+#: ../plugins/eds/gtd-provider-eds.c:383
+msgid "Authentication failure"
+msgstr "认证失败"
+
+#: ../plugins/eds/gtd-provider-eds.c:435
+msgid "Error loading task manager"
+msgstr "加载任务管理器时出错"
+
+#: ../plugins/eds/gtd-provider-eds.c:532 ../plugins/eds/gtd-provider-eds.c:536
+msgid "Error creating task"
+msgstr "创建任务时出错"
+
+#: ../plugins/eds/gtd-provider-eds.c:575 ../plugins/eds/gtd-provider-eds.c:579
+msgid "Error updating task"
+msgstr "更新任务时出错"
+
+#: ../plugins/eds/gtd-provider-eds.c:611 ../plugins/eds/gtd-provider-eds.c:615
+msgid "Error removing task"
+msgstr "删除任务时出错"
+
+#: ../plugins/eds/gtd-provider-eds.c:639 ../plugins/eds/gtd-provider-eds.c:643
+msgid "Error creating task list"
+msgstr "创建任务列表时出错"
+
+#: ../plugins/eds/gtd-provider-eds.c:660 ../plugins/eds/gtd-provider-eds.c:664
+msgid "Error removing task list"
+msgstr "删除任务列表时出错"
+
+#: ../plugins/eds/gtd-provider-eds.c:721 ../plugins/eds/gtd-provider-eds.c:725
+#: ../plugins/eds/gtd-task-list-eds.c:69
+msgid "Error saving task list"
+msgstr "保存任务列表时出错"
+
+#: ../plugins/eds/gtd-provider-local.c:60
+msgid "Local"
+msgstr "本地"
+
+#: ../plugins/eds/gtd-provider-local.c:66
+msgid "On This Computer"
+msgstr "在这台电脑上"
+
+#: ../plugins/eds/gtd-provider-local.c:133
+#: ../plugins/eds/gtd-provider-local.c:137
+msgid "Error creating new task list"
+msgstr "创建新的任务列表时出错"
 
 # 按 GPL, ‘Copyright' 这个词能保证受国际认可，不该翻译。
-#: ../src/gtd-application.c:91
+#: ../src/gtd-application.c:113
 #, c-format
 msgid "Copyright © %d The To Do authors"
 msgstr "Copyright © %d To Do 作者们"
 
-#: ../src/gtd-application.c:96
+#: ../src/gtd-application.c:118
 #, c-format
 msgid "Copyright © %d–%d The To Do authors"
-msgstr "Copyright © %d – %d GNOME 待办事项作者们"
+msgstr "Copyright © %d – %d GNOME 待办事项作者"
 
-#: ../src/gtd-application.c:101 ../src/gtd-application.c:127
-#: ../src/gtd-window.c:694 ../src/gtd-window.c:1269
-msgid "To Do"
-msgstr "待办事项"
-
-#: ../src/gtd-application.c:108
+#: ../src/gtd-application.c:130
 msgid "translator-credits"
 msgstr ""
 "Mingye Wang <arthur200126@gmail.com>, 2015.\n"
 "Aron Xu <aronxu@gnome.org>, 2015."
 
-#: ../src/gtd-application.c:215
-msgid "Error loading CSS from resource"
-msgstr "从资源加载 CSS 时出错"
+#: ../src/gtd-plugin-dialog-row.c:95
+msgid "Error loading plugin"
+msgstr "加载插件时出错"
 
-#: ../src/gtd-edit-pane.c:149 ../src/gtd-task-row.c:170
-msgid "No date set"
-msgstr "没有设定日期"
+#: ../src/gtd-plugin-dialog-row.c:95
+msgid "Error unloading plugin"
+msgstr "卸载插件时出错"
 
-#: ../src/gtd-manager.c:386 ../src/gtd-manager.c:390
-msgid "Error loading GNOME Online Accounts"
-msgstr "加载 GNOME 在线帐户时出错"
-
-#: ../src/gtd-manager.c:418 ../src/gtd-manager.c:422 ../src/gtd-task-list.c:87
-msgid "Error saving task list"
-msgstr "保存任务列表时出错"
-
-#: ../src/gtd-manager.c:441 ../src/gtd-manager.c:445
-msgid "Error removing task list"
-msgstr "删除任务列表时出错"
-
-#: ../src/gtd-manager.c:469 ../src/gtd-manager.c:473
-msgid "Error creating task list"
-msgstr "创建任务列表时出错"
-
-#: ../src/gtd-manager.c:534 ../src/gtd-manager.c:538
-msgid "Error creating task"
-msgstr "创建任务时出错"
-
-#: ../src/gtd-manager.c:601 ../src/gtd-manager.c:605
-msgid "Error removing task"
-msgstr "删除任务时出错"
-
-#: ../src/gtd-manager.c:652 ../src/gtd-manager.c:656
-msgid "Error updating task"
-msgstr "更新任务时出错"
-
-#: ../src/gtd-manager.c:689
-msgid "Failed to prompt for credentials"
-msgstr "提示请求凭据失败"
-
-#: ../src/gtd-manager.c:712
-msgid "Failed to prompt for credentials for"
-msgstr "为如下项目提示请求凭据失败："
-
-#: ../src/gtd-manager.c:764
-msgid "Authentication failure"
-msgstr "认证失败"
-
-#: ../src/gtd-manager.c:828 ../src/gtd-manager.c:832
-msgid "Error fetching tasks from list"
-msgstr "从列表中获取任务时出错"
-
-#: ../src/gtd-manager.c:898
-msgid "Task list source successfully connected"
-msgstr "成功连接到任务列表来源"
-
-#: ../src/gtd-manager.c:905 ../src/gtd-manager.c:910
-msgid "Failed to connect to task list source"
-msgstr "未能连接到任务列表来源"
-
-#: ../src/gtd-manager.c:939
-msgid "Skipping already loaded task list "
-msgstr "跳过已经加载的任务列表 "
-
-#: ../src/gtd-manager.c:977
-msgid "Error loading task manager"
-msgstr "加载任务管理器时出错"
-
-#: ../src/gtd-task-list-item.c:233
-msgid "No tasks"
-msgstr "无任务"
-
-#: ../src/gtd-task-list-view.c:263
+#: ../src/gtd-task-list-view.c:334
 #, c-format
 msgid "Task <b>%s</b> removed"
 msgstr "任务 <b>%s</b> 已删除"
 
-#: ../src/gtd-task-list-view.c:294
+#: ../src/gtd-task-list-view.c:365
 msgid "Undo"
 msgstr "撤消"
 
-#: ../src/gtd-task-row.c:144
-msgid "Tomorrow"
-msgstr "明天"
-
-#: ../src/gtd-task-row.c:148
-msgid "Yesterday"
-msgstr "昨天"
-
-#: ../src/gtd-window.c:307
-msgid "Remove the selected task lists?"
-msgstr "删除选定的任务列表？"
-
-#: ../src/gtd-window.c:310
-msgid "Once removed, the task lists cannot be recovered."
-msgstr "一旦删除，任务列表无法恢复。"
-
-#: ../src/gtd-window.c:322
-msgid "Remove task lists"
-msgstr "删除任务列表"
-
-#: ../src/gtd-window.c:578
-msgid "Setting new color for task list"
-msgstr "设置任务列表的新颜色"
-
-#: ../src/gtd-window.c:1128
+#: ../src/gtd-window.c:817
 msgid "Loading your task lists…"
 msgstr "正在加载您的任务列表…"
 
-#: ../src/gtd-window.c:1256
+#: ../src/gtd-window.c:949
 msgid "Click a task list to select"
 msgstr "单击任务列表以选择"
 
-#: ../src/storage/gtd-storage-goa.c:77 ../src/storage/gtd-storage-local.c:69
-msgid "Error creating new task list"
-msgstr "创建新的任务列表时出错"
+#: ../src/views/gtd-list-selector-grid-item.c:233
+msgid "No tasks"
+msgstr "无任务"
 
-#. Create task list
-#: ../src/storage/gtd-storage-local.c:86 ../src/storage/gtd-storage-local.c:134
-msgid "On This Computer"
-msgstr "在这台电脑上"
+#: ../src/views/gtd-list-selector-panel.c:185
+msgid "Setting new color for task list"
+msgstr "设置任务列表的新颜色"
 
-#: ../src/storage/gtd-storage-local.c:133
-msgid "Local"
-msgstr "本地"
+#: ../src/views/gtd-list-selector-panel.c:379
+msgid "Remove the selected task lists?"
+msgstr "删除选定的任务列表？"
+
+#: ../src/views/gtd-list-selector-panel.c:382
+msgid "Once removed, the task lists cannot be recovered."
+msgstr "一旦删除，任务列表无法恢复。"
+
+#: ../src/views/gtd-list-selector-panel.c:394
+msgid "Remove task lists"
+msgstr "删除任务列表"
+
+#~ msgid "Todo"
+#~ msgstr "待办事项"
+
+#~ msgid "Skipping already loaded task list "
+#~ msgstr "跳过已经加载的任务列表 "
