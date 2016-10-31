@@ -380,7 +380,7 @@ gtd_task_row__entry_focus_out (GtkWidget     *widget,
 }
 
 static gboolean
-gtd_task_row__focus_in (GtkWidget *widget,
+gtd_task_row__focus_in (GtkWidget     *widget,
                         GdkEventFocus *event)
 {
   GtdTaskRow *self = GTD_TASK_ROW (widget);
@@ -391,11 +391,15 @@ gtd_task_row__focus_in (GtkWidget *widget,
     {
       gtk_stack_set_visible_child_name (self->new_task_stack, "entry");
       gtk_widget_grab_focus (GTK_WIDGET (self->new_task_entry));
+
+      g_signal_emit (self, signals[EXIT], 0);
     }
   else
     {
       gtk_stack_set_visible_child_name (self->task_stack, "title");
       gtk_widget_grab_focus (GTK_WIDGET (self->title_entry));
+
+      g_signal_emit (self, signals[ENTER], 0);
     }
 
   return FALSE;

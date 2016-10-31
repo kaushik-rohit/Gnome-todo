@@ -41,12 +41,12 @@
                         <signal name="drag-drop" handler="listbox_drag_drop" object="GtdTaskListView" swapped="no" />
                         <signal name="drag-leave" handler="listbox_drag_leave" object="GtdTaskListView" swapped="no" />
                         <signal name="drag-motion" handler="listbox_drag_motion" object="GtdTaskListView" swapped="no" />
-                        <signal name="row-activated" handler="gtd_task_list_view__row_activated" object="GtdTaskListView" swapped="no" />
                         <child>
                           <object class="GtdTaskRow" id="new_task_row">
                             <property name="visible">True</property>
                             <property name="new-task-mode">True</property>
                             <signal name="create-task" handler="gtd_task_list_view__create_task" object="GtdTaskListView" swapped="no" />
+                            <signal name="exit" handler="task_row_exited_cb" object="GtdTaskListView" swapped="yes" />
                           </object>
                         </child>
                         <child>
