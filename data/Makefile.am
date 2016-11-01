@@ -47,15 +47,12 @@ EXTRA_DIST=                     \
   ui/notification.ui \
   ui/plugin-dialog.ui \
   ui/plugin-row.ui \
-  ui/provider-dialog.ui \
   ui/provider-popover.ui \
   ui/provider-row.ui \
   ui/provider-selector.ui \
   ui/task-row.ui \
   ui/window.ui \
   theme/Adwaita.css \
-  theme/bg.png \
-  theme/bg.svg \
   $(appdata_in_files) \
   $(desktop_in_files) \
   $(gsettings_SCHEMAS) \

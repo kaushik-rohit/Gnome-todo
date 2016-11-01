@@ -38,6 +38,7 @@ FIXXREF_OPTIONS = \
 	--extra-dir=$(GLIB_PREFIX)/share/gtk-doc/html/gmodule		\
 	--extra-dir=$(GLIB_PREFIX)/share/gtk-doc/html/gobject		\
 	--extra-dir=$(GLIB_PREFIX)/share/gtk-doc/html/gio		\
+	--extra-dir=$(GTK_PREFIX)/share/gtk-doc/html/gdk		\
 	--extra-dir=$(GTK_PREFIX)/share/gtk-doc/html/gtk		\
 	--extra-dir=$(GTK_PREFIX)/share/gtk-doc/html/gtksourceview-3.0
 endif

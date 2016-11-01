@@ -167,8 +167,6 @@ EXTRA_DIST = \
 #==================================
 # Private library for documentation
 #==================================
-if ENABLE_GTK_DOC
-
 noinst_LTLIBRARIES = libgtd.la
 
 libgtd_la_SOURCES = $(gnome_todo_SOURCES)
@@ -180,8 +178,6 @@ libgtd_la_CFLAGS = \
 libgtd_la_LDFLAGS = \
 	-Wl,--export-dynamic \
 	-lm
-
-endif
 
 
 #==================================
