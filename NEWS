@@ -1,4 +1,57 @@
 ===============
+Version 3.22.0
+===============
+
+Project:
+        * GNOME To Do now supports subtasks
+        * Plug various memory leaks (Victor Toso)
+        * Improved task editor panel (Rohit Kaushik)
+        * Avoid crash on labels (Jason Crain)
+        * Various cleanups (djb)
+        * Add developer documentation
+        * Make the stardard panels as plugins
+        * Add plugin to switch between dark/light theme variants
+        * General improvements on dark variant
+
+Translations:
+        * Basque (Inaki Larranaga Murgoitio)
+        * Brazilian Portuguese (Gustavo Marques)
+        * British English (Bruce Cowan)
+        * Catalan (Jordi Mas)
+        * Czech (Marek Černocký)
+        * Chinese (Jeff Bai)
+        * Chinese (Taiwan) (Cheng-Chia Tseng)
+        * Danish (Ask Hjorth Larsen)
+        * Dutch (Hannie Dumoleyn)
+        * Galician (Fran Dieguez)
+        * German (Flo H, Mario Blättermann)
+        * Greek (Tom Tryfonidis)
+        * Finnish (Jiri Grönroos)
+        * French (Alexandre Franke)
+        * Friulian (Fabio Tomat)
+        * Hebrew (Yosef Or Boczko)
+        * Hungarian (Balázs Úr)
+        * Icelandic (Sveinn í Felli)
+        * Indonesian (Andika Triwidada)
+        * Italian (Gianvito Cavasoli)
+        * Kazakh (Baurzhan Muftakhidinov)
+        * Korean (Seong-ho Cho)
+        * Latvian (Rūdolfs Mazurs)
+        * Lithuanian (Aurimas Černius)
+        * Occitan (Cédric Valmary)
+        * Persian (Arash Mousavi)
+        * Polish (Piotr Drąg)
+        * Portuguese (Tiago Santos)
+        * Serbian (Мирослав Николић)
+        * Slovak (Dušan Kazik)
+        * Slovenian (Matej Urbančič)
+        * Swedish (Anders Jonsson)
+        * Spanish (Daniel Mustieles)
+        * Turkish (Muhammet Kara)
+        * Ukranian (Daniel Korostil)
+        * Vietnamese (Trần Ngọc Quân)
+
+===============
 Version 3.19.92
 ===============
 
