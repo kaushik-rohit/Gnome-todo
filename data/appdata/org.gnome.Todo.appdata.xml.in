@@ -53,7 +53,7 @@
   <releases>
     <release date="2016-11-1" version="3.22.0">
       <description>
-        <_p>
+        <p>
           This is the first stable release for GNOME 3.22, and adds many new features
           and improvements.
           <ul>
@@ -64,9 +64,9 @@
             <li>All panels except the "List" panel are now plugins and, as such, they can be disabled</li>
             <li>The user can switch between dark and light theme variants now</li>
           </ul>
-        </_p>
-        <_p>This release also updates translations, and adds new translations.</_p>
-        <_p>Thanks to all the contributors that worked on GNOME To Do!</_p>
+        </p>
+        <p>This release also updates translations, and adds new translations.</p>
+        <p>Thanks to all the contributors that worked on GNOME To Do!</p>
       </description>
     </release>
   </releases>
