@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-todo\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-10-27 01:27+0200\n"
-"PO-Revision-Date: 2016-10-27 01:28+0200\n"
+"POT-Creation-Date: 2016-11-01 15:37+0100\n"
+"PO-Revision-Date: 2016-11-01 15:38+0100\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <community-poland@mozilla.org>\n"
 "Language: pl\n"
@@ -37,6 +37,30 @@ msgstr ""
 "Menedżer zadań GNOME to prosty program do zarządzania zadaniami, "
 "zaprojektowany do integracji ze środowiskiem GNOME. Jest rozszerzalny za "
 "pomocą wtyczek i obsługuje niestandardowych dostawców list zadań."
+
+#: ../data/appdata/org.gnome.Todo.appdata.xml.in.h:4
+msgid "GNOME To Do with the Dark theme variant"
+msgstr "Menedżer zadań GNOME w ciemnym motywie"
+
+#: ../data/appdata/org.gnome.Todo.appdata.xml.in.h:5
+msgid "Editing a tasklist with GNOME To Do"
+msgstr "Modyfikowanie listy zadań za pomocą Menedżera zadań GNOME"
+
+#: ../data/appdata/org.gnome.Todo.appdata.xml.in.h:6
+msgid "Task lists displayed on grid mode"
+msgstr "Listy zadań wyświetlane jako siatka"
+
+#: ../data/appdata/org.gnome.Todo.appdata.xml.in.h:7
+msgid "Task lists displayed on list mode"
+msgstr "Listy zadań wyświetlane jako lista"
+
+#: ../data/appdata/org.gnome.Todo.appdata.xml.in.h:8
+msgid "Available plugins for GNOME To Do"
+msgstr "Dostępne wtyczki dla Menedżera zadań GNOME"
+
+#: ../data/appdata/org.gnome.Todo.appdata.xml.in.h:9
+msgid "Visualizing tasks for today on GNOME To Do's Today panel"
+msgstr "Panel zadań na dzisiaj"
 
 #: ../data/gtk/menus.ui.h:1
 msgid "New List…"
@@ -173,9 +197,9 @@ msgstr "Usuń"
 #: ../data/ui/edit-pane.ui.h:11
 #: ../plugins/scheduled-panel/gtd-panel-scheduled.c:87
 #: ../plugins/score/score/__init__.py:95
-#: ../plugins/today-panel/gtd-panel-today.c:131
-#: ../plugins/today-panel/gtd-panel-today.c:136
-#: ../plugins/today-panel/gtd-panel-today.c:305 ../src/gtd-task-row.c:298
+#: ../plugins/today-panel/gtd-panel-today.c:135
+#: ../plugins/today-panel/gtd-panel-today.c:140
+#: ../plugins/today-panel/gtd-panel-today.c:309 ../src/gtd-task-row.c:298
 msgid "Today"
 msgstr "Dzisiaj"
 
@@ -380,13 +404,13 @@ msgstr[2] "%d dni temu"
 #. Setup a title
 #: ../plugins/scheduled-panel/gtd-panel-scheduled.c:342
 #: ../plugins/scheduled-panel/gtd-panel-scheduled.c:347
-#: ../plugins/scheduled-panel/gtd-panel-scheduled.c:478
+#: ../plugins/scheduled-panel/gtd-panel-scheduled.c:479
 msgid "Scheduled"
 msgstr "Zaplanowane"
 
-#: ../plugins/scheduled-panel/gtd-panel-scheduled.c:483
-#: ../plugins/today-panel/gtd-panel-today.c:310
-#: ../src/views/gtd-list-selector-panel.c:700
+#: ../plugins/scheduled-panel/gtd-panel-scheduled.c:484
+#: ../plugins/today-panel/gtd-panel-today.c:314
+#: ../src/views/gtd-list-selector-panel.c:711
 msgid "Clear completed tasks…"
 msgstr "Wyczyść ukończone zadania…"
 
