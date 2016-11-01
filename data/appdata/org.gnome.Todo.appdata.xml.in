@@ -18,6 +18,33 @@
   <url type="bugtracker">https://bugzilla.gnome.org/enter_bug.cgi?product=gnome-todo</url>
   <project_group>GNOME</project_group>
 
+  <screenshots>
+    <screenshot width="1200" height="675">
+      <image>https://git.gnome.org/browse/gnome-todo/plain/data/appdata/dark-theme.png</image>
+      <_caption>GNOME To Do with the Dark theme variant</_caption>
+    </screenshot>
+    <screenshot width="1200" height="675">
+      <image>https://git.gnome.org/browse/gnome-todo/plain/data/appdata/editing-tasklist.png</image>
+      <_caption>Editing a tasklist with GNOME To Do</_caption>
+    </screenshot>
+    <screenshot width="1200" height="675">
+      <image>https://git.gnome.org/browse/gnome-todo/plain/data/appdata/grid-view.png</image>
+      <_caption>Task lists displayed on grid mode</_caption>
+    </screenshot>
+    <screenshot width="1200" height="675">
+      <image>https://git.gnome.org/browse/gnome-todo/plain/data/appdata/list-view.png</image>
+      <_caption>Task lists displayed on list mode</_caption>
+    </screenshot>
+    <screenshot width="1200" height="675">
+      <image>https://git.gnome.org/browse/gnome-todo/plain/data/appdata/plugins.png</image>
+      <_caption>Available plugins for GNOME To Do</_caption>
+    </screenshot>
+    <screenshot width="1200" height="675">
+      <image>https://git.gnome.org/browse/gnome-todo/plain/data/appdata/today-panel.png</image>
+      <_caption>Visualizing tasks for today on GNOME To Do's Today panel</_caption>
+    </screenshot>
+  </screenshots>
+
   <kudos>
     <kudo>AppMenu</kudo>
     <kudo>ModernToolkit</kudo>
