@@ -417,8 +417,6 @@ gtd_edit_pane__task_changed_cb (GObject    *gobject,
  * @task: a #GtdTask or %NULL
  *
  * Sets %task as the currently editing task of %pane.
- *
- * Returns:
  */
 void
 gtd_edit_pane_set_task (GtdEditPane *pane,

@@ -738,8 +738,6 @@ gtd_task_row_get_new_task_mode (GtdTaskRow *row)
  *
  * Sets @row new task mode to @new_task_mode. It is up to the caller
  * to set GtdTaskRow::task to %NULL.
- *
- * Returns:
  */
 void
 gtd_task_row_set_new_task_mode (GtdTaskRow *row,
@@ -869,8 +867,6 @@ gtd_task_row_set_task (GtdTaskRow *row,
  * @show_list_name: %TRUE to show the list name, %FALSE to hide it
  *
  * Sets @row's list name label visibility to @show_list_name.
- *
- * Returns:
  */
 void
 gtd_task_row_set_list_name_visible (GtdTaskRow *row,
@@ -886,8 +882,6 @@ gtd_task_row_set_list_name_visible (GtdTaskRow *row,
  * @row: a #GtdTaskRow
  *
  * Runs a nifty animation to reveal @row.
- *
- * Returns:
  */
 void
 gtd_task_row_reveal (GtdTaskRow *row)

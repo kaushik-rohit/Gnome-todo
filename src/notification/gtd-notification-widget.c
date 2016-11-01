@@ -232,7 +232,7 @@ gtd_notification_widget_init (GtdNotificationWidget *self)
  *
  * Creates a new #GtdNotificationWidget.
  *
- * Returns: (transger full): a new #GtdNotificationWidget
+ * Returns: (transfer full): a new #GtdNotificationWidget
  */
 GtkWidget*
 gtd_notification_widget_new (void)
@@ -245,8 +245,6 @@ gtd_notification_widget_new (void)
  *
  * Adds @notification to the queue of notifications, and eventually
  * consume it.
- *
- * Returns:
  */
 void
 gtd_notification_widget_notify (GtdNotificationWidget *widget,
