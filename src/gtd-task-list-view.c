@@ -1803,6 +1803,7 @@ gtd_task_list_view_set_task_list (GtdTaskListView *view,
       task_list = gtd_task_list_get_tasks (list);
 
       gtd_task_list_view_set_list (view, task_list);
+      gtd_edit_pane_set_task (priv->edit_pane, NULL);
 
       g_list_free (task_list);
 
