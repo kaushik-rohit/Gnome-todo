@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "todo&keywords=I18N+L10N&component=General\n"
 "POT-Creation-Date: 2016-10-23 04:31+0000\n"
-"PO-Revision-Date: 2016-10-25 12:14+0200\n"
+"PO-Revision-Date: 2016-11-04 15:15+0100\n"
 "Last-Translator: Fabio Tomat <f.t.public@gmail.com>\n"
 "Language-Team: Friulian <fur@li.org>\n"
 "Language: fur\n"
@@ -31,7 +31,6 @@ msgstr "Gjestôr des ativitâts par GNOME"
 
 # furnidôrs di ativitâts personalizâts?
 #: ../data/appdata/org.gnome.Todo.appdata.xml.in.h:3
-#, fuzzy
 msgid ""
 "GNOME To Do is a task management application designed to integrate with "
 "GNOME. It is extensible through plugins and supports custom task providers."
@@ -430,9 +429,8 @@ msgid "Nothing else to do here"
 msgstr "Nie altri di fâ achì"
 
 #: ../src/gtd-empty-list-widget.c:51
-#, fuzzy
 msgid "You made it!"
-msgstr "Tu le âs fate!"
+msgstr "Completade!"
 
 #: ../src/gtd-empty-list-widget.c:52
 msgid "Looks like there's nothing else left here"
@@ -447,7 +445,6 @@ msgid "Enjoy the rest of your day"
 msgstr "Gjolditi il rest de zornade"
 
 #: ../src/gtd-empty-list-widget.c:59
-#, fuzzy
 msgid "Good job!"
 msgstr "Biel lavôr!"
 
@@ -457,7 +454,6 @@ msgstr "Intant, pant amôr"
 
 # juste ma bisugnarès cjatâ alc di miôr
 #: ../src/gtd-empty-list-widget.c:61
-#, fuzzy
 msgid "Working hard is always rewarded"
 msgstr "Lavorâ fuart al ven simpri premiât"
 
