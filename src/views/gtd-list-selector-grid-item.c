@@ -428,6 +428,29 @@ gtd_list_selector_grid_item_finalize (GObject *object)
 }
 
 static void
+gtd_list_selector_grid_item_dispose (GObject *object)
+{
+  GtdListSelectorGridItem *self = GTD_LIST_SELECTOR_GRID_ITEM (object);
+
+  if (self->list)
+    {
+      g_signal_handlers_disconnect_by_func (self->list,
+                                            gtd_list_selector_grid_item__notify_ready,
+                                            self);
+      g_signal_handlers_disconnect_by_func (self->list,
+                                            color_changed,
+                                            self);
+      g_signal_handlers_disconnect_by_func (self->list,
+                                            gtd_list_selector_grid_item__task_changed,
+                                            self);
+      g_clear_object (&self->list);
+    }
+
+
+  G_OBJECT_CLASS (gtd_list_selector_grid_item_parent_class)->dispose (object);
+}
+
+static void
 gtd_list_selector_grid_item_get_property (GObject    *object,
                                  guint       prop_id,
                                  GValue     *value,
@@ -537,6 +560,7 @@ gtd_list_selector_grid_item_class_init (GtdListSelectorGridItemClass *klass)
   GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
   object_class->finalize = gtd_list_selector_grid_item_finalize;
+  object_class->dispose = gtd_list_selector_grid_item_dispose;
   object_class->get_property = gtd_list_selector_grid_item_get_property;
   object_class->set_property = gtd_list_selector_grid_item_set_property;
 
