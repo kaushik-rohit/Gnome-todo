@@ -12,15 +12,15 @@ msgstr ""
 "Project-Id-Version: gnome-todo HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "todo&keywords=I18N+L10N&component=General\n"
-"POT-Creation-Date: 2016-10-26 02:18+0000\n"
-"PO-Revision-Date: 2016-10-27 11:07+0200\n"
+"POT-Creation-Date: 2016-11-01 18:50+0000\n"
+"PO-Revision-Date: 2016-11-07 09:52+0100\n"
 "Last-Translator: Charles Monzat <superboa@hotmail.fr>\n"
 "Language-Team: français <gnomefr@traduc.org>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.9\n"
+"X-Generator: Gtranslator 2.91.7\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: ../data/appdata/org.gnome.Todo.appdata.xml.in.h:1
@@ -41,6 +41,32 @@ msgstr ""
 "GNOME To Do est un gestionnaire de tâches destiné à être intégré dans GNOME. "
 "Il est extensible par le biais de greffons et prend en charge les "
 "fournisseurs de tâches personnalisés."
+
+#: ../data/appdata/org.gnome.Todo.appdata.xml.in.h:4
+msgid "GNOME To Do with the Dark theme variant"
+msgstr "GNOME To Do avec la variante de thème sombre"
+
+#: ../data/appdata/org.gnome.Todo.appdata.xml.in.h:5
+msgid "Editing a tasklist with GNOME To Do"
+msgstr "Modification d'une liste de tâches avec GNOME To Do"
+
+#: ../data/appdata/org.gnome.Todo.appdata.xml.in.h:6
+msgid "Task lists displayed on grid mode"
+msgstr "Liste de tâches affichée en mode grille"
+
+#: ../data/appdata/org.gnome.Todo.appdata.xml.in.h:7
+msgid "Task lists displayed on list mode"
+msgstr "Liste de tâches affichée en mode liste"
+
+#: ../data/appdata/org.gnome.Todo.appdata.xml.in.h:8
+msgid "Available plugins for GNOME To Do"
+msgstr "Greffons disponibles pour GNOME To Do"
+
+#: ../data/appdata/org.gnome.Todo.appdata.xml.in.h:9
+msgid "Visualizing tasks for today on GNOME To Do's Today panel"
+msgstr ""
+"Visualisation des tâches pour aujourd'hui dans le panneau Aujourd'hui de "
+"GNOME To Do"
 
 #: ../data/gtk/menus.ui.h:1
 msgid "New List…"
@@ -183,9 +209,9 @@ msgstr "Supprimer"
 #: ../data/ui/edit-pane.ui.h:11
 #: ../plugins/scheduled-panel/gtd-panel-scheduled.c:87
 #: ../plugins/score/score/__init__.py:95
-#: ../plugins/today-panel/gtd-panel-today.c:131
-#: ../plugins/today-panel/gtd-panel-today.c:136
-#: ../plugins/today-panel/gtd-panel-today.c:305 ../src/gtd-task-row.c:298
+#: ../plugins/today-panel/gtd-panel-today.c:135
+#: ../plugins/today-panel/gtd-panel-today.c:140
+#: ../plugins/today-panel/gtd-panel-today.c:309 ../src/gtd-task-row.c:298
 msgid "Today"
 msgstr "Aujourd'hui"
 
@@ -389,13 +415,13 @@ msgstr[1] "Il y a %d jours"
 #. Setup a title
 #: ../plugins/scheduled-panel/gtd-panel-scheduled.c:342
 #: ../plugins/scheduled-panel/gtd-panel-scheduled.c:347
-#: ../plugins/scheduled-panel/gtd-panel-scheduled.c:478
+#: ../plugins/scheduled-panel/gtd-panel-scheduled.c:479
 msgid "Scheduled"
 msgstr "Prévu pour"
 
-#: ../plugins/scheduled-panel/gtd-panel-scheduled.c:483
-#: ../plugins/today-panel/gtd-panel-today.c:310
-#: ../src/views/gtd-list-selector-panel.c:700
+#: ../plugins/scheduled-panel/gtd-panel-scheduled.c:484
+#: ../plugins/today-panel/gtd-panel-today.c:314
+#: ../src/views/gtd-list-selector-panel.c:711
 msgid "Clear completed tasks…"
 msgstr "Effacer les tâches terminées…"
 
