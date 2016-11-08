@@ -7,11 +7,11 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gnome-todo master\n"
+"Project-Id-Version: gnome-todo\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "todo&keywords=I18N+L10N&component=General\n"
-"POT-Creation-Date: 2016-10-23 04:31+0000\n"
-"PO-Revision-Date: 2016-10-28 12:52+0200\n"
+"POT-Creation-Date: 2016-11-01 14:40+0000\n"
+"PO-Revision-Date: 2016-11-08 10:08+0100\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: čeština <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -40,6 +40,30 @@ msgstr ""
 "Úkoly GNOME je aplikace pro správu úkolů navržená tak, aby zapadla do GNOME. "
 "Dá se rozšiřovat pomocí zásuvných modulů a podporuje vlastní poskytovatele "
 "úkolů."
+
+#: ../data/appdata/org.gnome.Todo.appdata.xml.in.h:4
+msgid "GNOME To Do with the Dark theme variant"
+msgstr "Úkoly GNOME ve verzi s tmavým motivem"
+
+#: ../data/appdata/org.gnome.Todo.appdata.xml.in.h:5
+msgid "Editing a tasklist with GNOME To Do"
+msgstr "Úkoly GNOME ve verzi s tmavým motivem"
+
+#: ../data/appdata/org.gnome.Todo.appdata.xml.in.h:6
+msgid "Task lists displayed on grid mode"
+msgstr "Seznam úkolů zobrazený v mřížce"
+
+#: ../data/appdata/org.gnome.Todo.appdata.xml.in.h:7
+msgid "Task lists displayed on list mode"
+msgstr "Seznam úkolů zobrazený jako seznam"
+
+#: ../data/appdata/org.gnome.Todo.appdata.xml.in.h:8
+msgid "Available plugins for GNOME To Do"
+msgstr "Dostupné zásuvné moduly pro Úkoly GNOME"
+
+#: ../data/appdata/org.gnome.Todo.appdata.xml.in.h:9
+msgid "Visualizing tasks for today on GNOME To Do's Today panel"
+msgstr "Zobrazení úkolů pro dnešní den v panelu Dnes v Úkolech GNOME"
 
 #: ../data/gtk/menus.ui.h:1
 msgid "New List…"
@@ -177,9 +201,9 @@ msgstr "Odstranit"
 #: ../data/ui/edit-pane.ui.h:11
 #: ../plugins/scheduled-panel/gtd-panel-scheduled.c:87
 #: ../plugins/score/score/__init__.py:95
-#: ../plugins/today-panel/gtd-panel-today.c:131
-#: ../plugins/today-panel/gtd-panel-today.c:136
-#: ../plugins/today-panel/gtd-panel-today.c:305 ../src/gtd-task-row.c:298
+#: ../plugins/today-panel/gtd-panel-today.c:135
+#: ../plugins/today-panel/gtd-panel-today.c:140
+#: ../plugins/today-panel/gtd-panel-today.c:309 ../src/gtd-task-row.c:298
 msgid "Today"
 msgstr "Dnes"
 
@@ -202,13 +226,13 @@ msgid "Login to online accounts to access your tasks"
 msgstr "Přihlášení k účtům on-line pro přístup k vašim úkolům"
 
 #: ../data/ui/initial-setup.ui.h:3 ../data/ui/provider-popover.ui.h:2
-#: ../data/ui/window.ui.h:1 ../src/gtd-task-list-view.c:569
+#: ../data/ui/window.ui.h:1 ../src/gtd-task-list-view.c:576
 #: ../src/views/gtd-list-selector-panel.c:386
 msgid "Cancel"
 msgstr "Zrušit"
 
 #: ../data/ui/initial-setup.ui.h:4 ../data/ui/list-view.ui.h:2
-#: ../src/gtd-task-list-view.c:723
+#: ../src/gtd-task-list-view.c:736
 msgid "Done"
 msgstr "Hotovo"
 
@@ -384,13 +408,13 @@ msgstr[2] "Před %d dny"
 #. Setup a title
 #: ../plugins/scheduled-panel/gtd-panel-scheduled.c:342
 #: ../plugins/scheduled-panel/gtd-panel-scheduled.c:347
-#: ../plugins/scheduled-panel/gtd-panel-scheduled.c:478
+#: ../plugins/scheduled-panel/gtd-panel-scheduled.c:479
 msgid "Scheduled"
 msgstr "Naplánováno"
 
-#: ../plugins/scheduled-panel/gtd-panel-scheduled.c:483
-#: ../plugins/today-panel/gtd-panel-today.c:310
-#: ../src/views/gtd-list-selector-panel.c:700
+#: ../plugins/scheduled-panel/gtd-panel-scheduled.c:484
+#: ../plugins/today-panel/gtd-panel-today.c:314
+#: ../src/views/gtd-list-selector-panel.c:711
 msgid "Clear completed tasks…"
 msgstr "Vymazat splněné úkoly…"
 
@@ -478,26 +502,26 @@ msgstr "Chyba při načítaní zásuvného modulu"
 msgid "Error unloading plugin"
 msgstr "Chyba při ukončování zásuvného modulu"
 
-#: ../src/gtd-task-list-view.c:563
+#: ../src/gtd-task-list-view.c:570
 msgid "Removing this task will also remove its subtasks. Remove anyway?"
 msgstr ""
 "Odstraněním tohoto úkolu se odstraní i jeho dílčí části. Má se i tak "
 "odstranit?"
 
-#: ../src/gtd-task-list-view.c:566
+#: ../src/gtd-task-list-view.c:573
 msgid "Once removed, the tasks cannot be recovered."
 msgstr "Jakmile jej odstraníte, již jej nelze obnovit."
 
-#: ../src/gtd-task-list-view.c:571
+#: ../src/gtd-task-list-view.c:578
 msgid "Remove"
 msgstr "Odstranit"
 
-#: ../src/gtd-task-list-view.c:620
+#: ../src/gtd-task-list-view.c:627
 #, c-format
 msgid "Task <b>%s</b> removed"
 msgstr "Úkol <b>%s</b> byl odstraněn"
 
-#: ../src/gtd-task-list-view.c:644
+#: ../src/gtd-task-list-view.c:657
 msgid "Undo"
 msgstr "Zpět"
 
