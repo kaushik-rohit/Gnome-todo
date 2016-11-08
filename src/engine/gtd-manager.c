@@ -604,6 +604,11 @@ gtd_manager_update_task (GtdManager *manager,
   g_return_if_fail (GTD_IS_TASK (task));
 
   list = gtd_task_get_list (task);
+
+  /* Task does not have parent list, nothing we can do */
+  if (!list)
+      return;
+
   provider = gtd_task_list_get_provider (list);
 
   gtd_provider_update_task (provider, task);
