@@ -291,11 +291,24 @@ real_remove_subtask (GtdTask *self,
 }
 
 static void
+task_list_weak_notified (gpointer  data,
+                         GObject  *where_the_object_was)
+{
+  GtdTask *task = GTD_TASK (data);
+  GtdTaskPrivate *priv = gtd_task_get_instance_private (task);
+  priv->list = NULL;
+}
+
+static void
 gtd_task_finalize (GObject *object)
 {
   GtdTask *self = (GtdTask*) object;
   GtdTaskPrivate *priv = gtd_task_get_instance_private (self);
 
+  if (priv->list)
+    g_object_weak_unref (G_OBJECT (priv->list), task_list_weak_notified, self);
+
+  priv->list = NULL;
   g_free (priv->description);
   g_object_unref (priv->component);
 
@@ -1076,11 +1089,15 @@ gtd_task_set_list (GtdTask     *task,
 
   priv = gtd_task_get_instance_private (task);
 
-  if (priv->list != list)
-    {
-      priv->list = list;
-      g_object_notify (G_OBJECT (task), "list");
-    }
+  if (priv->list == list)
+    return;
+
+  if (priv->list)
+    g_object_weak_unref (G_OBJECT (priv->list), task_list_weak_notified, task);
+
+  priv->list = list;
+  g_object_weak_ref (G_OBJECT (priv->list), task_list_weak_notified, task);
+  g_object_notify (G_OBJECT (task), "list");
 }
 
 /**
