@@ -41,7 +41,7 @@
     </screenshot>
     <screenshot width="1200" height="675">
       <image>https://git.gnome.org/browse/gnome-todo/plain/data/appdata/today-panel.png</image>
-      <_caption>Visualizing tasks for today on GNOME To Do's Today panel</_caption>
+      <_caption>Visualizing tasks for today on GNOME To Do’s Today panel</_caption>
     </screenshot>
   </screenshots>
 
@@ -59,9 +59,9 @@
           <ul>
             <li>GNOME To Do now supports subtasks</li>
             <li>Memory comsumption was optimized</li>
-            <li>The task editor panel received handy buttons to change the task's due date</li>
+            <li>The task editor panel received handy buttons to change the task’s due date</li>
             <li>An initial version of the API documentation was released</li>
-            <li>All panels except the "List" panel are now plugins and, as such, they can be disabled</li>
+            <li>All panels except the “List” panel are now plugins and, as such, they can be disabled</li>
             <li>The user can switch between dark and light theme variants now</li>
           </ul>
         </p>

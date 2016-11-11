@@ -49,7 +49,7 @@ const gchar *messages[] =
   N_("No more tasks left"),
   N_("Nothing else to do here"),
   N_("You made it!"),
-  N_("Looks like there's nothing else left here")
+  N_("Looks like there’s nothing else left here")
 };
 
 const gchar *subtitles[] =

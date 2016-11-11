@@ -19,7 +19,7 @@
         <key name="first-run" type="b">
             <default>true</default>
             <summary>First run of GNOME To Do</summary>
-            <description>Whether it's the first run of GNOME To Do (to run the initial setup) or not</description>
+            <description>Whether it’s the first run of GNOME To Do (to run the initial setup) or not</description>
         </key>
         <key name="default-provider" type="s">
             <default>"local"</default>
@@ -34,7 +34,7 @@
         <key name="view" enum="org.gnome.todo.GtdListSelectorViewType">
             <default>'grid'</default>
             <summary>The current list selector</summary>
-            <description>The current list selector. Can be 'grid' or 'list'.</description>
+            <description>The current list selector. Can be “grid” or “list”.</description>
         </key>
     </schema>
 </schemalist>
