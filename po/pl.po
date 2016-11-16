@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-todo\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-01 15:37+0100\n"
-"PO-Revision-Date: 2016-11-01 15:38+0100\n"
+"POT-Creation-Date: 2016-11-16 12:58+0100\n"
+"PO-Revision-Date: 2016-11-16 12:59+0100\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <community-poland@mozilla.org>\n"
 "Language: pl\n"
@@ -59,7 +59,7 @@ msgid "Available plugins for GNOME To Do"
 msgstr "Dostępne wtyczki dla Menedżera zadań GNOME"
 
 #: ../data/appdata/org.gnome.Todo.appdata.xml.in.h:9
-msgid "Visualizing tasks for today on GNOME To Do's Today panel"
+msgid "Visualizing tasks for today on GNOME To Do’s Today panel"
 msgstr "Panel zadań na dzisiaj"
 
 #: ../data/gtk/menus.ui.h:1
@@ -120,7 +120,7 @@ msgstr "Pierwsze uruchomienie Menedżera zadań GNOME"
 
 #: ../data/org.gnome.todo.gschema.xml.h:8
 msgid ""
-"Whether it's the first run of GNOME To Do (to run the initial setup) or not"
+"Whether it’s the first run of GNOME To Do (to run the initial setup) or not"
 msgstr ""
 "Czy jest to pierwsze uruchomienie Menedżera zadań GNOME (aby wykonać "
 "początkowe ustawienie)"
@@ -146,7 +146,7 @@ msgid "The current list selector"
 msgstr "Bieżący widok list"
 
 #: ../data/org.gnome.todo.gschema.xml.h:14
-msgid "The current list selector. Can be 'grid' or 'list'."
+msgid "The current list selector. Can be “grid” or “list”."
 msgstr "Bieżący widok list. Może wynosić „grid” (siatka) lub „list” (lista)."
 
 #: ../data/ui/edit-pane.ui.h:1 ../plugins/eds/edit-pane.ui.h:10
@@ -199,7 +199,7 @@ msgstr "Usuń"
 #: ../plugins/score/score/__init__.py:95
 #: ../plugins/today-panel/gtd-panel-today.c:135
 #: ../plugins/today-panel/gtd-panel-today.c:140
-#: ../plugins/today-panel/gtd-panel-today.c:309 ../src/gtd-task-row.c:298
+#: ../plugins/today-panel/gtd-panel-today.c:308 ../src/gtd-task-row.c:298
 msgid "Today"
 msgstr "Dzisiaj"
 
@@ -409,7 +409,7 @@ msgid "Scheduled"
 msgstr "Zaplanowane"
 
 #: ../plugins/scheduled-panel/gtd-panel-scheduled.c:484
-#: ../plugins/today-panel/gtd-panel-today.c:314
+#: ../plugins/today-panel/gtd-panel-today.c:313
 #: ../src/views/gtd-list-selector-panel.c:711
 msgid "Clear completed tasks…"
 msgstr "Wyczyść ukończone zadania…"
@@ -459,7 +459,7 @@ msgid "You made it!"
 msgstr "Udało się!"
 
 #: ../src/gtd-empty-list-widget.c:52
-msgid "Looks like there's nothing else left here"
+msgid "Looks like there’s nothing else left here"
 msgstr "Nie ma więcej żadnych zadań"
 
 #: ../src/gtd-empty-list-widget.c:57
