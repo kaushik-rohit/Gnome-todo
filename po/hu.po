@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: gnome-todo master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "todo&keywords=I18N+L10N&component=General\n"
-"POT-Creation-Date: 2016-11-01 14:39+0000\n"
-"PO-Revision-Date: 2016-11-02 08:34+0100\n"
+"POT-Creation-Date: 2016-11-02 08:45+0000\n"
+"PO-Revision-Date: 2016-11-22 13:06+0100\n"
 "Last-Translator: Meskó Balázs <meskobalazs@gmail.com>\n"
 "Language-Team: Hungarian <openscope at googlegroups dot com>\n"
 "Language: hu\n"
@@ -476,7 +476,7 @@ msgstr "Szép munka!"
 
 #: ../src/gtd-empty-list-widget.c:60
 msgid "Meanwhile, spread the love"
-msgstr ""
+msgstr "Addig is, hirdesse az igét"
 
 #: ../src/gtd-empty-list-widget.c:61
 msgid "Working hard is always rewarded"
