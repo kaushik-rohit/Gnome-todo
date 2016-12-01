@@ -1753,77 +1753,76 @@ gtd_task_list_view_set_task_list (GtdTaskListView *view,
                                   GtdTaskList     *list)
 {
   GtdTaskListViewPrivate *priv = view->priv;
+  GdkRGBA *color;
+  gchar *color_str;
+  gchar *parsed_css;
+  GList *task_list;
 
   g_return_if_fail (GTD_IS_TASK_LIST_VIEW (view));
   g_return_if_fail (GTD_IS_TASK_LIST (list));
 
-  if (priv->task_list != list)
+  if (priv->task_list == list)
+    return;
+
+  /*
+   * Disconnect the old GtdTaskList signals.
+   */
+  if (priv->task_list)
     {
-      GdkRGBA *color;
-      gchar *color_str;
-      gchar *parsed_css;
-      GList *task_list;
-
-      /*
-       * Disconnect the old GtdTaskList signals.
-       */
-      if (priv->task_list)
-        {
-          g_signal_handlers_disconnect_by_func (priv->task_list,
-                                                gtd_task_list_view__task_added,
-                                                view);
-          g_signal_handlers_disconnect_by_func (priv->task_list,
-                                                gtd_task_list_view__color_changed,
-                                                view);
-        }
-
-      /* Add the color to provider */
-      color = gtd_task_list_get_color (list);
-      color_str = gdk_rgba_to_string (color);
-
-      parsed_css = g_strdup_printf (COLOR_TEMPLATE, color_str);
-
-      g_debug ("setting style for provider: %s", parsed_css);
-
-      gtk_css_provider_load_from_data (priv->color_provider,
-                                       parsed_css,
-                                       -1,
-                                       NULL);
-
-      g_free (parsed_css);
-      gdk_rgba_free (color);
-      g_free (color_str);
-
-      /* Load task */
-      priv->task_list = list;
-
-      update_font_color (view);
-
-      /* Add the tasks from the list */
-      task_list = gtd_task_list_get_tasks (list);
-
-      gtd_task_list_view_set_list (view, task_list);
-      gtd_edit_pane_set_task (priv->edit_pane, NULL);
-
-      g_list_free (task_list);
-
-      g_signal_connect (list,
-                        "task-added",
-                        G_CALLBACK (gtd_task_list_view__task_added),
-                        view);
-      g_signal_connect_swapped (list,
-                                "task-removed",
-                                G_CALLBACK (gtd_task_list_view__remove_task),
-                                view);
-      g_signal_connect_swapped (list,
-                                "notify::color",
-                                G_CALLBACK (gtd_task_list_view__color_changed),
-                                view);
-      g_signal_connect_swapped (list,
-                                "task-updated",
-                                G_CALLBACK (gtk_list_box_invalidate_sort),
-                                priv->listbox);
+      g_signal_handlers_disconnect_by_func (priv->task_list,
+                                            gtd_task_list_view__task_added,
+                                            view);
+      g_signal_handlers_disconnect_by_func (priv->task_list,
+                                            gtd_task_list_view__color_changed,
+                                            view);
     }
+
+  /* Add the color to provider */
+  color = gtd_task_list_get_color (list);
+  color_str = gdk_rgba_to_string (color);
+
+  parsed_css = g_strdup_printf (COLOR_TEMPLATE, color_str);
+
+  g_debug ("setting style for provider: %s", parsed_css);
+
+  gtk_css_provider_load_from_data (priv->color_provider,
+                                   parsed_css,
+                                   -1,
+                                   NULL);
+
+  g_free (parsed_css);
+  gdk_rgba_free (color);
+  g_free (color_str);
+
+  /* Load task */
+  priv->task_list = list;
+
+  update_font_color (view);
+
+  /* Add the tasks from the list */
+  task_list = gtd_task_list_get_tasks (list);
+
+  gtd_task_list_view_set_list (view, task_list);
+  gtd_edit_pane_set_task (priv->edit_pane, NULL);
+
+  g_list_free (task_list);
+
+  g_signal_connect (list,
+                    "task-added",
+                    G_CALLBACK (gtd_task_list_view__task_added),
+                    view);
+  g_signal_connect_swapped (list,
+                            "task-removed",
+                            G_CALLBACK (gtd_task_list_view__remove_task),
+                            view);
+  g_signal_connect_swapped (list,
+                            "notify::color",
+                            G_CALLBACK (gtd_task_list_view__color_changed),
+                            view);
+  g_signal_connect_swapped (list,
+                            "task-updated",
+                            G_CALLBACK (gtk_list_box_invalidate_sort),
+                            priv->listbox);
 }
 
 /**
