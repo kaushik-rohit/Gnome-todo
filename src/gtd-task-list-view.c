@@ -104,6 +104,8 @@ typedef struct
   /* Custom sorting function data */
   GtdTaskListViewSortFunc sort_func;
   gpointer                sort_user_data;
+
+  GtkWidget             *active_row;
 } GtdTaskListViewPrivate;
 
 struct _GtdTaskListView
@@ -162,6 +164,27 @@ enum {
 
 typedef gboolean     (*IterateSubtaskFunc)                       (GtdTaskListView    *self,
                                                                   GtdTask            *task);
+
+/*
+ * Active row management
+ */
+static void
+set_active_row (GtdTaskListView *self,
+                GtkWidget       *row)
+{
+  GtdTaskListViewPrivate *priv = gtd_task_list_view_get_instance_private (self);
+
+  if (priv->active_row == row)
+    return;
+
+  if (priv->active_row)
+    gtd_task_row_set_active (GTD_TASK_ROW (priv->active_row), FALSE);
+
+  priv->active_row = row;
+
+  if (row)
+    gtd_task_row_set_active (GTD_TASK_ROW (row), TRUE);
+}
 
 /*
  * Auxiliary function to iterate through a list of subtasks
@@ -660,6 +683,9 @@ gtd_task_list_view__remove_task_cb (GtdEditPane *pane,
 
   gtd_window_notify (window, notification);
 
+  /* Clear the active row */
+  set_active_row (user_data, NULL);
+
   g_clear_pointer (&text, g_free);
 
 out:
@@ -678,6 +704,8 @@ gtd_task_list_view__edit_task_finished (GtdEditPane *pane,
   g_return_if_fail (GTD_IS_TASK_LIST_VIEW (user_data));
 
   priv = GTD_TASK_LIST_VIEW (user_data)->priv;
+
+  set_active_row (user_data, NULL);
 
   gtk_revealer_set_reveal_child (priv->edit_revealer, FALSE);
 
@@ -800,6 +828,8 @@ task_row_entered_cb (GtdTaskListView *self,
 
   gtk_revealer_set_reveal_child (priv->edit_revealer, TRUE);
   gtd_arrow_frame_set_row (priv->arrow_frame, row);
+
+  set_active_row (self, GTK_WIDGET (row));
 }
 
 static void
@@ -822,6 +852,23 @@ task_row_exited_cb (GtdTaskListView *self,
 
   gtk_revealer_set_reveal_child (priv->edit_revealer, FALSE);
   gtd_arrow_frame_set_row (priv->arrow_frame, NULL);
+
+  if (GTK_WIDGET (row) == priv->active_row &&
+      priv->active_row != GTK_WIDGET (priv->new_task_row))
+    {
+      set_active_row (self, NULL);
+    }
+}
+
+static void
+listbox_row_activated (GtkListBox      *listbox,
+                       GtkListBox      *row,
+                       GtdTaskListView *self)
+{
+  if (!GTD_IS_TASK_ROW (row))
+    return;
+
+  set_active_row (self, GTK_WIDGET (row));
 }
 
 static void
@@ -863,6 +910,9 @@ destroy_task_row (GtdTaskListView *self,
 {
   g_signal_handlers_disconnect_by_func (row, task_row_entered_cb, self);
   g_signal_handlers_disconnect_by_func (row, task_row_exited_cb, self);
+
+  if (GTK_WIDGET (row) == self->priv->active_row)
+    set_active_row (self, NULL);
 
   gtd_task_row_destroy (row);
 }
@@ -1576,6 +1626,7 @@ gtd_task_list_view_class_init (GtdTaskListViewClass *klass)
   gtk_widget_class_bind_template_callback (widget_class, listbox_drag_drop);
   gtk_widget_class_bind_template_callback (widget_class, listbox_drag_leave);
   gtk_widget_class_bind_template_callback (widget_class, listbox_drag_motion);
+  gtk_widget_class_bind_template_callback (widget_class, listbox_row_activated);
   gtk_widget_class_bind_template_callback (widget_class, task_row_exited_cb);
 
   gtk_widget_class_set_css_name (widget_class, "task-list-view");
@@ -1589,6 +1640,8 @@ gtd_task_list_view_init (GtdTaskListView *self)
   self->priv->handle_subtasks = TRUE;
 
   gtk_widget_init_template (GTK_WIDGET (self));
+
+  self->priv->active_row = GTK_WIDGET (self->priv->new_task_row);
 
   gtk_drag_dest_set (GTK_WIDGET (self->priv->listbox),
                      0,
@@ -1828,6 +1881,8 @@ gtd_task_list_view_set_task_list (GtdTaskListView *view,
                             "task-updated",
                             G_CALLBACK (gtk_list_box_invalidate_sort),
                             priv->listbox);
+
+  set_active_row (view, GTK_WIDGET (priv->new_task_row));
 }
 
 /**

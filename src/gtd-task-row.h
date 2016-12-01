@@ -54,6 +54,11 @@ gboolean                  gtd_task_row_get_handle_subtasks      (GtdTaskRow     
 void                      gtd_task_row_set_handle_subtasks      (GtdTaskRow          *self,
                                                                  gboolean             handle_subtasks);
 
+gboolean                  gtd_task_row_get_active               (GtdTaskRow          *self);
+
+void                      gtd_task_row_set_active               (GtdTaskRow          *self,
+                                                                 gboolean             active);
+
 G_END_DECLS
 
 #endif /* GTD_TASK_ROW_H */
