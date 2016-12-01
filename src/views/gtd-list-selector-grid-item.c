@@ -499,7 +499,7 @@ gtd_list_selector_grid_item_set_property (GObject      *object,
       break;
 
     case PROP_TASK_LIST:
-      self->list = g_value_get_object (value);
+      self->list = g_value_dup_object (value);
       g_object_bind_property (self->list,
                               "name",
                               self->title_label,
