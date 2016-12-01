@@ -182,24 +182,37 @@ gtd_edit_pane_update_date (GtdEditPane *pane)
   dt = priv->task ? gtd_task_get_due_date (priv->task) : NULL;
   text = dt ? g_date_time_format (dt, "%x") : NULL;
 
+  g_signal_handlers_block_by_func (priv->calendar,
+                                   gtd_edit_pane__date_selected,
+                                   pane);
+
   if (dt)
     {
-      g_signal_handlers_block_by_func (priv->calendar,
-                                       gtd_edit_pane__date_selected,
-                                       pane);
-
       gtk_calendar_select_month (priv->calendar,
                                  g_date_time_get_month (dt) - 1,
                                  g_date_time_get_year (dt));
       gtk_calendar_select_day (priv->calendar,
                                g_date_time_get_day_of_month (dt));
-      gtk_calendar_mark_day (priv->calendar,
-                             g_date_time_get_day_of_month (dt));
 
-      g_signal_handlers_unblock_by_func (priv->calendar,
-                                         gtd_edit_pane__date_selected,
-                                         pane);
     }
+  else
+    {
+      GDateTime *today;
+
+      today = g_date_time_new_now_local ();
+
+      gtk_calendar_select_month (priv->calendar,
+                                 g_date_time_get_month (today) - 1,
+                                 g_date_time_get_year (today));
+      gtk_calendar_select_day (priv->calendar,
+                               g_date_time_get_day_of_month (today));
+
+      g_clear_pointer (&today, g_date_time_unref);
+    }
+
+  g_signal_handlers_unblock_by_func (priv->calendar,
+                                     gtd_edit_pane__date_selected,
+                                     pane);
 
   gtk_label_set_label (priv->date_label, text ? text : _("No date set"));
 
