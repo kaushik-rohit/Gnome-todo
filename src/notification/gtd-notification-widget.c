@@ -191,7 +191,22 @@ gtd_notification_widget_finalize (GObject *object)
 {
   GtdNotificationWidget *self = (GtdNotificationWidget *)object;
   GtdNotificationWidgetPrivate *priv = gtd_notification_widget_get_instance_private (self);
+  GList *l;
 
+  /* When quitting, always execute the primary option of the notifications */
+  if (priv->current_notification)
+    {
+      g_signal_handlers_disconnect_by_func (priv->current_notification,
+                                            gtd_notification_widget__notification_executed_cb,
+                                            self);
+
+      gtd_notification_execute_primary_action (priv->current_notification);
+    }
+
+  for (l = priv->queue->head; l != NULL; l = l->next)
+    gtd_notification_execute_primary_action (l->data);
+
+  /* And only after executing all of them, release the queue */
   g_queue_free_full (priv->queue, g_object_unref);
 
   G_OBJECT_CLASS (gtd_notification_widget_parent_class)->finalize (object);
