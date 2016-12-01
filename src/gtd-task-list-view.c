@@ -1759,7 +1759,6 @@ gtd_task_list_view_set_task_list (GtdTaskListView *view,
   GList *task_list;
 
   g_return_if_fail (GTD_IS_TASK_LIST_VIEW (view));
-  g_return_if_fail (GTD_IS_TASK_LIST (list));
 
   if (priv->task_list == list)
     return;
@@ -1775,6 +1774,15 @@ gtd_task_list_view_set_task_list (GtdTaskListView *view,
       g_signal_handlers_disconnect_by_func (priv->task_list,
                                             gtd_task_list_view__color_changed,
                                             view);
+    }
+
+  priv->task_list = list;
+
+  if (!list)
+    {
+      gtd_edit_pane_set_task (GTD_EDIT_PANE (priv->edit_pane), NULL);
+      gtd_task_list_view_set_list (view, NULL);
+      return;
     }
 
   /* Add the color to provider */
@@ -1793,9 +1801,6 @@ gtd_task_list_view_set_task_list (GtdTaskListView *view,
   g_free (parsed_css);
   gdk_rgba_free (color);
   g_free (color_str);
-
-  /* Load task */
-  priv->task_list = list;
 
   update_font_color (view);
 
