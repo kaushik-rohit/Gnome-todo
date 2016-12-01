@@ -290,6 +290,8 @@ gtd_list_selector_panel_back_button_clicked (GtkButton            *button,
 
   gtd_window_set_custom_title (window, NULL, NULL);
 
+  gtd_task_list_view_set_task_list (GTD_TASK_LIST_VIEW (panel->tasklist_view), NULL);
+
   g_object_notify (G_OBJECT (panel), "menu");
 }
 
