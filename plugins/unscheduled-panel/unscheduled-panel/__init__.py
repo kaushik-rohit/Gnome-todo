@@ -48,6 +48,7 @@ class UnscheduledPanel(Gtk.Box, Gtd.Panel):
                                      vexpand=True)
         self.view.set_show_list_name(True)
         self.view.set_task_list(self.tasklist)
+        self.view.set_handle_subtasks(False)
 
         self.add(self.view)
         self.show_all()
