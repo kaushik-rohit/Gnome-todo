@@ -1,15 +1,15 @@
 # Kazakh translation for gnome-todo.
 # Copyright (C) 2015 gnome-todo's COPYRIGHT HOLDER
 # This file is distributed under the same license as the gnome-todo package.
-# Baurzhan Muftakhidinov <baurthefirst@gmail.com>, 2015.
+# Baurzhan Muftakhidinov <baurthefirst@gmail.com>, 2015-2016.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-todo master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "todo&keywords=I18N+L10N&component=General\n"
-"POT-Creation-Date: 2016-11-01 14:39+0000\n"
-"PO-Revision-Date: 2016-11-04 08:58+0500\n"
+"POT-Creation-Date: 2016-11-22 16:10+0000\n"
+"PO-Revision-Date: 2016-12-13 08:47+0500\n"
 "Last-Translator: Baurzhan Muftakhidinov <baurthefirst@gmail.com>\n"
 "Language-Team: Kazakh <kk_KZ@googlegroups.com>\n"
 "Language: kk\n"
@@ -59,7 +59,7 @@ msgid "Available plugins for GNOME To Do"
 msgstr "GNOME To Do үшін қолжетерлік плагиндер"
 
 #: ../data/appdata/org.gnome.Todo.appdata.xml.in.h:9
-msgid "Visualizing tasks for today on GNOME To Do's Today panel"
+msgid "Visualizing tasks for today on GNOME To Do’s Today panel"
 msgstr "GNOME To Do-ның бүгінгі күн панелімен бүгінгі тапсырмаларды көрсету"
 
 #: ../data/gtk/menus.ui.h:1
@@ -87,8 +87,9 @@ msgid "Manage your personal tasks"
 msgstr "Жеке тапсырмаларыңызды басқару"
 
 #: ../data/org.gnome.Todo.desktop.in.in.h:3
-msgid "Task;Productivity;"
-msgstr "Тапсырма;Өнімділік;"
+#| msgid "Task;Productivity;"
+msgid "Task;Productivity;Todo;"
+msgstr "Task;Productivity;Todo;Тапсырма;Өнімділік;Жасау үшін;"
 
 #: ../data/org.gnome.todo.gschema.xml.h:1
 msgid "Window maximized"
@@ -120,7 +121,7 @@ msgstr "GNOME To Do бірінші жөнелтілуі"
 
 #: ../data/org.gnome.todo.gschema.xml.h:8
 msgid ""
-"Whether it's the first run of GNOME To Do (to run the initial setup) or not"
+"Whether it’s the first run of GNOME To Do (to run the initial setup) or not"
 msgstr ""
 "GNOME To Do қолданбасының бірінші жөнелтілуі ме (бастапқы баптауды жасау "
 "үшін), әлде жоқ па"
@@ -147,8 +148,8 @@ msgid "The current list selector"
 msgstr "Ағымдағы тізім таңдаушысы"
 
 #: ../data/org.gnome.todo.gschema.xml.h:14
-msgid "The current list selector. Can be 'grid' or 'list'."
-msgstr "Ағымдағы тізім таңдаушысы. 'grid' немесе 'list' болуы мүмкін."
+msgid "The current list selector. Can be “grid” or “list”."
+msgstr "Ағымдағы тізім таңдаушысы. \"grid\" немесе \"list\" болуы мүмкін."
 
 #: ../data/ui/edit-pane.ui.h:1 ../plugins/eds/edit-pane.ui.h:10
 msgctxt "taskdate"
@@ -200,7 +201,7 @@ msgstr "Өшіру"
 #: ../plugins/score/score/__init__.py:95
 #: ../plugins/today-panel/gtd-panel-today.c:135
 #: ../plugins/today-panel/gtd-panel-today.c:140
-#: ../plugins/today-panel/gtd-panel-today.c:309 ../src/gtd-task-row.c:298
+#: ../plugins/today-panel/gtd-panel-today.c:308 ../src/gtd-task-row.c:298
 msgid "Today"
 msgstr "Бүгін"
 
@@ -408,7 +409,7 @@ msgid "Scheduled"
 msgstr "Жоспарланған"
 
 #: ../plugins/scheduled-panel/gtd-panel-scheduled.c:484
-#: ../plugins/today-panel/gtd-panel-today.c:314
+#: ../plugins/today-panel/gtd-panel-today.c:313
 #: ../src/views/gtd-list-selector-panel.c:711
 msgid "Clear completed tasks…"
 msgstr "Аяқталған тапсырмаларды тазарту…"
@@ -456,7 +457,7 @@ msgid "You made it!"
 msgstr "Тамаша!"
 
 #: ../src/gtd-empty-list-widget.c:52
-msgid "Looks like there's nothing else left here"
+msgid "Looks like there’s nothing else left here"
 msgstr "Осында жасайтын ешнәрсе қалмаған сияқты"
 
 #: ../src/gtd-empty-list-widget.c:57
