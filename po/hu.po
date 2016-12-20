@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: gnome-todo master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "todo&keywords=I18N+L10N&component=General\n"
-"POT-Creation-Date: 2016-11-11 16:39+0000\n"
-"PO-Revision-Date: 2016-11-22 13:05+0100\n"
+"POT-Creation-Date: 2016-12-01 04:01+0000\n"
+"PO-Revision-Date: 2016-12-19 16:47+0100\n"
 "Last-Translator: Meskó Balázs <meskobalazs@gmail.com>\n"
 "Language-Team: Hungarian <openscope at googlegroups dot com>\n"
 "Language: hu\n"
@@ -89,7 +89,7 @@ msgid "Manage your personal tasks"
 msgstr "Személyes feladatok kezelése"
 
 #: ../data/org.gnome.Todo.desktop.in.in.h:3
-msgid "Task;Productivity;"
+msgid "Task;Productivity;Todo;"
 msgstr "Feladat;Teendő;Tennivaló;"
 
 #: ../data/org.gnome.todo.gschema.xml.h:1
@@ -202,13 +202,13 @@ msgstr "Törlés"
 #: ../plugins/score/score/__init__.py:95
 #: ../plugins/today-panel/gtd-panel-today.c:135
 #: ../plugins/today-panel/gtd-panel-today.c:140
-#: ../plugins/today-panel/gtd-panel-today.c:308 ../src/gtd-task-row.c:298
+#: ../plugins/today-panel/gtd-panel-today.c:308 ../src/gtd-task-row.c:299
 msgid "Today"
 msgstr "Ma"
 
 #: ../data/ui/edit-pane.ui.h:12
 #: ../plugins/scheduled-panel/gtd-panel-scheduled.c:91
-#: ../src/gtd-task-row.c:302
+#: ../src/gtd-task-row.c:303
 msgid "Tomorrow"
 msgstr "Holnap"
 
@@ -225,13 +225,13 @@ msgid "Login to online accounts to access your tasks"
 msgstr "Jelentkezzen be online fiókokba a feladatai eléréséhez"
 
 #: ../data/ui/initial-setup.ui.h:3 ../data/ui/provider-popover.ui.h:2
-#: ../data/ui/window.ui.h:1 ../src/gtd-task-list-view.c:576
-#: ../src/views/gtd-list-selector-panel.c:386
+#: ../data/ui/window.ui.h:1 ../src/gtd-task-list-view.c:599
+#: ../src/views/gtd-list-selector-panel.c:388
 msgid "Cancel"
 msgstr "Mégse"
 
 #: ../data/ui/initial-setup.ui.h:4 ../data/ui/list-view.ui.h:2
-#: ../src/gtd-task-list-view.c:736
+#: ../src/gtd-task-list-view.c:764
 msgid "Done"
 msgstr "Kész"
 
@@ -240,7 +240,7 @@ msgid "Rename"
 msgstr "Átnevezés"
 
 #: ../data/ui/list-selector-panel.ui.h:3
-#: ../src/views/gtd-list-selector-panel.c:465
+#: ../src/views/gtd-list-selector-panel.c:467
 msgid "Lists"
 msgstr "Listák"
 
@@ -391,12 +391,12 @@ msgid "Error creating new task list"
 msgstr "Hiba a feladatlista létrehozásakor"
 
 #: ../plugins/scheduled-panel/gtd-panel-scheduled.c:67
-#: ../src/gtd-edit-pane.c:204 ../src/gtd-task-row.c:328
+#: ../src/gtd-edit-pane.c:217 ../src/gtd-task-row.c:329
 msgid "No date set"
 msgstr "Nincs dátum beállítva"
 
 #: ../plugins/scheduled-panel/gtd-panel-scheduled.c:83
-#: ../src/gtd-task-row.c:306
+#: ../src/gtd-task-row.c:307
 #, c-format
 msgid "Yesterday"
 msgid_plural "%d days ago"
@@ -412,7 +412,7 @@ msgstr "Ütemezett"
 
 #: ../plugins/scheduled-panel/gtd-panel-scheduled.c:484
 #: ../plugins/today-panel/gtd-panel-today.c:313
-#: ../src/views/gtd-list-selector-panel.c:711
+#: ../src/views/gtd-list-selector-panel.c:713
 msgid "Clear completed tasks…"
 msgstr "Befejezett feladatok törlése…"
 
@@ -498,25 +498,25 @@ msgstr "Hiba a bővítmény betöltésekor"
 msgid "Error unloading plugin"
 msgstr "Hiba a bővítmény eltávolításakor"
 
-#: ../src/gtd-task-list-view.c:570
+#: ../src/gtd-task-list-view.c:593
 msgid "Removing this task will also remove its subtasks. Remove anyway?"
 msgstr ""
 "A feladat eltávolítása a részfeladatokat is eltávolítja. Mégis eltávolítja?"
 
-#: ../src/gtd-task-list-view.c:573
+#: ../src/gtd-task-list-view.c:596
 msgid "Once removed, the tasks cannot be recovered."
 msgstr "Az eltávolítás után a feladatok nem állíthatóak vissza."
 
-#: ../src/gtd-task-list-view.c:578
+#: ../src/gtd-task-list-view.c:601
 msgid "Remove"
 msgstr "Eltávolítás"
 
-#: ../src/gtd-task-list-view.c:627
+#: ../src/gtd-task-list-view.c:650
 #, c-format
 msgid "Task <b>%s</b> removed"
 msgstr "A feladat (<b>%s</b>) törölve"
 
-#: ../src/gtd-task-list-view.c:657
+#: ../src/gtd-task-list-view.c:680
 msgid "Undo"
 msgstr "Visszavonás"
 
@@ -536,15 +536,15 @@ msgstr "Nincsenek feladatok"
 msgid "Setting new color for task list"
 msgstr "Új szín beállítása a feladatlistához"
 
-#: ../src/views/gtd-list-selector-panel.c:379
+#: ../src/views/gtd-list-selector-panel.c:381
 msgid "Remove the selected task lists?"
 msgstr "Törli a kiválasztott feladatlistákat?"
 
-#: ../src/views/gtd-list-selector-panel.c:382
+#: ../src/views/gtd-list-selector-panel.c:384
 msgid "Once removed, the task lists cannot be recovered."
 msgstr "A törlés után a feladatlisták nem állíthatóak vissza."
 
-#: ../src/views/gtd-list-selector-panel.c:394
+#: ../src/views/gtd-list-selector-panel.c:396
 msgid "Remove task lists"
 msgstr "Feladatlisták törlése"
 
