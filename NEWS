@@ -1,4 +1,33 @@
 ===============
+Version 3.22.1
+===============
+
+Project:
+        * Improved behavior when dealing with dates
+        * Improve the focus management so we don't loose the new task row
+        * Improve the Unscheduled panel
+        * Duplicated task issue is now fixed
+        * Add a Flatpak manifest file (Christian Hergert)
+        * GNOME To Do consumes less memory and is more stable (Victor Toso)
+
+Translations:
+        * Brazilian Portuguese (Gustavo Marques)
+        * Czech (Marek Černocký)
+        * Dutch (Hannie Dumoleyn, Mario Blättermann)
+        * Finnish (Jiri Grönroos)
+        * French (Charles Monzat)
+        * Friulian (Fabio Tomat)
+        * Hungarian (Balázs Úr, Balázs Meskó)
+        * Italian (Gianvito Cavasoli)
+        * Kazakh (Baurzhan Muftakhidinov)
+        * Latvian (Rūdolfs Mazurs)
+        * Lithuanian (Aurimas Černius)
+        * Norwegan bokmål (Kjartan Maraas)
+        * Polish (Piotr Drąg)
+        * Slovak (Dušan Kazik)
+        * Spanish (Daniel Mustieles)
+
+===============
 Version 3.22.0
 ===============
 

@@ -51,6 +51,24 @@
   </kudos>
 
   <releases>
+    <release date="2016-16-19" version="3.22.1">
+      <description>
+        <p>
+          This is the second stable release for GNOME To Do 3.22, and focus on
+          stability improvements.
+          <ul>
+            <li>Improved behavior when dealing with dates</li>
+            <li>Improve the focus management so we don't loose the new task row</li>
+            <li>Add a Flatpak manifest file</li>
+            <li>Improve the Unscheduled panel</li>
+            <li>Duplicated task issue is now fixed</li>
+            <li>GNOME To Do consumes less memory and is more stable</li>
+          </ul>
+        </p>
+        <p>This release also updates translations, and adds new translations.</p>
+        <p>Thanks to all the contributors that worked on GNOME To Do!</p>
+      </description>
+    </release>
     <release date="2016-11-1" version="3.22.0">
       <description>
         <p>
