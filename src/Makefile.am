@@ -104,11 +104,11 @@ gnome_todo_LDFLAGS = \
 	$(GNOME_TODO_WARN_LDFLAGS)
 
 gnome_todo_LDADD = \
-	$(GNOME_TODO_LIBS) \
 	$(top_builddir)/plugins/eds/libeds.la \
 	$(top_builddir)/plugins/dark-theme/libdarktheme.la \
 	$(top_builddir)/plugins/scheduled-panel/libscheduledpanel.la \
-	$(top_builddir)/plugins/today-panel/libtodaypanel.la
+	$(top_builddir)/plugins/today-panel/libtodaypanel.la \
+	$(GNOME_TODO_LIBS)
 
 gnome_todo_DEPENDENCIES = \
 	$(top_builddir)/plugins/eds/libeds.la \
