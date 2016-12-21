@@ -9,9 +9,9 @@ msgstr ""
 "Project-Id-Version: gnome-todo master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "todo&keywords=I18N+L10N&component=General\n"
-"POT-Creation-Date: 2016-11-01 14:39+0000\n"
-"PO-Revision-Date: 2016-11-14 10:57+0100\n"
-"Last-Translator: Mario Blättermann <mario.blaettermann@gmail.com>\n"
+"POT-Creation-Date: 2016-11-25 21:54+0000\n"
+"PO-Revision-Date: 2016-12-20 20:08+0100\n"
+"Last-Translator: Christian Kirbach <christian.kirbach@gmail.com>\n"
 "Language-Team: Deutsch <gnome-de@gnome.org>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -481,9 +481,8 @@ msgid "Good job!"
 msgstr "Gute Arbeit!"
 
 #: ../src/gtd-empty-list-widget.c:60
-#, fuzzy
 msgid "Meanwhile, spread the love"
-msgstr "Inzwischen verbreiten die Liebe"
+msgstr "Tragen Sie in der Zwischenzeit Ihre Begeisterung in die Welt"
 
 #: ../src/gtd-empty-list-widget.c:61
 msgid "Working hard is always rewarded"
