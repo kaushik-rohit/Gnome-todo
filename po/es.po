@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: gnome-todo.master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "todo&keywords=I18N+L10N&component=General\n"
-"POT-Creation-Date: 2016-11-01 14:40+0000\n"
-"PO-Revision-Date: 2016-11-02 09:38+0100\n"
+"POT-Creation-Date: 2016-12-20 01:32+0000\n"
+"PO-Revision-Date: 2016-12-20 16:54+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: es <gnome-es-list@gnome.org>\n"
 "Language: \n"
@@ -32,9 +32,6 @@ msgid "Task manager for GNOME"
 msgstr "Gestor de tareas para GNOME"
 
 #: ../data/appdata/org.gnome.Todo.appdata.xml.in.h:3
-#| msgid ""
-#| "GNOME To Do is a simple task management application designed to integrate "
-#| "with GNOME."
 msgid ""
 "GNOME To Do is a task management application designed to integrate with "
 "GNOME. It is extensible through plugins and supports custom task providers."
@@ -60,13 +57,13 @@ msgid "Task lists displayed on list mode"
 msgstr "Listas de tareas mostradas en modo de lista"
 
 #: ../data/appdata/org.gnome.Todo.appdata.xml.in.h:8
-#| msgid "First run of GNOME To Do"
 msgid "Available plugins for GNOME To Do"
 msgstr "Complementos disponibles para Tareas pendientes de GNOME"
 
 #: ../data/appdata/org.gnome.Todo.appdata.xml.in.h:9
-msgid "Visualizing tasks for today on GNOME To Do's Today panel"
-msgstr "Viendo las tareas para hoy en el panel de Tareas pendientes de GNOME"
+#| msgid "Visualizing tasks for today on GNOME To Do's Today panel"
+msgid "Visualizing tasks for today on GNOME To Do’s Today panel"
+msgstr "Viendo las tareas para hoy en el panel de tareas pendientes de GNOME"
 
 #: ../data/gtk/menus.ui.h:1
 msgid "New List…"
@@ -93,8 +90,9 @@ msgid "Manage your personal tasks"
 msgstr "Gestionar sus tareas personales"
 
 #: ../data/org.gnome.Todo.desktop.in.in.h:3
-msgid "Task;Productivity;"
-msgstr "Tarea;Productividad;"
+#| msgid "Task;Productivity;"
+msgid "Task;Productivity;Todo;"
+msgstr "Tarea;Productividad;Pendiente;Hacer;"
 
 #: ../data/org.gnome.todo.gschema.xml.h:1
 msgid "Window maximized"
@@ -125,8 +123,11 @@ msgid "First run of GNOME To Do"
 msgstr "Primera ejecución de Tareas pendientes de GNOME"
 
 #: ../data/org.gnome.todo.gschema.xml.h:8
+#| msgid ""
+#| "Whether it's the first run of GNOME To Do (to run the initial setup) or "
+#| "not"
 msgid ""
-"Whether it's the first run of GNOME To Do (to run the initial setup) or not"
+"Whether it’s the first run of GNOME To Do (to run the initial setup) or not"
 msgstr ""
 "Indica si es la primera vez que se ejecuta Tareas pendientes de GNOME (para "
 "ejecutar la configuración inicial)"
@@ -153,7 +154,8 @@ msgid "The current list selector"
 msgstr "El selector de lista actual"
 
 #: ../data/org.gnome.todo.gschema.xml.h:14
-msgid "The current list selector. Can be 'grid' or 'list'."
+#| msgid "The current list selector. Can be 'grid' or 'list'."
+msgid "The current list selector. Can be “grid” or “list”."
 msgstr "El selector de lista actual. Puede ser «rejilla» o «lista»."
 
 #: ../data/ui/edit-pane.ui.h:1 ../plugins/eds/edit-pane.ui.h:10
@@ -206,13 +208,13 @@ msgstr "Eliminar"
 #: ../plugins/score/score/__init__.py:95
 #: ../plugins/today-panel/gtd-panel-today.c:135
 #: ../plugins/today-panel/gtd-panel-today.c:140
-#: ../plugins/today-panel/gtd-panel-today.c:309 ../src/gtd-task-row.c:298
+#: ../plugins/today-panel/gtd-panel-today.c:308 ../src/gtd-task-row.c:299
 msgid "Today"
 msgstr "Hoy"
 
 #: ../data/ui/edit-pane.ui.h:12
 #: ../plugins/scheduled-panel/gtd-panel-scheduled.c:91
-#: ../src/gtd-task-row.c:302
+#: ../src/gtd-task-row.c:303
 msgid "Tomorrow"
 msgstr "Mañana"
 
@@ -229,13 +231,13 @@ msgid "Login to online accounts to access your tasks"
 msgstr "Inicie sesión en sus cuentas en línea para acceder a sus tareas"
 
 #: ../data/ui/initial-setup.ui.h:3 ../data/ui/provider-popover.ui.h:2
-#: ../data/ui/window.ui.h:1 ../src/gtd-task-list-view.c:576
-#: ../src/views/gtd-list-selector-panel.c:386
+#: ../data/ui/window.ui.h:1 ../src/gtd-task-list-view.c:599
+#: ../src/views/gtd-list-selector-panel.c:388
 msgid "Cancel"
 msgstr "Cancelar"
 
 #: ../data/ui/initial-setup.ui.h:4 ../data/ui/list-view.ui.h:2
-#: ../src/gtd-task-list-view.c:736
+#: ../src/gtd-task-list-view.c:764
 msgid "Done"
 msgstr "Hecho"
 
@@ -244,7 +246,7 @@ msgid "Rename"
 msgstr "Renombrar"
 
 #: ../data/ui/list-selector-panel.ui.h:3
-#: ../src/views/gtd-list-selector-panel.c:465
+#: ../src/views/gtd-list-selector-panel.c:467
 msgid "Lists"
 msgstr "Listas"
 
@@ -395,12 +397,12 @@ msgid "Error creating new task list"
 msgstr "Error al crear la nueva lista de tareas"
 
 #: ../plugins/scheduled-panel/gtd-panel-scheduled.c:67
-#: ../src/gtd-edit-pane.c:204 ../src/gtd-task-row.c:328
+#: ../src/gtd-edit-pane.c:217 ../src/gtd-task-row.c:329
 msgid "No date set"
 msgstr "No hay fecha establecida"
 
 #: ../plugins/scheduled-panel/gtd-panel-scheduled.c:83
-#: ../src/gtd-task-row.c:306
+#: ../src/gtd-task-row.c:307
 #, c-format
 msgid "Yesterday"
 msgid_plural "%d days ago"
@@ -415,8 +417,8 @@ msgid "Scheduled"
 msgstr "Programadas"
 
 #: ../plugins/scheduled-panel/gtd-panel-scheduled.c:484
-#: ../plugins/today-panel/gtd-panel-today.c:314
-#: ../src/views/gtd-list-selector-panel.c:711
+#: ../plugins/today-panel/gtd-panel-today.c:313
+#: ../src/views/gtd-list-selector-panel.c:713
 msgid "Clear completed tasks…"
 msgstr "Limpiar las tareas completadas…"
 
@@ -426,12 +428,12 @@ msgstr "Hoy no se ha completado ninguna tarea"
 
 #. Translators: 'Unscheduled' as in 'Unscheduled tasks'
 #: ../plugins/unscheduled-panel/unscheduled-panel/__init__.py:34
-#: ../plugins/unscheduled-panel/unscheduled-panel/__init__.py:88
+#: ../plugins/unscheduled-panel/unscheduled-panel/__init__.py:89
 msgid "Unscheduled"
 msgstr "No programadas"
 
 #. Translators: 'Unscheduled' as in 'Unscheduled tasks'
-#: ../plugins/unscheduled-panel/unscheduled-panel/__init__.py:91
+#: ../plugins/unscheduled-panel/unscheduled-panel/__init__.py:92
 #, python-format
 msgid "Unscheduled (%d)"
 msgstr "No programadas (%d)"
@@ -451,7 +453,6 @@ msgid "translator-credits"
 msgstr "Daniel Mustieles <daniel.mustieles@gmail.com>, 2015"
 
 #: ../src/gtd-empty-list-widget.c:49
-#| msgid "Remove task lists"
 msgid "No more tasks left"
 msgstr "No quedan más tareas"
 
@@ -464,7 +465,8 @@ msgid "You made it!"
 msgstr "Conseguido"
 
 #: ../src/gtd-empty-list-widget.c:52
-msgid "Looks like there's nothing else left here"
+#| msgid "Looks like there's nothing else left here"
+msgid "Looks like there’s nothing else left here"
 msgstr "Parece que no hay nada pendiente por aquí"
 
 #: ../src/gtd-empty-list-widget.c:57
@@ -492,7 +494,6 @@ msgid "No tasks found"
 msgstr "No se han encontrado tareas"
 
 #: ../src/gtd-empty-list-widget.c:73
-#| msgid "You can add tasks to lists in the <b>Lists</b> view"
 msgid "You can add tasks using the <b>+</b> above"
 msgstr "Puede añadir tareas usando el <b>+</b> anterior"
 
@@ -504,26 +505,25 @@ msgstr "Error al cargar el complemento"
 msgid "Error unloading plugin"
 msgstr "Error al descargar el complemento"
 
-#: ../src/gtd-task-list-view.c:570
+#: ../src/gtd-task-list-view.c:593
 msgid "Removing this task will also remove its subtasks. Remove anyway?"
 msgstr ""
 "Al quitar esta tarea también se quitarán sus subtareas. ¿Quiere continuar?"
 
-#: ../src/gtd-task-list-view.c:573
-#| msgid "Once removed, the task lists cannot be recovered."
+#: ../src/gtd-task-list-view.c:596
 msgid "Once removed, the tasks cannot be recovered."
 msgstr "Una vez eliminada, las tareas no se pueden recuperar."
 
-#: ../src/gtd-task-list-view.c:578
+#: ../src/gtd-task-list-view.c:601
 msgid "Remove"
 msgstr "Quitar"
 
-#: ../src/gtd-task-list-view.c:627
+#: ../src/gtd-task-list-view.c:650
 #, c-format
 msgid "Task <b>%s</b> removed"
 msgstr "Tarea <b>%s</b> eliminada"
 
-#: ../src/gtd-task-list-view.c:657
+#: ../src/gtd-task-list-view.c:680
 msgid "Undo"
 msgstr "Deshacer"
 
@@ -543,15 +543,15 @@ msgstr "No hay tareas"
 msgid "Setting new color for task list"
 msgstr "Configurar un colo nuevo para la lista de tareas"
 
-#: ../src/views/gtd-list-selector-panel.c:379
+#: ../src/views/gtd-list-selector-panel.c:381
 msgid "Remove the selected task lists?"
 msgstr "¿Eliminar las listas de tareas seleccionadas?"
 
-#: ../src/views/gtd-list-selector-panel.c:382
+#: ../src/views/gtd-list-selector-panel.c:384
 msgid "Once removed, the task lists cannot be recovered."
 msgstr "Una vez eliminada, la lista de tareas no se podrá recuperar."
 
-#: ../src/views/gtd-list-selector-panel.c:394
+#: ../src/views/gtd-list-selector-panel.c:396
 msgid "Remove task lists"
 msgstr "Eliminar lista de tareas"
 
