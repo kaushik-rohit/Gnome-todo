@@ -4,14 +4,15 @@
 # Friedrich Herbst <friedrich-herbst@gmx.de>, 2015.
 # Kristjan SCHMIDT <kristjan.schmidt@googlemail.com>, 2015.
 # Mario Blättermann <mario.blaettermann@gmail.com>, 2016.
+# Bernd Homuth <dev@hmt.im>, 2016.
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-todo master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "todo&keywords=I18N+L10N&component=General\n"
-"POT-Creation-Date: 2016-11-25 21:54+0000\n"
-"PO-Revision-Date: 2016-12-20 20:08+0100\n"
-"Last-Translator: Christian Kirbach <christian.kirbach@gmail.com>\n"
+"POT-Creation-Date: 2016-12-21 15:42+0000\n"
+"PO-Revision-Date: 2016-12-22 19:17+0100\n"
+"Last-Translator: Bernd Homuth <dev@hmt.im>\n"
 "Language-Team: Deutsch <gnome-de@gnome.org>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -61,7 +62,7 @@ msgid "Available plugins for GNOME To Do"
 msgstr "Für GNOME Aufgaben verfügbare Erweiterungen"
 
 #: ../data/appdata/org.gnome.Todo.appdata.xml.in.h:9
-msgid "Visualizing tasks for today on GNOME To Do's Today panel"
+msgid "Visualizing tasks for today on GNOME To Do’s Today panel"
 msgstr "Visualisierung der heutigen Aufgaben in der Ansicht von GNOME Aufgaben"
 
 #: ../data/gtk/menus.ui.h:1
@@ -89,8 +90,8 @@ msgid "Manage your personal tasks"
 msgstr "Verwalten von persönlichen Aufgaben"
 
 #: ../data/org.gnome.Todo.desktop.in.in.h:3
-msgid "Task;Productivity;"
-msgstr "Aufgaben;Produktivität;"
+msgid "Task;Productivity;Todo;"
+msgstr "Aufgaben;Produktivität;Todo;"
 
 #: ../data/org.gnome.todo.gschema.xml.h:1
 msgid "Window maximized"
@@ -122,7 +123,7 @@ msgstr "Erster Start von GNOME Aufgaben"
 
 #: ../data/org.gnome.todo.gschema.xml.h:8
 msgid ""
-"Whether it's the first run of GNOME To Do (to run the initial setup) or not"
+"Whether it’s the first run of GNOME To Do (to run the initial setup) or not"
 msgstr ""
 "Gibt an, ob es der erste Start von GNOME Aufgaben ist oder nicht (für die "
 "Ersteinrichtung)"
@@ -148,7 +149,7 @@ msgid "The current list selector"
 msgstr "Die aktuelle Listen-Auswahl"
 
 #: ../data/org.gnome.todo.gschema.xml.h:14
-msgid "The current list selector. Can be 'grid' or 'list'."
+msgid "The current list selector. Can be “grid” or “list”."
 msgstr ""
 "Die aktuelle Listenauswahl. Möglich sind »grid« (Gitter) oder »list« (Liste)."
 
@@ -202,13 +203,13 @@ msgstr "Löschen"
 #: ../plugins/score/score/__init__.py:95
 #: ../plugins/today-panel/gtd-panel-today.c:135
 #: ../plugins/today-panel/gtd-panel-today.c:140
-#: ../plugins/today-panel/gtd-panel-today.c:309 ../src/gtd-task-row.c:298
+#: ../plugins/today-panel/gtd-panel-today.c:308 ../src/gtd-task-row.c:299
 msgid "Today"
 msgstr "Heute"
 
 #: ../data/ui/edit-pane.ui.h:12
 #: ../plugins/scheduled-panel/gtd-panel-scheduled.c:91
-#: ../src/gtd-task-row.c:302
+#: ../src/gtd-task-row.c:303
 msgid "Tomorrow"
 msgstr "Morgen"
 
@@ -225,13 +226,13 @@ msgid "Login to online accounts to access your tasks"
 msgstr "Melden Sie sich bei den Online-Konten für Zugriff auf Ihre Aufgaben an"
 
 #: ../data/ui/initial-setup.ui.h:3 ../data/ui/provider-popover.ui.h:2
-#: ../data/ui/window.ui.h:1 ../src/gtd-task-list-view.c:576
-#: ../src/views/gtd-list-selector-panel.c:386
+#: ../data/ui/window.ui.h:1 ../src/gtd-task-list-view.c:599
+#: ../src/views/gtd-list-selector-panel.c:388
 msgid "Cancel"
 msgstr "Abbrechen"
 
 #: ../data/ui/initial-setup.ui.h:4 ../data/ui/list-view.ui.h:2
-#: ../src/gtd-task-list-view.c:736
+#: ../src/gtd-task-list-view.c:764
 msgid "Done"
 msgstr "Fertig"
 
@@ -240,7 +241,7 @@ msgid "Rename"
 msgstr "Umbenennen"
 
 #: ../data/ui/list-selector-panel.ui.h:3
-#: ../src/views/gtd-list-selector-panel.c:465
+#: ../src/views/gtd-list-selector-panel.c:467
 msgid "Lists"
 msgstr "Listen"
 
@@ -391,12 +392,12 @@ msgid "Error creating new task list"
 msgstr "Fehler beim Anlegen der neuen Aufgabenliste"
 
 #: ../plugins/scheduled-panel/gtd-panel-scheduled.c:67
-#: ../src/gtd-edit-pane.c:204 ../src/gtd-task-row.c:328
+#: ../src/gtd-edit-pane.c:217 ../src/gtd-task-row.c:329
 msgid "No date set"
 msgstr "Kein Datum festgelegt"
 
 #: ../plugins/scheduled-panel/gtd-panel-scheduled.c:83
-#: ../src/gtd-task-row.c:306
+#: ../src/gtd-task-row.c:307
 #, c-format
 msgid "Yesterday"
 msgid_plural "%d days ago"
@@ -411,8 +412,8 @@ msgid "Scheduled"
 msgstr "Geplant"
 
 #: ../plugins/scheduled-panel/gtd-panel-scheduled.c:484
-#: ../plugins/today-panel/gtd-panel-today.c:314
-#: ../src/views/gtd-list-selector-panel.c:711
+#: ../plugins/today-panel/gtd-panel-today.c:313
+#: ../src/views/gtd-list-selector-panel.c:713
 msgid "Clear completed tasks…"
 msgstr "Abgeschlossene Aufgaben entfernen …"
 
@@ -424,13 +425,13 @@ msgstr "Heute keine Aufgabe erledigt"
 # Passt so. -mb
 #. Translators: 'Unscheduled' as in 'Unscheduled tasks'
 #: ../plugins/unscheduled-panel/unscheduled-panel/__init__.py:34
-#: ../plugins/unscheduled-panel/unscheduled-panel/__init__.py:88
+#: ../plugins/unscheduled-panel/unscheduled-panel/__init__.py:89
 msgid "Unscheduled"
 msgstr "Nicht geplant"
 
 # Oder wäre "terminiert" der bessere Ausdruck? (florian h.)
 #. Translators: 'Unscheduled' as in 'Unscheduled tasks'
-#: ../plugins/unscheduled-panel/unscheduled-panel/__init__.py:91
+#: ../plugins/unscheduled-panel/unscheduled-panel/__init__.py:92
 #, python-format
 msgid "Unscheduled (%d)"
 msgstr "Nicht geplant (%d)"
@@ -450,7 +451,7 @@ msgid "translator-credits"
 msgstr ""
 "Friedrich Herbst <friedrich-herbst@gmx.de>, 2015\n"
 "Christian Kirbach <Christian.Kirbach@gmail.com>, 2015\n"
-"Bernd Homuth <dev@hmt.im>, 2015"
+"Bernd Homuth <dev@hmt.im>, 2015, 2016"
 
 #: ../src/gtd-empty-list-widget.c:49
 msgid "No more tasks left"
@@ -465,7 +466,7 @@ msgid "You made it!"
 msgstr "Erledigt!"
 
 #: ../src/gtd-empty-list-widget.c:52
-msgid "Looks like there's nothing else left here"
+msgid "Looks like there’s nothing else left here"
 msgstr "Es scheint, hier gibt es nichts mehr zu tun"
 
 #: ../src/gtd-empty-list-widget.c:57
@@ -504,26 +505,26 @@ msgstr "Fehler beim Laden der Erweiterung"
 msgid "Error unloading plugin"
 msgstr "Fehler beim Entladen der Erweiterung"
 
-#: ../src/gtd-task-list-view.c:570
+#: ../src/gtd-task-list-view.c:593
 msgid "Removing this task will also remove its subtasks. Remove anyway?"
 msgstr ""
 "Entfernen dieser Aufgabe wird auch alle ihrer Unteraufgaben entfernen. "
 "Trotzdem fortfahren?"
 
-#: ../src/gtd-task-list-view.c:573
+#: ../src/gtd-task-list-view.c:596
 msgid "Once removed, the tasks cannot be recovered."
 msgstr "Gelöschte Aufgaben können nicht wiederhergestellt werden."
 
-#: ../src/gtd-task-list-view.c:578
+#: ../src/gtd-task-list-view.c:601
 msgid "Remove"
 msgstr "Entfernen"
 
-#: ../src/gtd-task-list-view.c:627
+#: ../src/gtd-task-list-view.c:650
 #, c-format
 msgid "Task <b>%s</b> removed"
 msgstr "Aufgabe <b>%s</b> entfernt"
 
-#: ../src/gtd-task-list-view.c:657
+#: ../src/gtd-task-list-view.c:680
 msgid "Undo"
 msgstr "Rückgängig"
 
@@ -543,15 +544,15 @@ msgstr "Keine Aufgaben"
 msgid "Setting new color for task list"
 msgstr "Neue Farbe für die Aufgabenliste einstellen"
 
-#: ../src/views/gtd-list-selector-panel.c:379
+#: ../src/views/gtd-list-selector-panel.c:381
 msgid "Remove the selected task lists?"
 msgstr "Soll die gewählte Aufgabenliste entfernt werden?"
 
-#: ../src/views/gtd-list-selector-panel.c:382
+#: ../src/views/gtd-list-selector-panel.c:384
 msgid "Once removed, the task lists cannot be recovered."
 msgstr "Gelöschte Aufgabenlisten können nicht wiederhergestellt werden."
 
-#: ../src/views/gtd-list-selector-panel.c:394
+#: ../src/views/gtd-list-selector-panel.c:396
 msgid "Remove task lists"
 msgstr "Aufgabenlisten löschen"
 
