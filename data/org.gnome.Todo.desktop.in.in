@@ -6,7 +6,6 @@ Icon=org.gnome.Todo
 Terminal=false
 Type=Application
 StartupNotify=true
-OnlyShowIn=GNOME;
 Categories=GNOME;GTK;Utility;
 _Keywords=Task;Productivity;Todo;
 DBusActivatable=true
