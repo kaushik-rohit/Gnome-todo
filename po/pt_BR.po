@@ -2,26 +2,26 @@
 # Copyright (C) 2016 gnome-todo's COPYRIGHT HOLDER
 # This file is distributed under the same license as the gnome-todo package.
 # Georges Basile Stavracas Neto <georges.stavracas@gmail.com>, 2015.
-# Rafael Fontenelle <rafaelff@gnome.org>, 2015, 2016.
 # Artur de Aquino Morais <artur.morais93@outlook.com>, 2016.
 # Gustavo Marques <gutodisse@gmail.com>, 2016.
 # Enrico Nicoletto <liverig@gmail.com>, 2015, 2016.
-#
+# Rafael Fontenelle <rafaelff@gnome.org>, 2015, 2016, 2017.
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-todo master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "todo&keywords=I18N+L10N&component=General\n"
-"POT-Creation-Date: 2016-11-01 14:39+0000\n"
-"PO-Revision-Date: 2016-11-01 22:24-0200\n"
-"Last-Translator: Enrico Nicoletto <liverig@gmail.com>\n"
+"POT-Creation-Date: 2016-11-22 16:10+0000\n"
+"PO-Revision-Date: 2017-01-04 13:46-0200\n"
+"Last-Translator: Rafael Fontenelle <rafaelff@gnome.org>\n"
 "Language-Team: Brazilian Portuguese <gnome-pt_br-list@gnome.org>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 1.8.7\n"
+"X-Generator: Virtaal 1.0.0-beta1\n"
+"X-Project-Style: gnome\n"
 
 #: ../data/appdata/org.gnome.Todo.appdata.xml.in.h:1
 #: ../data/org.gnome.Todo.desktop.in.in.h:1 ../src/gtd-application.c:123
@@ -63,7 +63,8 @@ msgid "Available plugins for GNOME To Do"
 msgstr "Plug-ins disponíveis para o GNOME Tarefas"
 
 #: ../data/appdata/org.gnome.Todo.appdata.xml.in.h:9
-msgid "Visualizing tasks for today on GNOME To Do's Today panel"
+#| msgid "Visualizing tasks for today on GNOME To Do's Today panel"
+msgid "Visualizing tasks for today on GNOME To Do’s Today panel"
 msgstr ""
 "Visualizando as tarefas de hoje no painel de mesmo nome no GNOME Tarefas"
 
@@ -92,7 +93,8 @@ msgid "Manage your personal tasks"
 msgstr "Gerencie suas tarefas pessoais"
 
 #: ../data/org.gnome.Todo.desktop.in.in.h:3
-msgid "Task;Productivity;"
+#| msgid "Task;Productivity;"
+msgid "Task;Productivity;Todo;"
 msgstr "Tarefas;Produtividade;Lista de tarefas;"
 
 #: ../data/org.gnome.todo.gschema.xml.h:1
@@ -124,8 +126,11 @@ msgid "First run of GNOME To Do"
 msgstr "Primeira execução do GNOME Tarefas"
 
 #: ../data/org.gnome.todo.gschema.xml.h:8
+#| msgid ""
+#| "Whether it's the first run of GNOME To Do (to run the initial setup) or "
+#| "not"
 msgid ""
-"Whether it's the first run of GNOME To Do (to run the initial setup) or not"
+"Whether it’s the first run of GNOME To Do (to run the initial setup) or not"
 msgstr ""
 "Caso seja a primeira execução do GNOME Tarefas (para exibir o configurador "
 "inicial) ou não"
@@ -151,8 +156,9 @@ msgid "The current list selector"
 msgstr "O seletor da lista atual"
 
 #: ../data/org.gnome.todo.gschema.xml.h:14
-msgid "The current list selector. Can be 'grid' or 'list'."
-msgstr "O seletor da lista atual. Pode ser \"grade\" ou \"lista\"."
+#| msgid "The current list selector. Can be 'grid' or 'list'."
+msgid "The current list selector. Can be “grid” or “list”."
+msgstr "O seletor da lista atual. Pode ser “grid” ou “list”."
 
 #: ../data/ui/edit-pane.ui.h:1 ../plugins/eds/edit-pane.ui.h:10
 msgctxt "taskdate"
@@ -204,7 +210,7 @@ msgstr "Excluir"
 #: ../plugins/score/score/__init__.py:95
 #: ../plugins/today-panel/gtd-panel-today.c:135
 #: ../plugins/today-panel/gtd-panel-today.c:140
-#: ../plugins/today-panel/gtd-panel-today.c:309 ../src/gtd-task-row.c:298
+#: ../plugins/today-panel/gtd-panel-today.c:308 ../src/gtd-task-row.c:298
 msgid "Today"
 msgstr "Hoje"
 
@@ -413,7 +419,7 @@ msgid "Scheduled"
 msgstr "Agendado"
 
 #: ../plugins/scheduled-panel/gtd-panel-scheduled.c:484
-#: ../plugins/today-panel/gtd-panel-today.c:314
+#: ../plugins/today-panel/gtd-panel-today.c:313
 #: ../src/views/gtd-list-selector-panel.c:711
 msgid "Clear completed tasks…"
 msgstr "Limpar tarefas completadas…"
@@ -448,7 +454,7 @@ msgstr "Copyright © %Id–%Id Os autores de Tarefas"
 msgid "translator-credits"
 msgstr ""
 "Georges Basile Stavracas Neto <georges.stavracas@gmail.com>\n"
-"Rafael Fontenelle <rffontenelle@gmail.com>\n"
+"Rafael Fontenelle <rafaelff@gnome.org>\n"
 "Enrico Nicoletto <liverig@gmail.com>\n"
 "Fábio Nogueira <fnogueira@gnome.org>"
 
@@ -465,7 +471,8 @@ msgid "You made it!"
 msgstr "Você conseguiu!"
 
 #: ../src/gtd-empty-list-widget.c:52
-msgid "Looks like there's nothing else left here"
+#| msgid "Looks like there's nothing else left here"
+msgid "Looks like there’s nothing else left here"
 msgstr "Aparentemente não resta mais nada aqui"
 
 #: ../src/gtd-empty-list-widget.c:57
