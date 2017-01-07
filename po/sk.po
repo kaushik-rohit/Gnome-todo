@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: gnome-todo master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "todo&keywords=I18N+L10N&component=General\n"
-"POT-Creation-Date: 2016-11-01 14:39+0000\n"
-"PO-Revision-Date: 2016-11-05 13:31+0100\n"
+"POT-Creation-Date: 2016-11-22 16:10+0000\n"
+"PO-Revision-Date: 2017-01-07 16:52+0100\n"
 "Last-Translator: Dušan Kazik <prescott66@gmail.com>\n"
 "Language-Team: slovenčina <>\n"
 "Language: sk\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 1 : (n>=2 && n<=4) ? 2 : 0;\n"
-"X-Generator: Poedit 1.8.9\n"
+"X-Generator: Poedit 1.8.11\n"
 
 #: ../data/appdata/org.gnome.Todo.appdata.xml.in.h:1
 #: ../data/org.gnome.Todo.desktop.in.in.h:1 ../src/gtd-application.c:123
@@ -59,7 +59,7 @@ msgid "Available plugins for GNOME To Do"
 msgstr "Dostupné zásuvné moduly pre aplikáciu Úlohy prostredia GNOME"
 
 #: ../data/appdata/org.gnome.Todo.appdata.xml.in.h:9
-msgid "Visualizing tasks for today on GNOME To Do's Today panel"
+msgid "Visualizing tasks for today on GNOME To Do’s Today panel"
 msgstr ""
 "Vizualizácia úloh na dnešný deň v dnešnom paneli aplikácie Úlohy prostredia "
 "GNOME"
@@ -89,8 +89,8 @@ msgid "Manage your personal tasks"
 msgstr "Spravujte vaše osobné úlohy"
 
 #: ../data/org.gnome.Todo.desktop.in.in.h:3
-msgid "Task;Productivity;"
-msgstr "úloha;produktivita;"
+msgid "Task;Productivity;Todo;"
+msgstr "úloha;produktivita;úlohy;"
 
 #: ../data/org.gnome.todo.gschema.xml.h:1
 msgid "Window maximized"
@@ -122,7 +122,7 @@ msgstr "Prvé spustenie aplikácie Úlohy prostredia GNOME"
 
 #: ../data/org.gnome.todo.gschema.xml.h:8
 msgid ""
-"Whether it's the first run of GNOME To Do (to run the initial setup) or not"
+"Whether it’s the first run of GNOME To Do (to run the initial setup) or not"
 msgstr ""
 "Určuje, či je prvé spustenie aplikácie Úlohy prostredia GNOME (kvôli "
 "spusteniu počiatočného nastavenia) alebo nie"
@@ -150,7 +150,7 @@ msgid "The current list selector"
 msgstr "Nástroj na výber aktuálneho zoznamu"
 
 #: ../data/org.gnome.todo.gschema.xml.h:14
-msgid "The current list selector. Can be 'grid' or 'list'."
+msgid "The current list selector. Can be “grid” or “list”."
 msgstr ""
 "Nástroj na výber aktuálneho zoznamu. Môže byť buď „grid“(mriežka) alebo "
 "„list“(zoznam)."
@@ -205,7 +205,7 @@ msgstr "Odstrániť"
 #: ../plugins/score/score/__init__.py:95
 #: ../plugins/today-panel/gtd-panel-today.c:135
 #: ../plugins/today-panel/gtd-panel-today.c:140
-#: ../plugins/today-panel/gtd-panel-today.c:309 ../src/gtd-task-row.c:298
+#: ../plugins/today-panel/gtd-panel-today.c:308 ../src/gtd-task-row.c:298
 msgid "Today"
 msgstr "Dnes"
 
@@ -420,7 +420,7 @@ msgstr "Naplánované"
 
 # tooltip
 #: ../plugins/scheduled-panel/gtd-panel-scheduled.c:484
-#: ../plugins/today-panel/gtd-panel-today.c:314
+#: ../plugins/today-panel/gtd-panel-today.c:313
 #: ../src/views/gtd-list-selector-panel.c:711
 msgid "Clear completed tasks…"
 msgstr "Vymazať dokončené úlohy…"
@@ -468,7 +468,7 @@ msgid "You made it!"
 msgstr "Dokázali ste to!"
 
 #: ../src/gtd-empty-list-widget.c:52
-msgid "Looks like there's nothing else left here"
+msgid "Looks like there’s nothing else left here"
 msgstr "Zdá sa, že tu už nič iné nezostalo"
 
 #: ../src/gtd-empty-list-widget.c:57
