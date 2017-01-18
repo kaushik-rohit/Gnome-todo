@@ -308,6 +308,7 @@ static void
 gtd_list_selector_panel_rename_task_list (GtdListSelectorPanel *panel)
 {
   GList *selection;
+  GtdManager *manager;
 
   /*
    * If the save_rename_button is insensitive, the list name is
@@ -315,7 +316,8 @@ gtd_list_selector_panel_rename_task_list (GtdListSelectorPanel *panel)
    */
   if (!gtk_widget_get_sensitive (panel->save_rename_button))
     return;
-
+  
+  manager = gtd_manager_get_default ();
   selection = gtd_list_selector_get_selected_lists (panel->active_selector);
 
   if (selection && selection->data)
@@ -330,6 +332,7 @@ gtd_list_selector_panel_rename_task_list (GtdListSelectorPanel *panel)
 
       gtd_task_list_set_name (list, gtk_entry_get_text (GTK_ENTRY (panel->rename_entry)));
       gtd_window_set_mode (window, GTD_WINDOW_MODE_NORMAL);
+      gtd_manager_save_task_list (manager, list);
 
       gtk_widget_hide (panel->rename_popover);
     }
