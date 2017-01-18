@@ -510,6 +510,8 @@ gtd_provider_selector_init (GtdProviderSelector *self)
   /* Setup the manager */
   manager = gtd_manager_get_default ();
 
+  gtk_widget_init_template (GTK_WIDGET (self));
+
   gtd_provider_selector__fill_accounts (self);
 
   g_signal_connect_swapped (manager,
@@ -527,7 +529,6 @@ gtd_provider_selector_init (GtdProviderSelector *self)
                             G_CALLBACK (gtd_provider_selector__remove_provider),
                             self);
 
-  gtk_widget_init_template (GTK_WIDGET (self));
 }
 
 /**
