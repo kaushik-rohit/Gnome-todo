@@ -89,7 +89,7 @@
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
-                    <property name="sensitive">False</property>
+                    <property name="sensitive">True</property>
                     <signal name="clicked" handler="gtd_provider_popover__change_location_clicked" object="GtdProviderPopover" swapped="yes" />
                     <child>
                       <object class="GtkImage" id="location_provider_image">
