@@ -20,5 +20,8 @@ if BUILD_UNSCHEDULED_PANEL_PLUGIN
 SUBDIRS += unscheduled-panel
 endif
 
+if BUILD_TODO_TXT_PLUGIN
+SUBDIRS += todo-txt
+endif
 
 MAINTAINERCLEANFILES = Makefile.in

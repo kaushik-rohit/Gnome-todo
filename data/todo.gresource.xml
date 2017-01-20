@@ -43,4 +43,8 @@
   <gresource prefix="/org/gnome/todo">
     <file alias="plugins/today-panel/today-panel.plugin">../plugins/today-panel/today-panel.plugin</file>
   </gresource>
+  <!--Todo.Txt-->
+  <gresource prefix="/org/gnome/todo">
+    <file alias="plugins/todo-txt/todo-txt.plugin">../plugins/todo-txt/todo-txt.plugin</file>
+  </gresource>
 </gresources>

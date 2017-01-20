@@ -1,0 +1,13 @@
+[Plugin]
+Name = Todo.Txt
+Module = todo-txt
+Description = Todo.txt plugin for GNOME To Do
+Version = @VERSION@
+Authors = Rohit Kaushik <kaushikrohit325@gmail.com>
+Copyright = Copyleft © The To Do maintainers
+Website = https://wiki.gnome.org/Apps/Todo
+Builtin = true
+License = GPL
+Loader = C
+Embedded = gtd_plugin_todo_txt_register_types
+Depends =
