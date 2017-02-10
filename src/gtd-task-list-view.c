@@ -1090,10 +1090,7 @@ task_completed_cb (GtdTask         *task,
 
       func = task_complete ? remove_subtasks_of_completed_task : add_subtasks_of_task;
 
-      iterate_subtasks (self,
-                        task,
-                        func,
-                        FALSE);
+      iterate_subtasks (self, task, func, FALSE);
     }
 
   gtk_list_box_invalidate_sort (priv->listbox);
