@@ -200,12 +200,12 @@ gtd_provider_eds_on_client_connected (GObject      *source_object,
     {
       g_debug ("%s: %s (%s): %s",
                G_STRFUNC,
-               _("Failed to connect to task list source"),
+               _("Failed to connect to task list"),
                e_source_get_uid (source),
                error->message);
 
       gtd_manager_emit_error_message (gtd_manager_get_default (),
-                                      _("Failed to connect to task list source"),
+                                      _("Failed to connect to task list"),
                                       error->message);
 
       g_error_free (error);
