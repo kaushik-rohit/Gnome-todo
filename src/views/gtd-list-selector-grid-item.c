@@ -138,10 +138,11 @@ gtd_list_selector_grid_item__render_thumbnail (GtdListSelectorGridItem *item)
    * the user will see when selecting the list.
    */
   tasks = g_list_sort (tasks, (GCompareFunc) gtd_task_compare);
+  width -= padding.left + margin.left + padding.right + margin.right;
 
   pango_layout_set_font_description (layout, font_desc);
   pango_layout_set_ellipsize (layout, PANGO_ELLIPSIZE_END);
-  pango_layout_set_width (layout, (width - margin.left - margin.right) * PANGO_SCALE * scale_factor);
+  pango_layout_set_width (layout, width * PANGO_SCALE * scale_factor);
 
   /*
    * If the list exists and it's first element is a completed task,
