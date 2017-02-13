@@ -71,6 +71,8 @@ gnome_todo_SOURCES = \
 	gtd-enums.h \
 	gtd-initial-setup-window.c \
 	gtd-initial-setup-window.h \
+	gtd-new-task-row.c \
+	gtd-new-task-row.h \
 	gtd-object.c \
 	gtd-object.h \
 	gtd-plugin-dialog.c \

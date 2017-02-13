@@ -30,12 +30,9 @@ struct _GtdTaskRow
 
   /*<private>*/
   GtkRevealer               *revealer;
-  GtkStack                  *stack;
 
   /* new task widgets */
   GtkStack                  *done_check;
-  GtkEntry                  *new_task_entry;
-  GtkStack                  *new_task_stack;
 
   /* task widgets */
   GtkEntry                  *title_entry;
@@ -55,7 +52,6 @@ struct _GtdTaskRow
   gboolean                   handle_subtasks : 1;
 
   /* data */
-  gboolean                   new_task_mode;
   GtdTask                   *task;
 
   gint                       destroy_row_timeout_id;
@@ -71,14 +67,12 @@ G_DEFINE_TYPE (GtdTaskRow, gtd_task_row, GTK_TYPE_LIST_BOX_ROW)
 enum {
   ENTER,
   EXIT,
-  CREATE_TASK,
   NUM_SIGNALS
 };
 
 enum {
   PROP_0,
   PROP_HANDLE_SUBTASKS,
-  PROP_NEW_TASK_MODE,
   PROP_TASK,
   LAST_PROP
 };
@@ -336,17 +330,6 @@ gtd_task_row__date_changed_binding (GBinding     *binding,
   return TRUE;
 }
 
-static GtdTask*
-gtd_task_row__create_task_for_name (const gchar *name)
-{
-  GtdTask *task = gtd_task_new (NULL);
-
-  gtd_task_set_title (task, name);
-  gtd_task_save (task);
-
-  return task;
-}
-
 static gboolean
 gtd_task_row__destroy_cb (GtkWidget *row)
 {
@@ -373,17 +356,7 @@ gtd_task_row__key_press_event (GtkWidget   *row,
       !(event->state & (GDK_SHIFT_MASK|GDK_CONTROL_MASK))) // No modifiers together
     {
       self->active = FALSE;
-
-      if (self->new_task_mode)
-        {
-          gtk_stack_set_visible_child_name (self->new_task_stack, "label");
-          gtk_entry_set_text (self->new_task_entry, "");
-          return TRUE;
-        }
-      else
-        {
-          g_signal_emit (row, signals[EXIT], 0);
-        }
+      g_signal_emit (row, signals[EXIT], 0);
     }
 
   return FALSE;
@@ -396,31 +369,6 @@ gtd_task_row_focus_in_event (GtkWidget     *widget,
   gtd_task_row_set_active (GTD_TASK_ROW (widget), TRUE);
 
   return GDK_EVENT_PROPAGATE;
-}
-
-static void
-gtd_task_row__entry_activated (GtkEntry *entry,
-                               gpointer  user_data)
-{
-  GtdTaskRow *self = GTD_TASK_ROW (user_data);
-
-  g_return_if_fail (GTD_IS_TASK_ROW (user_data));
-  g_return_if_fail (GTK_IS_ENTRY (entry));
-
-  if (entry == self->new_task_entry)
-    {
-      GtdTask *new_task;
-
-      /* Cannot create empty tasks */
-      if (gtk_entry_get_text_length (self->new_task_entry) == 0)
-        return;
-
-      new_task = gtd_task_row__create_task_for_name (gtk_entry_get_text (self->new_task_entry));
-
-      g_signal_emit (user_data, signals[CREATE_TASK], 0, new_task);
-
-      gtk_entry_set_text (self->new_task_entry, "");
-    }
 }
 
 static void
@@ -474,10 +422,6 @@ gtd_task_row_get_property (GObject    *object,
       g_value_set_boolean (value, self->handle_subtasks);
       break;
 
-    case PROP_NEW_TASK_MODE:
-      g_value_set_boolean (value, self->new_task_mode);
-      break;
-
     case PROP_TASK:
       g_value_set_object (value, self->task);
       break;
@@ -499,10 +443,6 @@ gtd_task_row_set_property (GObject      *object,
     {
     case PROP_HANDLE_SUBTASKS:
       gtd_task_row_set_handle_subtasks (self, g_value_get_boolean (value));
-      break;
-
-    case PROP_NEW_TASK_MODE:
-      gtd_task_row_set_new_task_mode (self, g_value_get_boolean (value));
       break;
 
     case PROP_TASK:
@@ -540,20 +480,6 @@ gtd_task_row_class_init (GtdTaskRowClass *klass)
                                 "If the row adapts to subtasks",
                                 "Whether the row adapts to the task's subtasks",
                                 TRUE,
-                                G_PARAM_READWRITE));
-
-  /**
-   * GtdTaskRow::new-task-mode:
-   *
-   * If the row is used to add new tasks.
-   */
-  g_object_class_install_property (
-          object_class,
-          PROP_NEW_TASK_MODE,
-          g_param_spec_boolean ("new-task-mode",
-                                "If the row is used to add a new task",
-                                "Whether the row is used to add a new task",
-                                FALSE,
                                 G_PARAM_READWRITE));
 
   /**
@@ -600,31 +526,12 @@ gtd_task_row_class_init (GtdTaskRowClass *klass)
                                 G_TYPE_NONE,
                                 0);
 
-  /**
-   * GtdTaskRow::create-task:
-   *
-   * Emitted when the row wants the parent widget to create a new task.
-   */
-  signals[CREATE_TASK] = g_signal_new ("create-task",
-                                       GTD_TYPE_TASK_ROW,
-                                       G_SIGNAL_RUN_LAST,
-                                       0,
-                                       NULL,
-                                       NULL,
-                                       NULL,
-                                       G_TYPE_NONE,
-                                       1,
-                                       GTD_TYPE_TASK);
-
   gtk_widget_class_set_template_from_resource (widget_class, "/org/gnome/todo/ui/task-row.ui");
 
   gtk_widget_class_bind_template_child (widget_class, GtdTaskRow, dnd_box);
   gtk_widget_class_bind_template_child (widget_class, GtdTaskRow, dnd_event_box);
   gtk_widget_class_bind_template_child (widget_class, GtdTaskRow, dnd_icon);
   gtk_widget_class_bind_template_child (widget_class, GtdTaskRow, done_check);
-  gtk_widget_class_bind_template_child (widget_class, GtdTaskRow, stack);
-  gtk_widget_class_bind_template_child (widget_class, GtdTaskRow, new_task_entry);
-  gtk_widget_class_bind_template_child (widget_class, GtdTaskRow, new_task_stack);
   gtk_widget_class_bind_template_child (widget_class, GtdTaskRow, revealer);
   gtk_widget_class_bind_template_child (widget_class, GtdTaskRow, task_date_label);
   gtk_widget_class_bind_template_child (widget_class, GtdTaskRow, task_list_label);
@@ -637,7 +544,6 @@ gtd_task_row_class_init (GtdTaskRowClass *klass)
   gtk_widget_class_bind_template_callback (widget_class, drag_begin_cb);
   gtk_widget_class_bind_template_callback (widget_class, mouse_out_event);
   gtk_widget_class_bind_template_callback (widget_class, mouse_over_event);
-  gtk_widget_class_bind_template_callback (widget_class, gtd_task_row__entry_activated);
 
   gtk_widget_class_set_css_name (widget_class, "taskrow");
 }
@@ -655,54 +561,6 @@ gtd_task_row_init (GtdTaskRow *self)
                        NULL,
                        0,
                        GDK_ACTION_COPY);
-}
-
-/**
- * gtd_task_row_get_new_task_mode:
- * @row: a #GtdTaskRow
- *
- * Whether @row is in new task mode.
- *
- * Returns: %TRUE if @row is in new task mode, %FALSE otherwise
- */
-gboolean
-gtd_task_row_get_new_task_mode (GtdTaskRow *row)
-{
-  g_return_val_if_fail (GTD_IS_TASK_ROW (row), FALSE);
-
-  return row->new_task_mode;
-}
-
-/**
- * gtd_task_row_set_new_task_mode:
- * @row: a #GtdTaskRow
- * @new_task_mode: %TRUE to set new task mode, %FALSE otherwise
- *
- * Sets @row new task mode to @new_task_mode. It is up to the caller
- * to set GtdTaskRow::task to %NULL.
- */
-void
-gtd_task_row_set_new_task_mode (GtdTaskRow *row,
-                                gboolean    new_task_mode)
-{
-  g_return_if_fail (GTD_IS_TASK_ROW (row));
-
-  if (row->new_task_mode != new_task_mode)
-    {
-      row->new_task_mode = new_task_mode;
-
-      if (new_task_mode)
-        {
-          gtk_stack_set_visible_child_name (GTK_STACK (row->stack), "new");
-          gtd_task_row_reveal (row);
-        }
-      else
-        {
-          gtk_stack_set_visible_child_name (GTK_STACK (row->stack), "task");
-        }
-
-      g_object_notify (G_OBJECT (row), "new-task-mode");
-    }
 }
 
 /**
@@ -907,26 +765,13 @@ gtd_task_row_set_active (GtdTaskRow *self,
 
   if (active)
     {
-      if (self->new_task_mode)
-        {
-          gtk_stack_set_visible_child_name (self->new_task_stack, "entry");
-          gtk_widget_grab_focus (GTK_WIDGET (self->new_task_entry));
+      gtk_stack_set_visible_child_name (self->task_stack, "title");
+      gtk_widget_grab_focus (GTK_WIDGET (self->title_entry));
 
-          g_signal_emit (self, signals[EXIT], 0);
-        }
-      else
-        {
-          gtk_stack_set_visible_child_name (self->task_stack, "title");
-          gtk_widget_grab_focus (GTK_WIDGET (self->title_entry));
-
-          g_signal_emit (self, signals[ENTER], 0);
-        }
+      g_signal_emit (self, signals[ENTER], 0);
     }
   else
     {
-      if (self->new_task_mode)
-        gtk_stack_set_visible_child_name (self->new_task_stack, "label");
-      else
-        gtk_stack_set_visible_child_name (self->task_stack, "label");
+      gtk_stack_set_visible_child_name (self->task_stack, "label");
     }
 }

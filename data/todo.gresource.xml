@@ -10,6 +10,7 @@
     <file compressed="true" preprocess="xml-stripblanks">ui/list-selector-list-item.ui</file>
     <file compressed="true" preprocess="xml-stripblanks">ui/list-selector-panel.ui</file>
     <file compressed="true" preprocess="xml-stripblanks">ui/list-view.ui</file>
+    <file compressed="true" preprocess="xml-stripblanks">ui/new-task-row.ui</file>
     <file compressed="true" preprocess="xml-stripblanks">ui/notification.ui</file>
     <file compressed="true" preprocess="xml-stripblanks">ui/plugin-dialog.ui</file>
     <file compressed="true" preprocess="xml-stripblanks">ui/plugin-row.ui</file>

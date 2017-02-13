@@ -32,11 +32,6 @@ G_DECLARE_FINAL_TYPE (GtdTaskRow, gtd_task_row, GTD, TASK_ROW, GtkListBoxRow)
 
 GtkWidget*                gtd_task_row_new                      (GtdTask             *task);
 
-gboolean                  gtd_task_row_get_new_task_mode        (GtdTaskRow          *row);
-
-void                      gtd_task_row_set_new_task_mode        (GtdTaskRow          *row,
-                                                                 gboolean             new_task_mode);
-
 GtdTask*                  gtd_task_row_get_task                 (GtdTaskRow          *row);
 
 void                      gtd_task_row_set_task                 (GtdTaskRow          *row,

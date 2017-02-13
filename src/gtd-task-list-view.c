@@ -22,6 +22,7 @@
 #include "gtd-empty-list-widget.h"
 #include "gtd-task-list-view.h"
 #include "gtd-manager.h"
+#include "gtd-new-task-row.h"
 #include "gtd-notification.h"
 #include "gtd-provider.h"
 #include "gtd-task.h"
@@ -69,7 +70,7 @@ typedef struct
   GtkRevealer           *edit_revealer;
   GtkWidget             *empty_box;
   GtkListBox            *listbox;
-  GtdTaskRow            *new_task_row;
+  GtkListBoxRow         *new_task_row;
   GtkRevealer           *revealer;
   GtkImage              *done_image;
   GtkLabel              *done_label;
@@ -178,12 +179,22 @@ set_active_row (GtdTaskListView *self,
     return;
 
   if (priv->active_row)
-    gtd_task_row_set_active (GTD_TASK_ROW (priv->active_row), FALSE);
+    {
+      if (GTD_IS_TASK_ROW (priv->active_row))
+        gtd_task_row_set_active (GTD_TASK_ROW (priv->active_row), FALSE);
+      else
+        gtd_new_task_row_set_active (GTD_NEW_TASK_ROW (priv->active_row), FALSE);
+    }
 
   priv->active_row = row;
 
   if (row)
-    gtd_task_row_set_active (GTD_TASK_ROW (row), TRUE);
+    {
+      if (GTD_IS_TASK_ROW (row))
+        gtd_task_row_set_active (GTD_TASK_ROW (row), TRUE);
+      else
+        gtd_new_task_row_set_active (GTD_NEW_TASK_ROW (row), TRUE);
+    }
 }
 
 /*
@@ -330,34 +341,41 @@ undo_remove_task_action (GtdNotification *notification,
  * Default sorting functions
  */
 static gint
-compare_task_rows (GtdTaskRow *row1,
-                   GtdTaskRow *row2)
+compare_task_rows (GtkListBoxRow *row1,
+                   GtkListBoxRow *row2)
 {
-  if (gtd_task_row_get_new_task_mode (row1))
-    return 1;
-  else if (gtd_task_row_get_new_task_mode (row2))
-    return -1;
+  if (GTD_IS_NEW_TASK_ROW (row1))
+    {
+      return 1;
+    }
+  else if (GTD_IS_NEW_TASK_ROW (row2))
+    {
+      return -1;
+    }
   else
-    return gtd_task_compare (gtd_task_row_get_task (row1), gtd_task_row_get_task (row2));
+    {
+      return gtd_task_compare (gtd_task_row_get_task (GTD_TASK_ROW (row1)),
+                               gtd_task_row_get_task (GTD_TASK_ROW (row2)));
+    }
 }
 
 static gint
 compare_dnd_rows (GtkListBoxRow *row1,
                   GtkListBoxRow *row2)
 {
-  GtdTaskRow *row_above, *current_row;
+  GtkListBoxRow *row_above, *current_row;
   gboolean reverse;
 
   if (GTD_IS_DND_ROW (row1))
     {
       row_above = gtd_dnd_row_get_row_above (GTD_DND_ROW (row1));
-      current_row = GTD_TASK_ROW (row2);
+      current_row = row2;
       reverse = FALSE;
     }
   else
     {
       row_above = gtd_dnd_row_get_row_above (GTD_DND_ROW (row2));
-      current_row = GTD_TASK_ROW (row1);
+      current_row = row1;
       reverse = TRUE;
     }
 
@@ -379,15 +397,15 @@ gtd_task_list_view__listbox_sort_func (GtkListBoxRow *row1,
   if (GTD_IS_DND_ROW (row1) || GTD_IS_DND_ROW (row2))
     return compare_dnd_rows (row1, row2);
 
-  return compare_task_rows (GTD_TASK_ROW (row1), GTD_TASK_ROW (row2));
+  return compare_task_rows (row1, row2);
 }
 
 /*
  * Custom sorting functions
  */
 static void
-internal_header_func (GtdTaskRow      *row,
-                      GtdTaskRow      *before,
+internal_header_func (GtkListBoxRow   *row,
+                      GtkListBoxRow   *before,
                       GtdTaskListView *view)
 {
   GtdTask *row_task;
@@ -398,11 +416,11 @@ internal_header_func (GtdTaskRow      *row,
 
   row_task = before_task = NULL;
 
-  if (row)
-    row_task = gtd_task_row_get_task (row);
+  if (row && GTD_IS_TASK_ROW (row))
+    row_task = gtd_task_row_get_task (GTD_TASK_ROW (row));
 
-  if (before)
-    before_task = gtd_task_row_get_task (before);
+  if (before && GTD_IS_TASK_ROW (row))
+    before_task = gtd_task_row_get_task (GTD_TASK_ROW (before));
 
   view->priv->header_func (GTK_LIST_BOX_ROW (row),
                            row_task,
@@ -413,23 +431,23 @@ internal_header_func (GtdTaskRow      *row,
 
 static gint
 internal_compare_task_rows (GtdTaskListView *self,
-                            GtdTaskRow      *row1,
-                            GtdTaskRow      *row2)
+                            GtkListBoxRow   *row1,
+                            GtkListBoxRow   *row2)
 {  GtdTask *row1_task;
   GtdTask *row2_task;
 
-  if (gtd_task_row_get_new_task_mode (row1))
+  if (row1 == self->priv->new_task_row)
     return 1;
-  else if (gtd_task_row_get_new_task_mode (row2))
+  else if (row2 == self->priv->new_task_row)
     return -1;
 
   row1_task = row2_task = NULL;
 
   if (row1)
-    row1_task = gtd_task_row_get_task (row1);
+    row1_task = gtd_task_row_get_task (GTD_TASK_ROW (row1));
 
   if (row2)
-    row2_task = gtd_task_row_get_task (row2);
+    row2_task = gtd_task_row_get_task (GTD_TASK_ROW (row2));
 
   return self->priv->sort_func (GTK_LIST_BOX_ROW (row1),
                                 row1_task,
@@ -443,19 +461,19 @@ internal_compare_dnd_rows (GtdTaskListView *self,
                            GtkListBoxRow   *row1,
                            GtkListBoxRow   *row2)
 {
-  GtdTaskRow *row_above, *current_row;
+  GtkListBoxRow *row_above, *current_row;
   gboolean reverse;
 
   if (GTD_IS_DND_ROW (row1))
     {
       row_above = gtd_dnd_row_get_row_above (GTD_DND_ROW (row1));
-      current_row = GTD_TASK_ROW (row2);
+      current_row = row2;
       reverse = FALSE;
     }
   else
     {
       row_above = gtd_dnd_row_get_row_above (GTD_DND_ROW (row2));
-      current_row = GTD_TASK_ROW (row1);
+      current_row = row1;
       reverse = TRUE;
     }
 
@@ -473,18 +491,13 @@ internal_sort_func (GtkListBoxRow   *a,
                     GtkListBoxRow   *b,
                     GtdTaskListView *view)
 {
-  GtdTaskRow *row1, *row2;
-
   if (!view->priv->sort_func)
     return 0;
 
   if (GTD_IS_DND_ROW (a) || GTD_IS_DND_ROW (b))
     return internal_compare_dnd_rows (view, a, b);
 
-  row1 = GTD_TASK_ROW (a);
-  row2 = GTD_TASK_ROW (b);
-
-  return internal_compare_task_rows (view, row1, row2);
+  return internal_compare_task_rows (view, a, b);
 }
 
 static void
@@ -812,9 +825,6 @@ task_row_entered_cb (GtdTaskListView *self,
   GtdTaskListViewPrivate *priv = self->priv;
   GtdTask *old_task;
 
-  if (row == priv->new_task_row)
-    return;
-
   old_task = gtd_edit_pane_get_task (priv->edit_pane);
 
   /* Save the task previously edited */
@@ -824,12 +834,19 @@ task_row_entered_cb (GtdTaskListView *self,
       real_save_task (self, old_task);
     }
 
+  set_active_row (self, GTK_WIDGET (row));
+
+  /* If we focused the new task row, only activate it */
+  if (GTD_IS_NEW_TASK_ROW (row))
+    {
+      gtk_revealer_set_reveal_child (priv->edit_revealer, FALSE);
+      return;
+    }
+
   gtd_edit_pane_set_task (priv->edit_pane, gtd_task_row_get_task (row));
 
   gtk_revealer_set_reveal_child (priv->edit_revealer, TRUE);
   gtd_arrow_frame_set_row (priv->arrow_frame, row);
-
-  set_active_row (self, GTK_WIDGET (row));
 }
 
 static void
@@ -1010,8 +1027,7 @@ gtd_task_list_view__remove_row_for_task (GtdTaskListView *view,
       if (!GTD_IS_TASK_ROW (l->data))
         continue;
 
-      if (!gtd_task_row_get_new_task_mode (l->data) &&
-          gtd_task_row_get_task (l->data) == task)
+      if (gtd_task_row_get_task (l->data) == task)
         {
           destroy_task_row (view, l->data);
           break;
@@ -1352,7 +1368,8 @@ listbox_drag_motion (GtkListBox      *listbox,
 {
   GtdTaskListViewPrivate *priv;
   GtkListBoxRow *hovered_row;
-  GtdTaskRow *task_row, *row_above_dnd;
+  GtkListBoxRow *task_row;
+  GtkListBoxRow *row_above_dnd;
   gint row_x, row_y, row_height;
 
   priv = gtd_task_list_view_get_instance_private (self);
@@ -1379,7 +1396,7 @@ listbox_drag_motion (GtkListBox      *listbox,
     goto success;
 
   row_above_dnd = NULL;
-  task_row = GTD_TASK_ROW (hovered_row);
+  task_row = hovered_row;
   row_height = gtk_widget_get_allocated_height (GTK_WIDGET (hovered_row));
   gtk_widget_translate_coordinates (GTK_WIDGET (listbox),
                                     GTK_WIDGET (hovered_row),
@@ -1393,7 +1410,7 @@ listbox_drag_motion (GtkListBox      *listbox,
    * the previous row. Also, when hovering the new task row, only show
    * the dnd row over it (never below).
    */
-  if (row_y < row_height / 2 || gtd_task_row_get_new_task_mode (task_row))
+  if (row_y < row_height / 2 || GTD_IS_NEW_TASK_ROW (task_row))
     {
       gint row_index, i;
 
@@ -1407,15 +1424,12 @@ listbox_drag_motion (GtkListBox      *listbox,
           aux = gtk_list_box_get_row_at_index (GTK_LIST_BOX (priv->listbox), i);
 
           /* Skip DnD, New task and hidden rows */
-          if (GTD_IS_DND_ROW (aux) ||
-              gtd_task_row_get_new_task_mode (GTD_TASK_ROW (aux)) ||
-              (aux && !gtk_widget_get_visible (GTK_WIDGET (aux))))
+          if (!GTD_IS_TASK_ROW (aux) || (aux && !gtk_widget_get_visible (GTK_WIDGET (aux))))
             {
               continue;
             }
 
-
-          row_above_dnd = GTD_TASK_ROW (aux);
+          row_above_dnd = aux;
 
           break;
         }
@@ -1434,7 +1448,7 @@ listbox_drag_motion (GtkListBox      *listbox,
       dnd_widget = gtk_drag_get_source_widget (context);
       dnd_row = gtk_widget_get_ancestor (dnd_widget, GTK_TYPE_LIST_BOX_ROW);
       dnd_task = gtd_task_row_get_task (GTD_TASK_ROW (dnd_row));
-      row_above_task = gtd_task_row_get_task (row_above_dnd);
+      row_above_task = gtd_task_row_get_task (GTD_TASK_ROW (row_above_dnd));
 
       /* Forbid DnD'ing a row into a subtask */
       if (row_above_task && gtd_task_is_subtask (dnd_task, row_above_task))
@@ -1624,6 +1638,7 @@ gtd_task_list_view_class_init (GtdTaskListViewClass *klass)
   gtk_widget_class_bind_template_callback (widget_class, listbox_drag_leave);
   gtk_widget_class_bind_template_callback (widget_class, listbox_drag_motion);
   gtk_widget_class_bind_template_callback (widget_class, listbox_row_activated);
+  gtk_widget_class_bind_template_callback (widget_class, task_row_entered_cb);
   gtk_widget_class_bind_template_callback (widget_class, task_row_exited_cb);
 
   gtk_widget_class_set_css_name (widget_class, "task-list-view");
@@ -2010,9 +2025,6 @@ gtd_task_list_view_set_show_completed (GtdTaskListView *view,
               GtdTask *task;
 
               if (!GTD_IS_TASK_ROW (l->data))
-                continue;
-
-              if (gtd_task_row_get_new_task_mode (l->data))
                 continue;
 
               task = gtd_task_row_get_task (l->data);

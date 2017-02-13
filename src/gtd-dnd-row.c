@@ -17,6 +17,7 @@
  */
 
 #include "gtd-dnd-row.h"
+#include "gtd-new-task-row.h"
 #include "gtd-provider.h"
 #include "gtd-task.h"
 #include "gtd-task-list.h"
@@ -31,7 +32,7 @@ struct _GtdDndRow
   GtkWidget          *box;
   GtkWidget          *icon;
 
-  GtdTaskRow         *row_above;
+  GtkListBoxRow      *row_above;
   gint                depth;
 };
 
@@ -51,7 +52,7 @@ get_real_task_for_depth (GtdDndRow *self)
   GtdTask *task;
   gint i, task_depth;
 
-  task = self->row_above ? gtd_task_row_get_task (self->row_above) : NULL;
+  task = self->row_above ? gtd_task_row_get_task (GTD_TASK_ROW (self->row_above)) : NULL;
   task_depth = task ? gtd_task_get_depth (task) : -1;
 
   /* Find the real parent */
@@ -153,7 +154,7 @@ gtd_dnd_row_new (void)
   return g_object_new (GTD_TYPE_DND_ROW, NULL);
 }
 
-GtdTaskRow*
+GtkListBoxRow*
 gtd_dnd_row_get_row_above (GtdDndRow *self)
 {
   g_return_val_if_fail (GTD_IS_DND_ROW (self), NULL);
@@ -162,8 +163,8 @@ gtd_dnd_row_get_row_above (GtdDndRow *self)
 }
 
 void
-gtd_dnd_row_set_row_above (GtdDndRow  *self,
-                           GtdTaskRow *row)
+gtd_dnd_row_set_row_above (GtdDndRow     *self,
+                           GtkListBoxRow *row)
 {
   g_return_if_fail (GTD_IS_DND_ROW (self));
 
@@ -186,12 +187,12 @@ gtd_dnd_row_drag_motion (GtkWidget      *widget,
 
   self = GTD_DND_ROW (widget);
 
-  if (self->row_above)
+  if (self->row_above && GTD_IS_TASK_ROW (self->row_above))
     {
       GtdTask *task;
       gint offset;
 
-      task = gtd_task_row_get_task (self->row_above);
+      task = gtd_task_row_get_task (GTD_TASK_ROW (self->row_above));
       offset = gtk_widget_get_margin_start (self->box) + gtk_widget_get_allocated_width (self->icon) + 12;
       self->depth = CLAMP (floor ((x - offset) / 32),
                            0,
@@ -245,7 +246,7 @@ gtd_dnd_row_drag_drop (GtkWidget      *widget,
   gtk_widget_show (row);
 
   /* Do not allow dropping on itself, nor on the new task row */
-  if (!row || row == widget || gtd_task_row_get_new_task_mode (GTD_TASK_ROW (row)))
+  if (!row || row == widget || GTD_IS_NEW_TASK_ROW (row))
     {
       gdk_drag_status (context, 0, time);
       return FALSE;

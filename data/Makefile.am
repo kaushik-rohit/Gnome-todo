@@ -44,6 +44,7 @@ EXTRA_DIST=                     \
   ui/list-selector-list-item.ui \
   ui/list-selector-panel.ui \
   ui/list-view.ui \
+  ui/new-task-row.ui \
   ui/notification.ui \
   ui/plugin-dialog.ui \
   ui/plugin-row.ui \

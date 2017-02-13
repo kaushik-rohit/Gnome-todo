@@ -31,10 +31,10 @@ G_DECLARE_FINAL_TYPE (GtdDndRow, gtd_dnd_row, GTD, DND_ROW, GtkListBoxRow)
 
 GtkWidget*           gtd_dnd_row_new                             (void);
 
-GtdTaskRow*          gtd_dnd_row_get_row_above                   (GtdDndRow          *self);
+GtkListBoxRow*       gtd_dnd_row_get_row_above                   (GtdDndRow          *self);
 
 void                 gtd_dnd_row_set_row_above                   (GtdDndRow          *self,
-                                                                  GtdTaskRow         *row);
+                                                                  GtkListBoxRow      *row);
 
 
 gboolean             gtd_dnd_row_drag_drop                       (GtkWidget          *widget,
