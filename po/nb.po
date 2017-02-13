@@ -1,15 +1,16 @@
 # Norwegian bokmål translation of gnome-todo.
 # Copyright (C) 1998-2004, 2005 Free Software Foundation, Inc.
-# Kjartan Maraas <kmaraas@gnome.org>, 1998-2016.
+# Kjartan Maraas <kmaraas@gnome.org>, 1998-2017.
 # Terance Edward Sola <terance@lyse.net>, 2005.
 # Torstein Adolf Winterseth <kvikende@fsfe.org>, 2010.
 # Alexander Strand <godsetalex@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-todo 3.23.x\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-01-04 20:12+0100\n"
-"PO-Revision-Date: 2017-01-04 20:16+0100\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
+"todo&keywords=I18N+L10N&component=General\n"
+"POT-Creation-Date: 2017-01-21 13:56+0000\n"
+"PO-Revision-Date: 2017-02-13 19:48+0100\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian bokmål <i18n-nb@lister.ping.uio.no>\n"
 "Language: Norsk bokmål\n"
@@ -495,7 +496,9 @@ msgstr "Feil ved utlasting av tillegg"
 
 #: ../src/gtd-task-list-view.c:593
 msgid "Removing this task will also remove its subtasks. Remove anyway?"
-msgstr "Hvis du fjerner denne oppgaven vil underoppgaver også fjernes. Fjerne likevel?"
+msgstr ""
+"Hvis du fjerner denne oppgaven vil underoppgaver også fjernes. Fjerne "
+"likevel?"
 
 #: ../src/gtd-task-list-view.c:596
 msgid "Once removed, the tasks cannot be recovered."
