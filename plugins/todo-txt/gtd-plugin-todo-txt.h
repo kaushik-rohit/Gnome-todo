@@ -28,13 +28,13 @@ G_BEGIN_DECLS
 
 G_DECLARE_FINAL_TYPE (GtdPluginTodoTxt, gtd_plugin_todo_txt, GTD, PLUGIN_TODO_TXT, PeasExtensionBase)
 
-G_MODULE_EXPORT void  gtd_plugin_todo_txt_register_types      (PeasObjectModule   *module);
+G_MODULE_EXPORT void  gtd_plugin_todo_txt_register_types         (PeasObjectModule   *module);
 
-void     gtd_plugin_todo_txt_monitor_source      (GFileMonitor      *monitor,
-                                                  GFile             *first,
-                                                  GFile             *second,
-                                                  GFileMonitorEvent  event,
-                                                  gpointer           data);
+void     gtd_plugin_todo_txt_monitor_source                      (GFileMonitor       *monitor,
+                                                                  GFile              *first,
+                                                                  GFile              *second,
+                                                                  GFileMonitorEvent   event,
+                                                                  gpointer            data);
 
 G_END_DECLS
 

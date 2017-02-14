@@ -317,28 +317,22 @@ gtd_todo_txt_parser_validate_token_format (GList *tokens)
         {
         case TASK_COMPLETE:
           last_read = TASK_COMPLETE;
+
           if (position != 1)
-            {
-              gtd_manager_emit_error_message (gtd_manager_get_default (),
-                                  _("Task completion token x should be at the start of the line"),
-                                  _("Skipping this line"));
-              return FALSE;
-            }
+            return FALSE;
           else
             complete_tk = TRUE;
+
           break;
 
         case TASK_PRIORITY:
           last_read = TASK_PRIORITY;
+
           if (position != (complete_tk + 1))
-            {
-              gtd_manager_emit_error_message (gtd_manager_get_default (),
-                                  _("Task priority should be at the start of the line"),
-                                  _("Skipping this line"));
-              return FALSE;
-            }
+            return FALSE;
           else
             priority_tk = TRUE;
+
           break;
 
         case TASK_DATE:
@@ -346,6 +340,7 @@ gtd_todo_txt_parser_validate_token_format (GList *tokens)
 
           if (position != (complete_tk + priority_tk + 1))
             return FALSE;
+
           if (!gtd_todo_txt_parser_is_date (it->data))
             {
               gtd_manager_emit_error_message (gtd_manager_get_default (),
@@ -371,19 +366,16 @@ gtd_todo_txt_parser_validate_token_format (GList *tokens)
 
         case TASK_DUE_DATE:
           last_read = TASK_DUE_DATE;
+
           if (!gtd_todo_txt_parser_is_date (&str[4]))
-            {
-              gtd_manager_emit_error_message (gtd_manager_get_default (),
-                                             _("Incorrect due date"),
-                                             _("Please make sure the due date in Todo.txt is valid. Tasks with invalid date are not loaded"));
-              return FALSE;
-            }
+            return FALSE;
+
           break;
 
         default:
           gtd_manager_emit_error_message (gtd_manager_get_default (),
-                                       _("Unrecognized token in Todo.txt line"),
-                                       _("To Do cannot recognize some tags in your Todo.txt file. Some tasks may not be loaded"));
+                                          _("Unrecognized token in Todo.txt line"),
+                                          _("To Do cannot recognize some tags in your Todo.txt file. Some tasks may not be loaded"));
           return FALSE;
           break;
         }
@@ -392,8 +384,8 @@ gtd_todo_txt_parser_validate_token_format (GList *tokens)
   if (!task_list_name_tk)
     {
       gtd_manager_emit_error_message (gtd_manager_get_default (),
-                                    _("No task list found for some tasks"),
-                                    _("Some of the tasks in your Todo.txt file do not have a task list. To Do supports tasks with a task list. Please add a list to all your tasks"));
+                                      _("No task list found for some tasks"),
+                                      _("Some of the tasks in your Todo.txt file do not have a task list. To Do supports tasks with a task list. Please add a list to all your tasks"));
       return FALSE;
     }
 
@@ -401,7 +393,7 @@ gtd_todo_txt_parser_validate_token_format (GList *tokens)
 }
 
 GList*
-gtd_todo_txt_parser_tokenize (gchar *line)
+gtd_todo_txt_parser_tokenize (const gchar *line)
 {
   GList *tokens = NULL;
   gchar **token = NULL;
@@ -414,9 +406,8 @@ gtd_todo_txt_parser_tokenize (gchar *line)
     tokens = g_list_prepend (tokens, g_strdup(*token));
     token++;
   }
-  tokens = g_list_reverse (tokens);
 
-  g_free (line);
+  tokens = g_list_reverse (tokens);
 
   return tokens;
 }
@@ -430,7 +421,7 @@ gtd_todo_txt_parser_get_list_updated_token (GtdTaskList *list,
   GList *tokens = NULL;
   GList *it = NULL;
 
-  tokens = gtd_todo_txt_parser_tokenize (g_strdup(line));
+  tokens = gtd_todo_txt_parser_tokenize (line);
 
   for (it = tokens; it != NULL; it = it->next)
     {

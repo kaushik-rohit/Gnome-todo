@@ -124,7 +124,7 @@ gtd_plugin_todo_txt_set_default_source (GtdPluginTodoTxt *self)
   if (dir_open_error)
     {
       gtd_manager_emit_error_message (gtd_manager_get_default (),
-                                      _("Error opening default todo.txt directory"),
+                                      _("Error while opening the default Todo.txt directory"),
                                       dir_open_error->message);
 
       g_clear_error (&dir_open_error);
@@ -142,7 +142,7 @@ gtd_plugin_todo_txt_set_default_source (GtdPluginTodoTxt *self)
       if (error)
         {
           gtd_manager_emit_error_message (gtd_manager_get_default (),
-                                          _("Error converting default todo.txt path to uri"),
+                                          _("Error while converting the default Todo.txt path to an URI"),
                                           error->message);
 
           g_clear_error (&error);

@@ -30,43 +30,43 @@ typedef struct _TaskData TaskData;
 
 G_DECLARE_FINAL_TYPE (GtdTodoTxtParser, gtd_todo_txt_parser, GTD, TODO_TXT_PARSER, GtdObject)
 
-gint          gtd_todo_txt_parser_get_priority                    (gchar       *token);
+gint          gtd_todo_txt_parser_get_priority                    (gchar             *token);
 
-GDateTime*    gtd_todo_txt_parser_get_date                        (gchar       *token);
+GDateTime*    gtd_todo_txt_parser_get_date                        (gchar             *token);
 
-gboolean      gtd_todo_txt_parser_is_date                         (gchar       *dt);
+gboolean      gtd_todo_txt_parser_is_date                         (gchar             *dt);
 
-gboolean      gtd_todo_txt_parser_is_word                         (gchar       *token);
+gboolean      gtd_todo_txt_parser_is_word                         (gchar             *token);
 
-gint          gtd_todo_txt_parser_get_token_id                    (gchar       *token,
-                                                                   gint         last_read);
+gint          gtd_todo_txt_parser_get_token_id                    (gchar             *token,
+                                                                   gint               last_read);
 
-TaskData*     gtd_todo_txt_parser_parse_tokens                    (GList       *tk);
+TaskData*     gtd_todo_txt_parser_parse_tokens                    (GList             *tk);
 
-gboolean      gtd_todo_txt_parser_validate_token_format           (GList       *tokens);
+gboolean      gtd_todo_txt_parser_validate_token_format           (GList             *tokens);
 
-GList*        gtd_todo_txt_parser_tokenize                        (gchar       *line);
+GList*        gtd_todo_txt_parser_tokenize                        (const gchar       *line);
 
-GList*        gtd_todo_txt_parser_get_list_updated_token          (GtdTaskList *list,
-                                                                   gchar       *line);
+GList*        gtd_todo_txt_parser_get_list_updated_token          (GtdTaskList       *list,
+                                                                   gchar             *line);
 
-GList*        gtd_todo_txt_parser_get_task_line                   (GtdTask     *task);
+GList*        gtd_todo_txt_parser_get_task_line                   (GtdTask           *task);
 
 /*Accessor Methods for TaskData Strcuture*/
 
-gchar*        gtd_todo_txt_parser_task_data_get_root_task_name    (TaskData    *td);
+gchar*        gtd_todo_txt_parser_task_data_get_root_task_name    (TaskData          *td);
 
-gchar*        gtd_todo_txt_parser_task_data_get_task_list_name    (TaskData    *td);
+gchar*        gtd_todo_txt_parser_task_data_get_task_list_name    (TaskData          *td);
 
-gchar*        gtd_todo_txt_parser_task_data_get_title             (TaskData    *td);
+gchar*        gtd_todo_txt_parser_task_data_get_title             (TaskData          *td);
 
-GDateTime*    gtd_todo_txt_parser_task_data_get_due_date          (TaskData    *td);
+GDateTime*    gtd_todo_txt_parser_task_data_get_due_date          (TaskData          *td);
 
-gboolean      gtd_todo_txt_parser_task_data_is_subtask            (TaskData    *td);
+gboolean      gtd_todo_txt_parser_task_data_is_subtask            (TaskData          *td);
 
-gboolean      gtd_todo_txt_parser_task_data_is_task_completed     (TaskData    *td);
+gboolean      gtd_todo_txt_parser_task_data_is_task_completed     (TaskData          *td);
 
-gint          gtd_todo_txt_parser_task_data_get_priority          (TaskData    *td);
+gint          gtd_todo_txt_parser_task_data_get_priority          (TaskData          *td);
 
 G_END_DECLS
 

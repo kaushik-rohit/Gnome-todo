@@ -123,6 +123,19 @@ gtd_provider_todo_txt_create_new_task (void)
 }
 
 static void
+emit_generic_error (GError *error)
+{
+  g_warning ("%s: %s: %s",
+             G_STRFUNC,
+             _("Error opening Todo.txt"),
+             error->message);
+
+  gtd_manager_emit_error_message (gtd_manager_get_default (),
+                                  _("Error opening Todo.txt"),
+                                  error->message);
+}
+
+static void
 gtd_provider_todo_txt_load_task (TaskData           *td,
                                  GtdProviderTodoTxt *self,
                                  gint                line_number)
@@ -259,86 +272,80 @@ static void
 gtd_provider_todo_txt_load_source (GtdProviderTodoTxt *self)
 {
   GFileInputStream *readstream;
-  GError *error = NULL;
+  GDataInputStream *reader;
+  TaskData *td;
+  GError *line_read_error;
+  GError *error;
   gint line_number = 0;
+  gchar *line_read;
 
   g_return_if_fail (G_IS_FILE (self->source_file));
 
+  td = NULL;
+  error = line_read_error = NULL;
   readstream = g_file_read (self->source_file,
                             NULL,
                             &error);
 
-  if (!error)
+  if (error)
     {
-      GDataInputStream *reader;
-      gchar *line_read;
-      GError *line_read_error = NULL;
-      TaskData *td = NULL;
-
-      reader = g_data_input_stream_new (G_INPUT_STREAM (readstream));
-      self->no_of_lines = 0;
-
-      while (!line_read_error)
-        {
-          GList *tokens = NULL;
-          gboolean valid;
-          line_read = g_data_input_stream_read_line (reader,
-                                                     NULL,
-                                                     NULL,
-                                                     &line_read_error);
-
-          if (!line_read_error)
-            {
-              if (!line_read)
-                break;
-
-              line_number++;
-              self->no_of_lines++;
-
-              tokens = gtd_todo_txt_parser_tokenize (g_strdup(line_read));
-              valid = gtd_todo_txt_parser_validate_token_format (tokens);
-
-              if (valid)
-                {
-                  td = gtd_todo_txt_parser_parse_tokens (tokens);
-
-                  if (strcmp (gtd_todo_txt_parser_task_data_get_task_list_name (td), &(line_read[1])) == 0)
-                    gtd_provider_todo_txt_create_empty_list (self, g_strdup (&(line_read[1])));
-                  else
-                    gtd_provider_todo_txt_load_task (td, self, line_number);
-                }
-            }
-          else
-            {
-              g_warning ("%s: %s: %s",
-                         G_STRFUNC,
-                         _("Error reading line from todo.txt"),
-                         line_read_error->message);
-
-              gtd_manager_emit_error_message (gtd_manager_get_default (),
-                                              _("Error reading line from Todo.txt"),
-                                              line_read_error->message);
-              g_error_free (line_read_error);
-
-              return;
-            }
-
-          g_list_free_full (tokens, g_free);
-          g_free (line_read);
-        }
-    }
-  else
-    {
-      g_warning ("%s: %s: %s",
-                 G_STRFUNC,
-                 _("Error opening todo.txt file"),
-                 error->message);
-
-      gtd_manager_emit_error_message (gtd_manager_get_default (),
-                                      _("Error opening todo.txt file"),
-                                      error->message);
+      emit_generic_error (error);
       g_error_free (error);
       return;
+    }
+
+
+  reader = g_data_input_stream_new (G_INPUT_STREAM (readstream));
+  self->no_of_lines = 0;
+
+  while (!line_read_error)
+    {
+      GList *tokens = NULL;
+      gboolean valid;
+
+      line_read = g_data_input_stream_read_line (reader,
+                                                 NULL,
+                                                 NULL,
+                                                 &line_read_error);
+
+      if (!line_read_error)
+        {
+          if (!line_read)
+            break;
+
+          line_number++;
+          self->no_of_lines++;
+
+          tokens = gtd_todo_txt_parser_tokenize (line_read);
+          valid = gtd_todo_txt_parser_validate_token_format (tokens);
+
+          if (valid)
+            {
+              td = gtd_todo_txt_parser_parse_tokens (tokens);
+
+              if (strcmp (gtd_todo_txt_parser_task_data_get_task_list_name (td), &(line_read[1])) == 0)
+                gtd_provider_todo_txt_create_empty_list (self, g_strdup (&(line_read[1])));
+              else
+                gtd_provider_todo_txt_load_task (td, self, line_number);
+            }
+        }
+      else
+        {
+          g_warning ("%s: %s: %s",
+                     G_STRFUNC,
+                     _("Error while reading a line from Todo.txt"),
+                     line_read_error->message);
+
+          gtd_manager_emit_error_message (gtd_manager_get_default (),
+                                          _("Error while reading a line from Todo.txt"),
+                                          line_read_error->message);
+          g_error_free (line_read_error);
+
+          return;
+        }
+
+      g_list_free_full (tokens, g_free);
+      g_free (line_read);
     }
 }
 
@@ -348,19 +355,21 @@ gtd_provider_todo_txt_create_task (GtdProvider *provider,
 {
   GtdProviderTodoTxt *self;
   GFileOutputStream *write_stream;
+  GDataOutputStream *writer;
   GtdTaskList *list;
+  GError *write_error;
   GError *error;
   const gchar *list_name;
   const gchar *task_description;
   gchar *task_line;
 
   self = GTD_PROVIDER_TODO_TXT (provider);
-  error = NULL;
+  error = write_error = NULL;
 
   g_return_if_fail (G_IS_FILE (self->source_file));
 
   if (self->monitor)
-    g_signal_handlers_block_by_func(self->monitor, gtd_plugin_todo_txt_monitor_source, self);
+    g_signal_handlers_block_by_func (self->monitor, gtd_plugin_todo_txt_monitor_source, self);
 
   list = gtd_task_get_list (task);
   list_name = gtd_task_list_get_name (list);
@@ -373,58 +382,48 @@ gtd_provider_todo_txt_create_task (GtdProvider *provider,
                                   NULL,
                                   &error);
 
-  if(!error)
+  if (error)
     {
-      GDataOutputStream *writer;
-      GError *write_error = NULL;
-
-      writer = g_data_output_stream_new (G_OUTPUT_STREAM (write_stream));
-
-      g_data_output_stream_put_string (writer,
-                                       task_line,
-                                       NULL,
-                                       &write_error);
-
-      if(write_error)
-        {
-          g_warning ("%s: %s: %s",
-                     G_STRFUNC,
-                     _("Error adding task to Todo.txt"),
-                     write_error->message);
-
-          gtd_manager_emit_error_message (gtd_manager_get_default (),
-                                          _("Error adding task to Todo.txt"),
-                                          write_error->message);
-          g_error_free (write_error);
-          return;
-        }
-      else
-        {
-          g_hash_table_insert (self->root_tasks,
-                               (gpointer) task_description,
-                               task);
-          self->no_of_lines++;
-          g_object_set_data (G_OBJECT (task), "line", GINT_TO_POINTER (self->no_of_lines));
-        }
-
-      g_output_stream_close (G_OUTPUT_STREAM (writer),
-                             NULL,
-                             NULL);
+      emit_generic_error (error);
+      g_error_free (error);
+      return;
     }
-  else
+
+  writer = g_data_output_stream_new (G_OUTPUT_STREAM (write_stream));
+
+  g_data_output_stream_put_string (writer,
+                                   task_line,
+                                   NULL,
+                                   &write_error);
+
+  if(write_error)
     {
       g_warning ("%s: %s: %s",
                  G_STRFUNC,
-                 _("Error opening Todo.txt"),
-                 error->message);
+                 _("Error while adding a task to Todo.txt"),
+                 write_error->message);
 
       gtd_manager_emit_error_message (gtd_manager_get_default (),
-                                      _("Error opening Todo.txt"),
-                                      error->message);
-      g_error_free (error);
+                                      _("Error while adding a task to Todo.txt"),
+                                      write_error->message);
+      g_error_free (write_error);
+      return;
     }
+  else
+    {
+      g_hash_table_insert (self->root_tasks,
+                           (gpointer) task_description,
+                           task);
+      self->no_of_lines++;
+      g_object_set_data (G_OBJECT (task), "line", GINT_TO_POINTER (self->no_of_lines));
+    }
+
+  g_output_stream_close (G_OUTPUT_STREAM (writer),
+                         NULL,
+                         NULL);
+
   if (self->monitor)
-    g_signal_handlers_unblock_by_func(self->monitor, gtd_plugin_todo_txt_monitor_source, self);
+    g_signal_handlers_unblock_by_func (self->monitor, gtd_plugin_todo_txt_monitor_source, self);
 
   g_free (task_line);
 }
@@ -437,17 +436,20 @@ gtd_provider_todo_txt_update_task (GtdProvider *provider,
   GFileInputStream *readstream;
   GFileOutputStream *outstream;
   GDataOutputStream *writer;
+  GDataInputStream *reader;
+  GError *line_read_error;
   GError *error;
   GError *write_error;
+  gchar *line_read;
   gint line_to_update;
   gint line_number;
 
   self = GTD_PROVIDER_TODO_TXT (provider);
   line_number = 0;
-  error = write_error = NULL;
+  error = write_error = line_read_error = NULL;
 
   if (self->monitor)
-    g_signal_handlers_block_by_func(self->monitor, gtd_plugin_todo_txt_monitor_source, self);
+    g_signal_handlers_block_by_func (self->monitor, gtd_plugin_todo_txt_monitor_source, self);
 
   line_to_update = GPOINTER_TO_INT (g_object_get_data (G_OBJECT (task), "line"));
 
@@ -463,111 +465,100 @@ gtd_provider_todo_txt_update_task (GtdProvider *provider,
                               NULL,
                               &error);
 
-  if (!error)
+  if (error)
     {
-      GDataInputStream *reader;
-      GError *line_read_error = NULL;
-      gchar *line_read;
+      emit_generic_error (error);
+      g_error_free (error);
+      return;
+    }
 
-      reader = g_data_input_stream_new (G_INPUT_STREAM (readstream));
-      writer = g_data_output_stream_new (G_OUTPUT_STREAM (outstream));
+  reader = g_data_input_stream_new (G_INPUT_STREAM (readstream));
+  writer = g_data_output_stream_new (G_OUTPUT_STREAM (outstream));
 
-      while (!line_read_error)
+  while (!line_read_error)
+    {
+      gboolean valid;
+      GList *tokens = NULL;
+
+      line_read = g_data_input_stream_read_line (reader,
+                                                 NULL,
+                                                 NULL,
+                                                 &line_read_error);
+
+      if (!line_read_error)
         {
-          gboolean valid;
-          GList *tokens = NULL;
+          if (!line_read)
+            break;
 
-          line_read = g_data_input_stream_read_line (reader,
-                                                     NULL,
-                                                     NULL,
-                                                     &line_read_error);
+          line_number++;
 
-          if (!line_read_error)
+          tokens = gtd_todo_txt_parser_tokenize (line_read);
+          valid = gtd_todo_txt_parser_validate_token_format (tokens);
+
+          if (valid &&
+              line_number == line_to_update)
             {
-              if (!line_read)
-                break;
+              GList *update_tokens;
+              GList *it;
 
-              line_number++;
-
-              tokens = gtd_todo_txt_parser_tokenize (g_strdup (line_read));
-              valid = gtd_todo_txt_parser_validate_token_format (tokens);
-
-              if (valid &&
-                  line_number == line_to_update)
+              update_tokens = gtd_todo_txt_parser_get_task_line (task);
+              it = NULL;
+              for (it = update_tokens; it != NULL; it = it->next)
                 {
-                  GList *update_tokens;
-                  GList *it;
-
-                  update_tokens = gtd_todo_txt_parser_get_task_line (task);
-                  it = NULL;
-                  for (it = update_tokens; it != NULL; it = it->next)
-                    {
-                      g_data_output_stream_put_string (writer,
-                                                       it->data,
-                                                       NULL,
-                                                       &write_error);
-                      if (it->next == NULL)
-                        {
-                          g_data_output_stream_put_string (writer,
-                                                           "\n",
-                                                           NULL,
-                                                           &write_error);
-                        }
-                      else
-                        g_data_output_stream_put_string (writer,
-                                                         " ",
-                                                         NULL,
-                                                         &write_error);
-                    }
-
-                  g_list_free_full (update_tokens, g_free);
-                }
-
-
-              else
-                {
-                  line_read = strcat (line_read, "\n");
-
                   g_data_output_stream_put_string (writer,
-                                                   line_read,
+                                                   it->data,
                                                    NULL,
                                                    &write_error);
+                  if (it->next == NULL)
+                    {
+                      g_data_output_stream_put_string (writer,
+                                                       "\n",
+                                                       NULL,
+                                                       &write_error);
+                    }
+                  else
+                    g_data_output_stream_put_string (writer,
+                                                     " ",
+                                                     NULL,
+                                                     &write_error);
                 }
+
+              g_list_free_full (update_tokens, g_free);
             }
+
+
           else
             {
-              g_warning ("%s: %s: %s",
-                         G_STRFUNC,
-                         _("Error reading tasks from Todo.txt"),
-                         line_read_error->message);
+              line_read = strcat (line_read, "\n");
 
-              gtd_manager_emit_error_message (gtd_manager_get_default (),
-                                              _("Error reading tasks from Todo.txt"),
-                                              line_read_error->message);
-              g_error_free (line_read_error);
+              g_data_output_stream_put_string (writer,
+                                               line_read,
+                                               NULL,
+                                               &write_error);
             }
+        }
+      else
+        {
+          g_warning ("%s: %s: %s",
+                     G_STRFUNC,
+                     _("Error while reading tasks from Todo.txt"),
+                     line_read_error->message);
 
-          g_list_free_full (tokens, g_free);
+          gtd_manager_emit_error_message (gtd_manager_get_default (),
+                                          _("Error while reading tasks from Todo.txt"),
+                                          line_read_error->message);
+          g_error_free (line_read_error);
         }
 
-      g_output_stream_close (G_OUTPUT_STREAM (writer),
-                             NULL,
-                             NULL);
+      g_list_free_full (tokens, g_free);
     }
-  else
-    {
-      g_warning ("%s: %s: %s",
-                 G_STRFUNC,
-                 _("Error opening Todo.txt"),
-                 error->message);
 
-      gtd_manager_emit_error_message (gtd_manager_get_default (),
-                                      _("Error opening Todo.txt"),
-                                      error->message);
-      g_error_free (error);
-    }
+  g_output_stream_close (G_OUTPUT_STREAM (writer),
+                         NULL,
+                         NULL);
+
   if (self->monitor)
-    g_signal_handlers_unblock_by_func(self->monitor, gtd_plugin_todo_txt_monitor_source, self);
+    g_signal_handlers_unblock_by_func (self->monitor, gtd_plugin_todo_txt_monitor_source, self);
 }
 
 static void
@@ -578,19 +569,23 @@ gtd_provider_todo_txt_remove_task (GtdProvider *provider,
   GFileInputStream *readstream;
   GFileOutputStream *outstream;
   GDataOutputStream *writer;
+  GDataInputStream *reader;
   GError *error;
   GError *write_error;
+  GError *line_read_error;
+  gchar *line_read;
+  gboolean skip;
   gint line_number;
   gint line_number_to_remove;
 
   self = GTD_PROVIDER_TODO_TXT (provider);
-  error = write_error = NULL;
+  error = write_error = line_read_error = NULL;
   line_number = 0;
 
   g_return_if_fail (G_IS_FILE (self->source_file));
 
   if (self->monitor)
-    g_signal_handlers_block_by_func(self->monitor, gtd_plugin_todo_txt_monitor_source, self);
+    g_signal_handlers_block_by_func (self->monitor, gtd_plugin_todo_txt_monitor_source, self);
 
   line_number_to_remove = GPOINTER_TO_INT (g_object_get_data (G_OBJECT (task), "line"));
   readstream = g_file_read (self->source_file,
@@ -603,92 +598,80 @@ gtd_provider_todo_txt_remove_task (GtdProvider *provider,
                               NULL,
                               &error);
 
-  if (!error)
+  if (error)
     {
-      GDataInputStream *reader;
-      GError *line_read_error = NULL;
-      gchar *line_read;
-      gboolean skip;
+      emit_generic_error (error);
+      g_error_free (error);
+      return;
+    }
 
-      reader = g_data_input_stream_new (G_INPUT_STREAM (readstream));
-      writer = g_data_output_stream_new (G_OUTPUT_STREAM (outstream));
+  reader = g_data_input_stream_new (G_INPUT_STREAM (readstream));
+  writer = g_data_output_stream_new (G_OUTPUT_STREAM (outstream));
 
-      while (!line_read_error)
+  while (!line_read_error)
+    {
+      TaskData *td;
+      gboolean valid;
+      GList *tokens = NULL;
+
+      line_read = g_data_input_stream_read_line (reader,
+                                                 NULL,
+                                                 NULL,
+                                                 &line_read_error);
+
+      skip = FALSE;
+
+      if (!line_read_error)
         {
-          TaskData *td;
-          gboolean valid;
-          GList *tokens = NULL;
+          if (!line_read)
+            break;
+          line_number++;
 
-          line_read = g_data_input_stream_read_line (reader,
-                                                     NULL,
-                                                     NULL,
-                                                     &line_read_error);
+          tokens = gtd_todo_txt_parser_tokenize (line_read);
+          valid = gtd_todo_txt_parser_validate_token_format (tokens);
 
-          skip = FALSE;
-
-          if (!line_read_error)
-            {
-              if (!line_read)
-                break;
-              line_number++;
-
-              tokens = gtd_todo_txt_parser_tokenize (g_strdup(line_read));
-              valid = gtd_todo_txt_parser_validate_token_format (tokens);
-
-              if (valid)
-                td = gtd_todo_txt_parser_parse_tokens (tokens);
-              else
-                td = NULL;
-
-              if (line_number == line_number_to_remove)
-                {
-                  skip = TRUE;
-                  self->no_of_lines--;
-                }
-
-              if (!skip)
-                {
-                  line_read = strcat (line_read, "\n");
-
-                  g_data_output_stream_put_string (writer,
-                                                   line_read,
-                                                   NULL,
-                                                  &write_error);
-                }
-            }
+          if (valid)
+            td = gtd_todo_txt_parser_parse_tokens (tokens);
           else
+            td = NULL;
+
+          if (line_number == line_number_to_remove)
             {
-              g_warning ("%s: %s: %s",
-                         G_STRFUNC,
-                         _("Error reading tasks from Todo.txt"),
-                         line_read_error->message);
-
-              gtd_manager_emit_error_message (gtd_manager_get_default (),
-                                              _("Error reading tasks from Todo.txt"),
-                                              line_read_error->message);
-              g_error_free (line_read_error);
-
-              return;
+              skip = TRUE;
+              self->no_of_lines--;
             }
+
+          if (!skip)
+            {
+              line_read = strcat (line_read, "\n");
+
+              g_data_output_stream_put_string (writer,
+                                               line_read,
+                                               NULL,
+                                              &write_error);
+            }
+
           g_free (td);
         }
+      else
+        {
+          g_warning ("%s: %s: %s",
+                     G_STRFUNC,
+                     _("Error while reading tasks from Todo.txt"),
+                     line_read_error->message);
 
-      g_output_stream_close (G_OUTPUT_STREAM (writer),
-                             NULL,
-                             NULL);
+          gtd_manager_emit_error_message (gtd_manager_get_default (),
+                                          _("Error while reading tasks from Todo.txt"),
+                                          line_read_error->message);
+          g_error_free (line_read_error);
+          return;
+        }
     }
-  else
-    {
-      g_warning ("%s: %s: %s",
-                 G_STRFUNC,
-                 _("Error opening Todo.txt"),
-                 error->message);
 
-      gtd_manager_emit_error_message (gtd_manager_get_default (),
-                                      _("Error opening Todo.txt"),
-                                      error->message);
-      g_error_free (error);
-    }
+  g_output_stream_close (G_OUTPUT_STREAM (writer),
+                         NULL,
+                         NULL);
+
   if (self->monitor)
     g_signal_handlers_unblock_by_func(self->monitor, gtd_plugin_todo_txt_monitor_source, self);
 }
@@ -699,11 +682,14 @@ gtd_provider_todo_txt_create_task_list (GtdProvider *provider,
 {
   GtdProviderTodoTxt *self;
   GFileOutputStream  *write_stream;
+  GDataOutputStream *writer;
+  GError *write_error;
   GError *error;
+  gchar *put;
   const gchar *name;
 
   self = GTD_PROVIDER_TODO_TXT (provider);
-  error = NULL;
+  error = write_error = NULL;
 
   g_return_if_fail (G_IS_FILE (self->source_file));
 
@@ -715,60 +701,47 @@ gtd_provider_todo_txt_create_task_list (GtdProvider *provider,
                                   NULL,
                                   &error);
 
-  if(!error)
+  if (error)
     {
-      GDataOutputStream *writer;
-      GError *write_error = NULL;
-      gchar *put;
-
-      name = gtd_task_list_get_name (list);
-      writer = g_data_output_stream_new (G_OUTPUT_STREAM (write_stream));
-
-      put = g_strconcat ("@", name, "\n", NULL);
-
-      g_data_output_stream_put_string (writer,
-                                       put,
-                                       NULL,
-                                       &write_error);
-
-      if(write_error)
-        {
-          g_warning ("%s: %s: %s",
-                     G_STRFUNC,
-                     _("Error creating Todo.txt list"),
-                     write_error->message);
-
-          gtd_manager_emit_error_message (gtd_manager_get_default (),
-                                          _("Error creating todo.txt list"),
-                                          write_error->message);
-          g_error_free (write_error);
-          return;
-        }
-      else
-        {
-          self->tasklists = g_list_append (self->tasklists,
-                                           list);
-          g_hash_table_insert (self->lists, (gpointer) name, list);
-          g_signal_emit_by_name (self, "list-added", list);
-          self->no_of_lines++;
-        }
-
-      g_free (put);
+      emit_generic_error (error);
+      g_error_free (error);
+      return;
     }
-  else
+
+  name = gtd_task_list_get_name (list);
+  writer = g_data_output_stream_new (G_OUTPUT_STREAM (write_stream));
+
+  put = g_strconcat ("@", name, "\n", NULL);
+
+  g_data_output_stream_put_string (writer,
+                                   put,
+                                   NULL,
+                                   &write_error);
+
+  if (write_error)
     {
       g_warning ("%s: %s: %s",
                  G_STRFUNC,
-                 _("Error opening Todo.txt"),
-                 error->message);
+                 _("Error while creating a Todo.txt list"),
+                 write_error->message);
 
       gtd_manager_emit_error_message (gtd_manager_get_default (),
-                                      _("Error opening Todo.txt"),
-                                      error->message);
-      g_error_free (error);
+                                      _("Error while creating a Todo.txt list"),
+                                      write_error->message);
+      g_error_free (write_error);
+      goto out;
     }
+
+  self->tasklists = g_list_append (self->tasklists, list);
+  g_hash_table_insert (self->lists, (gpointer) name, list);
+  g_signal_emit_by_name (self, "list-added", list);
+  self->no_of_lines++;
+
+out:
+  g_free (put);
+
   if (self->monitor)
-    g_signal_handlers_unblock_by_func(self->monitor, gtd_plugin_todo_txt_monitor_source, self);
+    g_signal_handlers_unblock_by_func (self->monitor, gtd_plugin_todo_txt_monitor_source, self);
 }
 
 static void
@@ -779,10 +752,13 @@ gtd_provider_todo_txt_update_task_list (GtdProvider *provider,
   GFileInputStream *readstream;
   GFileOutputStream *outstream;
   GDataOutputStream *writer;
+  GDataInputStream *reader;
+  GError *line_read_error = NULL;
   GError *error;
   GError *write_error;
   const gchar *current_list_name;
   gchar *stored_list_name;
+  gchar *line_read;
 
   self = GTD_PROVIDER_TODO_TXT (provider);
   error = write_error = NULL;
@@ -790,7 +766,7 @@ gtd_provider_todo_txt_update_task_list (GtdProvider *provider,
   g_return_if_fail (G_IS_FILE (self->source_file));
 
   if (self->monitor)
-    g_signal_handlers_block_by_func(self->monitor, gtd_plugin_todo_txt_monitor_source, self);
+    g_signal_handlers_block_by_func (self->monitor, gtd_plugin_todo_txt_monitor_source, self);
 
   stored_list_name = g_object_get_data (G_OBJECT (list), "line");
   current_list_name = gtd_task_list_get_name (list);
@@ -805,124 +781,106 @@ gtd_provider_todo_txt_update_task_list (GtdProvider *provider,
                               NULL,
                               &error);
 
-  if (!error)
+  if (error)
     {
-      GDataInputStream *reader;
-      GError *line_read_error = NULL;
-      char *line_read;
+      emit_generic_error (error);
+      g_error_free (error);
+      return;
+    }
 
-      reader = g_data_input_stream_new (G_INPUT_STREAM (readstream));
-      writer = g_data_output_stream_new (G_OUTPUT_STREAM (outstream));
+  reader = g_data_input_stream_new (G_INPUT_STREAM (readstream));
+  writer = g_data_output_stream_new (G_OUTPUT_STREAM (outstream));
 
-      while (!line_read_error)
+  while (!line_read_error)
+    {
+      gboolean valid;
+      GList *tokens;
+      TaskData *td = NULL;
+
+      tokens = NULL;
+      line_read = g_data_input_stream_read_line (reader,
+                                                 NULL,
+                                                 NULL,
+                                                 &line_read_error);
+
+      if (!line_read_error)
         {
-          gboolean valid;
-          GList *tokens;
-          TaskData *td = NULL;
+          if (!line_read)
+            break;
 
-          tokens = NULL;
-          line_read = g_data_input_stream_read_line (reader,
-                                                     NULL,
-                                                     NULL,
-                                                     &line_read_error);
+          tokens = gtd_todo_txt_parser_tokenize (line_read);
+          valid = gtd_todo_txt_parser_validate_token_format (tokens);
 
-          if (!line_read_error)
+          if (valid)
+            td = gtd_todo_txt_parser_parse_tokens (tokens);
+
+          if (valid &&
+              strcmp (stored_list_name, current_list_name)&&
+              !(strcmp (gtd_todo_txt_parser_task_data_get_task_list_name (td), stored_list_name)))
             {
-              if (!line_read)
-                break;
+              GList *update_tokens;
+              GList *it;
 
-              tokens = gtd_todo_txt_parser_tokenize (g_strdup(line_read));
-              valid = gtd_todo_txt_parser_validate_token_format (tokens);
+              update_tokens = gtd_todo_txt_parser_get_list_updated_token (list, g_strdup (line_read));
+              it = NULL;
 
-              if (valid)
-                td = gtd_todo_txt_parser_parse_tokens (tokens);
-
-              if (valid &&
-                  strcmp (stored_list_name, current_list_name)&&
-                  !(strcmp (gtd_todo_txt_parser_task_data_get_task_list_name (td), stored_list_name)))
+              for (it = update_tokens; it != NULL; it = it->next)
                 {
-                  GList *update_tokens;
-                  GList *it;
-
-                  update_tokens = gtd_todo_txt_parser_get_list_updated_token (list, g_strdup (line_read));
-                  it = NULL;
-
-                  for (it = update_tokens; it != NULL; it = it->next)
-                    {
-                      g_data_output_stream_put_string (writer,
-                                                       it->data,
-                                                       NULL,
-                                                       &write_error);
-                      if (it->next == NULL)
-                        {
-                          g_data_output_stream_put_string (writer,
-                                                           "\n",
-                                                           NULL,
-                                                           &write_error);
-                        }
-                      else
-                        g_data_output_stream_put_string (writer,
-                                                         " ",
-                                                         NULL,
-                                                         &write_error);
-                    }
-                  g_list_free_full (update_tokens, g_free);
-                }
-
-
-              else
-                {
-                  line_read = strcat (line_read, "\n");
-
                   g_data_output_stream_put_string (writer,
-                                                   line_read,
+                                                   it->data,
                                                    NULL,
                                                    &write_error);
+                  if (it->next == NULL)
+                    {
+                      g_data_output_stream_put_string (writer,
+                                                       "\n",
+                                                       NULL,
+                                                       &write_error);
+                    }
+                  else
+                    g_data_output_stream_put_string (writer,
+                                                     " ",
+                                                     NULL,
+                                                     &write_error);
                 }
+              g_list_free_full (update_tokens, g_free);
             }
+
+
           else
             {
-              g_warning ("%s: %s: %s",
-                         G_STRFUNC,
-                         _("Error while reading tasks from Todo.txt"),
-                         line_read_error->message);
+              line_read = strcat (line_read, "\n");
 
-              gtd_manager_emit_error_message (gtd_manager_get_default (),
-                                             _("Error while reading tasks from Todo.txt"),
-                                               line_read_error->message);
-              g_error_free (line_read_error);
+              g_data_output_stream_put_string (writer,
+                                               line_read,
+                                               NULL,
+                                               &write_error);
             }
+        }
+      else
+        {
+          g_warning ("%s: %s: %s",
+                     G_STRFUNC,
+                     _("Error while reading tasks from Todo.txt"),
+                     line_read_error->message);
 
-          g_list_free_full (tokens, g_free);
+          gtd_manager_emit_error_message (gtd_manager_get_default (),
+                                         _("Error while reading tasks from Todo.txt"),
+                                           line_read_error->message);
+          g_error_free (line_read_error);
         }
 
-      g_output_stream_close (G_OUTPUT_STREAM (writer),
-                             NULL,
-                             NULL);
-      g_input_stream_close (G_INPUT_STREAM (reader),
-                            NULL,
-                            NULL);
+      g_list_free_full (tokens, g_free);
     }
-  else
-    {
-      g_warning ("%s: %s: %s",
-                 G_STRFUNC,
-                 _("Error opening Todo.txt"),
-                 error->message);
 
-      gtd_manager_emit_error_message (gtd_manager_get_default (),
-                                      _("Error opening Todo.txt"),
-                                      error->message);
-      g_error_free (error);
-    }
-  g_input_stream_close (G_INPUT_STREAM (readstream),
-                        NULL,
-                        NULL);
-  g_output_stream_close (G_OUTPUT_STREAM (outstream),
-                         NULL,
-                         NULL);
+  g_output_stream_close (G_OUTPUT_STREAM (writer), NULL, NULL);
+  g_input_stream_close (G_INPUT_STREAM (reader), NULL, NULL);
+
+  g_output_stream_close (G_OUTPUT_STREAM (outstream), NULL, NULL);
+  g_input_stream_close (G_INPUT_STREAM (readstream), NULL, NULL);
+
   if (self->monitor)
-    g_signal_handlers_unblock_by_func(self->monitor, gtd_plugin_todo_txt_monitor_source, self);
+    g_signal_handlers_unblock_by_func (self->monitor, gtd_plugin_todo_txt_monitor_source, self);
 }
 
 static void
@@ -934,9 +892,13 @@ gtd_provider_todo_txt_remove_task_list (GtdProvider *provider,
   GFileOutputStream *outstream;
   GDataOutputStream *writer;
   GFileInputStream *readstream;
+  GDataInputStream *reader;
+  GError *line_read_error = NULL;
   GError *write_error;
   GError *error;
   const gchar  *list_name;
+  gboolean skip;
+  gchar *line;
 
   self = GTD_PROVIDER_TODO_TXT (provider);
   error = write_error = NULL;
@@ -957,88 +919,78 @@ gtd_provider_todo_txt_remove_task_list (GtdProvider *provider,
                               NULL,
                               &error);
 
-  if (!error)
+  if (error)
     {
-      GDataInputStream *reader;
-      GError *line_read_error = NULL;
-      char *line;
-      gboolean skip;
-
-      reader = g_data_input_stream_new (G_INPUT_STREAM (readstream));
-      writer = g_data_output_stream_new (G_OUTPUT_STREAM (outstream));
-
-      while (!line_read_error)
-        {
-          TaskData *td = NULL;
-          gboolean valid;
-          GList *tokens = NULL;
-
-          line = g_data_input_stream_read_line (reader,
-                                                NULL,
-                                                NULL,
-                                                &line_read_error);
-
-          skip = FALSE;
-
-          if (!line_read_error)
-            {
-              if (!line)
-                break;
-
-              tokens = gtd_todo_txt_parser_tokenize (g_strdup(line));
-              valid = gtd_todo_txt_parser_validate_token_format (tokens);
-
-              if (valid)
-                td = gtd_todo_txt_parser_parse_tokens (tokens);
-
-              if (valid && strcmp (gtd_todo_txt_parser_task_data_get_task_list_name (td), list_name) == 0)
-                {
-                  self->no_of_lines--;
-                  skip = TRUE;
-                }
-
-              if (!skip)
-                {
-                  line = strcat (line, "\n");
-
-                  g_data_output_stream_put_string (writer,
-                                                   line,
-                                                   NULL,
-                                                   &write_error);
-                }
-            }
-          else
-            {
-              g_warning ("%s: %s: %s",
-                         G_STRFUNC,
-                         _("Error reading task-lists from Todo.txt"),
-                         line_read_error->message);
-
-              gtd_manager_emit_error_message (gtd_manager_get_default (),
-                                              _("Error reading task-lists from Todo.txt"),
-                                              line_read_error->message);
-              g_error_free (line_read_error);
-            }
-          g_free (td);
-        }
-      g_output_stream_close (G_OUTPUT_STREAM (writer),
-                             NULL,
-                             NULL);
-    }
-  else
-    {
-      g_warning ("%s: %s: %s",
-                 G_STRFUNC,
-                 _("Error opening todo.txt file"),
-                 error->message);
-
-      gtd_manager_emit_error_message (gtd_manager_get_default (),
-                                      _("Error opening Todo.txt"),
-                                      error->message);
+      emit_generic_error (error);
       g_error_free (error);
+      return;
     }
+
+  reader = g_data_input_stream_new (G_INPUT_STREAM (readstream));
+  writer = g_data_output_stream_new (G_OUTPUT_STREAM (outstream));
+
+  while (!line_read_error)
+    {
+      TaskData *td = NULL;
+      gboolean valid;
+      GList *tokens = NULL;
+
+      line = g_data_input_stream_read_line (reader,
+                                            NULL,
+                                            NULL,
+                                            &line_read_error);
+
+      skip = FALSE;
+
+      if (!line_read_error)
+        {
+          if (!line)
+            break;
+
+          tokens = gtd_todo_txt_parser_tokenize (line);
+          valid = gtd_todo_txt_parser_validate_token_format (tokens);
+
+          if (valid)
+            td = gtd_todo_txt_parser_parse_tokens (tokens);
+
+          if (valid && strcmp (gtd_todo_txt_parser_task_data_get_task_list_name (td), list_name) == 0)
+            {
+              self->no_of_lines--;
+              skip = TRUE;
+            }
+
+          if (!skip)
+            {
+              line = strcat (line, "\n");
+
+              g_data_output_stream_put_string (writer,
+                                               line,
+                                               NULL,
+                                               &write_error);
+            }
+        }
+      else
+        {
+          g_warning ("%s: %s: %s",
+                     G_STRFUNC,
+                     _("Error reading task-lists from Todo.txt"),
+                     line_read_error->message);
+
+          gtd_manager_emit_error_message (gtd_manager_get_default (),
+                                          _("Error reading task-lists from Todo.txt"),
+                                          line_read_error->message);
+          g_error_free (line_read_error);
+        }
+
+      g_free (td);
+    }
+
+  g_output_stream_close (G_OUTPUT_STREAM (writer),
+                         NULL,
+                         NULL);
+
   if (self->monitor)
-    g_signal_handlers_unblock_by_func(self->monitor, gtd_plugin_todo_txt_monitor_source, self);
+    g_signal_handlers_unblock_by_func (self->monitor, gtd_plugin_todo_txt_monitor_source, self);
 }
 
 static GList*
@@ -1093,9 +1045,9 @@ gtd_provider_todo_txt_finalize (GObject *object)
   g_clear_pointer (&self->lists, g_hash_table_destroy);
   g_clear_pointer (&self->root_tasks, g_hash_table_destroy);
   g_clear_pointer (&self->tasklists, g_clear_object);
-  g_clear_pointer (&self->source, g_free);
-  g_clear_object (&self->source_file);
+  g_clear_pointer (&self->source_file, g_free);
   g_clear_object (&self->icon);
+  g_clear_pointer (&self->source, g_free);
 
   G_OBJECT_CLASS (gtd_provider_todo_txt_parent_class)->finalize (object);
 }
