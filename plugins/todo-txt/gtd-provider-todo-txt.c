@@ -311,13 +311,13 @@ gtd_provider_todo_txt_load_source (GtdProviderTodoTxt *self)
           else
             {
               g_warning ("%s: %s: %s",
-                 G_STRFUNC,
-                 _("Error while reading a line from Todo.txt"),
-                    line_read_error->message);
+                         G_STRFUNC,
+                         _("Error reading line from todo.txt"),
+                         line_read_error->message);
 
               gtd_manager_emit_error_message (gtd_manager_get_default (),
-                                             _("Error while reading a line from Todo.txt"),
-                                               line_read_error->message);
+                                              _("Error reading line from Todo.txt"),
+                                              line_read_error->message);
               g_error_free (line_read_error);
 
               return;
@@ -331,12 +331,12 @@ gtd_provider_todo_txt_load_source (GtdProviderTodoTxt *self)
     {
       g_warning ("%s: %s: %s",
                  G_STRFUNC,
-                 _("Error while opening Todo.txt"),
-                   error->message);
+                 _("Error opening todo.txt file"),
+                 error->message);
 
       gtd_manager_emit_error_message (gtd_manager_get_default (),
-                                      _("Error while opening Todo.txt"),
-                                        error->message);
+                                      _("Error opening todo.txt file"),
+                                      error->message);
       g_error_free (error);
       return;
     }
@@ -389,12 +389,12 @@ gtd_provider_todo_txt_create_task (GtdProvider *provider,
         {
           g_warning ("%s: %s: %s",
                      G_STRFUNC,
-                     _("Error while adding a task to Todo.txt"),
-                       write_error->message);
+                     _("Error adding task to Todo.txt"),
+                     write_error->message);
 
           gtd_manager_emit_error_message (gtd_manager_get_default (),
-                                      _("Error while adding a task to Todo.txt"),
-                                        write_error->message);
+                                          _("Error adding task to Todo.txt"),
+                                          write_error->message);
           g_error_free (write_error);
           return;
         }
@@ -415,12 +415,12 @@ gtd_provider_todo_txt_create_task (GtdProvider *provider,
     {
       g_warning ("%s: %s: %s",
                  G_STRFUNC,
-                 _("Error while opening Todo.txt"),
-                   error->message);
+                 _("Error opening Todo.txt"),
+                 error->message);
 
       gtd_manager_emit_error_message (gtd_manager_get_default (),
-                                      _("Error while opening Todo.txt"),
-                                        error->message);
+                                      _("Error opening Todo.txt"),
+                                      error->message);
       g_error_free (error);
     }
   if (self->monitor)
@@ -537,13 +537,13 @@ gtd_provider_todo_txt_update_task (GtdProvider *provider,
           else
             {
               g_warning ("%s: %s: %s",
-                 G_STRFUNC,
-                 _("Error while reading tasks from Todo.txt"),
-                    line_read_error->message);
+                         G_STRFUNC,
+                         _("Error reading tasks from Todo.txt"),
+                         line_read_error->message);
 
               gtd_manager_emit_error_message (gtd_manager_get_default (),
-                                             _("Error while reading tasks from Todo.txt"),
-                                               line_read_error->message);
+                                              _("Error reading tasks from Todo.txt"),
+                                              line_read_error->message);
               g_error_free (line_read_error);
             }
 
@@ -558,12 +558,12 @@ gtd_provider_todo_txt_update_task (GtdProvider *provider,
     {
       g_warning ("%s: %s: %s",
                  G_STRFUNC,
-                 _("Error while opening Todo.txt"),
-                   error->message);
+                 _("Error opening Todo.txt"),
+                 error->message);
 
       gtd_manager_emit_error_message (gtd_manager_get_default (),
-                                      _("Error while opening Todo.txt"),
-                                        error->message);
+                                      _("Error opening Todo.txt"),
+                                      error->message);
       g_error_free (error);
     }
   if (self->monitor)
@@ -659,13 +659,13 @@ gtd_provider_todo_txt_remove_task (GtdProvider *provider,
           else
             {
               g_warning ("%s: %s: %s",
-                 G_STRFUNC,
-                 _("Error while reading tasks from Todo.txt"),
-                    line_read_error->message);
+                         G_STRFUNC,
+                         _("Error reading tasks from Todo.txt"),
+                         line_read_error->message);
 
               gtd_manager_emit_error_message (gtd_manager_get_default (),
-                                             _("Error while reading tasks from Todo.txt"),
-                                               line_read_error->message);
+                                              _("Error reading tasks from Todo.txt"),
+                                              line_read_error->message);
               g_error_free (line_read_error);
 
               return;
@@ -681,12 +681,12 @@ gtd_provider_todo_txt_remove_task (GtdProvider *provider,
     {
       g_warning ("%s: %s: %s",
                  G_STRFUNC,
-                 _("Error while opening Todo.txt"),
-                   error->message);
+                 _("Error opening Todo.txt"),
+                 error->message);
 
       gtd_manager_emit_error_message (gtd_manager_get_default (),
-                                      _("Error while opening Todo.txt"),
-                                        error->message);
+                                      _("Error opening Todo.txt"),
+                                      error->message);
       g_error_free (error);
     }
   if (self->monitor)
@@ -735,12 +735,12 @@ gtd_provider_todo_txt_create_task_list (GtdProvider *provider,
         {
           g_warning ("%s: %s: %s",
                      G_STRFUNC,
-                     _("Error while creating a Todo.txt list"),
-                       write_error->message);
+                     _("Error creating Todo.txt list"),
+                     write_error->message);
 
           gtd_manager_emit_error_message (gtd_manager_get_default (),
-                                      _("Error while creating a Todo.txt list"),
-                                        write_error->message);
+                                          _("Error creating todo.txt list"),
+                                          write_error->message);
           g_error_free (write_error);
           return;
         }
@@ -759,12 +759,12 @@ gtd_provider_todo_txt_create_task_list (GtdProvider *provider,
     {
       g_warning ("%s: %s: %s",
                  G_STRFUNC,
-                 _("Error while opening Todo.txt"),
-                   error->message);
+                 _("Error opening Todo.txt"),
+                 error->message);
 
       gtd_manager_emit_error_message (gtd_manager_get_default (),
-                                      _("Error while opening Todo.txt"),
-                                        error->message);
+                                      _("Error opening Todo.txt"),
+                                      error->message);
       g_error_free (error);
     }
   if (self->monitor)
@@ -907,12 +907,12 @@ gtd_provider_todo_txt_update_task_list (GtdProvider *provider,
     {
       g_warning ("%s: %s: %s",
                  G_STRFUNC,
-                 _("Error while opening Todo.txt"),
-                   error->message);
+                 _("Error opening Todo.txt"),
+                 error->message);
 
       gtd_manager_emit_error_message (gtd_manager_get_default (),
-                                      _("Error while opening Todo.txt"),
-                                        error->message);
+                                      _("Error opening Todo.txt"),
+                                      error->message);
       g_error_free (error);
     }
   g_input_stream_close (G_INPUT_STREAM (readstream),
@@ -1010,13 +1010,13 @@ gtd_provider_todo_txt_remove_task_list (GtdProvider *provider,
           else
             {
               g_warning ("%s: %s: %s",
-                 G_STRFUNC,
-                 _("Error while reading task lists from Todo.txt"),
-                    line_read_error->message);
+                         G_STRFUNC,
+                         _("Error reading task-lists from Todo.txt"),
+                         line_read_error->message);
 
               gtd_manager_emit_error_message (gtd_manager_get_default (),
-                                             _("Error while reading task lists from Todo.txt"),
-                                               line_read_error->message);
+                                              _("Error reading task-lists from Todo.txt"),
+                                              line_read_error->message);
               g_error_free (line_read_error);
             }
           g_free (td);
@@ -1029,12 +1029,12 @@ gtd_provider_todo_txt_remove_task_list (GtdProvider *provider,
     {
       g_warning ("%s: %s: %s",
                  G_STRFUNC,
-                 _("Error while opening Todo.txt"),
-                   error->message);
+                 _("Error opening todo.txt file"),
+                 error->message);
 
       gtd_manager_emit_error_message (gtd_manager_get_default (),
-                                      _("Error while opening Todo.txt"),
-                                        error->message);
+                                      _("Error opening Todo.txt"),
+                                      error->message);
       g_error_free (error);
     }
   if (self->monitor)
