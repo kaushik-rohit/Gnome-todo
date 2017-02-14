@@ -3,8 +3,8 @@
     <schema id="org.gnome.todo.plugins.todo-txt" path="/org/gnome/todo/plugins/todo-txt/">
         <key name="file" type="s">
             <default>''</default>
-            <summary>Todo Txt File </summary>
-            <description>Source of Todo.txt file</description>
+            <summary>Todo.txt File</summary>
+            <description>Source of the Todo.txt file</description>
         </key>
     </schema>
 </schemalist>

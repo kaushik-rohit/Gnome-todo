@@ -320,7 +320,7 @@ gtd_todo_txt_parser_validate_token_format (GList *tokens)
           if (position != 1)
             {
               gtd_manager_emit_error_message (gtd_manager_get_default (),
-                                  _("Task Completion token x should be at the start of line"),
+                                  _("Task completion token x should be at the start of the line"),
                                   _("Skipping this line"));
               return FALSE;
             }
@@ -333,7 +333,7 @@ gtd_todo_txt_parser_validate_token_format (GList *tokens)
           if (position != (complete_tk + 1))
             {
               gtd_manager_emit_error_message (gtd_manager_get_default (),
-                                  _("Task Prirority should be at the start of line"),
+                                  _("Task priority should be at the start of the line"),
                                   _("Skipping this line"));
               return FALSE;
             }
@@ -349,8 +349,8 @@ gtd_todo_txt_parser_validate_token_format (GList *tokens)
           if (!gtd_todo_txt_parser_is_date (it->data))
             {
               gtd_manager_emit_error_message (gtd_manager_get_default (),
-                                             _("Inccorect Date"),
-                                             _("Please make sure the date in todo.txt is valid."));
+                                             _("Incorrect date"),
+                                             _("Please make sure the date in Todo.txt is valid."));
               return FALSE;
             }
 
@@ -374,16 +374,16 @@ gtd_todo_txt_parser_validate_token_format (GList *tokens)
           if (!gtd_todo_txt_parser_is_date (&str[4]))
             {
               gtd_manager_emit_error_message (gtd_manager_get_default (),
-                                             _("Incorrect Due Date"),
-                                             _("Please make sure the due date in todo.txt is valid.Tasks with invalid date are not loaded"));
+                                             _("Incorrect due date"),
+                                             _("Please make sure the due date in Todo.txt is valid. Tasks with invalid date are not loaded"));
               return FALSE;
             }
           break;
 
         default:
           gtd_manager_emit_error_message (gtd_manager_get_default (),
-                                       _("Unrecognised Token in Todo.Txt line"),
-                                       _("To Do cannot recognise some tags in your todo.txt file.Some tasks may not be loaded"));
+                                       _("Unrecognized token in Todo.txt line"),
+                                       _("To Do cannot recognize some tags in your Todo.txt file. Some tasks may not be loaded"));
           return FALSE;
           break;
         }
@@ -392,8 +392,8 @@ gtd_todo_txt_parser_validate_token_format (GList *tokens)
   if (!task_list_name_tk)
     {
       gtd_manager_emit_error_message (gtd_manager_get_default (),
-                                    _("No Tasklist found for some tasks"),
-                                    _("Some of tasks in your todo.txt file do not have tasklist.To Do supports tasks with Tasklist.Please add list to all your tasks"));
+                                    _("No task list found for some tasks"),
+                                    _("Some of the tasks in your Todo.txt file do not have a task list. To Do supports tasks with a task list. Please add a list to all your tasks"));
       return FALSE;
     }
 

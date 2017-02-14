@@ -100,7 +100,7 @@ gtd_plugin_todo_txt_load_source_monitor (GtdPluginTodoTxt *self)
   if (file_monitor)
     {
       gtd_manager_emit_error_message (gtd_manager_get_default (),
-                                     _("Error opening file monitor.Todo.txt will not be monitored"),
+                                     _("Error while opening the file monitor. Todo.txt will not be monitored"),
                                       file_monitor->message);
       g_clear_error (&file_monitor);
     }
@@ -124,7 +124,7 @@ gtd_plugin_todo_txt_set_default_source (GtdPluginTodoTxt *self)
   if (dir_open_error)
     {
       gtd_manager_emit_error_message (gtd_manager_get_default (),
-                                    _("Error opening default todo.txt directory"),
+                                    _("Error while opening the default Todo.txt directory"),
                                       dir_open_error->message);
 
       g_clear_error (&dir_open_error);
@@ -142,7 +142,7 @@ gtd_plugin_todo_txt_set_default_source (GtdPluginTodoTxt *self)
       if (error)
         {
           gtd_manager_emit_error_message (gtd_manager_get_default (),
-                                        _("Error converting default todo.txt path to uri"),
+                                        _("Error while converting the default Todo.txt path to an URI"),
                                           error->message);
 
           g_clear_error (&error);
@@ -371,7 +371,7 @@ gtd_plugin_todo_txt_init (GtdPluginTodoTxt *self)
                                         "expand", TRUE,
                                         "orientation", GTK_ORIENTATION_VERTICAL,
                                         NULL);
-  label = gtk_label_new (_("Select the Todo.txt-formatted file:"));
+  label = gtk_label_new (_("Select a Todo.txt-formatted file:"));
   frame = gtk_frame_new (NULL);
   self->preferences = gtk_file_chooser_widget_new (GTK_FILE_CHOOSER_ACTION_SAVE);
 
