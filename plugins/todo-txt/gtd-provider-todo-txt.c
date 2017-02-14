@@ -127,11 +127,11 @@ emit_generic_error (GError *error)
 {
   g_warning ("%s: %s: %s",
              G_STRFUNC,
-             _("Error opening Todo.txt"),
+             _("Error while opening Todo.txt"),
              error->message);
 
   gtd_manager_emit_error_message (gtd_manager_get_default (),
-                                  _("Error opening Todo.txt"),
+                                  _("Error while opening Todo.txt"),
                                   error->message);
 }
 
@@ -973,11 +973,11 @@ gtd_provider_todo_txt_remove_task_list (GtdProvider *provider,
         {
           g_warning ("%s: %s: %s",
                      G_STRFUNC,
-                     _("Error reading task-lists from Todo.txt"),
+                     _("Error while reading task lists from Todo.txt"),
                      line_read_error->message);
 
           gtd_manager_emit_error_message (gtd_manager_get_default (),
-                                          _("Error reading task-lists from Todo.txt"),
+                                          _("Error while reading task lists from Todo.txt"),
                                           line_read_error->message);
           g_error_free (line_read_error);
         }

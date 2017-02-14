@@ -374,7 +374,7 @@ gtd_todo_txt_parser_validate_token_format (GList *tokens)
 
         default:
           gtd_manager_emit_error_message (gtd_manager_get_default (),
-                                          _("Unrecognized token in Todo.txt line"),
+                                          _("Unrecognized token in a Todo.txt line"),
                                           _("To Do cannot recognize some tags in your Todo.txt file. Some tasks may not be loaded"));
           return FALSE;
           break;
