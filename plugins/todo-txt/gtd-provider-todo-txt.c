@@ -1093,9 +1093,9 @@ gtd_provider_todo_txt_finalize (GObject *object)
   g_clear_pointer (&self->lists, g_hash_table_destroy);
   g_clear_pointer (&self->root_tasks, g_hash_table_destroy);
   g_clear_pointer (&self->tasklists, g_clear_object);
-  g_clear_pointer (&self->source_file, g_free);
-  g_clear_object (&self->icon);
   g_clear_pointer (&self->source, g_free);
+  g_clear_object (&self->source_file);
+  g_clear_object (&self->icon);
 
   G_OBJECT_CLASS (gtd_provider_todo_txt_parent_class)->finalize (object);
 }
