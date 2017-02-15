@@ -48,6 +48,9 @@ class UnscheduledPanel(Gtk.Box, Gtd.Panel):
         self.view.set_show_list_name(True)
         self.view.set_handle_subtasks(False)
 
+        self.menu = Gio.Menu()
+        self.menu.append(_("Clear completed tasks…"), "list.clear-completed-tasks")
+
         self.add(self.view)
         self.show_all()
 
@@ -77,7 +80,7 @@ class UnscheduledPanel(Gtk.Box, Gtd.Panel):
         return None
 
     def do_get_menu(self):
-        return None
+        return self.menu
 
     def do_get_panel_name(self):
         return "unscheduled-panel"
