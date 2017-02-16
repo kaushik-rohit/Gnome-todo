@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: gnome-todo master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "todo&keywords=I18N+L10N&component=General\n"
-"POT-Creation-Date: 2016-11-22 16:10+0000\n"
-"PO-Revision-Date: 2017-01-27 11:45+0100\n"
+"POT-Creation-Date: 2017-02-14 15:25+0000\n"
+"PO-Revision-Date: 2017-02-14 23:14+0100\n"
 "Last-Translator: Iñaki Larrañaga Murgoitio <dooteo@zundan.com>\n"
 "Language-Team: Basque <librezale@librezale.eus>\n"
 "Language: eu\n"
@@ -31,17 +31,13 @@ msgid "Task manager for GNOME"
 msgstr "GNOMEren Egitekoen kudeatzailea"
 
 #: ../data/appdata/org.gnome.Todo.appdata.xml.in.h:3
-#| msgid ""
-#| "GNOME To Do is a simple task management application designed to integrate "
-#| "with GNOME."
 msgid ""
 "GNOME To Do is a task management application designed to integrate with "
 "GNOME. It is extensible through plugins and supports custom task providers."
 msgstr ""
 "GNOMEren Egitekoak zereginak kudeatzeko aplikazio xume bat da GNOMErekin "
 "bateratzeko diseinatuta. Pluginen bidez bere funtzionalitatea hedatu "
-"dezakezu, "
-"eta zereginen hornitzaile pertsonalizatuak onartzen ditu."
+"dezakezu, eta zereginen hornitzaile pertsonalizatuak onartzen ditu."
 
 #: ../data/appdata/org.gnome.Todo.appdata.xml.in.h:4
 msgid "GNOME To Do with the Dark theme variant"
@@ -60,7 +56,6 @@ msgid "Task lists displayed on list mode"
 msgstr "Zeregin-zerrenda zerrenda moduan bistaratuta"
 
 #: ../data/appdata/org.gnome.Todo.appdata.xml.in.h:8
-#| msgid "First run of GNOME To Do"
 msgid "Available plugins for GNOME To Do"
 msgstr "Plugin erabilgarriak 'GNOMEren Egitekoak'-entzako"
 
@@ -93,7 +88,6 @@ msgid "Manage your personal tasks"
 msgstr "Kudeatu zure zeregin pertsonalak"
 
 #: ../data/org.gnome.Todo.desktop.in.in.h:3
-#| msgid "Task;Productivity;"
 msgid "Task;Productivity;Todo;"
 msgstr "zeregina;eraginkortasuna;produktibitatea;egitekoak;"
 
@@ -126,14 +120,11 @@ msgid "First run of GNOME To Do"
 msgstr "GNOMEren Egitekoak aplikazioaren aurreneko exekuzioa"
 
 #: ../data/org.gnome.todo.gschema.xml.h:8
-#| msgid ""
-#| "Whether it's the first run of GNOME To Do (to run the initial setup) or "
-#| "not"
 msgid ""
 "Whether it’s the first run of GNOME To Do (to run the initial setup) or not"
 msgstr ""
-"GNOMEren Egitekoak aplikazioaren aurreneko "
-"exekuzioa den (hasierako konfigurazioa lantzeko) edo ez."
+"GNOMEren Egitekoak aplikazioaren aurreneko exekuzioa den (hasierako "
+"konfigurazioa lantzeko) edo ez."
 
 #: ../data/org.gnome.todo.gschema.xml.h:9
 msgid "Default provider to add new lists to"
@@ -157,11 +148,10 @@ msgid "The current list selector"
 msgstr "Uneko zerrendaren hautatzailea"
 
 #: ../data/org.gnome.todo.gschema.xml.h:14
-#| msgid "The current list selector. Can be 'grid' or 'list'."
 msgid "The current list selector. Can be “grid” or “list”."
 msgstr ""
-"Uneko zerrendaren hautatzailea: 'grid' (sareta) edo 'list' (zerrenda) "
-"izan daiteke."
+"Uneko zerrendaren hautatzailea: 'grid' (sareta) edo 'list' (zerrenda) izan "
+"daiteke."
 
 #: ../data/ui/edit-pane.ui.h:1 ../plugins/eds/edit-pane.ui.h:10
 msgctxt "taskdate"
@@ -213,13 +203,13 @@ msgstr "Ezabatu"
 #: ../plugins/score/score/__init__.py:95
 #: ../plugins/today-panel/gtd-panel-today.c:135
 #: ../plugins/today-panel/gtd-panel-today.c:140
-#: ../plugins/today-panel/gtd-panel-today.c:308 ../src/gtd-task-row.c:298
+#: ../plugins/today-panel/gtd-panel-today.c:308 ../src/gtd-task-row.c:293
 msgid "Today"
 msgstr "Gaur"
 
 #: ../data/ui/edit-pane.ui.h:12
 #: ../plugins/scheduled-panel/gtd-panel-scheduled.c:91
-#: ../src/gtd-task-row.c:302
+#: ../src/gtd-task-row.c:297
 msgid "Tomorrow"
 msgstr "Bihar"
 
@@ -236,13 +226,13 @@ msgid "Login to online accounts to access your tasks"
 msgstr "Hasi saioa lineako kontuetan zure zereginak atzitzeko"
 
 #: ../data/ui/initial-setup.ui.h:3 ../data/ui/provider-popover.ui.h:2
-#: ../data/ui/window.ui.h:1 ../src/gtd-task-list-view.c:576
-#: ../src/views/gtd-list-selector-panel.c:386
+#: ../data/ui/window.ui.h:1 ../src/gtd-task-list-view.c:612
+#: ../src/views/gtd-list-selector-panel.c:391
 msgid "Cancel"
 msgstr "Utzi"
 
 #: ../data/ui/initial-setup.ui.h:4 ../data/ui/list-view.ui.h:2
-#: ../src/gtd-task-list-view.c:736
+#: ../src/gtd-task-list-view.c:777
 msgid "Done"
 msgstr "Eginda"
 
@@ -251,7 +241,7 @@ msgid "Rename"
 msgstr "Aldatu izena"
 
 #: ../data/ui/list-selector-panel.ui.h:3
-#: ../src/views/gtd-list-selector-panel.c:465
+#: ../src/views/gtd-list-selector-panel.c:470
 msgid "Lists"
 msgstr "Zerrendak"
 
@@ -270,6 +260,10 @@ msgstr "Zerrenda berria"
 #: ../data/ui/list-view.ui.h:1
 msgid "Show or hide completed tasks"
 msgstr "Erakutsi edo ezkutatu burututako zereginak"
+
+#: ../data/ui/new-task-row.ui.h:1
+msgid "New task…"
+msgstr "Zeregin berria…"
 
 #: ../data/ui/plugin-dialog.ui.h:2
 msgid "No extensions found"
@@ -319,10 +313,6 @@ msgstr "Microsoft Exchange"
 msgid "Or you can just store your tasks on this computer"
 msgstr "Edo zure zereginak ordenagailu honetan gorde ditzakezu"
 
-#: ../data/ui/task-row.ui.h:1
-msgid "New task…"
-msgstr "Zeregin berria…"
-
 #: ../plugins/eds/gtd-plugin-eds.c:244 ../plugins/eds/gtd-plugin-eds.c:248
 msgid "Error loading GNOME Online Accounts"
 msgstr "Errorea GNOMEren Lineako Kontuak kargatzean"
@@ -344,8 +334,9 @@ msgid "Task list source successfully connected"
 msgstr "Zereginen zerrendaren iturburura ongi konektatuta"
 
 #: ../plugins/eds/gtd-provider-eds.c:203 ../plugins/eds/gtd-provider-eds.c:208
-msgid "Failed to connect to task list source"
-msgstr "Huts egin du zereginen zerrenden iturburuarekin konektatzean"
+#| msgid "Failed to connect to task list source"
+msgid "Failed to connect to task list"
+msgstr "Huts egin du zereginen zerrendarekin konektatzean"
 
 #: ../plugins/eds/gtd-provider-eds.c:322
 msgid "Failed to prompt for credentials"
@@ -402,12 +393,12 @@ msgid "Error creating new task list"
 msgstr "Errorea zereginen zerrenda berria sortzean"
 
 #: ../plugins/scheduled-panel/gtd-panel-scheduled.c:67
-#: ../src/gtd-edit-pane.c:204 ../src/gtd-task-row.c:328
+#: ../src/gtd-edit-pane.c:217 ../src/gtd-task-row.c:323
 msgid "No date set"
 msgstr "Data ezarri gabe"
 
 #: ../plugins/scheduled-panel/gtd-panel-scheduled.c:83
-#: ../src/gtd-task-row.c:306
+#: ../src/gtd-task-row.c:301
 #, c-format
 msgid "Yesterday"
 msgid_plural "%d days ago"
@@ -423,7 +414,7 @@ msgstr "Planifikatua"
 
 #: ../plugins/scheduled-panel/gtd-panel-scheduled.c:484
 #: ../plugins/today-panel/gtd-panel-today.c:313
-#: ../src/views/gtd-list-selector-panel.c:711
+#: ../src/views/gtd-list-selector-panel.c:716
 msgid "Clear completed tasks…"
 msgstr "Garbitu burututako zereginak…"
 
@@ -431,14 +422,125 @@ msgstr "Garbitu burututako zereginak…"
 msgid "No task completed today"
 msgstr "Gaur ez da zereginik osatu"
 
+#: ../plugins/todo-txt/gtd-plugin-todo-txt.c:103
+msgid "Error while opening the file monitor. Todo.txt will not be monitored"
+msgstr ""
+"Errorea fitxategiaren monitorea irekitzean. “Egitekoak.txt“ fitxategia ez da "
+"monitorizatuko."
+
+#: ../plugins/todo-txt/gtd-plugin-todo-txt.c:127
+msgid "Error while opening the default Todo.txt directory"
+msgstr "Errorea “Egitekoak.txt“-ren direktorio lehenetsia irekitzean"
+
+#: ../plugins/todo-txt/gtd-plugin-todo-txt.c:145
+msgid "Error while converting the default Todo.txt path to an URI"
+msgstr "Errorea “Egitekoak.txt“-en bide-izen lehenetsia URI batean bihurtzean"
+
+#: ../plugins/todo-txt/gtd-plugin-todo-txt.c:162
+msgid "Cannot create todo.txt file"
+msgstr "Ezin da “Egitekoak.txt“ fitxategia sortu"
+
+#: ../plugins/todo-txt/gtd-plugin-todo-txt.c:374
+msgid "Select a Todo.txt-formatted file:"
+msgstr "Hautatu “Egiteakoak.txt“ formateatutako fitxategia:"
+
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:77
+#| msgid "Todo"
+msgid "Todo.txt"
+msgstr "Egitekoak.txt"
+
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:83
+msgid "On the Todo.txt file"
+msgstr "“Egitekoak.txt“ fitxategian"
+
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:130
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:134
+msgid "Error while opening Todo.txt"
+msgstr "Errorea “Egitekoak.txt“ fitxategia irekitzean"
+
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:336
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:340
+msgid "Error while reading a line from Todo.txt"
+msgstr "Errorea “Egitekoak.txt“ fitxategiko lerro bat irakurtzean"
+
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:403
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:407
+msgid "Error while adding a task to Todo.txt"
+msgstr "Errorea “Egitekoak.txt“ fitxategiari zeregin bat gehitzean"
+
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:544
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:548
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:660
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:664
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:864
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:868
+#| msgid "Error fetching tasks from list"
+msgid "Error while reading tasks from Todo.txt"
+msgstr "Errorea zereginak “Egitekoak.txt“ fitxategitik irakurtzean"
+
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:725
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:729
+#| msgid "Error creating task list"
+msgid "Error while creating a Todo.txt list"
+msgstr "Errorea “Egitekoak.txt“ zerrenda sortzean"
+
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:976
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:980
+#| msgid "Error creating task list"
+msgid "Error while reading task lists from Todo.txt"
+msgstr "Errorea zereginen zerrenda “Egitekoak.txt“ fitxategitik irakurtzean"
+
+#: ../plugins/todo-txt/gtd-todo-txt-parser.c:347
+msgid "Incorrect date"
+msgstr "Okerreko data"
+
+#: ../plugins/todo-txt/gtd-todo-txt-parser.c:348
+msgid "Please make sure the date in Todo.txt is valid."
+msgstr "Ziurtatu “Egitekoak.txt“ fitxategiko data baliozkoa dela."
+
+#: ../plugins/todo-txt/gtd-todo-txt-parser.c:377
+msgid "Unrecognized token in a Todo.txt line"
+msgstr "Token ezezaguna “Egitekoak.txt“ fitxategiko lerro batean"
+
+#: ../plugins/todo-txt/gtd-todo-txt-parser.c:378
+msgid ""
+"To Do cannot recognize some tags in your Todo.txt file. Some tasks may not "
+"be loaded"
+msgstr ""
+"“Egitekoak“ aplikazioak ezin ditu “Egitekoak.txt“ fitxategiko etiketa batzuk "
+"ezagutu. "
+"Baliteke zeregin batzuk ezin kargatu izatea"
+
+#: ../plugins/todo-txt/gtd-todo-txt-parser.c:387
+msgid "No task list found for some tasks"
+msgstr "Ez da zereginen zerrendarik aurkitu zeregin batzuentzako"
+
+#: ../plugins/todo-txt/gtd-todo-txt-parser.c:388
+msgid ""
+"Some of the tasks in your Todo.txt file do not have a task list. To Do "
+"supports tasks with a task list. Please add a list to all your tasks"
+msgstr ""
+"Zure “Egitekoak.txt“ fitxategiko zeregin batzuk  ez daukate zereginen "
+"zerrendarik. "
+"“Egitekoak“ aplikazioak zereginen zerrenda dituzten zereginak onartzen ditu. "
+"Gehitu zerrenda bat zure zeregin guztiei."
+
+#: ../plugins/todo-txt/org.gnome.todo.txt.gschema.xml.h:1
+msgid "Todo.txt File"
+msgstr "“Egitekoak.txt“ fitxategia "
+
+#: ../plugins/todo-txt/org.gnome.todo.txt.gschema.xml.h:2
+msgid "Source of the Todo.txt file"
+msgstr "“Egitekoak.txt“ fitxategiaren iturburua"
+
 #. Translators: 'Unscheduled' as in 'Unscheduled tasks'
 #: ../plugins/unscheduled-panel/unscheduled-panel/__init__.py:34
-#: ../plugins/unscheduled-panel/unscheduled-panel/__init__.py:88
+#: ../plugins/unscheduled-panel/unscheduled-panel/__init__.py:89
 msgid "Unscheduled"
 msgstr "Planifikatu gabekoak"
 
 #. Translators: 'Unscheduled' as in 'Unscheduled tasks'
-#: ../plugins/unscheduled-panel/unscheduled-panel/__init__.py:91
+#: ../plugins/unscheduled-panel/unscheduled-panel/__init__.py:92
 #, python-format
 msgid "Unscheduled (%d)"
 msgstr "Planifikatu gabekoak (%d)"
@@ -458,7 +560,6 @@ msgid "translator-credits"
 msgstr "Iñaki Larrañaga Murgoitio <dooteo@zundan.com>"
 
 #: ../src/gtd-empty-list-widget.c:49
-#| msgid "Remove task lists"
 msgid "No more tasks left"
 msgstr "Ez da zeregin gehiagorik falta"
 
@@ -499,7 +600,6 @@ msgid "No tasks found"
 msgstr "Ez da zereginik aurkitu"
 
 #: ../src/gtd-empty-list-widget.c:73
-#| msgid "You can add tasks to lists in the <b>Lists</b> view"
 msgid "You can add tasks using the <b>+</b> above"
 msgstr "Zereginak gehi diezaiekezu gaineko <b>+</b> erabiliz"
 
@@ -511,25 +611,24 @@ msgstr "Errorea osagaia kargatzean"
 msgid "Error unloading plugin"
 msgstr "Errorea osagaia deskargatzean"
 
-#: ../src/gtd-task-list-view.c:570
+#: ../src/gtd-task-list-view.c:606
 msgid "Removing this task will also remove its subtasks. Remove anyway?"
 msgstr "Zeregin hau kentzeak bere azpi-zereginak kenduko ditu. Kendu dena den?"
 
-#: ../src/gtd-task-list-view.c:573
-#| msgid "Once removed, the task lists cannot be recovered."
+#: ../src/gtd-task-list-view.c:609
 msgid "Once removed, the tasks cannot be recovered."
 msgstr "Behin kendutakoan, zereginak ezin izango dira berreskuratu."
 
-#: ../src/gtd-task-list-view.c:578
+#: ../src/gtd-task-list-view.c:614
 msgid "Remove"
 msgstr "Kendu"
 
-#: ../src/gtd-task-list-view.c:627
+#: ../src/gtd-task-list-view.c:663
 #, c-format
 msgid "Task <b>%s</b> removed"
 msgstr "<b>%s</b> zeregina kenduta"
 
-#: ../src/gtd-task-list-view.c:657
+#: ../src/gtd-task-list-view.c:693
 msgid "Undo"
 msgstr "Desegin"
 
@@ -541,7 +640,7 @@ msgstr "Zure zereginen zerrenda kargatzen…"
 msgid "Click a task list to select"
 msgstr "Egin klik zereginen zerrendan hautatzeko"
 
-#: ../src/views/gtd-list-selector-grid-item.c:233
+#: ../src/views/gtd-list-selector-grid-item.c:234
 msgid "No tasks"
 msgstr "Zereginik ez"
 
@@ -549,15 +648,15 @@ msgstr "Zereginik ez"
 msgid "Setting new color for task list"
 msgstr "Zereginen zerrendaren kolore berriaren ezarpena"
 
-#: ../src/views/gtd-list-selector-panel.c:379
+#: ../src/views/gtd-list-selector-panel.c:384
 msgid "Remove the selected task lists?"
 msgstr "Kendu hautatutako zereginen zerrendak?"
 
-#: ../src/views/gtd-list-selector-panel.c:382
+#: ../src/views/gtd-list-selector-panel.c:387
 msgid "Once removed, the task lists cannot be recovered."
 msgstr "Behin kendutakoan, zereginen zerrendak ezin izango dira berreskuratu."
 
-#: ../src/views/gtd-list-selector-panel.c:394
+#: ../src/views/gtd-list-selector-panel.c:399
 msgid "Remove task lists"
 msgstr "Kendu zereginen zerrendak"
 
@@ -570,9 +669,6 @@ msgstr "Kendu zereginen zerrendak"
 
 #~ msgid "unscheduled-panel"
 #~ msgstr "planifikatu gabekoen panela"
-
-#~ msgid "Todo"
-#~ msgstr "Egitekoak"
 
 #~ msgid "Skipping already loaded task list "
 #~ msgstr "Jadanik kargatutako zereginen zerrenda saltatzen "
