@@ -114,62 +114,42 @@ gtd_plugin_todo_txt_load_source_monitor (GtdPluginTodoTxt *self)
 static gboolean
 gtd_plugin_todo_txt_set_default_source (GtdPluginTodoTxt *self)
 {
-  GError *dir_open_error;
-  GDir *default_dir = NULL;
   gchar *default_file;
+  GError *error;
 
-  dir_open_error = NULL;
   default_file = g_strconcat (g_get_user_special_dir (G_USER_DIRECTORY_DOCUMENTS), "todo.txt", NULL);
+  error = NULL;
 
-  if (dir_open_error)
+  self->source = g_filename_to_uri (default_file, NULL, &error);
+  self->source_file = g_file_new_for_uri (default_file);
+
+  if (error)
     {
       gtd_manager_emit_error_message (gtd_manager_get_default (),
-                                      _("Error while opening the default Todo.txt directory"),
-                                      dir_open_error->message);
+                                      _("Error while converting the default Todo.txt path to an URI"),
+                                      error->message);
 
-      g_clear_error (&dir_open_error);
+      g_clear_error (&error);
       return FALSE;
     }
-  else
+
+  if (!g_file_query_exists (self->source_file, NULL))
     {
-      GError *error;
-
-      error = NULL;
-
-      self->source = g_filename_to_uri (default_file, NULL, &error);
-      self->source_file = g_file_new_for_uri (default_file);
+      g_file_create (self->source_file,
+                     G_FILE_CREATE_NONE,
+                     NULL,
+                     &error);
 
       if (error)
         {
           gtd_manager_emit_error_message (gtd_manager_get_default (),
-                                          _("Error while converting the default Todo.txt path to an URI"),
+                                          _("Cannot create Todo.txt file"),
                                           error->message);
 
           g_clear_error (&error);
           return FALSE;
         }
-
-      if (!g_file_query_exists (self->source_file, NULL))
-        {
-          g_file_create (self->source_file,
-                         G_FILE_CREATE_NONE,
-                         NULL,
-                         &error);
-
-          if (error)
-            {
-              gtd_manager_emit_error_message (gtd_manager_get_default (),
-                                              _("Cannot create todo.txt file"),
-                                              error->message);
-
-              g_clear_error (&error);
-              return FALSE;
-            }
-        }
-
-      g_dir_close (default_dir);
     }
-
   return TRUE;
 }
 
