@@ -164,7 +164,7 @@ gtd_plugin_todo_txt_activate (GtdActivatable *activatable)
 
   self = GTD_PLUGIN_TODO_TXT (activatable);
 
-  if (!self->source)
+  if (!self->source || self->source[0] == '\0')
     {
       gboolean set;
       set = gtd_plugin_todo_txt_set_default_source (self);
@@ -240,7 +240,7 @@ gtd_plugin_todo_txt_source_changed_finished_cb (GtdPluginTodoTxt *self)
 
   self->source = g_settings_get_string (self->settings, "file");
 
-  if (!self->source)
+  if (!self->source || self->source[0] == '\0')
     {
       gboolean set;
       set = gtd_plugin_todo_txt_set_default_source (self);
