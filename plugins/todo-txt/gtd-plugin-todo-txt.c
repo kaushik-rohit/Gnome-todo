@@ -33,8 +33,6 @@ struct _GtdPluginTodoTxt
 {
   PeasExtensionBase   parent;
 
-  gchar              *source;
-
   GFile              *source_file;
   GFileMonitor       *monitor;
 
@@ -80,8 +78,7 @@ gtd_plugin_todo_txt_monitor_source (GFileMonitor      *monitor,
 
   g_signal_emit_by_name (self, "provider-removed", provider);
 
-  provider = gtd_provider_todo_txt_new (self->source);
-  self->source_file = g_file_new_for_uri (self->source);
+  provider = gtd_provider_todo_txt_new (self->source_file);
 
   self->providers = g_list_append (self->providers, provider);
   g_signal_emit_by_name (self, "provider-added", provider);
@@ -117,11 +114,10 @@ gtd_plugin_todo_txt_set_default_source (GtdPluginTodoTxt *self)
   gchar *default_file;
   GError *error;
 
-  default_file = g_strconcat (g_get_user_special_dir (G_USER_DIRECTORY_DOCUMENTS), "todo.txt", NULL);
+  default_file = g_build_filename (g_get_user_special_dir (G_USER_DIRECTORY_DOCUMENTS), "todo.txt", NULL);
   error = NULL;
 
-  self->source = g_filename_to_uri (default_file, NULL, &error);
-  self->source_file = g_file_new_for_uri (default_file);
+  default_file = g_filename_to_uri (default_file, NULL, &error);
 
   if (error)
     {
@@ -131,6 +127,10 @@ gtd_plugin_todo_txt_set_default_source (GtdPluginTodoTxt *self)
 
       g_clear_error (&error);
       return FALSE;
+    }
+  else
+    {
+      self->source_file = g_file_new_for_uri (default_file);
     }
 
   if (!g_file_query_exists (self->source_file, NULL))
@@ -161,10 +161,12 @@ gtd_plugin_todo_txt_activate (GtdActivatable *activatable)
 {
   GtdPluginTodoTxt *self;
   GtdProviderTodoTxt *provider;
+  gchar *source;
 
   self = GTD_PLUGIN_TODO_TXT (activatable);
+  source = g_settings_get_string (self->settings, "file");
 
-  if (!self->source || self->source[0] == '\0')
+  if (!source || source[0] == '\0')
     {
       gboolean set;
       set = gtd_plugin_todo_txt_set_default_source (self);
@@ -172,15 +174,19 @@ gtd_plugin_todo_txt_activate (GtdActivatable *activatable)
       if (!set)
         return;
     }
+  else
+    {
+      self->source_file = g_file_new_for_uri (source);
+    }
 
-
-  provider = gtd_provider_todo_txt_new (self->source);
-  self->source_file = g_file_new_for_uri (self->source);
+  provider = gtd_provider_todo_txt_new (self->source_file);
 
   self->providers = g_list_append (self->providers, provider);
   g_signal_emit_by_name (self, "provider-added", provider);
 
   gtd_plugin_todo_txt_load_source_monitor (self);
+
+  g_free (source);
 }
 
 static void
@@ -237,10 +243,11 @@ static void
 gtd_plugin_todo_txt_source_changed_finished_cb (GtdPluginTodoTxt *self)
 {
   GtdProviderTodoTxt *provider;
+  gchar *source;
 
-  self->source = g_settings_get_string (self->settings, "file");
+  source = g_settings_get_string (self->settings, "file");
 
-  if (!self->source || self->source[0] == '\0')
+  if (!source || source[0] == '\0')
     {
       gboolean set;
       set = gtd_plugin_todo_txt_set_default_source (self);
@@ -248,15 +255,19 @@ gtd_plugin_todo_txt_source_changed_finished_cb (GtdPluginTodoTxt *self)
       if(!set)
         return;
     }
+  else
+    {
+      self->source_file = g_file_new_for_uri (source);
+    }
 
-  self->source_file = g_file_new_for_uri (self->source);
-
-  provider = gtd_provider_todo_txt_new (self->source);
+  provider = gtd_provider_todo_txt_new (self->source_file);
   self->providers = g_list_append (self->providers, provider);
 
   gtd_plugin_todo_txt_load_source_monitor (self);
 
   g_signal_emit_by_name (self, "provider-added", provider);
+
+  g_free (source);
 }
 
 static void
@@ -269,7 +280,6 @@ gtd_plugin_todo_txt_source_changed_cb (GtkWidget *preference_panel,
   self = GTD_PLUGIN_TODO_TXT (user_data);
 
   g_clear_object (&self->monitor);
-  g_free (self->source);
   g_clear_object (&self->source_file);
 
   g_settings_set_string (self->settings,
@@ -296,7 +306,6 @@ gtd_plugin_todo_txt_finalize (GObject *object)
   GtdPluginTodoTxt *self = (GtdPluginTodoTxt *) object;
 
   g_clear_object (&self->monitor);
-  g_free (self->source);
   g_clear_object (&self->source_file);
   g_list_free_full (self->providers, g_object_unref);
   self->providers = NULL;
@@ -341,7 +350,6 @@ gtd_plugin_todo_txt_init (GtdPluginTodoTxt *self)
   GtkWidget *label, *frame;
 
   self->settings = g_settings_new ("org.gnome.todo.plugins.todo-txt");
-  self->source = g_settings_get_string (self->settings, "file");
   self->providers = NULL;
 
   /* Preferences */

@@ -29,7 +29,7 @@ G_BEGIN_DECLS
 
 G_DECLARE_FINAL_TYPE (GtdProviderTodoTxt, gtd_provider_todo_txt, GTD, PROVIDER_TODO_TXT, GtdObject)
 
-GtdProviderTodoTxt*    gtd_provider_todo_txt_new                     (gchar          *source);
+GtdProviderTodoTxt*    gtd_provider_todo_txt_new                     (GFile         *source_file);
 
 void                   gtd_provider_todo_txt_set_monitor             (GtdProviderTodoTxt *self,
                                                                       GFileMonitor       *monitor);

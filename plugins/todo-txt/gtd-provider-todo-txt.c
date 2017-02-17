@@ -39,7 +39,6 @@ struct _GtdProviderTodoTxt
   GFileMonitor       *monitor;
   GFile              *source_file;
 
-  gchar              *source;
   GList              *tasklists;
 
   gint                no_of_lines;
@@ -1029,11 +1028,11 @@ gtd_provider_iface_init (GtdProviderInterface *iface)
 }
 
 GtdProviderTodoTxt*
-gtd_provider_todo_txt_new (gchar *source)
+gtd_provider_todo_txt_new (GFile *source_file)
 {
 
   return g_object_new (GTD_TYPE_PROVIDER_TODO_TXT,
-                       "source", source,
+                       "source", source_file,
                        NULL);
 }
 
@@ -1047,7 +1046,6 @@ gtd_provider_todo_txt_finalize (GObject *object)
   g_clear_pointer (&self->tasklists, g_clear_object);
   g_clear_pointer (&self->source_file, g_free);
   g_clear_object (&self->icon);
-  g_clear_pointer (&self->source, g_free);
 
   G_OBJECT_CLASS (gtd_provider_todo_txt_parent_class)->finalize (object);
 }
@@ -1083,7 +1081,7 @@ gtd_provider_todo_txt_get_property (GObject    *object,
       break;
 
     case PROP_SOURCE:
-      g_value_set_string (value, GTD_PROVIDER_TODO_TXT (provider)->source);
+      g_value_set_object (value, GTD_PROVIDER_TODO_TXT (provider)->source_file);
       break;
 
     default:
@@ -1101,8 +1099,7 @@ gtd_provider_todo_txt_set_property (GObject      *object,
   switch (prop_id)
     {
     case PROP_SOURCE:
-      self->source = g_value_dup_string (value);
-      self->source_file = g_file_new_for_uri (self->source);
+      self->source_file = g_value_dup_object (value);
       gtd_provider_todo_txt_load_source (self);
       break;
 
@@ -1122,10 +1119,10 @@ gtd_provider_todo_txt_class_init (GtdProviderTodoTxtClass *klass)
 
   g_object_class_install_property (object_class,
                                    PROP_SOURCE,
-                                   g_param_spec_string ("source",
+                                   g_param_spec_object ("source",
                                                         "Source file",
                                                         "The Todo.txt source file",
-                                                         NULL,
+                                                         G_TYPE_OBJECT,
                                                         G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
 
   g_object_class_override_property (object_class, PROP_DESCRIPTION, "description");
