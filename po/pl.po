@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-todo\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-01-20 22:49+0100\n"
-"PO-Revision-Date: 2017-01-20 22:50+0100\n"
+"POT-Creation-Date: 2017-02-19 21:11+0100\n"
+"PO-Revision-Date: 2017-02-19 21:12+0100\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <community-poland@mozilla.org>\n"
 "Language: pl\n"
@@ -199,13 +199,13 @@ msgstr "Usuń"
 #: ../plugins/score/score/__init__.py:95
 #: ../plugins/today-panel/gtd-panel-today.c:135
 #: ../plugins/today-panel/gtd-panel-today.c:140
-#: ../plugins/today-panel/gtd-panel-today.c:308 ../src/gtd-task-row.c:299
+#: ../plugins/today-panel/gtd-panel-today.c:308 ../src/gtd-task-row.c:293
 msgid "Today"
 msgstr "Dzisiaj"
 
 #: ../data/ui/edit-pane.ui.h:12
 #: ../plugins/scheduled-panel/gtd-panel-scheduled.c:91
-#: ../src/gtd-task-row.c:303
+#: ../src/gtd-task-row.c:297
 msgid "Tomorrow"
 msgstr "Jutro"
 
@@ -222,13 +222,13 @@ msgid "Login to online accounts to access your tasks"
 msgstr "Zalogowanie do kont online umożliwi dostęp do zadań"
 
 #: ../data/ui/initial-setup.ui.h:3 ../data/ui/provider-popover.ui.h:2
-#: ../data/ui/window.ui.h:1 ../src/gtd-task-list-view.c:599
-#: ../src/views/gtd-list-selector-panel.c:388
+#: ../data/ui/window.ui.h:1 ../src/gtd-task-list-view.c:612
+#: ../src/views/gtd-list-selector-panel.c:391
 msgid "Cancel"
 msgstr "Anuluj"
 
 #: ../data/ui/initial-setup.ui.h:4 ../data/ui/list-view.ui.h:2
-#: ../src/gtd-task-list-view.c:764
+#: ../src/gtd-task-list-view.c:777
 msgid "Done"
 msgstr "Gotowe"
 
@@ -237,7 +237,7 @@ msgid "Rename"
 msgstr "Zmień nazwę"
 
 #: ../data/ui/list-selector-panel.ui.h:3
-#: ../src/views/gtd-list-selector-panel.c:467
+#: ../src/views/gtd-list-selector-panel.c:470
 msgid "Lists"
 msgstr "Listy"
 
@@ -256,6 +256,10 @@ msgstr "Nowa lista"
 #: ../data/ui/list-view.ui.h:1
 msgid "Show or hide completed tasks"
 msgstr "Wyświetla lub ukrywa ukończone zadania"
+
+#: ../data/ui/new-task-row.ui.h:1
+msgid "New task…"
+msgstr "Nowe zadanie…"
 
 #: ../data/ui/plugin-dialog.ui.h:2
 msgid "No extensions found"
@@ -305,10 +309,6 @@ msgstr "Microsoft Exchange"
 msgid "Or you can just store your tasks on this computer"
 msgstr "Można też przechowywać zadania na tym komputerze"
 
-#: ../data/ui/task-row.ui.h:1
-msgid "New task…"
-msgstr "Nowe zadanie…"
-
 #: ../plugins/eds/gtd-plugin-eds.c:244 ../plugins/eds/gtd-plugin-eds.c:248
 msgid "Error loading GNOME Online Accounts"
 msgstr "Błąd podczas wczytywania Kont online GNOME"
@@ -330,8 +330,8 @@ msgid "Task list source successfully connected"
 msgstr "Pomyślnie połączono ze źródłem listy zadań"
 
 #: ../plugins/eds/gtd-provider-eds.c:203 ../plugins/eds/gtd-provider-eds.c:208
-msgid "Failed to connect to task list source"
-msgstr "Połączenie ze źródłem listy zadań się nie powiodło"
+msgid "Failed to connect to task list"
+msgstr "Połączenie z listą zadań się nie powiodło"
 
 #: ../plugins/eds/gtd-provider-eds.c:322
 msgid "Failed to prompt for credentials"
@@ -388,12 +388,12 @@ msgid "Error creating new task list"
 msgstr "Błąd podczas tworzenia nowej listy zadań"
 
 #: ../plugins/scheduled-panel/gtd-panel-scheduled.c:67
-#: ../src/gtd-edit-pane.c:217 ../src/gtd-task-row.c:329
+#: ../src/gtd-edit-pane.c:217 ../src/gtd-task-row.c:323
 msgid "No date set"
 msgstr "Nie ustawiono daty"
 
 #: ../plugins/scheduled-panel/gtd-panel-scheduled.c:83
-#: ../src/gtd-task-row.c:307
+#: ../src/gtd-task-row.c:301
 #, c-format
 msgid "Yesterday"
 msgid_plural "%d days ago"
@@ -410,13 +410,116 @@ msgstr "Zaplanowane"
 
 #: ../plugins/scheduled-panel/gtd-panel-scheduled.c:484
 #: ../plugins/today-panel/gtd-panel-today.c:313
-#: ../src/views/gtd-list-selector-panel.c:713
+#: ../src/views/gtd-list-selector-panel.c:716
 msgid "Clear completed tasks…"
 msgstr "Wyczyść ukończone zadania…"
 
 #: ../plugins/score/score/__init__.py:84
 msgid "No task completed today"
 msgstr "Brak zadań ukończonych dzisiaj"
+
+#: ../plugins/todo-txt/gtd-plugin-todo-txt.c:103
+msgid "Error while opening the file monitor. Todo.txt will not be monitored"
+msgstr ""
+"Błąd podczas otwierania monitora plików. Todo.txt nie będzie monitorowane"
+
+#: ../plugins/todo-txt/gtd-plugin-todo-txt.c:127
+msgid "Error while opening the default Todo.txt directory"
+msgstr "Błąd podczas otwierania domyślnego katalogu Todo.txt"
+
+#: ../plugins/todo-txt/gtd-plugin-todo-txt.c:145
+msgid "Error while converting the default Todo.txt path to an URI"
+msgstr "Błąd podczas konwertowania domyślnej ścieżki Todo.txt do adresu URI"
+
+#: ../plugins/todo-txt/gtd-plugin-todo-txt.c:162
+msgid "Cannot create todo.txt file"
+msgstr "Nie można utworzyć pliku Todo.txt"
+
+#: ../plugins/todo-txt/gtd-plugin-todo-txt.c:374
+msgid "Select a Todo.txt-formatted file:"
+msgstr "Proszę wybrać plik sformatowany jako Todo.txt:"
+
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:77
+msgid "Todo.txt"
+msgstr "Todo.txt"
+
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:83
+msgid "On the Todo.txt file"
+msgstr "Na pliku Todo.txt"
+
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:130
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:134
+msgid "Error while opening Todo.txt"
+msgstr "Błąd podczas otwierania Todo.txt"
+
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:336
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:340
+msgid "Error while reading a line from Todo.txt"
+msgstr "Błąd podczas odczytywania wiersza z Todo.txt"
+
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:403
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:407
+msgid "Error while adding a task to Todo.txt"
+msgstr "Błąd podczas dodawania zadania do Todo.txt"
+
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:544
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:548
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:660
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:664
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:864
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:868
+msgid "Error while reading tasks from Todo.txt"
+msgstr "Błąd podczas odczytywania zadań z Todo.txt"
+
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:725
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:729
+msgid "Error while creating a Todo.txt list"
+msgstr "Błąd podczas tworzenia listy Todo.txt"
+
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:976
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:980
+msgid "Error while reading task lists from Todo.txt"
+msgstr "Błąd podczas odczytywania list zadań z Todo.txt"
+
+#: ../plugins/todo-txt/gtd-todo-txt-parser.c:347
+msgid "Incorrect date"
+msgstr "Niepoprawna data"
+
+#: ../plugins/todo-txt/gtd-todo-txt-parser.c:348
+msgid "Please make sure the date in Todo.txt is valid."
+msgstr "Proszę się upewnić, że data w Todo.txt jest prawidłowa."
+
+#: ../plugins/todo-txt/gtd-todo-txt-parser.c:377
+msgid "Unrecognized token in a Todo.txt line"
+msgstr "Nierozpoznany token w wierszu Todo.txt"
+
+#: ../plugins/todo-txt/gtd-todo-txt-parser.c:378
+msgid ""
+"To Do cannot recognize some tags in your Todo.txt file. Some tasks may not "
+"be loaded"
+msgstr ""
+"Menedżer zadań nie może rozpoznać niektórych znaczników w pliku Todo.txt. "
+"Niektóre zadania nie zostaną wczytane"
+
+#: ../plugins/todo-txt/gtd-todo-txt-parser.c:387
+msgid "No task list found for some tasks"
+msgstr "Nie odnaleziono listy zadań dla niektórych zadań"
+
+#: ../plugins/todo-txt/gtd-todo-txt-parser.c:388
+msgid ""
+"Some of the tasks in your Todo.txt file do not have a task list. To Do "
+"supports tasks with a task list. Please add a list to all your tasks"
+msgstr ""
+"Niektóre zadania w pliku Todo.txt nie mają listy zadań. Menedżer zadań "
+"obsługuje zadania z listą zadań. Proszę dodać listę do wszystkich zadań"
+
+#: ../plugins/todo-txt/org.gnome.todo.txt.gschema.xml.h:1
+msgid "Todo.txt File"
+msgstr "Plik Todo.txt"
+
+#: ../plugins/todo-txt/org.gnome.todo.txt.gschema.xml.h:2
+msgid "Source of the Todo.txt file"
+msgstr "Źródło pliku Todo.txt"
 
 #. Translators: 'Unscheduled' as in 'Unscheduled tasks'
 #: ../plugins/unscheduled-panel/unscheduled-panel/__init__.py:34
@@ -498,24 +601,24 @@ msgstr "Błąd podczas wczytywania wtyczki"
 msgid "Error unloading plugin"
 msgstr "Błąd podczas usuwania wtyczki"
 
-#: ../src/gtd-task-list-view.c:593
+#: ../src/gtd-task-list-view.c:606
 msgid "Removing this task will also remove its subtasks. Remove anyway?"
 msgstr "Usunięcie tego zadania usunie także jego podzadania. Usunąć mimo to?"
 
-#: ../src/gtd-task-list-view.c:596
+#: ../src/gtd-task-list-view.c:609
 msgid "Once removed, the tasks cannot be recovered."
 msgstr "Nie można będzie ich przywrócić po usunięciu."
 
-#: ../src/gtd-task-list-view.c:601
+#: ../src/gtd-task-list-view.c:614
 msgid "Remove"
 msgstr "Usuń"
 
-#: ../src/gtd-task-list-view.c:650
+#: ../src/gtd-task-list-view.c:663
 #, c-format
 msgid "Task <b>%s</b> removed"
 msgstr "Usunięto zadanie <b>%s</b>"
 
-#: ../src/gtd-task-list-view.c:680
+#: ../src/gtd-task-list-view.c:693
 msgid "Undo"
 msgstr "Cofnij"
 
@@ -527,7 +630,7 @@ msgstr "Wczytywanie list zadań…"
 msgid "Click a task list to select"
 msgstr "Kliknięcie listy zadań zaznacza ją"
 
-#: ../src/views/gtd-list-selector-grid-item.c:233
+#: ../src/views/gtd-list-selector-grid-item.c:234
 msgid "No tasks"
 msgstr "Brak zadań"
 
@@ -535,14 +638,14 @@ msgstr "Brak zadań"
 msgid "Setting new color for task list"
 msgstr "Ustawianie nowego koloru listy zadań"
 
-#: ../src/views/gtd-list-selector-panel.c:381
+#: ../src/views/gtd-list-selector-panel.c:384
 msgid "Remove the selected task lists?"
 msgstr "Usunąć zaznaczone listy zadań?"
 
-#: ../src/views/gtd-list-selector-panel.c:384
+#: ../src/views/gtd-list-selector-panel.c:387
 msgid "Once removed, the task lists cannot be recovered."
 msgstr "Nie można będzie ich przywrócić po usunięciu."
 
-#: ../src/views/gtd-list-selector-panel.c:396
+#: ../src/views/gtd-list-selector-panel.c:399
 msgid "Remove task lists"
 msgstr "Usuń listy zadań"
