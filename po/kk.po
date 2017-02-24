@@ -6,10 +6,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-todo master\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
+"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "todo&keywords=I18N+L10N&component=General\n"
-"POT-Creation-Date: 2017-02-14 15:25+0000\n"
-"PO-Revision-Date: 2017-02-16 13:01+0500\n"
+"POT-Creation-Date: 2017-02-22 12:09+0000\n"
+"PO-Revision-Date: 2017-02-24 13:12+0500\n"
 "Last-Translator: Baurzhan Muftakhidinov <baurthefirst@gmail.com>\n"
 "Language-Team: Kazakh <kk_KZ@googlegroups.com>\n"
 "Language: kk\n"
@@ -421,24 +421,19 @@ msgstr "Бүгін аяқталған тапсырмалар жоқ"
 msgid "Error while opening the file monitor. Todo.txt will not be monitored"
 msgstr "Файлдық бақылаушыны ашу қатесі. Todo.txt файлы бақыланбайтын болады"
 
-#: ../plugins/todo-txt/gtd-plugin-todo-txt.c:127
-msgid "Error while opening the default Todo.txt directory"
-msgstr "Үнсіз келісім бойынша Todo.txt бумасын ашу сәтсіз"
-
-#: ../plugins/todo-txt/gtd-plugin-todo-txt.c:145
+#: ../plugins/todo-txt/gtd-plugin-todo-txt.c:129
 msgid "Error while converting the default Todo.txt path to an URI"
 msgstr "Todo.txt бастапқы орналасуын URI ретінде түрлендіру қатесі"
 
-#: ../plugins/todo-txt/gtd-plugin-todo-txt.c:162
-msgid "Cannot create todo.txt file"
+#: ../plugins/todo-txt/gtd-plugin-todo-txt.c:146
+msgid "Cannot create Todo.txt file"
 msgstr "Todo.txt файлын жасау мүмкін емес"
 
-#: ../plugins/todo-txt/gtd-plugin-todo-txt.c:374
+#: ../plugins/todo-txt/gtd-plugin-todo-txt.c:354
 msgid "Select a Todo.txt-formatted file:"
 msgstr "Todo.txt-пішімделген файлын таңдаңыз:"
 
 #: ../plugins/todo-txt/gtd-provider-todo-txt.c:77
-#| msgid "Todo"
 msgid "Todo.txt"
 msgstr "Todo.txt"
 
@@ -649,6 +644,9 @@ msgstr "Өшірілсе, тапсырмалар тізімін қалпына �
 #: ../src/views/gtd-list-selector-panel.c:399
 msgid "Remove task lists"
 msgstr "Тапсырмалар тізімдерін өшіру"
+
+#~ msgid "Error while opening the default Todo.txt directory"
+#~ msgstr "Үнсіз келісім бойынша Todo.txt бумасын ашу сәтсіз"
 
 #~ msgid "Select the default storage location to create task lists:"
 #~ msgstr ""
