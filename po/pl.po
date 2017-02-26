@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-todo\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-19 21:11+0100\n"
-"PO-Revision-Date: 2017-02-19 21:12+0100\n"
+"POT-Creation-Date: 2017-02-26 20:40+0100\n"
+"PO-Revision-Date: 2017-02-26 20:41+0100\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <community-poland@mozilla.org>\n"
 "Language: pl\n"
@@ -418,66 +418,62 @@ msgstr "Wyczyść ukończone zadania…"
 msgid "No task completed today"
 msgstr "Brak zadań ukończonych dzisiaj"
 
-#: ../plugins/todo-txt/gtd-plugin-todo-txt.c:103
+#: ../plugins/todo-txt/gtd-plugin-todo-txt.c:100
 msgid "Error while opening the file monitor. Todo.txt will not be monitored"
 msgstr ""
 "Błąd podczas otwierania monitora plików. Todo.txt nie będzie monitorowane"
 
-#: ../plugins/todo-txt/gtd-plugin-todo-txt.c:127
-msgid "Error while opening the default Todo.txt directory"
-msgstr "Błąd podczas otwierania domyślnego katalogu Todo.txt"
-
-#: ../plugins/todo-txt/gtd-plugin-todo-txt.c:145
+#: ../plugins/todo-txt/gtd-plugin-todo-txt.c:125
 msgid "Error while converting the default Todo.txt path to an URI"
 msgstr "Błąd podczas konwertowania domyślnej ścieżki Todo.txt do adresu URI"
 
-#: ../plugins/todo-txt/gtd-plugin-todo-txt.c:162
-msgid "Cannot create todo.txt file"
+#: ../plugins/todo-txt/gtd-plugin-todo-txt.c:146
+msgid "Cannot create Todo.txt file"
 msgstr "Nie można utworzyć pliku Todo.txt"
 
-#: ../plugins/todo-txt/gtd-plugin-todo-txt.c:374
+#: ../plugins/todo-txt/gtd-plugin-todo-txt.c:362
 msgid "Select a Todo.txt-formatted file:"
 msgstr "Proszę wybrać plik sformatowany jako Todo.txt:"
 
-#: ../plugins/todo-txt/gtd-provider-todo-txt.c:77
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:76
 msgid "Todo.txt"
 msgstr "Todo.txt"
 
-#: ../plugins/todo-txt/gtd-provider-todo-txt.c:83
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:82
 msgid "On the Todo.txt file"
 msgstr "Na pliku Todo.txt"
 
-#: ../plugins/todo-txt/gtd-provider-todo-txt.c:130
-#: ../plugins/todo-txt/gtd-provider-todo-txt.c:134
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:129
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:133
 msgid "Error while opening Todo.txt"
 msgstr "Błąd podczas otwierania Todo.txt"
 
-#: ../plugins/todo-txt/gtd-provider-todo-txt.c:336
-#: ../plugins/todo-txt/gtd-provider-todo-txt.c:340
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:335
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:339
 msgid "Error while reading a line from Todo.txt"
 msgstr "Błąd podczas odczytywania wiersza z Todo.txt"
 
-#: ../plugins/todo-txt/gtd-provider-todo-txt.c:403
-#: ../plugins/todo-txt/gtd-provider-todo-txt.c:407
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:402
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:406
 msgid "Error while adding a task to Todo.txt"
 msgstr "Błąd podczas dodawania zadania do Todo.txt"
 
-#: ../plugins/todo-txt/gtd-provider-todo-txt.c:544
-#: ../plugins/todo-txt/gtd-provider-todo-txt.c:548
-#: ../plugins/todo-txt/gtd-provider-todo-txt.c:660
-#: ../plugins/todo-txt/gtd-provider-todo-txt.c:664
-#: ../plugins/todo-txt/gtd-provider-todo-txt.c:864
-#: ../plugins/todo-txt/gtd-provider-todo-txt.c:868
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:543
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:547
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:659
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:663
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:863
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:867
 msgid "Error while reading tasks from Todo.txt"
 msgstr "Błąd podczas odczytywania zadań z Todo.txt"
 
-#: ../plugins/todo-txt/gtd-provider-todo-txt.c:725
-#: ../plugins/todo-txt/gtd-provider-todo-txt.c:729
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:724
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:728
 msgid "Error while creating a Todo.txt list"
 msgstr "Błąd podczas tworzenia listy Todo.txt"
 
-#: ../plugins/todo-txt/gtd-provider-todo-txt.c:976
-#: ../plugins/todo-txt/gtd-provider-todo-txt.c:980
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:975
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:979
 msgid "Error while reading task lists from Todo.txt"
 msgstr "Błąd podczas odczytywania list zadań z Todo.txt"
 
