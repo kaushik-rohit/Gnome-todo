@@ -8,10 +8,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-todo.master\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
+"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "todo&keywords=I18N+L10N&component=General\n"
-"POT-Creation-Date: 2017-02-14 15:37+0000\n"
-"PO-Revision-Date: 2017-02-15 11:31+0100\n"
+"POT-Creation-Date: 2017-02-22 12:09+0000\n"
+"PO-Revision-Date: 2017-02-27 10:06+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: es <gnome-es-list@gnome.org>\n"
 "Language: \n"
@@ -425,21 +425,16 @@ msgid "Error while opening the file monitor. Todo.txt will not be monitored"
 msgstr ""
 "Error al abrir el archivo de monitorización. Todo.txt no se monitorizará"
 
-#: ../plugins/todo-txt/gtd-plugin-todo-txt.c:127
-#| msgid "Error opening default todo.txt directory"
-msgid "Error while opening the default Todo.txt directory"
-msgstr "Error al abrir la carpeta predeterminada de Todo.txt."
-
-#: ../plugins/todo-txt/gtd-plugin-todo-txt.c:145
-#| msgid "Error converting default todo.txt path to uri"
+#: ../plugins/todo-txt/gtd-plugin-todo-txt.c:129
 msgid "Error while converting the default Todo.txt path to an URI"
 msgstr "Error al convertir la ruta predeterminada de Todo.txt a un URI"
 
-#: ../plugins/todo-txt/gtd-plugin-todo-txt.c:162
-msgid "Cannot create todo.txt file"
-msgstr "No se puede crear el archivo todo.txt"
+#: ../plugins/todo-txt/gtd-plugin-todo-txt.c:146
+#| msgid "Cannot create todo.txt file"
+msgid "Cannot create Todo.txt file"
+msgstr "No se puede crear el archivo Todo.txt"
 
-#: ../plugins/todo-txt/gtd-plugin-todo-txt.c:374
+#: ../plugins/todo-txt/gtd-plugin-todo-txt.c:354
 msgid "Select a Todo.txt-formatted file:"
 msgstr "Seleccione un archivo con formato Todo.txt:"
 
@@ -453,19 +448,16 @@ msgstr "En el archivo Todo.txt"
 
 #: ../plugins/todo-txt/gtd-provider-todo-txt.c:130
 #: ../plugins/todo-txt/gtd-provider-todo-txt.c:134
-#| msgid "Error opening Todo.txt"
 msgid "Error while opening Todo.txt"
 msgstr "Erro al abrir Todo.txt"
 
 #: ../plugins/todo-txt/gtd-provider-todo-txt.c:336
 #: ../plugins/todo-txt/gtd-provider-todo-txt.c:340
-#| msgid "Error reading line from Todo.txt"
 msgid "Error while reading a line from Todo.txt"
 msgstr "Error al leer una línea de Todo.txt"
 
 #: ../plugins/todo-txt/gtd-provider-todo-txt.c:403
 #: ../plugins/todo-txt/gtd-provider-todo-txt.c:407
-#| msgid "Error adding task to Todo.txt"
 msgid "Error while adding a task to Todo.txt"
 msgstr "Error al añadir una tarea a Todo.txt"
 
@@ -480,13 +472,11 @@ msgstr "Error al leer las tareas de Todo.txt"
 
 #: ../plugins/todo-txt/gtd-provider-todo-txt.c:725
 #: ../plugins/todo-txt/gtd-provider-todo-txt.c:729
-#| msgid "Error creating Todo.txt list"
 msgid "Error while creating a Todo.txt list"
 msgstr "Error al crear una lista Todo.txt"
 
 #: ../plugins/todo-txt/gtd-provider-todo-txt.c:976
 #: ../plugins/todo-txt/gtd-provider-todo-txt.c:980
-#| msgid "Error while reading tasks from Todo.txt"
 msgid "Error while reading task lists from Todo.txt"
 msgstr "Error al leer las tareas de Todo.txt"
 
@@ -499,7 +489,6 @@ msgid "Please make sure the date in Todo.txt is valid."
 msgstr "Asegúrese de que la fecha en Todo.txt es válida."
 
 #: ../plugins/todo-txt/gtd-todo-txt-parser.c:377
-#| msgid "Unrecognized token in Todo.txt line"
 msgid "Unrecognized token in a Todo.txt line"
 msgstr "Testigo no reconocido en la línea de Todo.txt"
 
@@ -659,6 +648,10 @@ msgstr "Una vez eliminada, la lista de tareas no se podrá recuperar."
 #: ../src/views/gtd-list-selector-panel.c:399
 msgid "Remove task lists"
 msgstr "Eliminar lista de tareas"
+
+#~| msgid "Error opening default todo.txt directory"
+#~ msgid "Error while opening the default Todo.txt directory"
+#~ msgstr "Error al abrir la carpeta predeterminada de Todo.txt."
 
 #~| msgid "Error loading CSS from resource"
 #~ msgid "Error reading line from todo.txt"
