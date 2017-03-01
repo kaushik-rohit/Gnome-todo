@@ -42,12 +42,10 @@ class UnscheduledPanel(Gtk.Box, Gtd.Panel):
         manager.connect('list-removed', self._count_tasks)
 
         self.task_counter = 0
-        self.tasklist = Gtd.TaskList()
 
         self.view = Gtd.TaskListView(hexpand=True,
                                      vexpand=True)
         self.view.set_show_list_name(True)
-        self.view.set_task_list(self.tasklist)
         self.view.set_handle_subtasks(False)
 
         self.add(self.view)
@@ -61,15 +59,16 @@ class UnscheduledPanel(Gtk.Box, Gtd.Panel):
         self.task_counter = 0
 
         manager = Gtd.Manager.get_default()
-        current_tasks = self.tasklist.get_tasks()
+        current_tasks = []
 
         for tasklist in manager.get_task_lists():
             for task in tasklist.get_tasks():
                 if task.get_due_date() is None:
-                    if not task in current_tasks:
-                        self.tasklist.save_task(task)
+                    current_tasks.append(task)
                     if not task.get_complete():
                         self.task_counter += 1
+
+        self.view.set_list(current_tasks)
 
         if previous_task_counter != self.task_counter:
             self.notify("title")
