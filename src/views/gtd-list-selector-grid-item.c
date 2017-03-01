@@ -142,7 +142,7 @@ gtd_list_selector_grid_item__render_thumbnail (GtdListSelectorGridItem *item)
 
   pango_layout_set_font_description (layout, font_desc);
   pango_layout_set_ellipsize (layout, PANGO_ELLIPSIZE_END);
-  pango_layout_set_width (layout, width * PANGO_SCALE * scale_factor);
+  pango_layout_set_width (layout, width * PANGO_SCALE);
 
   /*
    * If the list exists and it's first element is a completed task,
@@ -196,7 +196,7 @@ gtd_list_selector_grid_item__render_thumbnail (GtdListSelectorGridItem *item)
            * If we reach the last visible row, it should draw a
            * "…" mark and stop drawing anything else
            */
-          if (y + font_height + 4 + margin.bottom + padding.bottom > THUMBNAIL_SIZE)
+          if (y + font_height + 4 + margin.bottom + padding.bottom > THUMBNAIL_SIZE * scale_factor)
             {
               pango_layout_set_text (layout,
                                      "…",
