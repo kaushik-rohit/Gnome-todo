@@ -1,17 +1,17 @@
 # Danish translation for gnome-todo.
-# Copyright (C) 2015-2016 gnome-todo's developers
+# Copyright (C) 2015-2017 gnome-todo's developers
 # This file is distributed under the same license as the gnome-todo package.
 #
-# Ask Hjorth Larsen <asklarsen@gmail.com>, 2015, 2016.
+# Ask Hjorth Larsen <asklarsen@gmail.com>, 2015, 2016, 2017.
 # scootergrisen, 2016.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-todo master\n"
-"Report-Msgid-Bugs-To: "
-"http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-todo&keywords=I18N+L10N&component=General\n"
-"POT-Creation-Date: 2016-11-22 16:10+0000\n"
-"PO-Revision-Date: 2016-09-13 01:26+0200\n"
+"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
+"todo&keywords=I18N+L10N&component=General\n"
+"POT-Creation-Date: 2017-02-22 12:09+0000\n"
+"PO-Revision-Date: 2017-03-02 11:59+0100\n"
 "Last-Translator: scootergrisen\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
 "Language: da\n"
@@ -33,42 +33,34 @@ msgid "Task manager for GNOME"
 msgstr "Opgavehåndtering til GNOME"
 
 #: ../data/appdata/org.gnome.Todo.appdata.xml.in.h:3
-#, fuzzy
-#| msgid ""
-#| "GNOME To Do is a simple task management application designed to integrate "
-#| "with GNOME."
 msgid ""
 "GNOME To Do is a task management application designed to integrate with "
 "GNOME. It is extensible through plugins and supports custom task providers."
-msgstr ""
-"GNOME To Do er et simpelt program til opgavehåndtering, designet integreret "
-"med GNOME."
+msgstr "GNOME To Do er et simpelt program til opgavehåndtering, designet til integrering med GNOME. Det understøtter udvidelsesmoduler og brugertilpassede opgaveudbydere."
 
 #: ../data/appdata/org.gnome.Todo.appdata.xml.in.h:4
 msgid "GNOME To Do with the Dark theme variant"
-msgstr ""
+msgstr "GNOME To Do med mørk temavariant"
 
 #: ../data/appdata/org.gnome.Todo.appdata.xml.in.h:5
 msgid "Editing a tasklist with GNOME To Do"
-msgstr ""
+msgstr "Redigerer en opgaveliste med GNOME To Do"
 
 #: ../data/appdata/org.gnome.Todo.appdata.xml.in.h:6
 msgid "Task lists displayed on grid mode"
-msgstr ""
+msgstr "Opgavelister vises i gittertilstand"
 
 #: ../data/appdata/org.gnome.Todo.appdata.xml.in.h:7
 msgid "Task lists displayed on list mode"
-msgstr ""
+msgstr "Opgavelister vises i listetilstand"
 
 #: ../data/appdata/org.gnome.Todo.appdata.xml.in.h:8
-#, fuzzy
-#| msgid "First run of GNOME To Do"
 msgid "Available plugins for GNOME To Do"
-msgstr "Først kørsel af GNOME To Do"
+msgstr "Tilgængelige udvidelsesmoduler for GNOME To Do"
 
 #: ../data/appdata/org.gnome.Todo.appdata.xml.in.h:9
 msgid "Visualizing tasks for today on GNOME To Do’s Today panel"
-msgstr ""
+msgstr "Visualiserer dagens opgaver i GNOME To Dos \"I dag\"-panel"
 
 #: ../data/gtk/menus.ui.h:1
 msgid "New List…"
@@ -95,10 +87,8 @@ msgid "Manage your personal tasks"
 msgstr "Håndtér dine personlige opgaver"
 
 #: ../data/org.gnome.Todo.desktop.in.in.h:3
-#, fuzzy
-#| msgid "Task;Productivity;"
 msgid "Task;Productivity;Todo;"
-msgstr "Opgave;Produktivitet;"
+msgstr "Opgave;Produktivitet;Todo;"
 
 #: ../data/org.gnome.todo.gschema.xml.h:1
 msgid "Window maximized"
@@ -209,19 +199,19 @@ msgstr "Slet"
 #: ../plugins/score/score/__init__.py:95
 #: ../plugins/today-panel/gtd-panel-today.c:135
 #: ../plugins/today-panel/gtd-panel-today.c:140
-#: ../plugins/today-panel/gtd-panel-today.c:308 ../src/gtd-task-row.c:298
+#: ../plugins/today-panel/gtd-panel-today.c:308 ../src/gtd-task-row.c:293
 msgid "Today"
 msgstr "I dag"
 
 #: ../data/ui/edit-pane.ui.h:12
 #: ../plugins/scheduled-panel/gtd-panel-scheduled.c:91
-#: ../src/gtd-task-row.c:302
+#: ../src/gtd-task-row.c:297
 msgid "Tomorrow"
 msgstr "I morgen"
 
 #: ../data/ui/edit-pane.ui.h:13
 msgid "Next Week"
-msgstr ""
+msgstr "Næste uge"
 
 #: ../data/ui/initial-setup.ui.h:1
 msgid "Welcome"
@@ -232,13 +222,13 @@ msgid "Login to online accounts to access your tasks"
 msgstr "Log ind på onlinekonti og tilgå dine opgaver"
 
 #: ../data/ui/initial-setup.ui.h:3 ../data/ui/provider-popover.ui.h:2
-#: ../data/ui/window.ui.h:1 ../src/gtd-task-list-view.c:576
-#: ../src/views/gtd-list-selector-panel.c:386
+#: ../data/ui/window.ui.h:1 ../src/gtd-task-list-view.c:612
+#: ../src/views/gtd-list-selector-panel.c:391
 msgid "Cancel"
 msgstr "Annullér"
 
 #: ../data/ui/initial-setup.ui.h:4 ../data/ui/list-view.ui.h:2
-#: ../src/gtd-task-list-view.c:736
+#: ../src/gtd-task-list-view.c:777
 msgid "Done"
 msgstr "Færdig"
 
@@ -247,7 +237,7 @@ msgid "Rename"
 msgstr "Omdøb"
 
 #: ../data/ui/list-selector-panel.ui.h:3
-#: ../src/views/gtd-list-selector-panel.c:465
+#: ../src/views/gtd-list-selector-panel.c:470
 msgid "Lists"
 msgstr "Lister"
 
@@ -266,6 +256,10 @@ msgstr "Ny liste"
 #: ../data/ui/list-view.ui.h:1
 msgid "Show or hide completed tasks"
 msgstr "Vis eller skjul færdiggjorte opgaver"
+
+#: ../data/ui/new-task-row.ui.h:1
+msgid "New task…"
+msgstr "Ny opgave …"
 
 #: ../data/ui/plugin-dialog.ui.h:2
 msgid "No extensions found"
@@ -315,10 +309,6 @@ msgstr "Microsoft Exchange"
 msgid "Or you can just store your tasks on this computer"
 msgstr "Eller du kan blot gemme dine opgaver på denne computer"
 
-#: ../data/ui/task-row.ui.h:1
-msgid "New task…"
-msgstr "Ny opgave …"
-
 #: ../plugins/eds/gtd-plugin-eds.c:244 ../plugins/eds/gtd-plugin-eds.c:248
 msgid "Error loading GNOME Online Accounts"
 msgstr "Fejl ved indlæsning af GNOME Onlinekonti"
@@ -340,8 +330,8 @@ msgid "Task list source successfully connected"
 msgstr "Opgavelistekilde tilsluttet"
 
 #: ../plugins/eds/gtd-provider-eds.c:203 ../plugins/eds/gtd-provider-eds.c:208
-msgid "Failed to connect to task list source"
-msgstr "Kunne ikke forbinde til opgavelistekilde"
+msgid "Failed to connect to task list"
+msgstr "Kunne ikke forbinde til opgaveliste"
 
 #: ../plugins/eds/gtd-provider-eds.c:322
 msgid "Failed to prompt for credentials"
@@ -398,12 +388,12 @@ msgid "Error creating new task list"
 msgstr "Fejl ved oprettelse af ny opgaveliste"
 
 #: ../plugins/scheduled-panel/gtd-panel-scheduled.c:67
-#: ../src/gtd-edit-pane.c:204 ../src/gtd-task-row.c:328
+#: ../src/gtd-edit-pane.c:217 ../src/gtd-task-row.c:323
 msgid "No date set"
 msgstr "Ingen dato angivet"
 
 #: ../plugins/scheduled-panel/gtd-panel-scheduled.c:83
-#: ../src/gtd-task-row.c:306
+#: ../src/gtd-task-row.c:301
 #, c-format
 msgid "Yesterday"
 msgid_plural "%d days ago"
@@ -419,7 +409,7 @@ msgstr "Planlagt"
 
 #: ../plugins/scheduled-panel/gtd-panel-scheduled.c:484
 #: ../plugins/today-panel/gtd-panel-today.c:313
-#: ../src/views/gtd-list-selector-panel.c:711
+#: ../src/views/gtd-list-selector-panel.c:716
 msgid "Clear completed tasks…"
 msgstr "Ryd færdiggjorte opgaver …"
 
@@ -427,14 +417,109 @@ msgstr "Ryd færdiggjorte opgaver …"
 msgid "No task completed today"
 msgstr "Ingen opgave fuldført i dag"
 
+#: ../plugins/todo-txt/gtd-plugin-todo-txt.c:103
+msgid "Error while opening the file monitor. Todo.txt will not be monitored"
+msgstr "Fejl ved åbning af filovervågning. Todo.txt vil ikke blive overvåget"
+
+#: ../plugins/todo-txt/gtd-plugin-todo-txt.c:129
+msgid "Error while converting the default Todo.txt path to an URI"
+msgstr "Fejl ved konvertering af standardstien for Todo.txt til en URI"
+
+#: ../plugins/todo-txt/gtd-plugin-todo-txt.c:146
+msgid "Cannot create Todo.txt file"
+msgstr "Kan ikke oprette filen Todo.txt"
+
+#: ../plugins/todo-txt/gtd-plugin-todo-txt.c:354
+msgid "Select a Todo.txt-formatted file:"
+msgstr "Vælg en Todo.txt-formateret fil:"
+
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:77
+msgid "Todo.txt"
+msgstr "Todo.txt"
+
+# ????????????????????
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:83
+msgid "On the Todo.txt file"
+msgstr "På Todo.txt-filen"
+
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:130
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:134
+msgid "Error while opening Todo.txt"
+msgstr "Fejl ved åbning af Todo.txt"
+
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:336
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:340
+msgid "Error while reading a line from Todo.txt"
+msgstr "Fejl ved læsning af en linje fra Todo.txt"
+
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:403
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:407
+msgid "Error while adding a task to Todo.txt"
+msgstr "Fejl ved tilføjelse af en opgave til Todo.txt"
+
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:544
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:548
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:660
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:664
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:864
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:868
+msgid "Error while reading tasks from Todo.txt"
+msgstr "Fejl ved læsning af opgaver fra Todo.txt"
+
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:725
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:729
+msgid "Error while creating a Todo.txt list"
+msgstr "Fejl ved oprettelse af Todo.txt-liste"
+
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:976
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:980
+msgid "Error while reading task lists from Todo.txt"
+msgstr "Fejl ved læsning af opgaveliste fra Todo.txt"
+
+#: ../plugins/todo-txt/gtd-todo-txt-parser.c:347
+msgid "Incorrect date"
+msgstr "Forkert dato"
+
+#: ../plugins/todo-txt/gtd-todo-txt-parser.c:348
+msgid "Please make sure the date in Todo.txt is valid."
+msgstr "Sikr dig venligst at datoen i Todo.txt er gyldig."
+
+#: ../plugins/todo-txt/gtd-todo-txt-parser.c:377
+msgid "Unrecognized token in a Todo.txt line"
+msgstr "Ukendt symbol i en Todo.txt-linje"
+
+#: ../plugins/todo-txt/gtd-todo-txt-parser.c:378
+msgid ""
+"To Do cannot recognize some tags in your Todo.txt file. Some tasks may not "
+"be loaded"
+msgstr "To Do kan ikke genkende visse mærker i din Todo.txt-fil. Nogle opgaver kan måske ikke indlæses"
+
+#: ../plugins/todo-txt/gtd-todo-txt-parser.c:387
+msgid "No task list found for some tasks"
+msgstr "Ingen opgaveliste fundet for visse opgaver"
+
+#: ../plugins/todo-txt/gtd-todo-txt-parser.c:388
+msgid ""
+"Some of the tasks in your Todo.txt file do not have a task list. To Do "
+"supports tasks with a task list. Please add a list to all your tasks"
+msgstr "Nogle af opgaverne i din Todo.txt-fil har ikke nogen opgaveliste. To Do understøtter opgaver med en opgaveliste. Tilføj venligst en liste for alle opgaverne"
+
+#: ../plugins/todo-txt/org.gnome.todo.txt.gschema.xml.h:1
+msgid "Todo.txt File"
+msgstr "Todo.txt-fil"
+
+#: ../plugins/todo-txt/org.gnome.todo.txt.gschema.xml.h:2
+msgid "Source of the Todo.txt file"
+msgstr "Kilde for Todo.txt-filen"
+
 #. Translators: 'Unscheduled' as in 'Unscheduled tasks'
 #: ../plugins/unscheduled-panel/unscheduled-panel/__init__.py:34
-#: ../plugins/unscheduled-panel/unscheduled-panel/__init__.py:88
+#: ../plugins/unscheduled-panel/unscheduled-panel/__init__.py:89
 msgid "Unscheduled"
 msgstr "Ikke planlagt"
 
 #. Translators: 'Unscheduled' as in 'Unscheduled tasks'
-#: ../plugins/unscheduled-panel/unscheduled-panel/__init__.py:91
+#: ../plugins/unscheduled-panel/unscheduled-panel/__init__.py:92
 #, python-format
 msgid "Unscheduled (%d)"
 msgstr "Ikke planlagt (%d)"
@@ -459,52 +544,58 @@ msgstr ""
 "Mere info: http://www.dansk-gruppen.dk"
 
 #: ../src/gtd-empty-list-widget.c:49
-#, fuzzy
-#| msgid "Remove task lists"
 msgid "No more tasks left"
-msgstr "Fjern opgavelister"
+msgstr "Der er ikke flere opgaver"
 
 #: ../src/gtd-empty-list-widget.c:50
 msgid "Nothing else to do here"
-msgstr ""
+msgstr "Intet andet at gøre her"
 
 #: ../src/gtd-empty-list-widget.c:51
 msgid "You made it!"
-msgstr ""
+msgstr "Du klarede det!"
 
 #: ../src/gtd-empty-list-widget.c:52
 msgid "Looks like there’s nothing else left here"
-msgstr ""
+msgstr "Der ser ikke ud til at være mere tilbage her"
 
 #: ../src/gtd-empty-list-widget.c:57
 msgid "Get some rest now"
-msgstr ""
+msgstr "Nu kan du tage en slapper"
 
 #: ../src/gtd-empty-list-widget.c:58
 msgid "Enjoy the rest of your day"
-msgstr ""
+msgstr "Hav en fortsat god dag"
 
 #: ../src/gtd-empty-list-widget.c:59
 msgid "Good job!"
-msgstr ""
+msgstr "Godt gået!"
 
+# Disse er tilfældigt udvalgte meddelelser, så en vis kunstnerisk frihed kan tages
+#
+# const gchar *subtitles[] =
+# {
+#   N_("Get some rest now"),
+#   N_("Enjoy the rest of your day"),
+#   N_("Good job!"),
+#   N_("Meanwhile, spread the love"),
+#   N_("Working hard is always rewarded")
+# };
 #: ../src/gtd-empty-list-widget.c:60
 msgid "Meanwhile, spread the love"
-msgstr ""
+msgstr "Bred ymer!"
 
 #: ../src/gtd-empty-list-widget.c:61
 msgid "Working hard is always rewarded"
-msgstr ""
+msgstr "Hårdt arbejde belønnes altid"
 
 #: ../src/gtd-empty-list-widget.c:72
 msgid "No tasks found"
 msgstr "Ingen opgaver fundet"
 
 #: ../src/gtd-empty-list-widget.c:73
-#, fuzzy
-#| msgid "You can add tasks to lists in the <b>Lists</b> view"
 msgid "You can add tasks using the <b>+</b> above"
-msgstr "Du kan føje opgaver til lister i visningen <b>Lister</b>"
+msgstr "Du kan tilføje opgaver ved hjælp af <b>+</b> ovenfor"
 
 #: ../src/gtd-plugin-dialog-row.c:95
 msgid "Error loading plugin"
@@ -514,26 +605,24 @@ msgstr "Fejl ved start af plugin"
 msgid "Error unloading plugin"
 msgstr "Fejl ved stop af plugin"
 
-#: ../src/gtd-task-list-view.c:570
+#: ../src/gtd-task-list-view.c:606
 msgid "Removing this task will also remove its subtasks. Remove anyway?"
-msgstr ""
+msgstr "Fjernelse af denne opgave vil også fjerne dens underopgaver. Fjern alligevel?"
 
-#: ../src/gtd-task-list-view.c:573
-#, fuzzy
-#| msgid "Once removed, the task lists cannot be recovered."
+#: ../src/gtd-task-list-view.c:609
 msgid "Once removed, the tasks cannot be recovered."
-msgstr "Når de er fjernet, kan de ikke gendannes."
+msgstr "Når opgaverne er fjernet, kan de ikke gendannes."
 
-#: ../src/gtd-task-list-view.c:578
+#: ../src/gtd-task-list-view.c:614
 msgid "Remove"
-msgstr ""
+msgstr "Fjern"
 
-#: ../src/gtd-task-list-view.c:627
+#: ../src/gtd-task-list-view.c:663
 #, c-format
 msgid "Task <b>%s</b> removed"
 msgstr "Opgaven <b>%s</b> fjernet"
 
-#: ../src/gtd-task-list-view.c:657
+#: ../src/gtd-task-list-view.c:693
 msgid "Undo"
 msgstr "Fortryd"
 
@@ -545,7 +634,7 @@ msgstr "Indlæser dine opgavelister …"
 msgid "Click a task list to select"
 msgstr "Klik på en opgaveliste for at markere"
 
-#: ../src/views/gtd-list-selector-grid-item.c:233
+#: ../src/views/gtd-list-selector-grid-item.c:234
 msgid "No tasks"
 msgstr "Ingen opgaver"
 
@@ -553,15 +642,15 @@ msgstr "Ingen opgaver"
 msgid "Setting new color for task list"
 msgstr "Sætter ny farve for opgavelisten"
 
-#: ../src/views/gtd-list-selector-panel.c:379
+#: ../src/views/gtd-list-selector-panel.c:384
 msgid "Remove the selected task lists?"
 msgstr "Fjern de valgte opgavelister?"
 
-#: ../src/views/gtd-list-selector-panel.c:382
+#: ../src/views/gtd-list-selector-panel.c:387
 msgid "Once removed, the task lists cannot be recovered."
 msgstr "Når de er fjernet, kan de ikke gendannes."
 
-#: ../src/views/gtd-list-selector-panel.c:394
+#: ../src/views/gtd-list-selector-panel.c:399
 msgid "Remove task lists"
 msgstr "Fjern opgavelister"
 
@@ -571,13 +660,9 @@ msgstr "Fjern opgavelister"
 #~ msgid "Default storage location"
 #~ msgstr "Standardlagerplacering"
 
-#~ # øhm??
+# øhm??
 #~ msgid "unscheduled-panel"
 #~ msgstr "ikke planlagt-panel"
 
-#~ msgid "Todo"
-#~ msgstr "Todo"
-
 #~ msgid "%d days ago"
 #~ msgstr "%d dage siden"
-
