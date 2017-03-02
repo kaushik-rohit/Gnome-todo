@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: gnome-todo.master\n"
 "Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "todo&keywords=I18N+L10N&component=General\n"
-"POT-Creation-Date: 2017-02-22 12:09+0000\n"
-"PO-Revision-Date: 2017-02-27 10:06+0100\n"
+"POT-Creation-Date: 2017-03-01 21:20+0000\n"
+"PO-Revision-Date: 2017-03-02 09:06+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: es <gnome-es-list@gnome.org>\n"
 "Language: \n"
@@ -162,17 +162,20 @@ msgstr "Ninguna"
 msgid "Details"
 msgstr "Detalles"
 
-#: ../data/ui/edit-pane.ui.h:3 ../plugins/eds/edit-pane.ui.h:2
-msgid "Notes"
-msgstr "Notas"
+#: ../data/ui/edit-pane.ui.h:3
+#| msgid "Notes"
+msgid "_Notes"
+msgstr "_Notas"
 
-#: ../data/ui/edit-pane.ui.h:4 ../plugins/eds/edit-pane.ui.h:3
-msgid "Due Date"
-msgstr "Fecha límite"
+#: ../data/ui/edit-pane.ui.h:4
+#| msgid "Due Date"
+msgid "D_ue Date"
+msgstr "F_echa límite"
 
-#: ../data/ui/edit-pane.ui.h:5 ../plugins/eds/edit-pane.ui.h:4
-msgid "Priority"
-msgstr "Prioridad"
+#: ../data/ui/edit-pane.ui.h:5
+#| msgid "Priority"
+msgid "_Priority"
+msgstr "_Prioridad"
 
 #: ../data/ui/edit-pane.ui.h:6 ../plugins/eds/edit-pane.ui.h:5
 msgctxt "taskpriority"
@@ -192,29 +195,24 @@ msgid "High"
 msgstr "Alta"
 
 #: ../data/ui/edit-pane.ui.h:10 ../data/ui/list-selector-panel.ui.h:2
-#: ../plugins/eds/edit-pane.ui.h:9
-msgid "Delete"
-msgstr "Eliminar"
+#| msgid "Delete"
+msgid "_Delete"
+msgstr "_Eliminar"
 
-#. Setup a title
 #: ../data/ui/edit-pane.ui.h:11
-#: ../plugins/scheduled-panel/gtd-panel-scheduled.c:87
-#: ../plugins/score/score/__init__.py:95
-#: ../plugins/today-panel/gtd-panel-today.c:135
-#: ../plugins/today-panel/gtd-panel-today.c:140
-#: ../plugins/today-panel/gtd-panel-today.c:308 ../src/gtd-task-row.c:293
-msgid "Today"
-msgstr "Hoy"
+#| msgid "Today"
+msgid "_Today"
+msgstr "_Hoy"
 
 #: ../data/ui/edit-pane.ui.h:12
-#: ../plugins/scheduled-panel/gtd-panel-scheduled.c:91
-#: ../src/gtd-task-row.c:297
-msgid "Tomorrow"
-msgstr "Mañana"
+#| msgid "Tomorrow"
+msgid "To_morrow"
+msgstr "_Mañana"
 
 #: ../data/ui/edit-pane.ui.h:13
-msgid "Next Week"
-msgstr "Siguiente semana"
+#| msgid "Next Week"
+msgid "Next _Week"
+msgstr "Siguiente _semana"
 
 #: ../data/ui/initial-setup.ui.h:1
 msgid "Welcome"
@@ -225,19 +223,20 @@ msgid "Login to online accounts to access your tasks"
 msgstr "Inicie sesión en sus cuentas en línea para acceder a sus tareas"
 
 #: ../data/ui/initial-setup.ui.h:3 ../data/ui/provider-popover.ui.h:2
-#: ../data/ui/window.ui.h:1 ../src/gtd-task-list-view.c:612
-#: ../src/views/gtd-list-selector-panel.c:391
-msgid "Cancel"
-msgstr "Cancelar"
+#: ../data/ui/window.ui.h:1
+#| msgid "Cancel"
+msgid "_Cancel"
+msgstr "C_ancelar"
 
-#: ../data/ui/initial-setup.ui.h:4 ../data/ui/list-view.ui.h:2
-#: ../src/gtd-task-list-view.c:777
-msgid "Done"
-msgstr "Hecho"
+#: ../data/ui/initial-setup.ui.h:4
+#| msgid "Done"
+msgid "_Done"
+msgstr "_Hecho"
 
 #: ../data/ui/list-selector-panel.ui.h:1
-msgid "Rename"
-msgstr "Renombrar"
+#| msgid "Rename"
+msgid "_Rename"
+msgstr "_Renombrar"
 
 #: ../data/ui/list-selector-panel.ui.h:3
 #: ../src/views/gtd-list-selector-panel.c:470
@@ -253,12 +252,17 @@ msgid "Name of the task list"
 msgstr "Nombre de la lista de tareas"
 
 #: ../data/ui/list-selector-panel.ui.h:6
-msgid "New List"
-msgstr "Nueva lista"
+#| msgid "New List"
+msgid "_New List"
+msgstr "_Nueva lista"
 
 #: ../data/ui/list-view.ui.h:1
 msgid "Show or hide completed tasks"
 msgstr "Mostrar u ocultar las tareas completadas"
+
+#: ../data/ui/list-view.ui.h:2 ../src/gtd-task-list-view.c:777
+msgid "Done"
+msgstr "Hecho"
 
 #: ../data/ui/new-task-row.ui.h:1
 msgid "New task…"
@@ -269,8 +273,9 @@ msgid "No extensions found"
 msgstr "No se han encontrado extensiones"
 
 #: ../data/ui/provider-popover.ui.h:1
-msgid "Create"
-msgstr "Crear"
+#| msgid "Create"
+msgid "Create _List"
+msgstr "Crear _lista"
 
 #: ../data/ui/provider-popover.ui.h:3
 msgid "List Name"
@@ -311,6 +316,22 @@ msgstr "Microsoft Exchange"
 #: ../data/ui/provider-selector.ui.h:7
 msgid "Or you can just store your tasks on this computer"
 msgstr "O simplemente puede guardar las tareas en este equipo"
+
+#: ../plugins/eds/edit-pane.ui.h:2
+msgid "Notes"
+msgstr "Notas"
+
+#: ../plugins/eds/edit-pane.ui.h:3
+msgid "Due Date"
+msgstr "Fecha límite"
+
+#: ../plugins/eds/edit-pane.ui.h:4
+msgid "Priority"
+msgstr "Prioridad"
+
+#: ../plugins/eds/edit-pane.ui.h:9
+msgid "Delete"
+msgstr "Eliminar"
 
 #: ../plugins/eds/gtd-plugin-eds.c:244 ../plugins/eds/gtd-plugin-eds.c:248
 msgid "Error loading GNOME Online Accounts"
@@ -404,6 +425,20 @@ msgstr[0] "Ayer"
 msgstr[1] "Hace %d días"
 
 #. Setup a title
+#: ../plugins/scheduled-panel/gtd-panel-scheduled.c:87
+#: ../plugins/score/score/__init__.py:95
+#: ../plugins/today-panel/gtd-panel-today.c:135
+#: ../plugins/today-panel/gtd-panel-today.c:140
+#: ../plugins/today-panel/gtd-panel-today.c:308 ../src/gtd-task-row.c:293
+msgid "Today"
+msgstr "Hoy"
+
+#: ../plugins/scheduled-panel/gtd-panel-scheduled.c:91
+#: ../src/gtd-task-row.c:297
+msgid "Tomorrow"
+msgstr "Mañana"
+
+#. Setup a title
 #: ../plugins/scheduled-panel/gtd-panel-scheduled.c:342
 #: ../plugins/scheduled-panel/gtd-panel-scheduled.c:347
 #: ../plugins/scheduled-panel/gtd-panel-scheduled.c:479
@@ -420,63 +455,62 @@ msgstr "Limpiar las tareas completadas…"
 msgid "No task completed today"
 msgstr "Hoy no se ha completado ninguna tarea"
 
-#: ../plugins/todo-txt/gtd-plugin-todo-txt.c:103
+#: ../plugins/todo-txt/gtd-plugin-todo-txt.c:100
 msgid "Error while opening the file monitor. Todo.txt will not be monitored"
 msgstr ""
 "Error al abrir el archivo de monitorización. Todo.txt no se monitorizará"
 
-#: ../plugins/todo-txt/gtd-plugin-todo-txt.c:129
+#: ../plugins/todo-txt/gtd-plugin-todo-txt.c:125
 msgid "Error while converting the default Todo.txt path to an URI"
 msgstr "Error al convertir la ruta predeterminada de Todo.txt a un URI"
 
 #: ../plugins/todo-txt/gtd-plugin-todo-txt.c:146
-#| msgid "Cannot create todo.txt file"
 msgid "Cannot create Todo.txt file"
 msgstr "No se puede crear el archivo Todo.txt"
 
-#: ../plugins/todo-txt/gtd-plugin-todo-txt.c:354
+#: ../plugins/todo-txt/gtd-plugin-todo-txt.c:362
 msgid "Select a Todo.txt-formatted file:"
 msgstr "Seleccione un archivo con formato Todo.txt:"
 
-#: ../plugins/todo-txt/gtd-provider-todo-txt.c:77
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:76
 msgid "Todo.txt"
 msgstr "Todo.txt"
 
-#: ../plugins/todo-txt/gtd-provider-todo-txt.c:83
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:82
 msgid "On the Todo.txt file"
 msgstr "En el archivo Todo.txt"
 
-#: ../plugins/todo-txt/gtd-provider-todo-txt.c:130
-#: ../plugins/todo-txt/gtd-provider-todo-txt.c:134
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:129
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:133
 msgid "Error while opening Todo.txt"
 msgstr "Erro al abrir Todo.txt"
 
-#: ../plugins/todo-txt/gtd-provider-todo-txt.c:336
-#: ../plugins/todo-txt/gtd-provider-todo-txt.c:340
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:335
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:339
 msgid "Error while reading a line from Todo.txt"
 msgstr "Error al leer una línea de Todo.txt"
 
-#: ../plugins/todo-txt/gtd-provider-todo-txt.c:403
-#: ../plugins/todo-txt/gtd-provider-todo-txt.c:407
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:402
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:406
 msgid "Error while adding a task to Todo.txt"
 msgstr "Error al añadir una tarea a Todo.txt"
 
-#: ../plugins/todo-txt/gtd-provider-todo-txt.c:544
-#: ../plugins/todo-txt/gtd-provider-todo-txt.c:548
-#: ../plugins/todo-txt/gtd-provider-todo-txt.c:660
-#: ../plugins/todo-txt/gtd-provider-todo-txt.c:664
-#: ../plugins/todo-txt/gtd-provider-todo-txt.c:864
-#: ../plugins/todo-txt/gtd-provider-todo-txt.c:868
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:543
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:547
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:659
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:663
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:863
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:867
 msgid "Error while reading tasks from Todo.txt"
 msgstr "Error al leer las tareas de Todo.txt"
 
-#: ../plugins/todo-txt/gtd-provider-todo-txt.c:725
-#: ../plugins/todo-txt/gtd-provider-todo-txt.c:729
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:724
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:728
 msgid "Error while creating a Todo.txt list"
 msgstr "Error al crear una lista Todo.txt"
 
-#: ../plugins/todo-txt/gtd-provider-todo-txt.c:976
-#: ../plugins/todo-txt/gtd-provider-todo-txt.c:980
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:975
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:979
 msgid "Error while reading task lists from Todo.txt"
 msgstr "Error al leer las tareas de Todo.txt"
 
@@ -523,12 +557,12 @@ msgstr "Fuente del archivo Todo.txt"
 
 #. Translators: 'Unscheduled' as in 'Unscheduled tasks'
 #: ../plugins/unscheduled-panel/unscheduled-panel/__init__.py:34
-#: ../plugins/unscheduled-panel/unscheduled-panel/__init__.py:89
+#: ../plugins/unscheduled-panel/unscheduled-panel/__init__.py:88
 msgid "Unscheduled"
 msgstr "No programadas"
 
 #. Translators: 'Unscheduled' as in 'Unscheduled tasks'
-#: ../plugins/unscheduled-panel/unscheduled-panel/__init__.py:92
+#: ../plugins/unscheduled-panel/unscheduled-panel/__init__.py:91
 #, python-format
 msgid "Unscheduled (%d)"
 msgstr "No programadas (%d)"
@@ -607,6 +641,10 @@ msgstr ""
 #: ../src/gtd-task-list-view.c:609
 msgid "Once removed, the tasks cannot be recovered."
 msgstr "Una vez eliminada, las tareas no se pueden recuperar."
+
+#: ../src/gtd-task-list-view.c:612 ../src/views/gtd-list-selector-panel.c:391
+msgid "Cancel"
+msgstr "Cancelar"
 
 #: ../src/gtd-task-list-view.c:614
 msgid "Remove"
