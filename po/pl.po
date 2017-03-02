@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-todo\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-26 20:40+0100\n"
-"PO-Revision-Date: 2017-02-26 20:41+0100\n"
+"POT-Creation-Date: 2017-03-02 01:49+0100\n"
+"PO-Revision-Date: 2017-03-02 01:50+0100\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <community-poland@mozilla.org>\n"
 "Language: pl\n"
@@ -159,17 +159,17 @@ msgstr "Brak"
 msgid "Details"
 msgstr "Szczegóły"
 
-#: ../data/ui/edit-pane.ui.h:3 ../plugins/eds/edit-pane.ui.h:2
-msgid "Notes"
-msgstr "Uwagi"
+#: ../data/ui/edit-pane.ui.h:3
+msgid "_Notes"
+msgstr "_Uwagi"
 
-#: ../data/ui/edit-pane.ui.h:4 ../plugins/eds/edit-pane.ui.h:3
-msgid "Due Date"
-msgstr "Termin"
+#: ../data/ui/edit-pane.ui.h:4
+msgid "D_ue Date"
+msgstr "_Termin"
 
-#: ../data/ui/edit-pane.ui.h:5 ../plugins/eds/edit-pane.ui.h:4
-msgid "Priority"
-msgstr "Priorytet"
+#: ../data/ui/edit-pane.ui.h:5
+msgid "_Priority"
+msgstr "_Priorytet"
 
 #: ../data/ui/edit-pane.ui.h:6 ../plugins/eds/edit-pane.ui.h:5
 msgctxt "taskpriority"
@@ -189,29 +189,20 @@ msgid "High"
 msgstr "Wysoki"
 
 #: ../data/ui/edit-pane.ui.h:10 ../data/ui/list-selector-panel.ui.h:2
-#: ../plugins/eds/edit-pane.ui.h:9
-msgid "Delete"
-msgstr "Usuń"
+msgid "_Delete"
+msgstr "_Usuń"
 
-#. Setup a title
 #: ../data/ui/edit-pane.ui.h:11
-#: ../plugins/scheduled-panel/gtd-panel-scheduled.c:87
-#: ../plugins/score/score/__init__.py:95
-#: ../plugins/today-panel/gtd-panel-today.c:135
-#: ../plugins/today-panel/gtd-panel-today.c:140
-#: ../plugins/today-panel/gtd-panel-today.c:308 ../src/gtd-task-row.c:293
-msgid "Today"
-msgstr "Dzisiaj"
+msgid "_Today"
+msgstr "_Dzisiaj"
 
 #: ../data/ui/edit-pane.ui.h:12
-#: ../plugins/scheduled-panel/gtd-panel-scheduled.c:91
-#: ../src/gtd-task-row.c:297
-msgid "Tomorrow"
-msgstr "Jutro"
+msgid "To_morrow"
+msgstr "_Jutro"
 
 #: ../data/ui/edit-pane.ui.h:13
-msgid "Next Week"
-msgstr "Przyszły tydzień"
+msgid "Next _Week"
+msgstr "_Przyszły tydzień"
 
 #: ../data/ui/initial-setup.ui.h:1
 msgid "Welcome"
@@ -222,19 +213,17 @@ msgid "Login to online accounts to access your tasks"
 msgstr "Zalogowanie do kont online umożliwi dostęp do zadań"
 
 #: ../data/ui/initial-setup.ui.h:3 ../data/ui/provider-popover.ui.h:2
-#: ../data/ui/window.ui.h:1 ../src/gtd-task-list-view.c:612
-#: ../src/views/gtd-list-selector-panel.c:391
-msgid "Cancel"
-msgstr "Anuluj"
+#: ../data/ui/window.ui.h:1
+msgid "_Cancel"
+msgstr "_Anuluj"
 
-#: ../data/ui/initial-setup.ui.h:4 ../data/ui/list-view.ui.h:2
-#: ../src/gtd-task-list-view.c:777
-msgid "Done"
-msgstr "Gotowe"
+#: ../data/ui/initial-setup.ui.h:4
+msgid "_Done"
+msgstr "_Gotowe"
 
 #: ../data/ui/list-selector-panel.ui.h:1
-msgid "Rename"
-msgstr "Zmień nazwę"
+msgid "_Rename"
+msgstr "Z_mień nazwę"
 
 #: ../data/ui/list-selector-panel.ui.h:3
 #: ../src/views/gtd-list-selector-panel.c:470
@@ -250,12 +239,16 @@ msgid "Name of the task list"
 msgstr "Nazwa listy zadań"
 
 #: ../data/ui/list-selector-panel.ui.h:6
-msgid "New List"
-msgstr "Nowa lista"
+msgid "_New List"
+msgstr "_Nowa lista"
 
 #: ../data/ui/list-view.ui.h:1
 msgid "Show or hide completed tasks"
 msgstr "Wyświetla lub ukrywa ukończone zadania"
+
+#: ../data/ui/list-view.ui.h:2 ../src/gtd-task-list-view.c:777
+msgid "Done"
+msgstr "Gotowe"
 
 #: ../data/ui/new-task-row.ui.h:1
 msgid "New task…"
@@ -266,8 +259,8 @@ msgid "No extensions found"
 msgstr "Nie odnaleziono żadnych rozszerzeń"
 
 #: ../data/ui/provider-popover.ui.h:1
-msgid "Create"
-msgstr "Utwórz"
+msgid "Create _List"
+msgstr "_Utwórz listę"
 
 #: ../data/ui/provider-popover.ui.h:3
 msgid "List Name"
@@ -308,6 +301,22 @@ msgstr "Microsoft Exchange"
 #: ../data/ui/provider-selector.ui.h:7
 msgid "Or you can just store your tasks on this computer"
 msgstr "Można też przechowywać zadania na tym komputerze"
+
+#: ../plugins/eds/edit-pane.ui.h:2
+msgid "Notes"
+msgstr "Uwagi"
+
+#: ../plugins/eds/edit-pane.ui.h:3
+msgid "Due Date"
+msgstr "Termin"
+
+#: ../plugins/eds/edit-pane.ui.h:4
+msgid "Priority"
+msgstr "Priorytet"
+
+#: ../plugins/eds/edit-pane.ui.h:9
+msgid "Delete"
+msgstr "Usuń"
 
 #: ../plugins/eds/gtd-plugin-eds.c:244 ../plugins/eds/gtd-plugin-eds.c:248
 msgid "Error loading GNOME Online Accounts"
@@ -402,6 +411,20 @@ msgstr[1] "%d dni temu"
 msgstr[2] "%d dni temu"
 
 #. Setup a title
+#: ../plugins/scheduled-panel/gtd-panel-scheduled.c:87
+#: ../plugins/score/score/__init__.py:95
+#: ../plugins/today-panel/gtd-panel-today.c:135
+#: ../plugins/today-panel/gtd-panel-today.c:140
+#: ../plugins/today-panel/gtd-panel-today.c:308 ../src/gtd-task-row.c:293
+msgid "Today"
+msgstr "Dzisiaj"
+
+#: ../plugins/scheduled-panel/gtd-panel-scheduled.c:91
+#: ../src/gtd-task-row.c:297
+msgid "Tomorrow"
+msgstr "Jutro"
+
+#. Setup a title
 #: ../plugins/scheduled-panel/gtd-panel-scheduled.c:342
 #: ../plugins/scheduled-panel/gtd-panel-scheduled.c:347
 #: ../plugins/scheduled-panel/gtd-panel-scheduled.c:479
@@ -410,6 +433,7 @@ msgstr "Zaplanowane"
 
 #: ../plugins/scheduled-panel/gtd-panel-scheduled.c:484
 #: ../plugins/today-panel/gtd-panel-today.c:313
+#: ../plugins/unscheduled-panel/unscheduled-panel/__init__.py:52
 #: ../src/views/gtd-list-selector-panel.c:716
 msgid "Clear completed tasks…"
 msgstr "Wyczyść ukończone zadania…"
@@ -519,12 +543,12 @@ msgstr "Źródło pliku Todo.txt"
 
 #. Translators: 'Unscheduled' as in 'Unscheduled tasks'
 #: ../plugins/unscheduled-panel/unscheduled-panel/__init__.py:34
-#: ../plugins/unscheduled-panel/unscheduled-panel/__init__.py:89
+#: ../plugins/unscheduled-panel/unscheduled-panel/__init__.py:91
 msgid "Unscheduled"
 msgstr "Niezaplanowane"
 
 #. Translators: 'Unscheduled' as in 'Unscheduled tasks'
-#: ../plugins/unscheduled-panel/unscheduled-panel/__init__.py:92
+#: ../plugins/unscheduled-panel/unscheduled-panel/__init__.py:94
 #, python-format
 msgid "Unscheduled (%d)"
 msgstr "Niezaplanowane (%d)"
@@ -604,6 +628,10 @@ msgstr "Usunięcie tego zadania usunie także jego podzadania. Usunąć mimo to?
 #: ../src/gtd-task-list-view.c:609
 msgid "Once removed, the tasks cannot be recovered."
 msgstr "Nie można będzie ich przywrócić po usunięciu."
+
+#: ../src/gtd-task-list-view.c:612 ../src/views/gtd-list-selector-panel.c:391
+msgid "Cancel"
+msgstr "Anuluj"
 
 #: ../src/gtd-task-list-view.c:614
 msgid "Remove"
