@@ -20,6 +20,7 @@
 #include "gtd-task-row.h"
 #include "gtd-task.h"
 #include "gtd-task-list.h"
+#include "gtd-task-list-view.h"
 
 #include <glib/gi18n.h>
 #include <gtk/gtk.h>
@@ -257,6 +258,45 @@ complete_changed_cb (GtdTaskRow *self,
     gtk_style_context_add_class (context, "complete");
   else
     gtk_style_context_remove_class (context, "complete");
+}
+
+static void
+toggle_complete_cb (GtkRevealer *revealer,
+                    GParamSpec  *pspec,
+                    GtdTaskRow  *self)
+{
+  g_signal_handlers_disconnect_by_func (revealer, toggle_complete_cb, self);
+
+  gtd_task_set_complete (self->task, !gtd_task_get_complete (self->task));
+}
+
+static void
+complete_check_toggled_cb (GtkToggleButton *button,
+                           GtdTaskRow      *self)
+{
+  GtdTaskListView *listview;
+
+  listview = GTD_TASK_LIST_VIEW (gtk_widget_get_ancestor (GTK_WIDGET (self),
+                                                          GTD_TYPE_TASK_LIST_VIEW));
+
+  /*
+   * If the parent list view is showing completed tasks, we
+   * don't have to hide the row. Simply toggle the 'complete'
+   * property of the task.
+   */
+  if (gtd_task_list_view_get_show_completed (listview))
+    {
+      gtd_task_set_complete (self->task, !gtd_task_get_complete (self->task));
+      return;
+    }
+
+  gtk_revealer_set_reveal_child (GTK_REVEALER (self->revealer),
+                                 !gtk_toggle_button_get_active (button));
+
+  g_signal_connect (self->revealer,
+                    "notify::child-revealed",
+                    G_CALLBACK (toggle_complete_cb),
+                    self);
 }
 
 static void
@@ -541,6 +581,7 @@ gtd_task_row_class_init (GtdTaskRowClass *klass)
   gtk_widget_class_bind_template_child (widget_class, GtdTaskRow, title_label);
 
   gtk_widget_class_bind_template_callback (widget_class, button_press_event);
+  gtk_widget_class_bind_template_callback (widget_class, complete_check_toggled_cb);
   gtk_widget_class_bind_template_callback (widget_class, drag_begin_cb);
   gtk_widget_class_bind_template_callback (widget_class, mouse_out_event);
   gtk_widget_class_bind_template_callback (widget_class, mouse_over_event);
@@ -600,6 +641,8 @@ gtd_task_row_set_task (GtdTaskRow *row,
         {
           gtk_label_set_label (row->task_list_label, gtd_task_list_get_name (gtd_task_get_list (task)));
 
+          g_signal_handlers_block_by_func (row->done_check, complete_check_toggled_cb, row);
+
           g_object_bind_property (task,
                                   "title",
                                   row->title_entry,
@@ -616,7 +659,7 @@ gtd_task_row_set_task (GtdTaskRow *row,
                                   "complete",
                                   row->done_check,
                                   "active",
-                                  G_BINDING_BIDIRECTIONAL | G_BINDING_SYNC_CREATE);
+                                  G_BINDING_DEFAULT | G_BINDING_SYNC_CREATE);
 
           g_object_bind_property (task,
                                   "ready",
@@ -655,6 +698,8 @@ gtd_task_row_set_task (GtdTaskRow *row,
                                     "notify::depth",
                                     G_CALLBACK (depth_changed_cb),
                                     row);
+
+          g_signal_handlers_unblock_by_func (row->done_check, complete_check_toggled_cb, row);
         }
 
       g_object_notify (G_OBJECT (row), "task");

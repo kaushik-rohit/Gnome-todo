@@ -54,6 +54,7 @@
                 <property name="valign">center</property>
                 <property name="vexpand">True</property>
                 <property name="draw_indicator">True</property>
+                <signal name="toggled" handler="complete_check_toggled_cb" object="GtdTaskRow" swapped="no" />
               </object>
             </child>
             <child>
