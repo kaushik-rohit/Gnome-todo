@@ -2,25 +2,26 @@
 # Prevodi na srpski jezik za paket „gnome-todo“.
 # Copyright (C) 2015 THE gnome-todo'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the gnome-todo package.
-# Marko M. Kostić (Marko M. Kostić) <marko.m.kostic@gmail.com>, 2015.
+# Marko M. Kostić (Marko M. Kostić) <marko.m.kostic@gmail.com>, 2015—2017.
 # Miloš Popović <gpopac@gmail.com>, 2015, 2016.
 # Miroslav Nikolić <miroslavnikolic@rocketmail.com>, 2016—2017.
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-todo\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
+"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "todo&keywords=I18N+L10N&component=General\n"
-"POT-Creation-Date: 2017-02-14 15:25+0000\n"
-"PO-Revision-Date: 2017-02-25 19:55+0200\n"
-"Last-Translator: Miroslav Nikolić <miroslavnikolic@rocketmail.com>\n"
+"POT-Creation-Date: 2017-03-05 13:04+0000\n"
+"PO-Revision-Date: 2017-03-05 14:23+0100\n"
+"Last-Translator: Marko M. Kostić <marko.m.kostic@gmail.com>\n"
 "Language-Team: Serbian <(nothing)>\n"
 "Language: sr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=n==1? 3 : n%10==1 && n%100!=11 ? 0 : "
-"n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Plural-Forms: nplurals=4; plural=n==1? 3 : n%10==1 && n%100!=11 ? 0 : n"
+"%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Project-Style: gnome\n"
+"X-Generator: Poedit 1.8.12\n"
 
 #: ../data/appdata/org.gnome.Todo.appdata.xml.in.h:1
 #: ../data/org.gnome.Todo.desktop.in.in.h:1 ../src/gtd-application.c:123
@@ -33,9 +34,6 @@ msgid "Task manager for GNOME"
 msgstr "Upravnik zadataka za Gnom"
 
 #: ../data/appdata/org.gnome.Todo.appdata.xml.in.h:3
-#| msgid ""
-#| "GNOME To Do is a simple task management application designed to integrate "
-#| "with GNOME."
 msgid ""
 "GNOME To Do is a task management application designed to integrate with "
 "GNOME. It is extensible through plugins and supports custom task providers."
@@ -61,7 +59,6 @@ msgid "Task lists displayed on list mode"
 msgstr "Spisak zadataka prikazan u režimu spiska"
 
 #: ../data/appdata/org.gnome.Todo.appdata.xml.in.h:8
-#| msgid "First run of GNOME To Do"
 msgid "Available plugins for GNOME To Do"
 msgstr "Dostupni priključci za Gnomov Rokovnik"
 
@@ -94,7 +91,6 @@ msgid "Manage your personal tasks"
 msgstr "Upravljajte ličnim zadacima"
 
 #: ../data/org.gnome.Todo.desktop.in.in.h:3
-#| msgid "Task;Productivity;"
 msgid "Task;Productivity;Todo;"
 msgstr "zadaci;produktivnost;zakazano;"
 
@@ -127,9 +123,6 @@ msgid "First run of GNOME To Do"
 msgstr "Prvo pokretanje Gnomovog Rokovnika"
 
 #: ../data/org.gnome.todo.gschema.xml.h:8
-#| msgid ""
-#| "Whether it's the first run of GNOME To Do (to run the initial setup) or "
-#| "not"
 msgid ""
 "Whether it’s the first run of GNOME To Do (to run the initial setup) or not"
 msgstr ""
@@ -157,7 +150,6 @@ msgid "The current list selector"
 msgstr "Izbirač tekućeg spiska"
 
 #: ../data/org.gnome.todo.gschema.xml.h:14
-#| msgid "The current list selector. Can be 'grid' or 'list'."
 msgid "The current list selector. Can be “grid” or “list”."
 msgstr "Izbirač tekućeg spiska. Može biti „grid“ (mreža) ili „list“ (spisak)."
 
@@ -171,17 +163,17 @@ msgstr "Ništa"
 msgid "Details"
 msgstr "Pojedinosti"
 
-#: ../data/ui/edit-pane.ui.h:3 ../plugins/eds/edit-pane.ui.h:2
-msgid "Notes"
-msgstr "Beleške"
+#: ../data/ui/edit-pane.ui.h:3
+msgid "_Notes"
+msgstr "Be_leške"
 
-#: ../data/ui/edit-pane.ui.h:4 ../plugins/eds/edit-pane.ui.h:3
-msgid "Due Date"
-msgstr "Krajnji rok"
+#: ../data/ui/edit-pane.ui.h:4
+msgid "D_ue Date"
+msgstr "Krajnji _rok"
 
-#: ../data/ui/edit-pane.ui.h:5 ../plugins/eds/edit-pane.ui.h:4
-msgid "Priority"
-msgstr "Važnost"
+#: ../data/ui/edit-pane.ui.h:5
+msgid "_Priority"
+msgstr "_Važnost"
 
 #: ../data/ui/edit-pane.ui.h:6 ../plugins/eds/edit-pane.ui.h:5
 msgctxt "taskpriority"
@@ -201,29 +193,20 @@ msgid "High"
 msgstr "Velika"
 
 #: ../data/ui/edit-pane.ui.h:10 ../data/ui/list-selector-panel.ui.h:2
-#: ../plugins/eds/edit-pane.ui.h:9
-msgid "Delete"
-msgstr "Obriši"
+msgid "_Delete"
+msgstr "O_briši"
 
-#. Setup a title
 #: ../data/ui/edit-pane.ui.h:11
-#: ../plugins/scheduled-panel/gtd-panel-scheduled.c:87
-#: ../plugins/score/score/__init__.py:95
-#: ../plugins/today-panel/gtd-panel-today.c:135
-#: ../plugins/today-panel/gtd-panel-today.c:140
-#: ../plugins/today-panel/gtd-panel-today.c:308 ../src/gtd-task-row.c:293
-msgid "Today"
-msgstr "Danas"
+msgid "_Today"
+msgstr "_Danas"
 
 #: ../data/ui/edit-pane.ui.h:12
-#: ../plugins/scheduled-panel/gtd-panel-scheduled.c:91
-#: ../src/gtd-task-row.c:297
-msgid "Tomorrow"
-msgstr "Sutra"
+msgid "To_morrow"
+msgstr "S_utra"
 
 #: ../data/ui/edit-pane.ui.h:13
-msgid "Next Week"
-msgstr "Sledeće sedmice"
+msgid "Next _Week"
+msgstr "Sledeće s_edmice"
 
 #: ../data/ui/initial-setup.ui.h:1
 msgid "Welcome"
@@ -234,19 +217,17 @@ msgid "Login to online accounts to access your tasks"
 msgstr "Prijavite se na vaše naloge na mreži zarad pristupa vašim zadacima"
 
 #: ../data/ui/initial-setup.ui.h:3 ../data/ui/provider-popover.ui.h:2
-#: ../data/ui/window.ui.h:1 ../src/gtd-task-list-view.c:612
-#: ../src/views/gtd-list-selector-panel.c:391
-msgid "Cancel"
-msgstr "Otkaži"
+#: ../data/ui/window.ui.h:1
+msgid "_Cancel"
+msgstr "Ot_kaži"
 
-#: ../data/ui/initial-setup.ui.h:4 ../data/ui/list-view.ui.h:2
-#: ../src/gtd-task-list-view.c:777
-msgid "Done"
-msgstr "Gotovo"
+#: ../data/ui/initial-setup.ui.h:4
+msgid "_Done"
+msgstr "_Gotovo"
 
 #: ../data/ui/list-selector-panel.ui.h:1
-msgid "Rename"
-msgstr "Preimenuj"
+msgid "_Rename"
+msgstr "Pre_imenuj"
 
 #: ../data/ui/list-selector-panel.ui.h:3
 #: ../src/views/gtd-list-selector-panel.c:470
@@ -262,12 +243,16 @@ msgid "Name of the task list"
 msgstr "Naziv novog spiska sa zadacima"
 
 #: ../data/ui/list-selector-panel.ui.h:6
-msgid "New List"
-msgstr "Novi spisak"
+msgid "_New List"
+msgstr "_Novi spisak"
 
 #: ../data/ui/list-view.ui.h:1
 msgid "Show or hide completed tasks"
 msgstr "Prikaži ili sakrij završene zadatke"
+
+#: ../data/ui/list-view.ui.h:2 ../src/gtd-task-list-view.c:777
+msgid "Done"
+msgstr "Gotovo"
 
 #: ../data/ui/new-task-row.ui.h:1
 msgid "New task…"
@@ -278,8 +263,8 @@ msgid "No extensions found"
 msgstr "Nisam našao proširenja"
 
 #: ../data/ui/provider-popover.ui.h:1
-msgid "Create"
-msgstr "Napravi"
+msgid "Create _List"
+msgstr "N_apravi spisak"
 
 #: ../data/ui/provider-popover.ui.h:3
 msgid "List Name"
@@ -321,6 +306,22 @@ msgstr "Majkrosoftova razmena"
 msgid "Or you can just store your tasks on this computer"
 msgstr "Ili samo čuvajte vaše zadatke na ovom računaru"
 
+#: ../plugins/eds/edit-pane.ui.h:2
+msgid "Notes"
+msgstr "Beleške"
+
+#: ../plugins/eds/edit-pane.ui.h:3
+msgid "Due Date"
+msgstr "Krajnji rok"
+
+#: ../plugins/eds/edit-pane.ui.h:4
+msgid "Priority"
+msgstr "Važnost"
+
+#: ../plugins/eds/edit-pane.ui.h:9
+msgid "Delete"
+msgstr "Obriši"
+
 #: ../plugins/eds/gtd-plugin-eds.c:244 ../plugins/eds/gtd-plugin-eds.c:248
 msgid "Error loading GNOME Online Accounts"
 msgstr "Greška prilikom učitavanja Gnomovih naloga na mreži"
@@ -342,7 +343,6 @@ msgid "Task list source successfully connected"
 msgstr "Izvor spiska sa zadacima je uspešno povezan"
 
 #: ../plugins/eds/gtd-provider-eds.c:203 ../plugins/eds/gtd-provider-eds.c:208
-#| msgid "Failed to connect to task list source"
 msgid "Failed to connect to task list"
 msgstr "Neuspeh povezivanja sa spiskom zadataka"
 
@@ -416,6 +416,20 @@ msgstr[2] "Pre %d dana"
 msgstr[3] "Pre jednog dana"
 
 #. Setup a title
+#: ../plugins/scheduled-panel/gtd-panel-scheduled.c:87
+#: ../plugins/score/score/__init__.py:95
+#: ../plugins/today-panel/gtd-panel-today.c:135
+#: ../plugins/today-panel/gtd-panel-today.c:140
+#: ../plugins/today-panel/gtd-panel-today.c:308 ../src/gtd-task-row.c:293
+msgid "Today"
+msgstr "Danas"
+
+#: ../plugins/scheduled-panel/gtd-panel-scheduled.c:91
+#: ../src/gtd-task-row.c:297
+msgid "Tomorrow"
+msgstr "Sutra"
+
+#. Setup a title
 #: ../plugins/scheduled-panel/gtd-panel-scheduled.c:342
 #: ../plugins/scheduled-panel/gtd-panel-scheduled.c:347
 #: ../plugins/scheduled-panel/gtd-panel-scheduled.c:479
@@ -424,6 +438,7 @@ msgstr "Zakazano"
 
 #: ../plugins/scheduled-panel/gtd-panel-scheduled.c:484
 #: ../plugins/today-panel/gtd-panel-today.c:313
+#: ../plugins/unscheduled-panel/unscheduled-panel/__init__.py:52
 #: ../src/views/gtd-list-selector-panel.c:716
 msgid "Clear completed tasks…"
 msgstr "Očisti završene zadatke…"
@@ -432,69 +447,61 @@ msgstr "Očisti završene zadatke…"
 msgid "No task completed today"
 msgstr "Nijedan zadatak nije završen danas"
 
-#: ../plugins/todo-txt/gtd-plugin-todo-txt.c:103
+#: ../plugins/todo-txt/gtd-plugin-todo-txt.c:100
 msgid "Error while opening the file monitor. Todo.txt will not be monitored"
 msgstr "Greška otvaranja pratioca datoteka. Datoteka Rokovnika se neće pratiti"
 
-#: ../plugins/todo-txt/gtd-plugin-todo-txt.c:127
-msgid "Error while opening the default Todo.txt directory"
-msgstr "Greška otvaranja osnovnog direktorijuma Rokovnika"
-
-#: ../plugins/todo-txt/gtd-plugin-todo-txt.c:145
+#: ../plugins/todo-txt/gtd-plugin-todo-txt.c:125
 msgid "Error while converting the default Todo.txt path to an URI"
 msgstr "Greška pretvaranja osnovne putanje Rokovnika u jedinstvenu putanju"
 
-#: ../plugins/todo-txt/gtd-plugin-todo-txt.c:162
-msgid "Cannot create todo.txt file"
+#: ../plugins/todo-txt/gtd-plugin-todo-txt.c:146
+msgid "Cannot create Todo.txt file"
 msgstr "Ne mogu da napravim datoteku Rokovnika"
 
-#: ../plugins/todo-txt/gtd-plugin-todo-txt.c:374
+#: ../plugins/todo-txt/gtd-plugin-todo-txt.c:362
 msgid "Select a Todo.txt-formatted file:"
 msgstr "Izaberite datoteku oblikovanu kao „Rokovnik.txt“:"
 
-#: ../plugins/todo-txt/gtd-provider-todo-txt.c:77
-#| msgid "Todo"
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:76
 msgid "Todo.txt"
 msgstr "Rokovnik.txt"
 
-#: ../plugins/todo-txt/gtd-provider-todo-txt.c:83
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:82
 msgid "On the Todo.txt file"
 msgstr "Na datoteci Rokovnika"
 
-#: ../plugins/todo-txt/gtd-provider-todo-txt.c:130
-#: ../plugins/todo-txt/gtd-provider-todo-txt.c:134
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:129
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:133
 msgid "Error while opening Todo.txt"
 msgstr "Greška otvaranja datoteke Rokovnika"
 
-#: ../plugins/todo-txt/gtd-provider-todo-txt.c:336
-#: ../plugins/todo-txt/gtd-provider-todo-txt.c:340
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:335
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:339
 msgid "Error while reading a line from Todo.txt"
 msgstr "Greška čitanja reda iz datoteke Rokovnika"
 
-#: ../plugins/todo-txt/gtd-provider-todo-txt.c:403
-#: ../plugins/todo-txt/gtd-provider-todo-txt.c:407
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:402
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:406
 msgid "Error while adding a task to Todo.txt"
 msgstr "Greška dodavanja zadataka u datoteku Rokovnika"
 
-#: ../plugins/todo-txt/gtd-provider-todo-txt.c:544
-#: ../plugins/todo-txt/gtd-provider-todo-txt.c:548
-#: ../plugins/todo-txt/gtd-provider-todo-txt.c:660
-#: ../plugins/todo-txt/gtd-provider-todo-txt.c:664
-#: ../plugins/todo-txt/gtd-provider-todo-txt.c:864
-#: ../plugins/todo-txt/gtd-provider-todo-txt.c:868
-#| msgid "Error fetching tasks from list"
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:543
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:547
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:659
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:663
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:863
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:867
 msgid "Error while reading tasks from Todo.txt"
 msgstr "Greška čitanja zadatka iz datoteke Rokovnika"
 
-#: ../plugins/todo-txt/gtd-provider-todo-txt.c:725
-#: ../plugins/todo-txt/gtd-provider-todo-txt.c:729
-#| msgid "Error creating task list"
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:724
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:728
 msgid "Error while creating a Todo.txt list"
 msgstr "Greška pravljenja spiska datoteke Rokovnika"
 
-#: ../plugins/todo-txt/gtd-provider-todo-txt.c:976
-#: ../plugins/todo-txt/gtd-provider-todo-txt.c:980
-#| msgid "Error creating task list"
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:975
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:979
 msgid "Error while reading task lists from Todo.txt"
 msgstr "Greška čitanja spiska zadataka iz datoteke Rokovnika"
 
@@ -540,12 +547,12 @@ msgstr "Izvor datoteke Rokovnika"
 
 #. Translators: 'Unscheduled' as in 'Unscheduled tasks'
 #: ../plugins/unscheduled-panel/unscheduled-panel/__init__.py:34
-#: ../plugins/unscheduled-panel/unscheduled-panel/__init__.py:89
+#: ../plugins/unscheduled-panel/unscheduled-panel/__init__.py:91
 msgid "Unscheduled"
 msgstr "Nezakazano"
 
 #. Translators: 'Unscheduled' as in 'Unscheduled tasks'
-#: ../plugins/unscheduled-panel/unscheduled-panel/__init__.py:92
+#: ../plugins/unscheduled-panel/unscheduled-panel/__init__.py:94
 #, python-format
 msgid "Unscheduled (%d)"
 msgstr "Nezakazano (%d"
@@ -569,7 +576,6 @@ msgstr ""
 "http://prevod.org — prevod na srpski jezik"
 
 #: ../src/gtd-empty-list-widget.c:49
-#| msgid "Remove task lists"
 msgid "No more tasks left"
 msgstr "Nema više zadataka"
 
@@ -610,7 +616,6 @@ msgid "No tasks found"
 msgstr "Nema zadataka"
 
 #: ../src/gtd-empty-list-widget.c:73
-#| msgid "You can add tasks to lists in the <b>Lists</b> view"
 msgid "You can add tasks using the <b>+</b> above"
 msgstr "Možete dodati zadatke koristeći znak <b>+</b>"
 
@@ -628,9 +633,12 @@ msgstr ""
 "Uklanjanje ovog zadatka ukloniće i sve njegove podzadatke. Da uklonim ipak?"
 
 #: ../src/gtd-task-list-view.c:609
-#| msgid "Once removed, the task lists cannot be recovered."
 msgid "Once removed, the tasks cannot be recovered."
 msgstr "Nakon uklanjanja, zadatak ne može da se povrati."
+
+#: ../src/gtd-task-list-view.c:612 ../src/views/gtd-list-selector-panel.c:391
+msgid "Cancel"
+msgstr "Otkaži"
 
 #: ../src/gtd-task-list-view.c:614
 msgid "Remove"
@@ -672,6 +680,9 @@ msgstr "Nakon uklanjanja, spisak sa zadacima ne može da se povrati."
 #: ../src/views/gtd-list-selector-panel.c:399
 msgid "Remove task lists"
 msgstr "Ukloni spiskove sa zadacima"
+
+#~ msgid "Error while opening the default Todo.txt directory"
+#~ msgstr "Greška otvaranja osnovnog direktorijuma Rokovnika"
 
 #~ msgid "Select the default storage location to create task lists:"
 #~ msgstr "Izaberite podrazumevanu putanju za pravljenje spiskova sa zadacima:"
