@@ -7,10 +7,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-todo master\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
+"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "todo&keywords=I18N+L10N&component=General\n"
-"POT-Creation-Date: 2017-02-14 15:25+0000\n"
-"PO-Revision-Date: 2017-02-22 09:38+0200\n"
+"POT-Creation-Date: 2017-03-01 21:20+0000\n"
+"PO-Revision-Date: 2017-03-05 12:23+0200\n"
 "Last-Translator: Jiri Grönroos <jiri.gronroos+l10n@iki.fi>\n"
 "Language-Team: suomi <lokalisointi-lista@googlegroups.com>\n"
 "Language: fi\n"
@@ -55,7 +55,6 @@ msgid "Task lists displayed on list mode"
 msgstr "Tehtävälistat luettelonäkymässä"
 
 #: ../data/appdata/org.gnome.Todo.appdata.xml.in.h:8
-#| msgid "First run of GNOME To Do"
 msgid "Available plugins for GNOME To Do"
 msgstr "Gnomen tehtäviin saatavilla olevia lisäosia"
 
@@ -88,7 +87,6 @@ msgid "Manage your personal tasks"
 msgstr "Hallitse omia tehtäviäsi"
 
 #: ../data/org.gnome.Todo.desktop.in.in.h:3
-#| msgid "Task;Productivity;"
 msgid "Task;Productivity;Todo;"
 msgstr "Task;Productivity;Todo;tehtävä;tuottavuus;"
 
@@ -170,17 +168,20 @@ msgstr "Ei päiväystä"
 msgid "Details"
 msgstr "Tiedot"
 
-#: ../data/ui/edit-pane.ui.h:3 ../plugins/eds/edit-pane.ui.h:2
-msgid "Notes"
-msgstr "Huomautukset"
+#: ../data/ui/edit-pane.ui.h:3
+#| msgid "Notes"
+msgid "_Notes"
+msgstr "_Huomautukset"
 
-#: ../data/ui/edit-pane.ui.h:4 ../plugins/eds/edit-pane.ui.h:3
-msgid "Due Date"
-msgstr "Eräpäivä"
+#: ../data/ui/edit-pane.ui.h:4
+#| msgid "Due Date"
+msgid "D_ue Date"
+msgstr "_Eräpäivä"
 
-#: ../data/ui/edit-pane.ui.h:5 ../plugins/eds/edit-pane.ui.h:4
-msgid "Priority"
-msgstr "Prioriteetti"
+#: ../data/ui/edit-pane.ui.h:5
+#| msgid "Priority"
+msgid "_Priority"
+msgstr "_Prioriteetti"
 
 #: ../data/ui/edit-pane.ui.h:6 ../plugins/eds/edit-pane.ui.h:5
 msgctxt "taskpriority"
@@ -200,29 +201,24 @@ msgid "High"
 msgstr "Korkea"
 
 #: ../data/ui/edit-pane.ui.h:10 ../data/ui/list-selector-panel.ui.h:2
-#: ../plugins/eds/edit-pane.ui.h:9
-msgid "Delete"
-msgstr "Poista"
+#| msgid "Delete"
+msgid "_Delete"
+msgstr "P_oista"
 
-#. Setup a title
 #: ../data/ui/edit-pane.ui.h:11
-#: ../plugins/scheduled-panel/gtd-panel-scheduled.c:87
-#: ../plugins/score/score/__init__.py:95
-#: ../plugins/today-panel/gtd-panel-today.c:135
-#: ../plugins/today-panel/gtd-panel-today.c:140
-#: ../plugins/today-panel/gtd-panel-today.c:308 ../src/gtd-task-row.c:293
-msgid "Today"
-msgstr "Tänään"
+#| msgid "Today"
+msgid "_Today"
+msgstr "_Tänään"
 
 #: ../data/ui/edit-pane.ui.h:12
-#: ../plugins/scheduled-panel/gtd-panel-scheduled.c:91
-#: ../src/gtd-task-row.c:297
-msgid "Tomorrow"
-msgstr "Huomenna"
+#| msgid "Tomorrow"
+msgid "To_morrow"
+msgstr "H_uomenna"
 
 #: ../data/ui/edit-pane.ui.h:13
-msgid "Next Week"
-msgstr "Ensi viikko"
+#| msgid "Next Week"
+msgid "Next _Week"
+msgstr "Ensi _viikko"
 
 #: ../data/ui/initial-setup.ui.h:1
 msgid "Welcome"
@@ -233,19 +229,20 @@ msgid "Login to online accounts to access your tasks"
 msgstr "Kirjaudu verkkotileihisi käyttääksesi tehtävälistoja"
 
 #: ../data/ui/initial-setup.ui.h:3 ../data/ui/provider-popover.ui.h:2
-#: ../data/ui/window.ui.h:1 ../src/gtd-task-list-view.c:612
-#: ../src/views/gtd-list-selector-panel.c:391
-msgid "Cancel"
-msgstr "Peru"
+#: ../data/ui/window.ui.h:1
+#| msgid "Cancel"
+msgid "_Cancel"
+msgstr "_Peru"
 
-#: ../data/ui/initial-setup.ui.h:4 ../data/ui/list-view.ui.h:2
-#: ../src/gtd-task-list-view.c:777
-msgid "Done"
-msgstr "Valmis"
+#: ../data/ui/initial-setup.ui.h:4
+#| msgid "Done"
+msgid "_Done"
+msgstr "_Valmis"
 
 #: ../data/ui/list-selector-panel.ui.h:1
-msgid "Rename"
-msgstr "Nimeä uudelleen"
+#| msgid "Rename"
+msgid "_Rename"
+msgstr "_Nimeä uudelleen"
 
 #: ../data/ui/list-selector-panel.ui.h:3
 #: ../src/views/gtd-list-selector-panel.c:470
@@ -261,12 +258,17 @@ msgid "Name of the task list"
 msgstr "Tehtävälistan nimi"
 
 #: ../data/ui/list-selector-panel.ui.h:6
-msgid "New List"
-msgstr "Uusi lista"
+#| msgid "New List"
+msgid "_New List"
+msgstr "Uusi _lista"
 
 #: ../data/ui/list-view.ui.h:1
 msgid "Show or hide completed tasks"
 msgstr "Näytä tai piilota valmistuneet tehtävät"
+
+#: ../data/ui/list-view.ui.h:2 ../src/gtd-task-list-view.c:777
+msgid "Done"
+msgstr "Valmis"
 
 #: ../data/ui/new-task-row.ui.h:1
 msgid "New task…"
@@ -277,8 +279,9 @@ msgid "No extensions found"
 msgstr "Laajennuksia ei löytynyt"
 
 #: ../data/ui/provider-popover.ui.h:1
-msgid "Create"
-msgstr "Luo"
+#| msgid "Create"
+msgid "Create _List"
+msgstr "Luo l_ista"
 
 #: ../data/ui/provider-popover.ui.h:3
 msgid "List Name"
@@ -320,6 +323,22 @@ msgstr "Microsoft Exchange"
 msgid "Or you can just store your tasks on this computer"
 msgstr "Tai halutessasi voit tallettaa tehtäväsi tälle tietokoneelle"
 
+#: ../plugins/eds/edit-pane.ui.h:2
+msgid "Notes"
+msgstr "Huomautukset"
+
+#: ../plugins/eds/edit-pane.ui.h:3
+msgid "Due Date"
+msgstr "Eräpäivä"
+
+#: ../plugins/eds/edit-pane.ui.h:4
+msgid "Priority"
+msgstr "Prioriteetti"
+
+#: ../plugins/eds/edit-pane.ui.h:9
+msgid "Delete"
+msgstr "Poista"
+
 #: ../plugins/eds/gtd-plugin-eds.c:244 ../plugins/eds/gtd-plugin-eds.c:248
 msgid "Error loading GNOME Online Accounts"
 msgstr "Virhe ladatessa Gnomen verkkotilejä"
@@ -341,7 +360,6 @@ msgid "Task list source successfully connected"
 msgstr "Tehtävälistan lähde yhdistetty onnistuneesti"
 
 #: ../plugins/eds/gtd-provider-eds.c:203 ../plugins/eds/gtd-provider-eds.c:208
-#| msgid "Failed to connect to task list source"
 msgid "Failed to connect to task list"
 msgstr "Yhteys tehtävälistaan epäonnistui"
 
@@ -413,6 +431,20 @@ msgstr[0] "Eilen"
 msgstr[1] "%d päivää sitten"
 
 #. Setup a title
+#: ../plugins/scheduled-panel/gtd-panel-scheduled.c:87
+#: ../plugins/score/score/__init__.py:95
+#: ../plugins/today-panel/gtd-panel-today.c:135
+#: ../plugins/today-panel/gtd-panel-today.c:140
+#: ../plugins/today-panel/gtd-panel-today.c:308 ../src/gtd-task-row.c:293
+msgid "Today"
+msgstr "Tänään"
+
+#: ../plugins/scheduled-panel/gtd-panel-scheduled.c:91
+#: ../src/gtd-task-row.c:297
+msgid "Tomorrow"
+msgstr "Huomenna"
+
+#. Setup a title
 #: ../plugins/scheduled-panel/gtd-panel-scheduled.c:342
 #: ../plugins/scheduled-panel/gtd-panel-scheduled.c:347
 #: ../plugins/scheduled-panel/gtd-panel-scheduled.c:479
@@ -429,68 +461,63 @@ msgstr "Tyhjennä valmistuneet tehtävät…"
 msgid "No task completed today"
 msgstr "Ei tänään suoritettuja tehtäviä"
 
-#: ../plugins/todo-txt/gtd-plugin-todo-txt.c:103
+#: ../plugins/todo-txt/gtd-plugin-todo-txt.c:100
 msgid "Error while opening the file monitor. Todo.txt will not be monitored"
 msgstr "Virhe avatessa tiedostovalvontaa. Tehtävät.txt-tiedostoa ei valvota"
 
-#: ../plugins/todo-txt/gtd-plugin-todo-txt.c:127
-msgid "Error while opening the default Todo.txt directory"
-msgstr "Virhe avatessa oletusarvoista Tehtävät.txt-hakemistoa"
-
-#: ../plugins/todo-txt/gtd-plugin-todo-txt.c:145
+#: ../plugins/todo-txt/gtd-plugin-todo-txt.c:125
 msgid "Error while converting the default Todo.txt path to an URI"
 msgstr ""
 
-#: ../plugins/todo-txt/gtd-plugin-todo-txt.c:162
-msgid "Cannot create todo.txt file"
+#: ../plugins/todo-txt/gtd-plugin-todo-txt.c:146
+#, fuzzy
+#| msgid "Cannot create todo.txt file"
+msgid "Cannot create Todo.txt file"
 msgstr "Tehtävät.txt-tiedostoa ei voi luoda"
 
-#: ../plugins/todo-txt/gtd-plugin-todo-txt.c:374
+#: ../plugins/todo-txt/gtd-plugin-todo-txt.c:362
 msgid "Select a Todo.txt-formatted file:"
 msgstr "Valitse Tehtävät.txt-muotoiltu tiedosto:"
 
-#: ../plugins/todo-txt/gtd-provider-todo-txt.c:77
-#| msgid "Todo"
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:76
 msgid "Todo.txt"
 msgstr "Tehtävät.txt"
 
-#: ../plugins/todo-txt/gtd-provider-todo-txt.c:83
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:82
 msgid "On the Todo.txt file"
 msgstr "Tehtävät.txt-tiedostossa"
 
-#: ../plugins/todo-txt/gtd-provider-todo-txt.c:130
-#: ../plugins/todo-txt/gtd-provider-todo-txt.c:134
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:129
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:133
 msgid "Error while opening Todo.txt"
 msgstr "Virhe avattaessa Tehtävät.txt-tiedostoa"
 
-#: ../plugins/todo-txt/gtd-provider-todo-txt.c:336
-#: ../plugins/todo-txt/gtd-provider-todo-txt.c:340
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:335
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:339
 msgid "Error while reading a line from Todo.txt"
 msgstr "Virhe riviä luettaessa Tehtävät.txt-tiedostosta"
 
-#: ../plugins/todo-txt/gtd-provider-todo-txt.c:403
-#: ../plugins/todo-txt/gtd-provider-todo-txt.c:407
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:402
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:406
 msgid "Error while adding a task to Todo.txt"
 msgstr "Virhe tehtävää lisättäessä Tehtävät.txt-tiedostoon"
 
-#: ../plugins/todo-txt/gtd-provider-todo-txt.c:544
-#: ../plugins/todo-txt/gtd-provider-todo-txt.c:548
-#: ../plugins/todo-txt/gtd-provider-todo-txt.c:660
-#: ../plugins/todo-txt/gtd-provider-todo-txt.c:664
-#: ../plugins/todo-txt/gtd-provider-todo-txt.c:864
-#: ../plugins/todo-txt/gtd-provider-todo-txt.c:868
-#| msgid "Error fetching tasks from list"
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:543
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:547
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:659
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:663
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:863
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:867
 msgid "Error while reading tasks from Todo.txt"
 msgstr "Virhe tehtäviä luettaessa Tehtävät.txt-tiedostosta"
 
-#: ../plugins/todo-txt/gtd-provider-todo-txt.c:725
-#: ../plugins/todo-txt/gtd-provider-todo-txt.c:729
-#| msgid "Error creating task list"
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:724
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:728
 msgid "Error while creating a Todo.txt list"
 msgstr "Virhe luotaessa Tehtävät.txt-luetteloa"
 
-#: ../plugins/todo-txt/gtd-provider-todo-txt.c:976
-#: ../plugins/todo-txt/gtd-provider-todo-txt.c:980
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:975
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:979
 #, fuzzy
 #| msgid "Error creating task list"
 msgid "Error while reading task lists from Todo.txt"
@@ -534,12 +561,12 @@ msgstr "Tehtävät.txt-tiedoston lähde"
 
 #. Translators: 'Unscheduled' as in 'Unscheduled tasks'
 #: ../plugins/unscheduled-panel/unscheduled-panel/__init__.py:34
-#: ../plugins/unscheduled-panel/unscheduled-panel/__init__.py:89
+#: ../plugins/unscheduled-panel/unscheduled-panel/__init__.py:88
 msgid "Unscheduled"
 msgstr "Ajastamaton"
 
 #. Translators: 'Unscheduled' as in 'Unscheduled tasks'
-#: ../plugins/unscheduled-panel/unscheduled-panel/__init__.py:92
+#: ../plugins/unscheduled-panel/unscheduled-panel/__init__.py:91
 #, python-format
 msgid "Unscheduled (%d)"
 msgstr "Ajastamaton (%d)"
@@ -619,6 +646,10 @@ msgstr ""
 msgid "Once removed, the tasks cannot be recovered."
 msgstr "Poistamisen jälkeen tehtäviä ei voi palattaa."
 
+#: ../src/gtd-task-list-view.c:612 ../src/views/gtd-list-selector-panel.c:391
+msgid "Cancel"
+msgstr "Peru"
+
 #: ../src/gtd-task-list-view.c:614
 msgid "Remove"
 msgstr "Poista"
@@ -659,6 +690,9 @@ msgstr "Kun tehtävälistat on poistettu, niitä ei voi palauttaa."
 #: ../src/views/gtd-list-selector-panel.c:399
 msgid "Remove task lists"
 msgstr "Poista tehtävälistat"
+
+#~ msgid "Error while opening the default Todo.txt directory"
+#~ msgstr "Virhe avatessa oletusarvoista Tehtävät.txt-hakemistoa"
 
 #~ msgid "Select the default storage location to create task lists:"
 #~ msgstr "Valitse tallennustilan oletussijainti luodaksesi tehtävälistoja:"
