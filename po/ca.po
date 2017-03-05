@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-01-25 08:12+0100\n"
+"POT-Creation-Date: 2017-03-05 15:41+0100\n"
 "PO-Revision-Date: 2017-01-25 10:51+0100\n"
 "Last-Translator: Jordi Mas <jmas@softcaatala.org>\n"
 "Language-Team: \n"
@@ -22,8 +22,9 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 1.8.7.1\n"
 
-#: ../data/appdata/org.gnome.Todo.appdata.xml.in.h:1 ../data/org.gnome.Todo.desktop.in.in.h:1
-#: ../src/gtd-application.c:123 ../src/gtd-application.c:149 ../src/gtd-window.c:940
+#: ../data/appdata/org.gnome.Todo.appdata.xml.in.h:1
+#: ../data/org.gnome.Todo.desktop.in.in.h:1 ../src/gtd-application.c:123
+#: ../src/gtd-application.c:149 ../src/gtd-window.c:940
 msgid "To Do"
 msgstr "Per fer"
 
@@ -33,11 +34,12 @@ msgstr "Un gestor de tasques per al GNOME"
 
 #: ../data/appdata/org.gnome.Todo.appdata.xml.in.h:3
 msgid ""
-"GNOME To Do is a task management application designed to integrate with GNOME. It is extensible through "
-"plugins and supports custom task providers."
+"GNOME To Do is a task management application designed to integrate with "
+"GNOME. It is extensible through plugins and supports custom task providers."
 msgstr ""
-"El GNOME Per fer és una aplicació de gestió de tasques simple dissenyada per a integrar-se amb el GNOME. És "
-"extensible mitjançant connectors i permet proveïdors de tasques personalitzats."
+"El GNOME Per fer és una aplicació de gestió de tasques simple dissenyada per "
+"a integrar-se amb el GNOME. És extensible mitjançant connectors i permet "
+"proveïdors de tasques personalitzats."
 
 #: ../data/appdata/org.gnome.Todo.appdata.xml.in.h:4
 msgid "GNOME To Do with the Dark theme variant"
@@ -120,8 +122,11 @@ msgid "First run of GNOME To Do"
 msgstr "Primera execució del GNOME Per fer"
 
 #: ../data/org.gnome.todo.gschema.xml.h:8
-msgid "Whether it’s the first run of GNOME To Do (to run the initial setup) or not"
-msgstr "Si és el primer cop que s'executa el GNOME Per fer (per a executar la configuració inicial) o no"
+msgid ""
+"Whether it’s the first run of GNOME To Do (to run the initial setup) or not"
+msgstr ""
+"Si és el primer cop que s'executa el GNOME Per fer (per a executar la "
+"configuració inicial) o no"
 
 #: ../data/org.gnome.todo.gschema.xml.h:9
 msgid "Default provider to add new lists to"
@@ -129,7 +134,8 @@ msgstr "Proveïdor per defecte a afegir a les llistes noves"
 
 #: ../data/org.gnome.todo.gschema.xml.h:10
 msgid "The identifier of the default provider to add new lists to"
-msgstr "L'identificador del proveïdor per defecte on s'han d'afegir les llistes noves"
+msgstr ""
+"L'identificador del proveïdor per defecte on s'han d'afegir les llistes noves"
 
 #: ../data/org.gnome.todo.gschema.xml.h:11
 msgid "List of active extensions"
@@ -152,21 +158,22 @@ msgctxt "taskdate"
 msgid "None"
 msgstr "Cap"
 
-#: ../data/ui/edit-pane.ui.h:2 ../plugins/eds/edit-pane.ui.h:1 ../src/gtd-window.c:542
+#: ../data/ui/edit-pane.ui.h:2 ../plugins/eds/edit-pane.ui.h:1
+#: ../src/gtd-window.c:542
 msgid "Details"
 msgstr "Detalls"
 
-#: ../data/ui/edit-pane.ui.h:3 ../plugins/eds/edit-pane.ui.h:2
-msgid "Notes"
-msgstr "Notes"
+#: ../data/ui/edit-pane.ui.h:3
+msgid "_Notes"
+msgstr "_Notes"
 
-#: ../data/ui/edit-pane.ui.h:4 ../plugins/eds/edit-pane.ui.h:3
-msgid "Due Date"
-msgstr "Data de venciment"
+#: ../data/ui/edit-pane.ui.h:4
+msgid "D_ue Date"
+msgstr "_Data de venciment"
 
-#: ../data/ui/edit-pane.ui.h:5 ../plugins/eds/edit-pane.ui.h:4
-msgid "Priority"
-msgstr "Prioritat"
+#: ../data/ui/edit-pane.ui.h:5
+msgid "_Priority"
+msgstr "_Prioritat"
 
 #: ../data/ui/edit-pane.ui.h:6 ../plugins/eds/edit-pane.ui.h:5
 msgctxt "taskpriority"
@@ -185,25 +192,21 @@ msgstr "Mitjà"
 msgid "High"
 msgstr "Alta"
 
-#: ../data/ui/edit-pane.ui.h:10 ../data/ui/list-selector-panel.ui.h:2 ../plugins/eds/edit-pane.ui.h:9
-msgid "Delete"
-msgstr "Suprimeix"
+#: ../data/ui/edit-pane.ui.h:10 ../data/ui/list-selector-panel.ui.h:2
+msgid "_Delete"
+msgstr "_Suprimeix"
 
-#. Setup a title
-#: ../data/ui/edit-pane.ui.h:11 ../plugins/scheduled-panel/gtd-panel-scheduled.c:87
-#: ../plugins/score/score/__init__.py:95 ../plugins/today-panel/gtd-panel-today.c:135
-#: ../plugins/today-panel/gtd-panel-today.c:140 ../plugins/today-panel/gtd-panel-today.c:308
-#: ../src/gtd-task-row.c:299
-msgid "Today"
-msgstr "Avui"
+#: ../data/ui/edit-pane.ui.h:11
+msgid "_Today"
+msgstr "_Avui"
 
-#: ../data/ui/edit-pane.ui.h:12 ../plugins/scheduled-panel/gtd-panel-scheduled.c:91 ../src/gtd-task-row.c:303
-msgid "Tomorrow"
-msgstr "Demà"
+#: ../data/ui/edit-pane.ui.h:12
+msgid "To_morrow"
+msgstr "_Demà"
 
 #: ../data/ui/edit-pane.ui.h:13
-msgid "Next Week"
-msgstr " Propera setmana"
+msgid "Next _Week"
+msgstr "_Propera setmana"
 
 #: ../data/ui/initial-setup.ui.h:1
 msgid "Welcome"
@@ -213,20 +216,21 @@ msgstr "Benvinguts"
 msgid "Login to online accounts to access your tasks"
 msgstr "Entreu als comptes en línia per accedir a les tasques"
 
-#: ../data/ui/initial-setup.ui.h:3 ../data/ui/provider-popover.ui.h:2 ../data/ui/window.ui.h:1
-#: ../src/gtd-task-list-view.c:599 ../src/views/gtd-list-selector-panel.c:388
-msgid "Cancel"
-msgstr "Cancel·la"
+#: ../data/ui/initial-setup.ui.h:3 ../data/ui/provider-popover.ui.h:2
+#: ../data/ui/window.ui.h:1
+msgid "_Cancel"
+msgstr "_Cancel·la"
 
-#: ../data/ui/initial-setup.ui.h:4 ../data/ui/list-view.ui.h:2 ../src/gtd-task-list-view.c:764
-msgid "Done"
-msgstr "Fet"
+#: ../data/ui/initial-setup.ui.h:4
+msgid "_Done"
+msgstr "_Fet"
 
 #: ../data/ui/list-selector-panel.ui.h:1
-msgid "Rename"
-msgstr "Canvia el nom"
+msgid "_Rename"
+msgstr "_Canvia el nom"
 
-#: ../data/ui/list-selector-panel.ui.h:3 ../src/views/gtd-list-selector-panel.c:467
+#: ../data/ui/list-selector-panel.ui.h:3
+#: ../src/views/gtd-list-selector-panel.c:470
 msgid "Lists"
 msgstr "Llistes"
 
@@ -239,20 +243,28 @@ msgid "Name of the task list"
 msgstr "Nom de la llista de tasques"
 
 #: ../data/ui/list-selector-panel.ui.h:6
-msgid "New List"
-msgstr "Llista nova"
+msgid "_New List"
+msgstr "_Llista nova"
 
 #: ../data/ui/list-view.ui.h:1
 msgid "Show or hide completed tasks"
 msgstr "Mostra o amaga les tasques completades"
+
+#: ../data/ui/list-view.ui.h:2 ../src/gtd-task-list-view.c:777
+msgid "Done"
+msgstr "Fet"
+
+#: ../data/ui/new-task-row.ui.h:1
+msgid "New task…"
+msgstr "Tasca nova…"
 
 #: ../data/ui/plugin-dialog.ui.h:2
 msgid "No extensions found"
 msgstr "No s'han trobat extensions"
 
 #: ../data/ui/provider-popover.ui.h:1
-msgid "Create"
-msgstr "Crea"
+msgid "Create _List"
+msgstr "C_rea llista"
 
 #: ../data/ui/provider-popover.ui.h:3
 msgid "List Name"
@@ -294,9 +306,21 @@ msgstr "Microsoft Exchange"
 msgid "Or you can just store your tasks on this computer"
 msgstr "O podeu simplement emmagatzemar les tasques en aquest PC"
 
-#: ../data/ui/task-row.ui.h:1
-msgid "New task…"
-msgstr "Tasca nova…"
+#: ../plugins/eds/edit-pane.ui.h:2
+msgid "Notes"
+msgstr "Notes"
+
+#: ../plugins/eds/edit-pane.ui.h:3
+msgid "Due Date"
+msgstr "Data de venciment"
+
+#: ../plugins/eds/edit-pane.ui.h:4
+msgid "Priority"
+msgstr "Prioritat"
+
+#: ../plugins/eds/edit-pane.ui.h:9
+msgid "Delete"
+msgstr "Suprimeix"
 
 #: ../plugins/eds/gtd-plugin-eds.c:244 ../plugins/eds/gtd-plugin-eds.c:248
 msgid "Error loading GNOME Online Accounts"
@@ -319,8 +343,8 @@ msgid "Task list source successfully connected"
 msgstr "S'ha connectat la font de la llista de tasques"
 
 #: ../plugins/eds/gtd-provider-eds.c:203 ../plugins/eds/gtd-provider-eds.c:208
-msgid "Failed to connect to task list source"
-msgstr "S'ha produït un error en connectar a la font de la llista de tasques"
+msgid "Failed to connect to task list"
+msgstr "S'ha produït un error en connectar a la llista de tasques"
 
 #: ../plugins/eds/gtd-provider-eds.c:322
 msgid "Failed to prompt for credentials"
@@ -371,15 +395,18 @@ msgstr "Local"
 msgid "On This Computer"
 msgstr "En aquest ordinador"
 
-#: ../plugins/eds/gtd-provider-local.c:133 ../plugins/eds/gtd-provider-local.c:137
+#: ../plugins/eds/gtd-provider-local.c:133
+#: ../plugins/eds/gtd-provider-local.c:137
 msgid "Error creating new task list"
 msgstr "S'ha produït un error en crear una llista nova de tasques"
 
-#: ../plugins/scheduled-panel/gtd-panel-scheduled.c:67 ../src/gtd-edit-pane.c:217 ../src/gtd-task-row.c:329
+#: ../plugins/scheduled-panel/gtd-panel-scheduled.c:67
+#: ../src/gtd-edit-pane.c:217 ../src/gtd-task-row.c:323
 msgid "No date set"
 msgstr "No s'ha establert cap data"
 
-#: ../plugins/scheduled-panel/gtd-panel-scheduled.c:83 ../src/gtd-task-row.c:307
+#: ../plugins/scheduled-panel/gtd-panel-scheduled.c:83
+#: ../src/gtd-task-row.c:301
 #, c-format
 msgid "Yesterday"
 msgid_plural "%d days ago"
@@ -387,13 +414,30 @@ msgstr[0] "Ahir"
 msgstr[1] "Fa %d dies"
 
 #. Setup a title
-#: ../plugins/scheduled-panel/gtd-panel-scheduled.c:342 ../plugins/scheduled-panel/gtd-panel-scheduled.c:347
+#: ../plugins/scheduled-panel/gtd-panel-scheduled.c:87
+#: ../plugins/score/score/__init__.py:95
+#: ../plugins/today-panel/gtd-panel-today.c:135
+#: ../plugins/today-panel/gtd-panel-today.c:140
+#: ../plugins/today-panel/gtd-panel-today.c:308 ../src/gtd-task-row.c:293
+msgid "Today"
+msgstr "Avui"
+
+#: ../plugins/scheduled-panel/gtd-panel-scheduled.c:91
+#: ../src/gtd-task-row.c:297
+msgid "Tomorrow"
+msgstr "Demà"
+
+#. Setup a title
+#: ../plugins/scheduled-panel/gtd-panel-scheduled.c:342
+#: ../plugins/scheduled-panel/gtd-panel-scheduled.c:347
 #: ../plugins/scheduled-panel/gtd-panel-scheduled.c:479
 msgid "Scheduled"
 msgstr "Planificat"
 
-#: ../plugins/scheduled-panel/gtd-panel-scheduled.c:484 ../plugins/today-panel/gtd-panel-today.c:313
-#: ../src/views/gtd-list-selector-panel.c:713
+#: ../plugins/scheduled-panel/gtd-panel-scheduled.c:484
+#: ../plugins/today-panel/gtd-panel-today.c:313
+#: ../plugins/unscheduled-panel/unscheduled-panel/__init__.py:52
+#: ../src/views/gtd-list-selector-panel.c:716
 msgid "Clear completed tasks…"
 msgstr "Neteja les tasques completades…"
 
@@ -401,14 +445,108 @@ msgstr "Neteja les tasques completades…"
 msgid "No task completed today"
 msgstr "No s'ha completat cap tasca avui"
 
+#: ../plugins/todo-txt/gtd-plugin-todo-txt.c:100
+msgid "Error while opening the file monitor. Todo.txt will not be monitored"
+msgstr ""
+
+#: ../plugins/todo-txt/gtd-plugin-todo-txt.c:125
+msgid "Error while converting the default Todo.txt path to an URI"
+msgstr ""
+
+#: ../plugins/todo-txt/gtd-plugin-todo-txt.c:146
+msgid "Cannot create Todo.txt file"
+msgstr ""
+
+#: ../plugins/todo-txt/gtd-plugin-todo-txt.c:362
+msgid "Select a Todo.txt-formatted file:"
+msgstr ""
+
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:76
+msgid "Todo.txt"
+msgstr "Perfer.txt"
+
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:82
+msgid "On the Todo.txt file"
+msgstr "Al fitxer Perfer.txt"
+
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:129
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:133
+msgid "Error while opening Todo.txt"
+msgstr "S'ha produït un error en obrir Perfer.txt"
+
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:335
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:339
+msgid "Error while reading a line from Todo.txt"
+msgstr "S'ha produït un error en llegir Perfer.txt"
+
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:402
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:406
+msgid "Error while adding a task to Todo.txt"
+msgstr "S'ha produït un error en afegir una tasca a Perfer.txt"
+
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:543
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:547
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:659
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:663
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:863
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:867
+msgid "Error while reading tasks from Todo.txt"
+msgstr "S'ha produït un error en llegir tasques del fitxer Perfer.txt"
+
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:724
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:728
+msgid "Error while creating a Todo.txt list"
+msgstr "S'ha produït un error en crear una llista al fitxer Perfer.txt"
+
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:975
+#: ../plugins/todo-txt/gtd-provider-todo-txt.c:979
+msgid "Error while reading task lists from Todo.txt"
+msgstr "S'ha produït un error en llegir una llista del fitxer Perfer.txt"
+
+#: ../plugins/todo-txt/gtd-todo-txt-parser.c:347
+msgid "Incorrect date"
+msgstr "Data incorrecta"
+
+#: ../plugins/todo-txt/gtd-todo-txt-parser.c:348
+msgid "Please make sure the date in Todo.txt is valid."
+msgstr "Assegureu-vos de que la data al fitxer Perfer.txt és vàlida."
+
+#: ../plugins/todo-txt/gtd-todo-txt-parser.c:377
+msgid "Unrecognized token in a Todo.txt line"
+msgstr ""
+
+#: ../plugins/todo-txt/gtd-todo-txt-parser.c:378
+msgid ""
+"To Do cannot recognize some tags in your Todo.txt file. Some tasks may not "
+"be loaded"
+msgstr ""
+
+#: ../plugins/todo-txt/gtd-todo-txt-parser.c:387
+msgid "No task list found for some tasks"
+msgstr ""
+
+#: ../plugins/todo-txt/gtd-todo-txt-parser.c:388
+msgid ""
+"Some of the tasks in your Todo.txt file do not have a task list. To Do "
+"supports tasks with a task list. Please add a list to all your tasks"
+msgstr ""
+
+#: ../plugins/todo-txt/org.gnome.todo.txt.gschema.xml.h:1
+msgid "Todo.txt File"
+msgstr "Fitxer Perfer.txt"
+
+#: ../plugins/todo-txt/org.gnome.todo.txt.gschema.xml.h:2
+msgid "Source of the Todo.txt file"
+msgstr "Font del fitxer Perfer.txt"
+
 #. Translators: 'Unscheduled' as in 'Unscheduled tasks'
 #: ../plugins/unscheduled-panel/unscheduled-panel/__init__.py:34
-#: ../plugins/unscheduled-panel/unscheduled-panel/__init__.py:89
+#: ../plugins/unscheduled-panel/unscheduled-panel/__init__.py:91
 msgid "Unscheduled"
 msgstr "No programat"
 
 #. Translators: 'Unscheduled' as in 'Unscheduled tasks'
-#: ../plugins/unscheduled-panel/unscheduled-panel/__init__.py:92
+#: ../plugins/unscheduled-panel/unscheduled-panel/__init__.py:94
 #, python-format
 msgid "Unscheduled (%d)"
 msgstr "No programades (%d)"
@@ -425,7 +563,7 @@ msgstr "Copyright © %d–%d els autors del Per fer"
 
 #: ../src/gtd-application.c:130
 msgid "translator-credits"
-msgstr "Jordi Mas i Hernàndez <jmas@softcatala.org>, 2015"
+msgstr "Jordi Mas i Hernàndez <jmas@softcatala.org>, 2015-2017"
 
 #: ../src/gtd-empty-list-widget.c:49
 msgid "No more tasks left"
@@ -479,24 +617,30 @@ msgstr "S'ha produït un error en carregar connector"
 msgid "Error unloading plugin"
 msgstr "S'ha produït un error en descarregar connector"
 
-#: ../src/gtd-task-list-view.c:593
+#: ../src/gtd-task-list-view.c:606
 msgid "Removing this task will also remove its subtasks. Remove anyway?"
-msgstr "Si es suprimeix aquesta tasca també se suprimiran les seves subtasques. Voleu suprimir-la?"
+msgstr ""
+"Si es suprimeix aquesta tasca també se suprimiran les seves subtasques. "
+"Voleu suprimir-la?"
 
-#: ../src/gtd-task-list-view.c:596
+#: ../src/gtd-task-list-view.c:609
 msgid "Once removed, the tasks cannot be recovered."
 msgstr "Un cop suprimides, les llistes de tasques no es poden recuperar."
 
-#: ../src/gtd-task-list-view.c:601
+#: ../src/gtd-task-list-view.c:612 ../src/views/gtd-list-selector-panel.c:391
+msgid "Cancel"
+msgstr "Cancel·la"
+
+#: ../src/gtd-task-list-view.c:614
 msgid "Remove"
 msgstr "Suprimeix"
 
-#: ../src/gtd-task-list-view.c:650
+#: ../src/gtd-task-list-view.c:663
 #, c-format
 msgid "Task <b>%s</b> removed"
 msgstr "S'ha suprimit la tasca <b>%s</b>"
 
-#: ../src/gtd-task-list-view.c:680
+#: ../src/gtd-task-list-view.c:693
 msgid "Undo"
 msgstr "Desfés"
 
@@ -508,7 +652,7 @@ msgstr "S'està carregat la llista de tasques…"
 msgid "Click a task list to select"
 msgstr "Fes clic a la tasca per seleccionar-la"
 
-#: ../src/views/gtd-list-selector-grid-item.c:233
+#: ../src/views/gtd-list-selector-grid-item.c:234
 msgid "No tasks"
 msgstr "Sense tasques"
 
@@ -516,29 +660,28 @@ msgstr "Sense tasques"
 msgid "Setting new color for task list"
 msgstr "S'està establint el nou color per la llista de tasques"
 
-#: ../src/views/gtd-list-selector-panel.c:381
+#: ../src/views/gtd-list-selector-panel.c:384
 msgid "Remove the selected task lists?"
 msgstr "Voleu suprimir les llistes de tasques seleccionades?"
 
-#: ../src/views/gtd-list-selector-panel.c:384
+#: ../src/views/gtd-list-selector-panel.c:387
 msgid "Once removed, the task lists cannot be recovered."
 msgstr "Un cop suprimides, les llistes de tasques no es poden recuperar."
 
-#: ../src/views/gtd-list-selector-panel.c:396
+#: ../src/views/gtd-list-selector-panel.c:399
 msgid "Remove task lists"
 msgstr "Suprimeix la llista de tasques"
 
 #~ msgid "Select the default storage location to create task lists:"
-#~ msgstr "Seleccioneu la ubicació de l'emmagatzematge per defecte per crear llistes de tasques:"
+#~ msgstr ""
+#~ "Seleccioneu la ubicació de l'emmagatzematge per defecte per crear llistes "
+#~ "de tasques:"
 
 #~ msgid "Default storage location"
 #~ msgstr "Ubicació d'emmagatzematge per defecte"
 
 #~ msgid "unscheduled-panel"
 #~ msgstr "Quadre no programat"
-
-#~ msgid "Todo"
-#~ msgstr "Per fer"
 
 #~ msgid "Skipping already loaded task list "
 #~ msgstr "S'està ometent la llista de tasques ja carregada "
@@ -564,20 +707,26 @@ msgstr "Suprimeix la llista de tasques"
 #~ msgid "The online accounts client of the manager"
 #~ msgstr "El client de comptes en línia del gestor"
 
-#~ msgid "The read-only GNOME online accounts client loaded and owned by the manager"
-#~ msgstr "El client de comptes en línia del GNOME de només de lectura carregat i propietat del gestor"
+#~ msgid ""
+#~ "The read-only GNOME online accounts client loaded and owned by the manager"
+#~ msgstr ""
+#~ "El client de comptes en línia del GNOME de només de lectura carregat i "
+#~ "propietat del gestor"
 
 #~ msgid "Whether GNOME Online Accounts client is ready"
 #~ msgstr "Si el client de comptes en línia està preparat"
 
 #~ msgid "Whether the read-only GNOME online accounts client is loaded"
-#~ msgstr "Si el client de comptes en línia del GNOME de només de lectura està carregat"
+#~ msgstr ""
+#~ "Si el client de comptes en línia del GNOME de només de lectura està "
+#~ "carregat"
 
 #~ msgid "The source registry of the manager"
 #~ msgstr "El registre de la font del gestor"
 
 #~ msgid "The read-only source registry loaded and owned by the manager"
-#~ msgstr "El registre de la font de només lectura carregat i propietat del gestor"
+#~ msgstr ""
+#~ "El registre de la font de només lectura carregat i propietat del gestor"
 
 #~ msgid "Unique identifier of the object"
 #~ msgstr "L'identificador únic de l'objecte"
@@ -621,10 +770,12 @@ msgstr "Suprimeix la llista de tasques"
 #~ msgid "Priority of the task"
 #~ msgstr "Prioritat de la tasca"
 
-#~ msgid "The priority of the task. 0 means no priority set, and tasks will be sorted alphabetically."
+#~ msgid ""
+#~ "The priority of the task. 0 means no priority set, and tasks will be "
+#~ "sorted alphabetically."
 #~ msgstr ""
-#~ "La prioritat de la tasca. 0 vol dir que no s'ha establert cap prioritat i que les tasques s'ordenaran "
-#~ "alfabèticament."
+#~ "La prioritat de la tasca. 0 vol dir que no s'ha establert cap prioritat i "
+#~ "que les tasques s'ordenaran alfabèticament."
 
 #~ msgid "Title of the task"
 #~ msgstr "Títol de la tasca"
@@ -656,9 +807,6 @@ msgstr "Suprimeix la llista de tasques"
 #~ msgid "The data origin location of the list"
 #~ msgstr "La ubicació d'origen de les dades de la llista"
 
-#~ msgid "Source of the list"
-#~ msgstr "Font de la llista"
-
 #~ msgid "The parent source that handles the list"
 #~ msgstr "La font pare que gestiona la llista"
 
@@ -686,14 +834,18 @@ msgstr "Suprimeix la llista de tasques"
 #~ msgid "Whether the list is readonly"
 #~ msgstr "Si aquesta llista és de només lectura"
 
-#~ msgid "Whether the list is readonly, i.e. doesn't show the New Task row, or not"
-#~ msgstr "Si la llista és només de lectura, és a dir, si es mostra o no la fila de la tasca nova"
+#~ msgid ""
+#~ "Whether the list is readonly, i.e. doesn't show the New Task row, or not"
+#~ msgstr ""
+#~ "Si la llista és només de lectura, és a dir, si es mostra o no la fila de "
+#~ "la tasca nova"
 
 #~ msgid "Whether task rows show the list name"
 #~ msgstr "Si les files de la tasca mostren el nom de la llista"
 
 #~ msgid "Whether task rows show the list name at the end of the row"
-#~ msgstr "Si les files de la tasca mostren el nom de la llista al final de la fila"
+#~ msgstr ""
+#~ "Si les files de la tasca mostren el nom de la llista al final de la fila"
 
 #~ msgid "Whether completed tasks are shown"
 #~ msgstr "Si les tasques completades es mostren"
@@ -741,7 +893,9 @@ msgstr "Suprimeix la llista de tasques"
 #~ msgstr "Si l'emmagatzematge és per defecte"
 
 #~ msgid "Whether the storage is the default storage location to be used."
-#~ msgstr "Si l'emmagatzematge és la ubicació d'emmagatzematge per defecte a utilitzar."
+#~ msgstr ""
+#~ "Si l'emmagatzematge és la ubicació d'emmagatzematge per defecte a "
+#~ "utilitzar."
 
 #~ msgid "Name of the storage"
 #~ msgstr "Nom de l'emmagatzematge"
@@ -777,7 +931,9 @@ msgstr "Suprimeix la llista de tasques"
 #~ msgstr "Mostra la fila de l'emmagatzematge local"
 
 #~ msgid "Whether should show a local storage row instead of a checkbox"
-#~ msgstr "Si s'ha de mostrar una fila de l'emmagatzematge local en comptes d'una casella de selecció"
+#~ msgstr ""
+#~ "Si s'ha de mostrar una fila de l'emmagatzematge local en comptes d'una "
+#~ "casella de selecció"
 
 #~ msgid "Show stub rows"
 #~ msgstr "Mostra les files auxiliars"
@@ -794,13 +950,18 @@ msgstr "Suprimeix la llista de tasques"
 #~ msgid "Whether the notification has a primary action"
 #~ msgstr "Si la notificació té una acció primària"
 
-#~ msgid "Whether the notification has the primary action, activated on timeout or dismiss"
-#~ msgstr "Si la notificació té una acció primària, activada en esgotar-se el temps o descartada"
+#~ msgid ""
+#~ "Whether the notification has the primary action, activated on timeout or "
+#~ "dismiss"
+#~ msgstr ""
+#~ "Si la notificació té una acció primària, activada en esgotar-se el temps "
+#~ "o descartada"
 
 #~ msgid "Whether the notification has a secondary action"
 #~ msgstr "Si la notificació té una acció secundària"
 
-#~ msgid "Whether the notification has the secondary action, activated by the user"
+#~ msgid ""
+#~ "Whether the notification has the secondary action, activated by the user"
 #~ msgstr "Si la notificació té una acció secundària, activada per l'usuari"
 
 #~ msgid "Text of the secondary action button"
