@@ -42,8 +42,22 @@ static void
 back_button_clicked (GtkWidget       *button,
                      GtdPluginDialog *self)
 {
+  gtk_stack_set_transition_type (GTK_STACK (self->stack), GTK_STACK_TRANSITION_TYPE_SLIDE_LEFT_RIGHT);
   gtk_stack_set_visible_child_name (GTK_STACK (self->stack), "list");
   gtk_widget_hide (button);
+}
+
+static gboolean
+dialog_deleted (GtdPluginDialog *self,
+                GdkEvent        *event,
+                gpointer         data)
+{
+  gtk_stack_set_transition_type (GTK_STACK (self->stack), GTK_STACK_TRANSITION_TYPE_NONE);
+  gtk_stack_set_visible_child_name (GTK_STACK (self->stack), "list");
+  gtk_widget_hide (self->back_button);
+  gtk_widget_hide (GTK_WIDGET (self));
+
+  return GDK_EVENT_STOP;
 }
 
 static void
@@ -76,6 +90,7 @@ show_preferences_cb (GtdPluginDialogRow *row,
     }
 
   /* Last, go to the preferences page */
+  gtk_stack_set_transition_type (GTK_STACK (self->stack), GTK_STACK_TRANSITION_TYPE_SLIDE_LEFT_RIGHT);
   gtk_stack_set_visible_child_name (GTK_STACK (self->stack), "config");
   gtk_widget_show (self->back_button);
 }
@@ -187,6 +202,7 @@ gtd_plugin_dialog_class_init (GtdPluginDialogClass *klass)
   gtk_widget_class_bind_template_child (widget_class, GtdPluginDialog, stack);
 
   gtk_widget_class_bind_template_callback (widget_class, back_button_clicked);
+  gtk_widget_class_bind_template_callback (widget_class, dialog_deleted);
 }
 
 static void
