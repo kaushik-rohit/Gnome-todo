@@ -162,6 +162,7 @@ gtd_plugin_todo_txt_activate (GtdActivatable *activatable)
   GtdPluginTodoTxt *self;
   GtdProviderTodoTxt *provider;
   gchar *source;
+  GError *error = NULL;
 
   self = GTD_PLUGIN_TODO_TXT (activatable);
   source = g_settings_get_string (self->settings, "file");
@@ -179,6 +180,24 @@ gtd_plugin_todo_txt_activate (GtdActivatable *activatable)
       self->source_file = g_file_new_for_uri (source);
     }
 
+  if (!g_file_query_exists (self->source_file, NULL))
+    {
+      g_file_create (self->source_file,
+                     G_FILE_CREATE_NONE,
+                     NULL,
+                     &error);
+
+      if (error)
+        {
+          gtd_manager_emit_error_message (gtd_manager_get_default (),
+                                          _("Cannot create Todo.txt file"),
+                                          error->message);
+
+          g_clear_error (&error);
+          return;
+        }
+    }
+
   provider = gtd_provider_todo_txt_new (self->source_file);
 
   self->providers = g_list_append (self->providers, provider);
@@ -187,6 +206,7 @@ gtd_plugin_todo_txt_activate (GtdActivatable *activatable)
   gtd_plugin_todo_txt_load_source_monitor (self);
 
   g_free (source);
+  g_clear_error (&error);
 }
 
 static void
@@ -244,6 +264,7 @@ gtd_plugin_todo_txt_source_changed_finished_cb (GtdPluginTodoTxt *self)
 {
   GtdProviderTodoTxt *provider;
   gchar *source;
+  GError *error = NULL;
 
   source = g_settings_get_string (self->settings, "file");
 
@@ -260,6 +281,24 @@ gtd_plugin_todo_txt_source_changed_finished_cb (GtdPluginTodoTxt *self)
       self->source_file = g_file_new_for_uri (source);
     }
 
+  if (!g_file_query_exists (self->source_file, NULL))
+    {
+      g_file_create (self->source_file,
+                     G_FILE_CREATE_NONE,
+                     NULL,
+                     &error);
+
+      if (error)
+        {
+          gtd_manager_emit_error_message (gtd_manager_get_default (),
+                                          _("Cannot create Todo.txt file"),
+                                          error->message);
+
+          g_clear_error (&error);
+          return;
+        }
+    }
+
   provider = gtd_provider_todo_txt_new (self->source_file);
   self->providers = g_list_append (self->providers, provider);
 
@@ -268,6 +307,7 @@ gtd_plugin_todo_txt_source_changed_finished_cb (GtdPluginTodoTxt *self)
   g_signal_emit_by_name (self, "provider-added", provider);
 
   g_free (source);
+  g_clear_error (&error);
 }
 
 static void
