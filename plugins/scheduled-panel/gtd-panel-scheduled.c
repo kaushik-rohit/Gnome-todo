@@ -51,13 +51,48 @@ enum {
   N_PROPS
 };
 
+static void
+get_date_offset (GDateTime *dt,
+                 gint* days_diff,
+                 gint* next_year_diff)
+{
+  GDateTime *now;
+  GDateTime *today;
+  GDateTime *next_year;
+
+  now = g_date_time_new_now_utc ();
+
+  today = g_date_time_new_utc (g_date_time_get_year (now),
+                               g_date_time_get_month (now),
+                               g_date_time_get_day_of_month (now),
+                               0, 0, 0);
+
+  next_year = g_date_time_new_utc (g_date_time_get_year (now) + 1,
+                                   G_DATE_JANUARY,
+                                   1,
+                                   0, 0, 0);
+
+  if (days_diff)
+    {
+      *days_diff = g_date_time_difference (dt, today) / G_TIME_SPAN_DAY;
+    }
+
+  if (next_year_diff)
+    {
+      *next_year_diff = g_date_time_difference (next_year, today) / G_TIME_SPAN_DAY;
+    }
+
+  g_clear_pointer (&next_year, g_date_time_unref);
+  g_clear_pointer (&today, g_date_time_unref);
+  g_clear_pointer (&now, g_date_time_unref);
+
+  return;
+}
+
 static gchar*
 get_string_for_date (GDateTime *dt,
                      gint      *span)
 {
-  GDateTime *today;
-  GDateTime *next_year;
-  GDateTime *now;
   gchar *str;
   gint days_diff;
   gint next_year_diff;
@@ -66,17 +101,7 @@ get_string_for_date (GDateTime *dt,
   if (!dt)
     return g_strdup (_("No date set"));
 
-  now = g_date_time_new_now_utc ();
-  today = g_date_time_new_utc (g_date_time_get_year (now),
-                               g_date_time_get_month (now),
-                               g_date_time_get_day_of_month (now),
-                               0, 0, 0);
-  next_year = g_date_time_new_utc (g_date_time_get_year (now) + 1,
-                                   G_DATE_JANUARY,
-                                   1,
-                                   0, 0, 0);
-  next_year_diff = g_date_time_difference (next_year, today) / G_TIME_SPAN_DAY;
-  days_diff = g_date_time_difference (dt, today) / G_TIME_SPAN_DAY;
+  get_date_offset(dt, &days_diff, &next_year_diff);
 
   if (days_diff < 0)
     {
@@ -105,10 +130,6 @@ get_string_for_date (GDateTime *dt,
 
   if (span)
     *span = days_diff;
-
-  g_clear_pointer (&next_year, g_date_time_unref);
-  g_clear_pointer (&today, g_date_time_unref);
-  g_clear_pointer (&now, g_date_time_unref);
 
   return str;
 }
@@ -170,12 +191,15 @@ gtd_panel_scheduled_header_func (GtkListBoxRow     *row,
   else
     {
       GDateTime *before_dt;
-      gint diff;
+      gint before_diff;
+      gint new_diff;
 
       before_dt = gtd_task_get_due_date (before_task);
-      diff = g_date_time_difference (dt, before_dt) / G_TIME_SPAN_DAY;
 
-      if (diff != 0)
+      get_date_offset(before_dt, &before_diff, NULL);
+      get_date_offset(dt, &new_diff, NULL);
+
+      if (new_diff - before_diff != 0)
         {
           text = get_string_for_date (dt, &span);
 
