@@ -10,9 +10,9 @@ msgstr ""
 "Project-Id-Version: gnome-todo gnome-3-18\n"
 "Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "todo&keywords=I18N+L10N&component=General\n"
-"POT-Creation-Date: 2017-03-01 21:20+0000\n"
-"PO-Revision-Date: 2017-03-12 22:05+0400\n"
-"Last-Translator: Yuri Myasoedov <ymyasoedov@yandex.ru>\n"
+"POT-Creation-Date: 2017-03-12 18:08+0000\n"
+"PO-Revision-Date: 2017-03-14 17:33+0300\n"
+"Last-Translator: Stas Solovey <whats_up@tut.by>\n"
 "Language-Team: русский <gnome-cyr@gnome.org>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Poedit 1.8.7.1\n"
+"X-Generator: Poedit 1.8.11\n"
 
 #: ../data/appdata/org.gnome.Todo.appdata.xml.in.h:1
 #: ../data/org.gnome.Todo.desktop.in.in.h:1 ../src/gtd-application.c:123
@@ -402,12 +402,12 @@ msgid "Error creating new task list"
 msgstr "Ошибка создания нового списка задач"
 
 #: ../plugins/scheduled-panel/gtd-panel-scheduled.c:67
-#: ../src/gtd-edit-pane.c:217 ../src/gtd-task-row.c:323
+#: ../src/gtd-edit-pane.c:217 ../src/gtd-task-row.c:363
 msgid "No date set"
 msgstr "Дата не установлена"
 
 #: ../plugins/scheduled-panel/gtd-panel-scheduled.c:83
-#: ../src/gtd-task-row.c:301
+#: ../src/gtd-task-row.c:341
 #, c-format
 msgid "Yesterday"
 msgid_plural "%d days ago"
@@ -420,12 +420,12 @@ msgstr[2] "%d дней назад"
 #: ../plugins/score/score/__init__.py:95
 #: ../plugins/today-panel/gtd-panel-today.c:135
 #: ../plugins/today-panel/gtd-panel-today.c:140
-#: ../plugins/today-panel/gtd-panel-today.c:308 ../src/gtd-task-row.c:293
+#: ../plugins/today-panel/gtd-panel-today.c:308 ../src/gtd-task-row.c:333
 msgid "Today"
 msgstr "Сегодня"
 
 #: ../plugins/scheduled-panel/gtd-panel-scheduled.c:91
-#: ../src/gtd-task-row.c:297
+#: ../src/gtd-task-row.c:337
 msgid "Tomorrow"
 msgstr "Завтра"
 
@@ -438,6 +438,7 @@ msgstr "Запланировано"
 
 #: ../plugins/scheduled-panel/gtd-panel-scheduled.c:484
 #: ../plugins/today-panel/gtd-panel-today.c:313
+#: ../plugins/unscheduled-panel/unscheduled-panel/__init__.py:52
 #: ../src/views/gtd-list-selector-panel.c:716
 msgid "Clear completed tasks…"
 msgstr "Очистить завершённые задачи…"
@@ -469,7 +470,7 @@ msgstr "Todo.txt"
 
 #: ../plugins/todo-txt/gtd-provider-todo-txt.c:82
 msgid "On the Todo.txt file"
-msgstr ""
+msgstr "В файле Todo.txt"
 
 #: ../plugins/todo-txt/gtd-provider-todo-txt.c:129
 #: ../plugins/todo-txt/gtd-provider-todo-txt.c:133
@@ -547,12 +548,12 @@ msgstr "Источник файла Todo.txt"
 
 #. Translators: 'Unscheduled' as in 'Unscheduled tasks'
 #: ../plugins/unscheduled-panel/unscheduled-panel/__init__.py:34
-#: ../plugins/unscheduled-panel/unscheduled-panel/__init__.py:88
+#: ../plugins/unscheduled-panel/unscheduled-panel/__init__.py:91
 msgid "Unscheduled"
 msgstr "Не запланировано"
 
 #. Translators: 'Unscheduled' as in 'Unscheduled tasks'
-#: ../plugins/unscheduled-panel/unscheduled-panel/__init__.py:91
+#: ../plugins/unscheduled-panel/unscheduled-panel/__init__.py:94
 #, python-format
 msgid "Unscheduled (%d)"
 msgstr "Не запланировано (%d)"
