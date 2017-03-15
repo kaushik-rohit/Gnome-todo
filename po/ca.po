@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-05 15:41+0100\n"
-"PO-Revision-Date: 2017-01-25 10:51+0100\n"
+"POT-Creation-Date: 2017-03-15 20:50+0100\n"
+"PO-Revision-Date: 2017-03-15 20:42+0100\n"
 "Last-Translator: Jordi Mas <jmas@softcaatala.org>\n"
 "Language-Team: \n"
 "Language: ca\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.8.7.1\n"
+"X-Generator: Poedit 1.8.9\n"
 
 #: ../data/appdata/org.gnome.Todo.appdata.xml.in.h:1
 #: ../data/org.gnome.Todo.desktop.in.in.h:1 ../src/gtd-application.c:123
@@ -401,12 +401,12 @@ msgid "Error creating new task list"
 msgstr "S'ha produït un error en crear una llista nova de tasques"
 
 #: ../plugins/scheduled-panel/gtd-panel-scheduled.c:67
-#: ../src/gtd-edit-pane.c:217 ../src/gtd-task-row.c:323
+#: ../src/gtd-edit-pane.c:217 ../src/gtd-task-row.c:363
 msgid "No date set"
 msgstr "No s'ha establert cap data"
 
 #: ../plugins/scheduled-panel/gtd-panel-scheduled.c:83
-#: ../src/gtd-task-row.c:301
+#: ../src/gtd-task-row.c:341
 #, c-format
 msgid "Yesterday"
 msgid_plural "%d days ago"
@@ -418,12 +418,12 @@ msgstr[1] "Fa %d dies"
 #: ../plugins/score/score/__init__.py:95
 #: ../plugins/today-panel/gtd-panel-today.c:135
 #: ../plugins/today-panel/gtd-panel-today.c:140
-#: ../plugins/today-panel/gtd-panel-today.c:308 ../src/gtd-task-row.c:293
+#: ../plugins/today-panel/gtd-panel-today.c:308 ../src/gtd-task-row.c:333
 msgid "Today"
 msgstr "Avui"
 
 #: ../plugins/scheduled-panel/gtd-panel-scheduled.c:91
-#: ../src/gtd-task-row.c:297
+#: ../src/gtd-task-row.c:337
 msgid "Tomorrow"
 msgstr "Demà"
 
@@ -448,18 +448,21 @@ msgstr "No s'ha completat cap tasca avui"
 #: ../plugins/todo-txt/gtd-plugin-todo-txt.c:100
 msgid "Error while opening the file monitor. Todo.txt will not be monitored"
 msgstr ""
+"S'ha produït un error en obrir el fitxer de monitorització. Perfer.txt no "
+"serà monitoritzat."
 
 #: ../plugins/todo-txt/gtd-plugin-todo-txt.c:125
 msgid "Error while converting the default Todo.txt path to an URI"
 msgstr ""
+"S'ha produït un error en convertir el fitxer Perfer.txt per defecte a un URI"
 
 #: ../plugins/todo-txt/gtd-plugin-todo-txt.c:146
 msgid "Cannot create Todo.txt file"
-msgstr ""
+msgstr "No es pot crear el fitxer Perfer.txt"
 
 #: ../plugins/todo-txt/gtd-plugin-todo-txt.c:362
 msgid "Select a Todo.txt-formatted file:"
-msgstr ""
+msgstr "Seleccioneu un fitxer Perfer.txt formatat:"
 
 #: ../plugins/todo-txt/gtd-provider-todo-txt.c:76
 msgid "Todo.txt"
@@ -509,27 +512,32 @@ msgstr "Data incorrecta"
 
 #: ../plugins/todo-txt/gtd-todo-txt-parser.c:348
 msgid "Please make sure the date in Todo.txt is valid."
-msgstr "Assegureu-vos de que la data al fitxer Perfer.txt és vàlida."
+msgstr "Assegureu-vos que la data al fitxer Perfer.txt és vàlida."
 
 #: ../plugins/todo-txt/gtd-todo-txt-parser.c:377
 msgid "Unrecognized token in a Todo.txt line"
-msgstr ""
+msgstr "Testimoni no reconegut en una línia del Perfer.txt"
 
 #: ../plugins/todo-txt/gtd-todo-txt-parser.c:378
 msgid ""
 "To Do cannot recognize some tags in your Todo.txt file. Some tasks may not "
 "be loaded"
 msgstr ""
+"PerFer no pot reconèixer algunes etiquetes al fitxer Perfer.txt. Potser no "
+"es carreguen algunes tasques"
 
 #: ../plugins/todo-txt/gtd-todo-txt-parser.c:387
 msgid "No task list found for some tasks"
-msgstr ""
+msgstr "No s'ha trobat la llista de tasques per algunes tasques"
 
 #: ../plugins/todo-txt/gtd-todo-txt-parser.c:388
 msgid ""
 "Some of the tasks in your Todo.txt file do not have a task list. To Do "
 "supports tasks with a task list. Please add a list to all your tasks"
 msgstr ""
+"Algunes de les tasques al fitxer Perfer.txt no tenen una llista de tasques. "
+"El Per fer necessita tasques amb una llista de tasques. Afegiu una llista a "
+"totes les tasques."
 
 #: ../plugins/todo-txt/org.gnome.todo.txt.gschema.xml.h:1
 msgid "Todo.txt File"
