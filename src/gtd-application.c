@@ -223,15 +223,26 @@ gtd_application_activate (GApplication *application)
 
   if (!priv->provider)
    {
-     GError *error = NULL;
+     GSettings *settings;
+     gchar *theme_name, *theme_uri;
      GFile* css_file;
+     GError *error = NULL;
 
      priv->provider = gtk_css_provider_new ();
      gtk_style_context_add_provider_for_screen (gdk_screen_get_default (),
                                                 GTK_STYLE_PROVIDER (priv->provider),
                                                 GTK_STYLE_PROVIDER_PRIORITY_APPLICATION + 1);
 
-     css_file = g_file_new_for_uri ("resource:///org/gnome/todo/theme/Adwaita.css");
+     settings = g_settings_new ("org.gnome.desktop.interface");
+
+     theme_name = g_settings_get_string (settings, "gtk-theme");
+     g_object_unref (settings);
+
+     theme_uri = g_strconcat ("resource:///org/gnome/todo/theme/", theme_name, ".css", NULL);
+     g_free (theme_name);
+
+     css_file = g_file_new_for_uri (theme_uri);
+     g_free (theme_uri);
 
      gtk_css_provider_load_from_file (priv->provider,
                                       css_file,
@@ -244,11 +255,10 @@ gtd_application_activate (GApplication *application)
                     error->message);
 
          g_error_free (error);
+         gtk_css_provider_load_from_resource (priv->provider, "/org/gnome/todo/theme/Adwaita.css");
        }
-     else
-       {
-         g_object_unref (css_file);
-       }
+
+     g_object_unref (css_file);
    }
 
   /* FIXME: the initial setup is disabled for the 3.18 release because
