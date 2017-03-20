@@ -6,16 +6,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-23 16:38+0200\n"
-"PO-Revision-Date: 2017-02-23 15:25+0300\n"
+"POT-Creation-Date: 2017-03-20 11:21+0200\n"
+"PO-Revision-Date: 2017-03-20 11:22+0300\n"
 "Last-Translator: Daniel Korostil <ted.korostiled@gmail.com>\n"
 "Language-Team: linux.org.ua\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Virtaal 0.7.1\n"
 "X-Project-Style: gnome\n"
 
@@ -158,17 +158,17 @@ msgstr "Немає"
 msgid "Details"
 msgstr "Подробиці"
 
-#: ../data/ui/edit-pane.ui.h:3 ../plugins/eds/edit-pane.ui.h:2
-msgid "Notes"
-msgstr "Примітки"
+#: ../data/ui/edit-pane.ui.h:3
+msgid "_Notes"
+msgstr "_Примітки"
 
-#: ../data/ui/edit-pane.ui.h:4 ../plugins/eds/edit-pane.ui.h:3
-msgid "Due Date"
-msgstr "Дата завершення"
+#: ../data/ui/edit-pane.ui.h:4
+msgid "D_ue Date"
+msgstr "Дата _завершення"
 
-#: ../data/ui/edit-pane.ui.h:5 ../plugins/eds/edit-pane.ui.h:4
-msgid "Priority"
-msgstr "Пріоритет"
+#: ../data/ui/edit-pane.ui.h:5
+msgid "_Priority"
+msgstr "_Пріоритет"
 
 #: ../data/ui/edit-pane.ui.h:6 ../plugins/eds/edit-pane.ui.h:5
 msgctxt "taskpriority"
@@ -188,29 +188,20 @@ msgid "High"
 msgstr "Високий"
 
 #: ../data/ui/edit-pane.ui.h:10 ../data/ui/list-selector-panel.ui.h:2
-#: ../plugins/eds/edit-pane.ui.h:9
-msgid "Delete"
-msgstr "Вилучити"
+msgid "_Delete"
+msgstr "_Вилучити"
 
-#. Setup a title
 #: ../data/ui/edit-pane.ui.h:11
-#: ../plugins/scheduled-panel/gtd-panel-scheduled.c:87
-#: ../plugins/score/score/__init__.py:95
-#: ../plugins/today-panel/gtd-panel-today.c:135
-#: ../plugins/today-panel/gtd-panel-today.c:140
-#: ../plugins/today-panel/gtd-panel-today.c:308 ../src/gtd-task-row.c:293
-msgid "Today"
-msgstr "Сьогодні"
+msgid "_Today"
+msgstr "_Сьогодні"
 
 #: ../data/ui/edit-pane.ui.h:12
-#: ../plugins/scheduled-panel/gtd-panel-scheduled.c:91
-#: ../src/gtd-task-row.c:297
-msgid "Tomorrow"
-msgstr "Завтра"
+msgid "To_morrow"
+msgstr "За_втра"
 
 #: ../data/ui/edit-pane.ui.h:13
-msgid "Next Week"
-msgstr "Наступний тиждень"
+msgid "Next _Week"
+msgstr "Наступний _тиждень"
 
 #: ../data/ui/initial-setup.ui.h:1
 msgid "Welcome"
@@ -222,19 +213,17 @@ msgstr ""
 "Увійти через мережеві облікові записи, щоб доступитись до ваших завдань"
 
 #: ../data/ui/initial-setup.ui.h:3 ../data/ui/provider-popover.ui.h:2
-#: ../data/ui/window.ui.h:1 ../src/gtd-task-list-view.c:612
-#: ../src/views/gtd-list-selector-panel.c:391
-msgid "Cancel"
-msgstr "Скасувати"
+#: ../data/ui/window.ui.h:1
+msgid "_Cancel"
+msgstr "_Скасувати"
 
-#: ../data/ui/initial-setup.ui.h:4 ../data/ui/list-view.ui.h:2
-#: ../src/gtd-task-list-view.c:777
-msgid "Done"
-msgstr "Зроблено"
+#: ../data/ui/initial-setup.ui.h:4
+msgid "_Done"
+msgstr "_Зроблено"
 
 #: ../data/ui/list-selector-panel.ui.h:1
-msgid "Rename"
-msgstr "Перейменувати"
+msgid "_Rename"
+msgstr "Пере_йменувати"
 
 #: ../data/ui/list-selector-panel.ui.h:3
 #: ../src/views/gtd-list-selector-panel.c:470
@@ -250,12 +239,16 @@ msgid "Name of the task list"
 msgstr "Назва списку завдань"
 
 #: ../data/ui/list-selector-panel.ui.h:6
-msgid "New List"
-msgstr "Створити список"
+msgid "_New List"
+msgstr "_Створити список"
 
 #: ../data/ui/list-view.ui.h:1
 msgid "Show or hide completed tasks"
 msgstr "Показати або приховати завершені завдання"
+
+#: ../data/ui/list-view.ui.h:2 ../src/gtd-task-list-view.c:777
+msgid "Done"
+msgstr "Зроблено"
 
 #: ../data/ui/new-task-row.ui.h:1
 msgid "New task…"
@@ -266,8 +259,8 @@ msgid "No extensions found"
 msgstr "Не знайдено жодного розширення"
 
 #: ../data/ui/provider-popover.ui.h:1
-msgid "Create"
-msgstr "Створити"
+msgid "Create _List"
+msgstr "Створити _список"
 
 #: ../data/ui/provider-popover.ui.h:3
 msgid "List Name"
@@ -309,6 +302,22 @@ msgstr "Microsoft Exchange"
 msgid "Or you can just store your tasks on this computer"
 msgstr "Або можете просто зберігати завдання на цьому комп'ютері"
 
+#: ../plugins/eds/edit-pane.ui.h:2
+msgid "Notes"
+msgstr "Примітки"
+
+#: ../plugins/eds/edit-pane.ui.h:3
+msgid "Due Date"
+msgstr "Дата завершення"
+
+#: ../plugins/eds/edit-pane.ui.h:4
+msgid "Priority"
+msgstr "Пріоритет"
+
+#: ../plugins/eds/edit-pane.ui.h:9
+msgid "Delete"
+msgstr "Вилучити"
+
 #: ../plugins/eds/gtd-plugin-eds.c:244 ../plugins/eds/gtd-plugin-eds.c:248
 msgid "Error loading GNOME Online Accounts"
 msgstr "Помилка завантаження мережевих облікових записів GNOME"
@@ -317,7 +326,7 @@ msgstr "Помилка завантаження мережевих обліко�
 msgid "Error loading Evolution-Data-Server backend"
 msgstr "Помилка завантаження модуля Evolution-Data-Server"
 
-#: ../plugins/eds/gtd-plugin-eds.c:364 ../src/gtd-application.c:243
+#: ../plugins/eds/gtd-plugin-eds.c:364 ../src/gtd-application.c:254
 msgid "Error loading CSS from resource"
 msgstr "Помилка завантаження CSS з ресурсу"
 
@@ -388,18 +397,32 @@ msgid "Error creating new task list"
 msgstr "Помилка створення нового списку завдань"
 
 #: ../plugins/scheduled-panel/gtd-panel-scheduled.c:67
-#: ../src/gtd-edit-pane.c:217 ../src/gtd-task-row.c:323
+#: ../src/gtd-edit-pane.c:217 ../src/gtd-task-row.c:363
 msgid "No date set"
 msgstr "Не вказано дати"
 
 #: ../plugins/scheduled-panel/gtd-panel-scheduled.c:83
-#: ../src/gtd-task-row.c:301
+#: ../src/gtd-task-row.c:341
 #, c-format
 msgid "Yesterday"
 msgid_plural "%d days ago"
 msgstr[0] "Учора (%d день тому)"
 msgstr[1] "%d дні тому"
 msgstr[2] "%d днів тому"
+
+#. Setup a title
+#: ../plugins/scheduled-panel/gtd-panel-scheduled.c:87
+#: ../plugins/score/score/__init__.py:95
+#: ../plugins/today-panel/gtd-panel-today.c:135
+#: ../plugins/today-panel/gtd-panel-today.c:140
+#: ../plugins/today-panel/gtd-panel-today.c:308 ../src/gtd-task-row.c:333
+msgid "Today"
+msgstr "Сьогодні"
+
+#: ../plugins/scheduled-panel/gtd-panel-scheduled.c:91
+#: ../src/gtd-task-row.c:337
+msgid "Tomorrow"
+msgstr "Завтра"
 
 #. Setup a title
 #: ../plugins/scheduled-panel/gtd-panel-scheduled.c:342
@@ -410,6 +433,7 @@ msgstr "Заплановано"
 
 #: ../plugins/scheduled-panel/gtd-panel-scheduled.c:484
 #: ../plugins/today-panel/gtd-panel-today.c:313
+#: ../plugins/unscheduled-panel/unscheduled-panel/__init__.py:52
 #: ../src/views/gtd-list-selector-panel.c:716
 msgid "Clear completed tasks…"
 msgstr "Очистити завершені завдання…"
@@ -427,10 +451,12 @@ msgid "Error while converting the default Todo.txt path to an URI"
 msgstr "Помилка перетворення типового шляху Todo.txt на посилання"
 
 #: ../plugins/todo-txt/gtd-plugin-todo-txt.c:146
+#: ../plugins/todo-txt/gtd-plugin-todo-txt.c:193
+#: ../plugins/todo-txt/gtd-plugin-todo-txt.c:294
 msgid "Cannot create Todo.txt file"
 msgstr "Неможливо створити файл Todo.txt"
 
-#: ../plugins/todo-txt/gtd-plugin-todo-txt.c:362
+#: ../plugins/todo-txt/gtd-plugin-todo-txt.c:402
 msgid "Select a Todo.txt-formatted file:"
 msgstr "Виберіть файл у форматі Todo.txt:"
 
@@ -518,12 +544,12 @@ msgstr "Джерело файла Todo.txt"
 
 #. Translators: 'Unscheduled' as in 'Unscheduled tasks'
 #: ../plugins/unscheduled-panel/unscheduled-panel/__init__.py:34
-#: ../plugins/unscheduled-panel/unscheduled-panel/__init__.py:89
+#: ../plugins/unscheduled-panel/unscheduled-panel/__init__.py:91
 msgid "Unscheduled"
 msgstr "Не заплановано"
 
 #. Translators: 'Unscheduled' as in 'Unscheduled tasks'
-#: ../plugins/unscheduled-panel/unscheduled-panel/__init__.py:92
+#: ../plugins/unscheduled-panel/unscheduled-panel/__init__.py:94
 #, python-format
 msgid "Unscheduled (%d)"
 msgstr "Не заплановано (%d)"
@@ -602,6 +628,10 @@ msgstr ""
 #: ../src/gtd-task-list-view.c:609
 msgid "Once removed, the tasks cannot be recovered."
 msgstr "Після вилучення завдання неможливо відновити."
+
+#: ../src/gtd-task-list-view.c:612 ../src/views/gtd-list-selector-panel.c:391
+msgid "Cancel"
+msgstr "Скасувати"
 
 #: ../src/gtd-task-list-view.c:614
 msgid "Remove"
