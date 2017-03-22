@@ -368,10 +368,21 @@ static void
 gtd_list_selector_grid_item_state_flags_changed (GtkWidget     *item,
                                          GtkStateFlags  flags)
 {
+  GtdListSelectorGridItem *self;
+
+  self = GTD_LIST_SELECTOR_GRID_ITEM (item);
+
   if (GTK_WIDGET_CLASS (gtd_list_selector_grid_item_parent_class)->state_flags_changed)
     GTK_WIDGET_CLASS (gtd_list_selector_grid_item_parent_class)->state_flags_changed (item, flags);
 
-  gtd_list_selector_grid_item__update_thumbnail (GTD_LIST_SELECTOR_GRID_ITEM (item));
+  /*
+   * The list might be NULL when the provider has been removed, in which
+   * case :dispose() will be called before this function which will remove
+   * the list reference from GtdListSelectorGridItem.
+   */
+
+  if (self->list)
+    gtd_list_selector_grid_item__update_thumbnail (GTD_LIST_SELECTOR_GRID_ITEM (item));
 }
 
 static GtdTaskList*
