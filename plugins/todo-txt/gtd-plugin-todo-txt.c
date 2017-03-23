@@ -68,6 +68,7 @@ gtd_plugin_todo_txt_monitor_source (GFileMonitor      *monitor,
 {
   GtdProviderTodoTxt *provider;
   GtdPluginTodoTxt *self;
+  GError *error = NULL;
 
   self = data;
 
@@ -78,6 +79,23 @@ gtd_plugin_todo_txt_monitor_source (GFileMonitor      *monitor,
 
   g_signal_emit_by_name (self, "provider-removed", provider);
 
+  if (event == G_FILE_MONITOR_EVENT_DELETED)
+    {
+      g_file_create (self->source_file,
+                     G_FILE_CREATE_NONE,
+                     NULL,
+                     &error);
+
+      if (error)
+        {
+          gtd_manager_emit_error_message (gtd_manager_get_default (),
+                                          _("Cannot create Todo.txt file"),
+                                          error->message);
+
+          g_clear_error (&error);
+          return;
+        }
+    }
   provider = gtd_provider_todo_txt_new (self->source_file);
 
   self->providers = g_list_append (self->providers, provider);
