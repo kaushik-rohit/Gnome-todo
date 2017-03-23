@@ -226,7 +226,6 @@ gtd_application_activate (GApplication *application)
      GSettings *settings;
      gchar *theme_name, *theme_uri;
      GFile* css_file;
-     GError *error = NULL;
 
      priv->provider = gtk_css_provider_new ();
      gtk_style_context_add_provider_for_screen (gdk_screen_get_default (),
@@ -244,19 +243,10 @@ gtd_application_activate (GApplication *application)
      css_file = g_file_new_for_uri (theme_uri);
      g_free (theme_uri);
 
-     gtk_css_provider_load_from_file (priv->provider,
-                                      css_file,
-                                      &error);
-     if (error != NULL)
-       {
-         g_warning ("%s: %s: %s",
-                    G_STRFUNC,
-                    _("Error loading CSS from resource"),
-                    error->message);
-
-         g_error_free (error);
-         gtk_css_provider_load_from_resource (priv->provider, "/org/gnome/todo/theme/Adwaita.css");
-       }
+     if (g_file_query_exists (css_file, NULL))
+       gtk_css_provider_load_from_file (priv->provider, css_file, NULL);
+     else
+       gtk_css_provider_load_from_resource (priv->provider, "/org/gnome/todo/theme/Adwaita.css");
 
      g_object_unref (css_file);
    }
