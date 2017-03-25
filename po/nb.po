@@ -6,11 +6,10 @@
 # Alexander Strand <godsetalex@gmail.com>
 msgid ""
 msgstr ""
-"Project-Id-Version: gnome-todo 3.23.x\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
-"todo&keywords=I18N+L10N&component=General\n"
-"POT-Creation-Date: 2017-01-21 13:56+0000\n"
-"PO-Revision-Date: 2017-02-13 19:48+0100\n"
+"Project-Id-Version: gnome-todo 3.22.x\n"
+"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=gnome-todo&keywords=I18N+L10N&component=General\n"
+"POT-Creation-Date: 2017-03-23 21:46+0000\n"
+"PO-Revision-Date: 2017-03-25 11:05+0100\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian bokmål <i18n-nb@lister.ping.uio.no>\n"
 "Language: Norsk bokmål\n"
@@ -33,33 +32,31 @@ msgstr "Oppgavestyring for GNOME"
 msgid ""
 "GNOME To Do is a task management application designed to integrate with "
 "GNOME. It is extensible through plugins and supports custom task providers."
-msgstr ""
-"GNOME oppgaver er et program for oppgavestyring som er integrert med GNOME. "
-"Det kan utvides med tillegg og støtter egendefinerte oppgavetilbydere."
+msgstr "GNOME oppgaver er et enkelt program for oppgavestyring som er integrert med GNOME. Det kan utvides gjennom tillegg og støtter egendefinerte oppgavetilbydere."
 
 #: ../data/appdata/org.gnome.Todo.appdata.xml.in.h:4
 msgid "GNOME To Do with the Dark theme variant"
-msgstr "GNOME Oppgaver med mørk temavariant"
+msgstr "GNOME oppgaver med mørk temavariant"
 
 #: ../data/appdata/org.gnome.Todo.appdata.xml.in.h:5
 msgid "Editing a tasklist with GNOME To Do"
-msgstr "Redigerer en oppgaveliste med GNOME Oppgaver"
+msgstr "Redigerer en oppgaveliste med GNOME oppgaver"
 
 #: ../data/appdata/org.gnome.Todo.appdata.xml.in.h:6
 msgid "Task lists displayed on grid mode"
-msgstr "Oppgaveliste vist i rutenettmodus"
+msgstr "Oppgavelister vist i rutenettmodus"
 
 #: ../data/appdata/org.gnome.Todo.appdata.xml.in.h:7
 msgid "Task lists displayed on list mode"
-msgstr "Oppgaveliste vist i listemodus"
+msgstr "Oppgavelister vist i listemodus"
 
 #: ../data/appdata/org.gnome.Todo.appdata.xml.in.h:8
 msgid "Available plugins for GNOME To Do"
-msgstr "Tilgjengelige tillegg for GNOME oppgaveliste"
+msgstr "Tilgjengelige tillegg for GNOME oppgaver"
 
 #: ../data/appdata/org.gnome.Todo.appdata.xml.in.h:9
-msgid "Visualizing tasks for today on GNOME To Do’s Today panel"
-msgstr "Visualiserer dagens oppgaver i GNOME oppgaveliste's I dag panel"
+msgid "Visualizing tasks for today on GNOME To Do's Today panel"
+msgstr "Visualiserer oppgaver for dagen på GNOME oppgavers I dag panel"
 
 #: ../data/gtk/menus.ui.h:1
 msgid "New List…"
@@ -86,8 +83,8 @@ msgid "Manage your personal tasks"
 msgstr "Håndter dine personlige oppgaver"
 
 #: ../data/org.gnome.Todo.desktop.in.in.h:3
-msgid "Task;Productivity;Todo;"
-msgstr "Oppgave;Produktivitet;Gjøremål;"
+msgid "Task;Productivity;"
+msgstr "Oppgaver;Produktivitet;"
 
 #: ../data/org.gnome.todo.gschema.xml.h:1
 msgid "Window maximized"
@@ -119,14 +116,14 @@ msgstr "Første kjøring av GNOME oppgaveliste"
 
 #: ../data/org.gnome.todo.gschema.xml.h:8
 msgid ""
-"Whether it’s the first run of GNOME To Do (to run the initial setup) or not"
+"Whether it's the first run of GNOME To Do (to run the initial setup) or not"
 msgstr ""
 "Hvorvidt dette er første gang GNOME oppgaveliste kjøres (for å kjøre "
 "initielt oppsett)"
 
 #: ../data/org.gnome.todo.gschema.xml.h:9
 msgid "Default provider to add new lists to"
-msgstr "Forvalgt tilbyder nye lister skal legges til"
+msgstr "Forvalgt tilbyder som nye lister skal legges til"
 
 #: ../data/org.gnome.todo.gschema.xml.h:10
 msgid "The identifier of the default provider to add new lists to"
@@ -138,15 +135,15 @@ msgstr "Liste med aktive utvidelser"
 
 #: ../data/org.gnome.todo.gschema.xml.h:12
 msgid "The list of active extensions"
-msgstr "Liste med aktive utvidelser"
+msgstr "Listen med aktive utvidelser"
 
 #: ../data/org.gnome.todo.gschema.xml.h:13
 msgid "The current list selector"
-msgstr "Aktive listevelger"
+msgstr "Aktiv listevelger"
 
 #: ../data/org.gnome.todo.gschema.xml.h:14
-msgid "The current list selector. Can be “grid” or “list”."
-msgstr ""
+msgid "The current list selector. Can be 'grid' or 'list'."
+msgstr "Aktiv listevelger. Kan være «grid» eller «list»."
 
 #: ../data/ui/edit-pane.ui.h:1 ../plugins/eds/edit-pane.ui.h:10
 msgctxt "taskdate"
@@ -198,7 +195,7 @@ msgstr "Slett"
 #: ../plugins/score/score/__init__.py:95
 #: ../plugins/today-panel/gtd-panel-today.c:135
 #: ../plugins/today-panel/gtd-panel-today.c:140
-#: ../plugins/today-panel/gtd-panel-today.c:308 ../src/gtd-task-row.c:299
+#: ../plugins/today-panel/gtd-panel-today.c:309 ../src/gtd-task-row.c:299
 msgid "Today"
 msgstr "I dag"
 
@@ -407,7 +404,7 @@ msgid "Scheduled"
 msgstr "Planlagt"
 
 #: ../plugins/scheduled-panel/gtd-panel-scheduled.c:484
-#: ../plugins/today-panel/gtd-panel-today.c:313
+#: ../plugins/today-panel/gtd-panel-today.c:314
 #: ../src/views/gtd-list-selector-panel.c:713
 msgid "Clear completed tasks…"
 msgstr "Fjern fullførte oppgaver …"
@@ -444,7 +441,7 @@ msgstr "Kjartan Maraas <kmaraas@gnome.org>"
 
 #: ../src/gtd-empty-list-widget.c:49
 msgid "No more tasks left"
-msgstr "Ingen oppgaver igjen"
+msgstr "Ingen flere oppgaver"
 
 #: ../src/gtd-empty-list-widget.c:50
 msgid "Nothing else to do here"
@@ -455,16 +452,16 @@ msgid "You made it!"
 msgstr "Du er ferdig!"
 
 #: ../src/gtd-empty-list-widget.c:52
-msgid "Looks like there’s nothing else left here"
-msgstr "Ser ut som om det ikke er mer å gjøre her"
+msgid "Looks like there's nothing else left here"
+msgstr "Ser ut som om det ikke er noe mer igjen her"
 
 #: ../src/gtd-empty-list-widget.c:57
 msgid "Get some rest now"
-msgstr "Slapp av litt nå"
+msgstr "Få deg litt hvile nå"
 
 #: ../src/gtd-empty-list-widget.c:58
 msgid "Enjoy the rest of your day"
-msgstr "Nyt resten av dagen"
+msgstr "Nyt resten av dagen din"
 
 #: ../src/gtd-empty-list-widget.c:59
 msgid "Good job!"
@@ -472,11 +469,11 @@ msgstr "Godt jobbet!"
 
 #: ../src/gtd-empty-list-widget.c:60
 msgid "Meanwhile, spread the love"
-msgstr ""
+msgstr "Spre kjærligheten"
 
 #: ../src/gtd-empty-list-widget.c:61
 msgid "Working hard is always rewarded"
-msgstr "Hardt arbeid belønnes alltid"
+msgstr "Hardt arbeid blir alltid belønnet"
 
 #: ../src/gtd-empty-list-widget.c:72
 msgid "No tasks found"
@@ -484,7 +481,7 @@ msgstr "Ingen oppgaver funnet"
 
 #: ../src/gtd-empty-list-widget.c:73
 msgid "You can add tasks using the <b>+</b> above"
-msgstr "Du kan legge til oppgaver ved å bruke <b>+</b> over"
+msgstr "Du kan legge til oppgaver ved å bruke<b>+</b>"
 
 #: ../src/gtd-plugin-dialog-row.c:95
 msgid "Error loading plugin"
@@ -496,9 +493,7 @@ msgstr "Feil ved utlasting av tillegg"
 
 #: ../src/gtd-task-list-view.c:593
 msgid "Removing this task will also remove its subtasks. Remove anyway?"
-msgstr ""
-"Hvis du fjerner denne oppgaven vil underoppgaver også fjernes. Fjerne "
-"likevel?"
+msgstr "Hvis du fjerner denne oppgaven vil underoppgaver også fjernes. Fjern likevel?"
 
 #: ../src/gtd-task-list-view.c:596
 msgid "Once removed, the tasks cannot be recovered."
@@ -539,7 +534,7 @@ msgstr "Fjerne valgte oppgavelister?"
 
 #: ../src/views/gtd-list-selector-panel.c:384
 msgid "Once removed, the task lists cannot be recovered."
-msgstr "Når oppgavelistne blir fjernet kan de ikke gjenopprettes."
+msgstr "Når oppgavelister blir fjernet kan de ikke gjenopprettes."
 
 #: ../src/views/gtd-list-selector-panel.c:396
 msgid "Remove task lists"
