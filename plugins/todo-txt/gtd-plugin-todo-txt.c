@@ -405,7 +405,7 @@ gtd_plugin_todo_txt_class_init (GtdPluginTodoTxtClass *klass)
 static void
 gtd_plugin_todo_txt_init (GtdPluginTodoTxt *self)
 {
-  GtkWidget *label, *frame;
+  GtkWidget *label;
 
   self->settings = g_settings_new ("org.gnome.todo.plugins.todo-txt");
   self->providers = NULL;
@@ -418,17 +418,24 @@ gtd_plugin_todo_txt_init (GtdPluginTodoTxt *self)
                                         "orientation", GTK_ORIENTATION_VERTICAL,
                                         NULL);
   label = gtk_label_new (_("Select a Todo.txt-formatted file:"));
-  frame = gtk_frame_new (NULL);
-  self->preferences = gtk_file_chooser_widget_new (GTK_FILE_CHOOSER_ACTION_SAVE);
+  self->preferences = gtk_file_chooser_button_new (_("Select a file"),
+                                                   GTK_FILE_CHOOSER_ACTION_OPEN);
 
+  gtk_widget_set_size_request (GTK_WIDGET (self->preferences_box),
+                               300,
+                               0);
   gtk_container_add (GTK_CONTAINER (self->preferences_box), label);
-  gtk_container_add (GTK_CONTAINER (self->preferences_box), frame);
-  gtk_container_add (GTK_CONTAINER (frame), self->preferences);
+  gtk_container_add (GTK_CONTAINER (self->preferences_box), self->preferences);
+
+  gtk_widget_set_halign (GTK_WIDGET (self->preferences_box),
+                         GTK_ALIGN_CENTER);
+  gtk_widget_set_valign (GTK_WIDGET (self->preferences_box),
+                         GTK_ALIGN_CENTER);
 
   gtk_widget_show_all (self->preferences_box);
 
   g_signal_connect (self->preferences,
-                    "file-activated",
+                    "file-set",
                     G_CALLBACK (gtd_plugin_todo_txt_source_changed_cb),
                     self);
 }
