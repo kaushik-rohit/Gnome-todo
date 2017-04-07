@@ -205,6 +205,17 @@ drag_begin_cb (GtkWidget      *widget,
   g_clear_pointer (&surface, cairo_surface_destroy);
 }
 
+static gboolean
+drag_failed_cb (GtkWidget	*widget,
+                GdkDragContext	*context,
+                GtkDragResult	result,
+                GtdTaskRow	*self)
+{
+  gtk_widget_show (GTK_WIDGET (self));
+
+  return FALSE;
+}
+
 static void
 gtd_task_row__priority_changed_cb (GtdTaskRow *row,
                                    GParamSpec *spec,
@@ -583,6 +594,7 @@ gtd_task_row_class_init (GtdTaskRowClass *klass)
   gtk_widget_class_bind_template_callback (widget_class, button_press_event);
   gtk_widget_class_bind_template_callback (widget_class, complete_check_toggled_cb);
   gtk_widget_class_bind_template_callback (widget_class, drag_begin_cb);
+  gtk_widget_class_bind_template_callback (widget_class, drag_failed_cb);
   gtk_widget_class_bind_template_callback (widget_class, mouse_out_event);
   gtk_widget_class_bind_template_callback (widget_class, mouse_over_event);
 
