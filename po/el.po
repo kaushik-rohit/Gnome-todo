@@ -8,23 +8,23 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-todo master\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
-"todo&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2016-06-17 21:44+0000\n"
-"PO-Revision-Date: 2016-09-12 00:43+0300\n"
-"Last-Translator: Tom Tryfonidis <tomtryf@gmail.com>\n"
+"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
+"todo&keywords=I18N+L10N&component=General\n"
+"POT-Creation-Date: 2017-03-05 13:08+0000\n"
+"PO-Revision-Date: 2017-04-08 18:32+0300\n"
+"Last-Translator: Tom Tryfonidis <tomtryf@gnome.org>\n"
 "Language-Team: Greek, Modern (1453-) <opensuse-translation-el@opensuse.org>\n"
 "Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.8.8\n"
+"X-Generator: Poedit 1.8.11\n"
 "X-Project-Style: gnome\n"
 
 #: ../data/appdata/org.gnome.Todo.appdata.xml.in.h:1
 #: ../data/org.gnome.Todo.desktop.in.in.h:1 ../src/gtd-application.c:123
-#: ../src/gtd-application.c:149 ../src/gtd-window.c:955
+#: ../src/gtd-application.c:149 ../src/gtd-window.c:940
 msgid "To Do"
 msgstr "Εργασίες"
 
@@ -34,11 +34,36 @@ msgstr "Διαχειριστής εργασιών για το GNOME"
 
 #: ../data/appdata/org.gnome.Todo.appdata.xml.in.h:3
 msgid ""
-"GNOME To Do is a simple task management application designed to integrate "
-"with GNOME."
+"GNOME To Do is a task management application designed to integrate with "
+"GNOME. It is extensible through plugins and supports custom task providers."
 msgstr ""
-"Η Εργασίες GNOME είναι μια απλή εφαρμογή διαχείρισης εργασιών που "
-"σχεδιάστηκε να ενσωματώνεται στο GNOME."
+"«Εργασίες GNOME» μια απλή εφαρμογή διαχείρισης εργασιών σχεδιασμένη ώστε να "
+"ενσωματώνεται στο GNOME. Είναι επεκτάσιμη μέσω προσθέτων και υποστηρίζει "
+"προσαρμοσμένους παρόχους εργασιών."
+
+#: ../data/appdata/org.gnome.Todo.appdata.xml.in.h:4
+msgid "GNOME To Do with the Dark theme variant"
+msgstr "Εργασίες GNOME με την παραλλαγή σκούρου θέματος"
+
+#: ../data/appdata/org.gnome.Todo.appdata.xml.in.h:5
+msgid "Editing a tasklist with GNOME To Do"
+msgstr "Επεξεργασία μιας λίστας εργασιών με το Εργασίες GNOME"
+
+#: ../data/appdata/org.gnome.Todo.appdata.xml.in.h:6
+msgid "Task lists displayed on grid mode"
+msgstr "Οι λίστες εργασιών εμφανίζονται σε λειτουργία πλέγματος"
+
+#: ../data/appdata/org.gnome.Todo.appdata.xml.in.h:7
+msgid "Task lists displayed on list mode"
+msgstr "Οι λίστες εργασιών εμφανίζονται σε λειτουργία λίστας"
+
+#: ../data/appdata/org.gnome.Todo.appdata.xml.in.h:8
+msgid "Available plugins for GNOME To Do"
+msgstr "Διαθέσιμα πρόσθετα τις Εργασίες GNOME"
+
+#: ../data/appdata/org.gnome.Todo.appdata.xml.in.h:9
+msgid "Visualizing tasks for today on GNOME To Do's Today panel"
+msgstr "Οπτικοποίηση εργασιών ημέρας στο πίνακα εργασιών της εφαρμογής"
 
 #: ../data/gtk/menus.ui.h:1
 msgid "New List…"
@@ -127,49 +152,69 @@ msgstr "Ο τρέχων επιλογέας λίστας"
 msgid "The current list selector. Can be 'grid' or 'list'."
 msgstr "Ο τρέχων επιλογέας λίστας. Μπορεί να είναι «grid» ή «list»."
 
-#: ../data/ui/edit-pane.ui.h:1 ../plugins/eds/edit-pane.ui.h:1
-#: ../src/gtd-window.c:553
+#: ../data/ui/edit-pane.ui.h:1 ../plugins/eds/edit-pane.ui.h:10
+msgctxt "taskdate"
+msgid "None"
+msgstr "Kαμία"
+
+#: ../data/ui/edit-pane.ui.h:2 ../plugins/eds/edit-pane.ui.h:1
+#: ../src/gtd-window.c:542
 msgid "Details"
 msgstr "Λεπτομέρειες"
 
-#: ../data/ui/edit-pane.ui.h:2 ../plugins/eds/edit-pane.ui.h:2
+#: ../data/ui/edit-pane.ui.h:3 ../plugins/eds/edit-pane.ui.h:2
 msgid "Notes"
 msgstr "Σημειώσεις"
 
-#: ../data/ui/edit-pane.ui.h:3 ../plugins/eds/edit-pane.ui.h:3
+#: ../data/ui/edit-pane.ui.h:4 ../plugins/eds/edit-pane.ui.h:3
 msgid "Due Date"
 msgstr "Ημερομηνία λήξης"
 
-#: ../data/ui/edit-pane.ui.h:4 ../plugins/eds/edit-pane.ui.h:4
+#: ../data/ui/edit-pane.ui.h:5 ../plugins/eds/edit-pane.ui.h:4
 msgid "Priority"
 msgstr "Προτεραιότητα"
 
-#: ../data/ui/edit-pane.ui.h:5 ../plugins/eds/edit-pane.ui.h:5
+#: ../data/ui/edit-pane.ui.h:6 ../plugins/eds/edit-pane.ui.h:5
 msgctxt "taskpriority"
 msgid "None"
 msgstr "Kαμία"
 
-#: ../data/ui/edit-pane.ui.h:6 ../plugins/eds/edit-pane.ui.h:6
+#: ../data/ui/edit-pane.ui.h:7 ../plugins/eds/edit-pane.ui.h:6
 msgid "Low"
 msgstr "Χαμηλή"
 
-#: ../data/ui/edit-pane.ui.h:7 ../plugins/eds/edit-pane.ui.h:7
+#: ../data/ui/edit-pane.ui.h:8 ../plugins/eds/edit-pane.ui.h:7
 msgid "Medium"
 msgstr "Μεσαία"
 
-#: ../data/ui/edit-pane.ui.h:8 ../plugins/eds/edit-pane.ui.h:8
+#: ../data/ui/edit-pane.ui.h:9 ../plugins/eds/edit-pane.ui.h:8
 msgid "High"
 msgstr "Υψηλή"
 
-#: ../data/ui/edit-pane.ui.h:9 ../data/ui/list-selector-panel.ui.h:2
+#: ../data/ui/edit-pane.ui.h:10 ../data/ui/list-selector-panel.ui.h:2
 #: ../plugins/eds/edit-pane.ui.h:9
 msgid "Delete"
 msgstr "Διαγραφή"
 
-#: ../data/ui/edit-pane.ui.h:10 ../plugins/eds/edit-pane.ui.h:10
-msgctxt "taskdate"
-msgid "None"
-msgstr "Kαμία"
+#. Setup a title
+#: ../data/ui/edit-pane.ui.h:11
+#: ../plugins/scheduled-panel/gtd-panel-scheduled.c:87
+#: ../plugins/score/score/__init__.py:95
+#: ../plugins/today-panel/gtd-panel-today.c:135
+#: ../plugins/today-panel/gtd-panel-today.c:140
+#: ../plugins/today-panel/gtd-panel-today.c:309 ../src/gtd-task-row.c:299
+msgid "Today"
+msgstr "Σήμερα"
+
+#: ../data/ui/edit-pane.ui.h:12
+#: ../plugins/scheduled-panel/gtd-panel-scheduled.c:91
+#: ../src/gtd-task-row.c:303
+msgid "Tomorrow"
+msgstr "Αύριο"
+
+#: ../data/ui/edit-pane.ui.h:13
+msgid "Next Week"
+msgstr "Επόμενη εβδομάδα"
 
 #: ../data/ui/initial-setup.ui.h:1
 msgid "Welcome"
@@ -182,12 +227,13 @@ msgstr ""
 "σας"
 
 #: ../data/ui/initial-setup.ui.h:3 ../data/ui/provider-popover.ui.h:2
-#: ../data/ui/window.ui.h:1 ../src/views/gtd-list-selector-panel.c:386
+#: ../data/ui/window.ui.h:1 ../src/gtd-task-list-view.c:599
+#: ../src/views/gtd-list-selector-panel.c:388
 msgid "Cancel"
 msgstr "Άκυρο"
 
-#: ../data/ui/initial-setup.ui.h:4 ../data/ui/list-view.ui.h:4
-#: ../src/gtd-task-list-view.c:434
+#: ../data/ui/initial-setup.ui.h:4 ../data/ui/list-view.ui.h:2
+#: ../src/gtd-task-list-view.c:764
 msgid "Done"
 msgstr "Έτοιμο"
 
@@ -196,7 +242,7 @@ msgid "Rename"
 msgstr "Μετονομασία"
 
 #: ../data/ui/list-selector-panel.ui.h:3
-#: ../src/views/gtd-list-selector-panel.c:465
+#: ../src/views/gtd-list-selector-panel.c:467
 msgid "Lists"
 msgstr "Λίστες"
 
@@ -213,30 +259,12 @@ msgid "New List"
 msgstr "Νέα λίστα"
 
 #: ../data/ui/list-view.ui.h:1
-msgid "No tasks found"
-msgstr "Δεν βρέθηκαν εργασίες"
-
-#: ../data/ui/list-view.ui.h:2
-msgid "You can add tasks to lists in the <b>Lists</b> view"
-msgstr "Μπορείτε να προσθέσετε εργασίες στις λίστες στην προβολή <b>Λίστες</b>"
-
-#: ../data/ui/list-view.ui.h:3
 msgid "Show or hide completed tasks"
 msgstr "Εμφάνιση ή απόκρυψη ολοκληρωμένων εργασιών"
 
 #: ../data/ui/plugin-dialog.ui.h:2
 msgid "No extensions found"
 msgstr "Δεν βρέθηκαν επεκτάσεις"
-
-#: ../data/ui/provider-dialog.ui.h:1
-msgid "Select the default storage location to create task lists:"
-msgstr ""
-"Επιλογή της προεπιλεγμένης θέσης αποθήκευσης για τη δημιουργία λιστών "
-"εργασιών:"
-
-#: ../data/ui/provider-dialog.ui.h:2
-msgid "Default storage location"
-msgstr "Προεπιλεγμένη θέση αποθήκευσης"
 
 #: ../data/ui/provider-popover.ui.h:1
 msgid "Create"
@@ -287,104 +315,68 @@ msgstr ""
 msgid "New task…"
 msgstr "Νέα εργασία…"
 
-#: ../plugins/eds/gtd-panel-scheduled.c:67 ../src/gtd-edit-pane.c:147
-#: ../src/gtd-task-row.c:170
-msgid "No date set"
-msgstr "Δεν ορίστηκε ημερομηνία"
-
-#: ../plugins/eds/gtd-panel-scheduled.c:83 ../src/gtd-task-row.c:148
-#, c-format
-msgid "Yesterday"
-msgid_plural "%d days ago"
-msgstr[0] "Χθες"
-msgstr[1] "%d μέρες πριν"
-
-#. Setup a title
-#: ../plugins/eds/gtd-panel-scheduled.c:87 ../plugins/eds/gtd-panel-today.c:147
-#: ../plugins/eds/gtd-panel-today.c:152 ../plugins/eds/gtd-panel-today.c:314
-#: ../plugins/score/score/__init__.py:95 ../src/gtd-task-row.c:140
-msgid "Today"
-msgstr "Σήμερα"
-
-#: ../plugins/eds/gtd-panel-scheduled.c:91 ../src/gtd-task-row.c:144
-msgid "Tomorrow"
-msgstr "Αύριο"
-
-#. Setup a title
-#: ../plugins/eds/gtd-panel-scheduled.c:354
-#: ../plugins/eds/gtd-panel-scheduled.c:359
-#: ../plugins/eds/gtd-panel-scheduled.c:489
-msgid "Scheduled"
-msgstr "Προγραμματισμένο"
-
-#: ../plugins/eds/gtd-panel-scheduled.c:497
-#: ../plugins/eds/gtd-panel-today.c:322
-#: ../src/views/gtd-list-selector-panel.c:700
-msgid "Clear completed tasks…"
-msgstr "Εκκαθάριση ολοκληρωμένων εργασιών…"
-
-#: ../plugins/eds/gtd-plugin-eds.c:249 ../plugins/eds/gtd-plugin-eds.c:253
+#: ../plugins/eds/gtd-plugin-eds.c:244 ../plugins/eds/gtd-plugin-eds.c:248
 msgid "Error loading GNOME Online Accounts"
 msgstr "Σφάλμα κατά τη φόρτωση των διαδικτυακών λογαριασμών του GNOME"
 
-#: ../plugins/eds/gtd-plugin-eds.c:278
+#: ../plugins/eds/gtd-plugin-eds.c:273
 msgid "Error loading Evolution-Data-Server backend"
 msgstr ""
 "Σφάλμα κατά τη φόρτωση του συστήματος υποστήριξης Evolution-Data-Server"
 
-#: ../plugins/eds/gtd-plugin-eds.c:371 ../src/gtd-application.c:243
+#: ../plugins/eds/gtd-plugin-eds.c:364 ../src/gtd-application.c:243
 msgid "Error loading CSS from resource"
 msgstr "Σφάλμα κατά τη φόρτωση CSS από την πηγή"
 
-#: ../plugins/eds/gtd-provider-eds.c:118 ../plugins/eds/gtd-provider-eds.c:122
+#: ../plugins/eds/gtd-provider-eds.c:132 ../plugins/eds/gtd-provider-eds.c:136
 msgid "Error fetching tasks from list"
 msgstr "Σφάλμα κατά την προσκόμιση εργασιών από την λίστα"
 
-#: ../plugins/eds/gtd-provider-eds.c:182
+#: ../plugins/eds/gtd-provider-eds.c:196
 msgid "Task list source successfully connected"
 msgstr "Η λίστα εργασιών συνδέθηκε με επιτυχία"
 
-#: ../plugins/eds/gtd-provider-eds.c:189 ../plugins/eds/gtd-provider-eds.c:194
+#: ../plugins/eds/gtd-provider-eds.c:203 ../plugins/eds/gtd-provider-eds.c:208
 msgid "Failed to connect to task list source"
 msgstr "Αποτυχία σύνδεσης με την πηγή της λίστας εργασιών"
 
-#: ../plugins/eds/gtd-provider-eds.c:306
+#: ../plugins/eds/gtd-provider-eds.c:322
 msgid "Failed to prompt for credentials"
 msgstr "Αποτυχία προτροπής για διαπιστευτήρια"
 
-#: ../plugins/eds/gtd-provider-eds.c:329
+#: ../plugins/eds/gtd-provider-eds.c:345
 msgid "Failed to prompt for credentials for"
 msgstr "Αποτυχία προτροπής για διαπιστευτήρια για"
 
-#: ../plugins/eds/gtd-provider-eds.c:383
+#: ../plugins/eds/gtd-provider-eds.c:399
 msgid "Authentication failure"
 msgstr "Αποτυχία πιστοποίησης"
 
-#: ../plugins/eds/gtd-provider-eds.c:435
+#: ../plugins/eds/gtd-provider-eds.c:451
 msgid "Error loading task manager"
 msgstr "Σφάλμα κατά τη φόρτωση του διαχειριστή εργασιών"
 
-#: ../plugins/eds/gtd-provider-eds.c:532 ../plugins/eds/gtd-provider-eds.c:536
+#: ../plugins/eds/gtd-provider-eds.c:550 ../plugins/eds/gtd-provider-eds.c:558
 msgid "Error creating task"
 msgstr "Σφάλμα κατά τη δημιουργία εργασίας"
 
-#: ../plugins/eds/gtd-provider-eds.c:575 ../plugins/eds/gtd-provider-eds.c:579
+#: ../plugins/eds/gtd-provider-eds.c:598 ../plugins/eds/gtd-provider-eds.c:602
 msgid "Error updating task"
 msgstr "Σφάλμα κατά την ενημέρωση εργασίας"
 
-#: ../plugins/eds/gtd-provider-eds.c:611 ../plugins/eds/gtd-provider-eds.c:615
+#: ../plugins/eds/gtd-provider-eds.c:634 ../plugins/eds/gtd-provider-eds.c:638
 msgid "Error removing task"
 msgstr "Σφάλμα κατά την αφαίρεση εργασίας"
 
-#: ../plugins/eds/gtd-provider-eds.c:639 ../plugins/eds/gtd-provider-eds.c:643
+#: ../plugins/eds/gtd-provider-eds.c:662 ../plugins/eds/gtd-provider-eds.c:666
 msgid "Error creating task list"
 msgstr "Σφάλμα κατά τη δημιουργία λίστας εργασιών"
 
-#: ../plugins/eds/gtd-provider-eds.c:660 ../plugins/eds/gtd-provider-eds.c:664
+#: ../plugins/eds/gtd-provider-eds.c:683 ../plugins/eds/gtd-provider-eds.c:687
 msgid "Error removing task list"
 msgstr "Σφάλμα κατά την αφαίρεση της λίστας εργασιών"
 
-#: ../plugins/eds/gtd-provider-eds.c:721 ../plugins/eds/gtd-provider-eds.c:725
+#: ../plugins/eds/gtd-provider-eds.c:744 ../plugins/eds/gtd-provider-eds.c:748
 #: ../plugins/eds/gtd-task-list-eds.c:69
 msgid "Error saving task list"
 msgstr "Σφάλμα κατά την αποθήκευση της λίστας εργασιών"
@@ -402,20 +394,44 @@ msgstr "Σε αυτό τον υπολογιστή"
 msgid "Error creating new task list"
 msgstr "Σφάλμα κατά τη δημιουργία νέας λίστας εργασιών"
 
+#: ../plugins/scheduled-panel/gtd-panel-scheduled.c:67
+#: ../src/gtd-edit-pane.c:217 ../src/gtd-task-row.c:329
+msgid "No date set"
+msgstr "Δεν ορίστηκε ημερομηνία"
+
+#: ../plugins/scheduled-panel/gtd-panel-scheduled.c:83
+#: ../src/gtd-task-row.c:307
+#, c-format
+msgid "Yesterday"
+msgid_plural "%d days ago"
+msgstr[0] "Χθες"
+msgstr[1] "%d μέρες πριν"
+
+#. Setup a title
+#: ../plugins/scheduled-panel/gtd-panel-scheduled.c:342
+#: ../plugins/scheduled-panel/gtd-panel-scheduled.c:347
+#: ../plugins/scheduled-panel/gtd-panel-scheduled.c:479
+msgid "Scheduled"
+msgstr "Προγραμματισμένο"
+
+#: ../plugins/scheduled-panel/gtd-panel-scheduled.c:484
+#: ../plugins/today-panel/gtd-panel-today.c:314
+#: ../src/views/gtd-list-selector-panel.c:713
+msgid "Clear completed tasks…"
+msgstr "Εκκαθάριση ολοκληρωμένων εργασιών…"
+
 #: ../plugins/score/score/__init__.py:84
 msgid "No task completed today"
 msgstr "Δεν ολοκληρώθηκε καμία εργασία σήμερα"
 
-#: ../plugins/unscheduled-panel/unscheduled-panel/__init__.py:33
-msgid "unscheduled-panel"
-msgstr "Πίνακας μη προγραμματισμένων"
-
+#. Translators: 'Unscheduled' as in 'Unscheduled tasks'
 #: ../plugins/unscheduled-panel/unscheduled-panel/__init__.py:34
-#: ../plugins/unscheduled-panel/unscheduled-panel/__init__.py:85
+#: ../plugins/unscheduled-panel/unscheduled-panel/__init__.py:89
 msgid "Unscheduled"
 msgstr "Μη προγραμματισμένο"
 
-#: ../plugins/unscheduled-panel/unscheduled-panel/__init__.py:87
+#. Translators: 'Unscheduled' as in 'Unscheduled tasks'
+#: ../plugins/unscheduled-panel/unscheduled-panel/__init__.py:92
 #, python-format
 msgid "Unscheduled (%d)"
 msgstr "Μη προγραμματισμένο (%d)"
@@ -436,9 +452,54 @@ msgstr ""
 "Ελληνική μεταφραστική ομάδα του GNOME\n"
 " Δημήτρης Σπίγγος <dmtrs32@gmail.com>\n"
 " Θάνος Τρυφωνίδης <tomtryf@gnome.org>\n"
+" Γιάννης Κουτσούκος <giankoyt@gmail.com>\n"
 "\n"
 "Για περισσότερες πληροφορίες, επισκεφθείτε τη σελίδα\n"
 "http://gnome.gr/"
+
+#: ../src/gtd-empty-list-widget.c:49
+msgid "No more tasks left"
+msgstr "Δεν βρέθηκαν άλλες εργασίες"
+
+#: ../src/gtd-empty-list-widget.c:50
+msgid "Nothing else to do here"
+msgstr "Τίποτα άλλο να κάνετε εδώ"
+
+#: ../src/gtd-empty-list-widget.c:51
+msgid "You made it!"
+msgstr "Τα καταφέρατε!"
+
+#: ../src/gtd-empty-list-widget.c:52
+msgid "Looks like there's nothing else left here"
+msgstr "Φαίνεται ότι δεν υπάρχει τίποτα άλλο εδώ"
+
+#: ../src/gtd-empty-list-widget.c:57
+msgid "Get some rest now"
+msgstr "Κάντε ένα διάλειμμα"
+
+#: ../src/gtd-empty-list-widget.c:58
+msgid "Enjoy the rest of your day"
+msgstr "Απολαύστε το υπόλοιπο της ημέρας σας"
+
+#: ../src/gtd-empty-list-widget.c:59
+msgid "Good job!"
+msgstr "Καλή δουλειά!"
+
+#: ../src/gtd-empty-list-widget.c:60
+msgid "Meanwhile, spread the love"
+msgstr "Εν τω μεταξύ, διαδώστε την αγάπη"
+
+#: ../src/gtd-empty-list-widget.c:61
+msgid "Working hard is always rewarded"
+msgstr "Η σκληρή δουλειά  πάντα ανταμείβεται"
+
+#: ../src/gtd-empty-list-widget.c:72
+msgid "No tasks found"
+msgstr "Δεν βρέθηκαν εργασίες"
+
+#: ../src/gtd-empty-list-widget.c:73
+msgid "You can add tasks using the <b>+</b> above"
+msgstr "Μπορείτε να προσθέσετε εργασίες χρησιμοποιώντας το <b>+</b>"
 
 #: ../src/gtd-plugin-dialog-row.c:95
 msgid "Error loading plugin"
@@ -448,20 +509,34 @@ msgstr "Σφάλμα κατά τη φόρτωση του πρόσθετου"
 msgid "Error unloading plugin"
 msgstr "Σφάλμα κατά τη εκφόρτωση του πρόσθετου"
 
-#: ../src/gtd-task-list-view.c:334
+#: ../src/gtd-task-list-view.c:593
+msgid "Removing this task will also remove its subtasks. Remove anyway?"
+msgstr ""
+"Η αφαίρεση αυτής της εργασίας θα αφαιρέσει επίσης δευτερεύουσες εργασίες "
+"της. Κατάργηση ούτως ή άλλως;"
+
+#: ../src/gtd-task-list-view.c:596
+msgid "Once removed, the tasks cannot be recovered."
+msgstr "Όταν αφαιρεθεί, οι εργασίες δεν μπορούν να ανακτηθούν."
+
+#: ../src/gtd-task-list-view.c:601
+msgid "Remove"
+msgstr "Αφαίρεση "
+
+#: ../src/gtd-task-list-view.c:650
 #, c-format
 msgid "Task <b>%s</b> removed"
 msgstr "Η εργασία <b>%s</b> αφαιρέθηκε"
 
-#: ../src/gtd-task-list-view.c:365
+#: ../src/gtd-task-list-view.c:680
 msgid "Undo"
 msgstr "Αναίρεση"
 
-#: ../src/gtd-window.c:817
+#: ../src/gtd-window.c:808
 msgid "Loading your task lists…"
 msgstr "Φορτώνονται οι λίστες εργασιών…"
 
-#: ../src/gtd-window.c:949
+#: ../src/gtd-window.c:934
 msgid "Click a task list to select"
 msgstr "Κάντε κλικ σε μια λίστα εργασιών για να την επιλέξετε"
 
@@ -473,17 +548,28 @@ msgstr "Χωρίς εργασίες"
 msgid "Setting new color for task list"
 msgstr "Ρύθμιση νέου χρώματος για την λίστα εργασιών"
 
-#: ../src/views/gtd-list-selector-panel.c:379
+#: ../src/views/gtd-list-selector-panel.c:381
 msgid "Remove the selected task lists?"
 msgstr "Αφαίρεση των επιλεγμένων εργασιών;"
 
-#: ../src/views/gtd-list-selector-panel.c:382
+#: ../src/views/gtd-list-selector-panel.c:384
 msgid "Once removed, the task lists cannot be recovered."
 msgstr "Όταν αφαιρεθεί, οι λίστες εργασιών δεν μπορούν να ανακτηθούν."
 
-#: ../src/views/gtd-list-selector-panel.c:394
+#: ../src/views/gtd-list-selector-panel.c:396
 msgid "Remove task lists"
 msgstr "Αφαίρεση λιστών εργασιών"
+
+#~ msgid "Select the default storage location to create task lists:"
+#~ msgstr ""
+#~ "Επιλογή της προεπιλεγμένης θέσης αποθήκευσης για τη δημιουργία λιστών "
+#~ "εργασιών:"
+
+#~ msgid "Default storage location"
+#~ msgstr "Προεπιλεγμένη θέση αποθήκευσης"
+
+#~ msgid "unscheduled-panel"
+#~ msgstr "Πίνακας μη προγραμματισμένων"
 
 #~ msgid "Todo"
 #~ msgstr "Εργασίες"
