@@ -118,17 +118,12 @@ gtd_todo_txt_parser_get_date (gchar *token)
 gboolean
 gtd_todo_txt_parser_is_date (gchar *dt)
 {
-  GDate   *date = NULL;
+  GDate  date;
 
-  date = g_date_new ();
-  g_date_set_parse (date, dt);
+  g_date_clear (&date, 1);
+  g_date_set_parse (&date, dt);
 
-  if (!g_date_valid (date))
-    return FALSE;
-
-  g_date_free (date);
-
-  return TRUE;
+  return g_date_valid (&date);
 }
 
 gboolean
