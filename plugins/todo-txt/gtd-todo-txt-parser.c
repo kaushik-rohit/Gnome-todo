@@ -135,8 +135,11 @@ gboolean
 gtd_todo_txt_parser_is_word (gchar *token)
 {
   guint pos;
+  guint token_length;
 
-  for (pos = 0; pos < strlen (token); pos++)
+  token_length = g_utf8_strlen (token, -1);
+
+  for (pos = 0; pos < token_length; pos++)
     {
       if (!g_unichar_isalnum (token[pos]))
         return FALSE;
