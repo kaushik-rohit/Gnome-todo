@@ -399,16 +399,16 @@ GList*
 gtd_todo_txt_parser_tokenize (const gchar *line)
 {
   GList *tokens = NULL;
-  gchar **token = NULL;
+  g_autofree GStrv token = NULL;
+  gsize i;
 
   token = g_strsplit (line, " ", -1);
 
-  while (*token)
-  {
-    g_strstrip (*token);
-    tokens = g_list_prepend (tokens, g_strdup(*token));
-    token++;
-  }
+  for (i = 0; token[i]; i++)
+    {
+      g_strstrip (token[i]);
+      tokens = g_list_prepend (tokens, g_strdup (token[i]));
+    }
 
   tokens = g_list_reverse (tokens);
 
