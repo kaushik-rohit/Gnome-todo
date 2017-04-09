@@ -788,7 +788,7 @@ gtd_task_set_complete (GtdTask  *task,
           icaltimezone_convert_time (dt,
                                      NULL,
                                      icaltimezone_get_utc_timezone ());
-
+          g_date_time_unref (now);
         }
       else
         {
