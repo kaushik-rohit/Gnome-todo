@@ -114,7 +114,6 @@ AC_CONFIG_FILES([
       data/Makefile
       data/icons/Makefile
       data/gnome-todo.pc
-      data/org.gnome.Todo.desktop.in
       doc/Makefile
       doc/reference/Makefile
       doc/reference/version.xml

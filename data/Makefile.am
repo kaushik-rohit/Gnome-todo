@@ -7,15 +7,20 @@ desktopdir = $(datadir)/applications
 desktop_in_files = org.gnome.Todo.desktop.in
 desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
 
+autostartdir = $(pkgdatadir)
+autostart_DATA = org.gnome.Todo.Autostart.desktop
+
+%.desktop: %.desktop.in Makefile
+	$(AM_V_GEN) $(MSGFMT) --desktop --template $< -d $(top_srcdir)/po -o $@
+
 %.ini: %.ini.in
 	LC_ALL=C $(INTLTOOL_MERGE) -d -u -c $(top_builddir)/po/.intltool-merge-cache $(top_srcdir)/po $< $@
 
 @INTLTOOL_XML_RULE@
+
 appdatadir = $(datadir)/appdata
 appdata_DATA = $(appdata_in_files:.xml.in=.xml)
 appdata_in_files = $(srcdir)/appdata/org.gnome.Todo.appdata.xml.in
-
-@INTLTOOL_DESKTOP_RULE@
 
 gsettings_ENUM_NAMESPACE = org.gnome.todo
 gsettings_ENUM_FILES = \
@@ -57,11 +62,13 @@ EXTRA_DIST=                     \
   $(appdata_in_files) \
   $(desktop_in_files) \
   $(gsettings_SCHEMAS) \
+  $(autostartdir) \
   $(service_in_files)
 
 CLEANFILES =                    \
   $(service_DATA)               \
   $(desktop_DATA)               \
+  $(autostart_DATA)             \
   $(searchprovider_DATA)        \
   $(appdata_DATA)
 
