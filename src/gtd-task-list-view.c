@@ -773,9 +773,16 @@ gtd_task_list_view__update_done_label (GtdTaskListView *view)
 
   gtk_revealer_set_reveal_child (GTK_REVEALER (view->priv->revealer), view->priv->complete_tasks > 0);
 
-  new_label = g_strdup_printf ("%s (%d)",
-                               _("Done"),
-                               view->priv->complete_tasks);
+  if (view->priv->complete_tasks == 0)
+    {
+      new_label = g_strdup_printf ("%s", _("Done"));
+    }
+  else
+    {
+      new_label = g_strdup_printf ("%s (%d)",
+                                   _("Done"),
+                                   view->priv->complete_tasks);
+    }
 
   gtk_label_set_label (view->priv->done_label, new_label);
 
