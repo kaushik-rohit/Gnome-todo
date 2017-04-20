@@ -96,6 +96,7 @@ gtd_plugin_todo_txt_monitor_source (GFileMonitor      *monitor,
           return;
         }
     }
+
   provider = gtd_provider_todo_txt_new (self->source_file);
 
   self->providers = g_list_append (self->providers, provider);
@@ -129,45 +130,33 @@ gtd_plugin_todo_txt_load_source_monitor (GtdPluginTodoTxt *self)
 static gboolean
 gtd_plugin_todo_txt_set_default_source (GtdPluginTodoTxt *self)
 {
-  gchar *default_file;
+  g_autofree gchar *default_file;
   GError *error;
 
-  default_file = g_build_filename (g_get_user_special_dir (G_USER_DIRECTORY_DOCUMENTS), "todo.txt", NULL);
   error = NULL;
+  default_file = g_build_filename (g_get_user_special_dir (G_USER_DIRECTORY_DOCUMENTS),
+                                   "todo.txt",
+                                   NULL);
+  self->source_file = g_file_new_for_path (default_file);
 
-  default_file = g_filename_to_uri (default_file, NULL, &error);
+  if (g_file_query_exists (self->source_file, NULL))
+    return TRUE;
+
+  g_file_create (self->source_file,
+                     G_FILE_CREATE_NONE,
+                     NULL,
+                     &error);
 
   if (error)
     {
       gtd_manager_emit_error_message (gtd_manager_get_default (),
-                                      _("Error while converting the default Todo.txt path to an URI"),
+                                      _("Cannot create Todo.txt file"),
                                       error->message);
 
       g_clear_error (&error);
       return FALSE;
     }
-  else
-    {
-      self->source_file = g_file_new_for_uri (default_file);
-    }
 
-  if (!g_file_query_exists (self->source_file, NULL))
-    {
-      g_file_create (self->source_file,
-                     G_FILE_CREATE_NONE,
-                     NULL,
-                     &error);
-
-      if (error)
-        {
-          gtd_manager_emit_error_message (gtd_manager_get_default (),
-                                          _("Cannot create Todo.txt file"),
-                                          error->message);
-
-          g_clear_error (&error);
-          return FALSE;
-        }
-    }
   return TRUE;
 }
 
@@ -187,10 +176,7 @@ gtd_plugin_todo_txt_activate (GtdActivatable *activatable)
 
   if (!source || source[0] == '\0')
     {
-      gboolean set;
-      set = gtd_plugin_todo_txt_set_default_source (self);
-
-      if (!set)
+      if (!gtd_plugin_todo_txt_set_default_source (self))
         return;
     }
   else
@@ -418,19 +404,15 @@ gtd_plugin_todo_txt_init (GtdPluginTodoTxt *self)
                                         "orientation", GTK_ORIENTATION_VERTICAL,
                                         NULL);
   label = gtk_label_new (_("Select a Todo.txt-formatted file:"));
-  self->preferences = gtk_file_chooser_button_new (_("Select a file"),
-                                                   GTK_FILE_CHOOSER_ACTION_OPEN);
+  self->preferences = gtk_file_chooser_button_new (_("Select a file"), GTK_FILE_CHOOSER_ACTION_OPEN);
 
-  gtk_widget_set_size_request (GTK_WIDGET (self->preferences_box),
-                               300,
-                               0);
+  gtk_widget_set_size_request (GTK_WIDGET (self->preferences_box), 300, 0);
+
   gtk_container_add (GTK_CONTAINER (self->preferences_box), label);
   gtk_container_add (GTK_CONTAINER (self->preferences_box), self->preferences);
 
-  gtk_widget_set_halign (GTK_WIDGET (self->preferences_box),
-                         GTK_ALIGN_CENTER);
-  gtk_widget_set_valign (GTK_WIDGET (self->preferences_box),
-                         GTK_ALIGN_CENTER);
+  gtk_widget_set_halign (GTK_WIDGET (self->preferences_box), GTK_ALIGN_CENTER);
+  gtk_widget_set_valign (GTK_WIDGET (self->preferences_box), GTK_ALIGN_CENTER);
 
   gtk_widget_show_all (self->preferences_box);
 
@@ -444,7 +426,6 @@ gtd_plugin_todo_txt_init (GtdPluginTodoTxt *self)
 static void
 gtd_plugin_todo_txt_class_finalize (GtdPluginTodoTxtClass *klass)
 {
-
 }
 
 G_MODULE_EXPORT void
