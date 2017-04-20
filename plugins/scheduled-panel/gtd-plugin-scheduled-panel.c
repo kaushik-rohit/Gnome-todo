@@ -30,6 +30,7 @@ struct _GtdPluginScheduledPanel
   PeasExtensionBase   parent;
 
   GList              *panels;
+  GtkCssProvider     *css_provider;
 };
 
 static void          gtd_activatable_iface_init                  (GtdActivatableInterface  *iface);
@@ -140,7 +141,34 @@ gtd_plugin_scheduled_panel_class_init (GtdPluginScheduledPanelClass *klass)
 static void
 gtd_plugin_scheduled_panel_init (GtdPluginScheduledPanel *self)
 {
+  GSettings *settings;
+  GFile* css_file;
+  gchar *theme_name;
+  gchar *theme_uri;
+
+  /* Load CSS provider */
+  settings = g_settings_new ("org.gnome.desktop.interface");
+  theme_name = g_settings_get_string (settings, "gtk-theme");
+  theme_uri = g_build_filename ("resource:///org/gnome/todo/theme/scheduled-panel", theme_name, ".css", NULL);
+  css_file = g_file_new_for_uri (theme_uri);
+
+  self->css_provider = gtk_css_provider_new ();
+  gtk_style_context_add_provider_for_screen (gdk_screen_get_default (),
+                                             GTK_STYLE_PROVIDER (self->css_provider),
+                                             GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
+
+  if (g_file_query_exists (css_file, NULL))
+    gtk_css_provider_load_from_file (self->css_provider, css_file, NULL);
+  else
+    gtk_css_provider_load_from_resource (self->css_provider, "/org/gnome/todo/theme/scheduled-panel/Adwaita.css");
+
+  /* And then the panel */
   self->panels = g_list_append (NULL, gtd_panel_scheduled_new ());
+
+  g_object_unref (settings);
+  g_object_unref (css_file);
+  g_free (theme_name);
+  g_free (theme_uri);
 }
 
 static void

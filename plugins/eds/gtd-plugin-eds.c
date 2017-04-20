@@ -42,7 +42,6 @@ struct _GtdPluginEds
 {
   GObject                 parent;
 
-  GtkCssProvider         *provider;
   ESourceRegistry        *registry;
 
   /* Providers */
@@ -338,36 +337,10 @@ gtd_plugin_eds_class_init (GtdPluginEdsClass *klass)
 static void
 gtd_plugin_eds_init (GtdPluginEds *self)
 {
-  GError *error = NULL;
-  GFile* css_file;
-
   /* load the source registry */
   e_source_registry_new (NULL,
                          (GAsyncReadyCallback) gtd_plugin_eds_source_registry_finish_cb,
                          self);
-
-  /* load CSS */
-  self->provider = gtk_css_provider_new ();
-  gtk_style_context_add_provider_for_screen (gdk_screen_get_default (),
-                                             GTK_STYLE_PROVIDER (self->provider),
-                                             GTK_STYLE_PROVIDER_PRIORITY_APPLICATION + 1);
-
-  css_file = g_file_new_for_uri ("resource:///org/gnome/todo/theme/eds/Adwaita.css");
-
-  gtk_css_provider_load_from_file (self->provider,
-                                   css_file,
-                                   &error);
-  if (error != NULL)
-   {
-     g_warning ("%s: %s: %s",
-                G_STRFUNC,
-                _("Error loading CSS from resource"),
-                error->message);
-
-     g_error_free (error);
-   }
-
-  g_object_unref (css_file);
 }
 
 /* Empty class_finalize method */

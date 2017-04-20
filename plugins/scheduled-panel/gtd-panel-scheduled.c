@@ -101,7 +101,7 @@ get_string_for_date (GDateTime *dt,
   if (!dt)
     return g_strdup (_("No date set"));
 
-  get_date_offset(dt, &days_diff, &next_year_diff);
+  get_date_offset (dt, &days_diff, &next_year_diff);
 
   if (days_diff < 0)
     {

@@ -36,13 +36,13 @@
   <!--EDS Plugin-->
   <gresource prefix="/org/gnome/todo">
     <file compressed="true" alias="ui/eds/edit-pane.ui">../plugins/eds/edit-pane.ui</file>
-    <file compressed="true" alias="theme/eds/Adwaita.css">../plugins/eds/theme/Adwaita.css</file>
     <file alias="plugins/eds/eds.plugin">../plugins/eds/eds.plugin</file>
   </gresource>
 
   <!--Scheduled panel-->
   <gresource prefix="/org/gnome/todo">
     <file alias="plugins/scheduled-panel/scheduled-panel.plugin">../plugins/scheduled-panel/scheduled-panel.plugin</file>
+    <file compressed="true" alias="theme/scheduled-panel/Adwaita.css">../plugins/scheduled-panel/theme/Adwaita.css</file>
   </gresource>
 
   <!--Today panel-->
