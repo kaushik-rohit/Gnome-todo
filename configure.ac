@@ -87,6 +87,8 @@ dnl ================================================================
 dnl Plugins
 dnl ================================================================
 GNOME_TODO_ADD_PLUGIN([eds], [Evolution-Data-Server], [yes])
+
+GNOME_TODO_ADD_PLUGIN([background], [Run In Background], [yes])
 GNOME_TODO_ADD_PLUGIN([dark-theme], [Dark theme], [yes])
 GNOME_TODO_ADD_PLUGIN([scheduled-panel], [Scheduled Panel], [yes])
 GNOME_TODO_ADD_PLUGIN([score], [Score], [yes])
@@ -137,6 +139,7 @@ echo "
 
     Plugins:
         Dark theme .............. ${enable_dark_theme_plugin}
+        Run in Background ....... ${enable_background_plugin}
         Scheduled panel ......... ${enable_scheduled_panel_plugin}
         Score ................... ${enable_score_plugin}
         Today panel ............. ${enable_today_panel_plugin}

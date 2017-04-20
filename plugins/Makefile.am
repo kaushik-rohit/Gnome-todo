@@ -1,5 +1,9 @@
 SUBDIRS = eds
 
+if BUILD_BACKGROUND_PLUGIN
+SUBDIRS += background
+endif
+
 if BUILD_DARK_THEME_PLUGIN
 SUBDIRS += dark-theme
 endif

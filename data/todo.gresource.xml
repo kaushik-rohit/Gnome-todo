@@ -22,6 +22,12 @@
     <file compressed="true">theme/Adwaita.css</file>
   </gresource>
 
+  <!--Background-->
+  <gresource prefix="/org/gnome/todo">
+    <file alias="plugins/background/background.plugin">../plugins/background/background.plugin</file>
+    <file compressed="true" alias="ui/background/preferences.ui">../plugins/background/ui/preferences.ui</file>
+  </gresource>
+
   <!--Dark theme-->
   <gresource prefix="/org/gnome/todo">
     <file alias="plugins/dark-theme/dark-theme.plugin">../plugins/dark-theme/dark-theme.plugin</file>

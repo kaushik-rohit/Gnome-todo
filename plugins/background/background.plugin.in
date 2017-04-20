@@ -1,0 +1,13 @@
+[Plugin]
+Name = Run in background
+Module = background
+Description = Let GNOME To Do run in background and send notifications
+Version = @VERSION@
+Authors = Georges Basile Stavracas Neto <gbsneto@gnome.org>
+Copyright = Copyleft © The To Do maintainers
+Website = https://wiki.gnome.org/Apps/Todo
+Builtin = true
+License = GPL
+Loader = C
+Embedded = gtd_plugin_background_register_types
+Depends =

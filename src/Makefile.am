@@ -98,20 +98,22 @@ gnome_todo_CFLAGS = \
 
 gnome_todo_LDFLAGS = \
 	-Wl,--export-dynamic \
+	-Wl,--undefined=gtd_plugin_background_register_types \
 	-Wl,--undefined=gtd_plugin_eds_register_types \
 	-Wl,--undefined=gtd_plugin_dark_theme_register_types \
 	-Wl,--undefined=gtd_plugin_scheduled_panel_register_types \
 	-Wl,--undefined=gtd_plugin_today_panel_register_types \
-        -Wl,--undefined=gtd_plugin_todo_txt_register_types \
+	-Wl,--undefined=gtd_plugin_todo_txt_register_types \
 	-lm \
 	$(GNOME_TODO_WARN_LDFLAGS)
 
 gnome_todo_LDADD = \
+	$(top_builddir)/plugins/background/libbackground.la \
 	$(top_builddir)/plugins/eds/libeds.la \
 	$(top_builddir)/plugins/dark-theme/libdarktheme.la \
 	$(top_builddir)/plugins/scheduled-panel/libscheduledpanel.la \
 	$(top_builddir)/plugins/today-panel/libtodaypanel.la \
-        $(top_builddir)/plugins/todo-txt/libtodotxt.la \
+	$(top_builddir)/plugins/todo-txt/libtodotxt.la \
 	$(GNOME_TODO_LIBS)
 
 gnome_todo_DEPENDENCIES = \
