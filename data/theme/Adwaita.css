@@ -45,6 +45,10 @@ task-list-view.dark overlay image {
     color: #eeeeec;
 }
 
+task-list-view taskrow image {
+    color: #333333;
+}
+
 task-list-view.dark taskrow:hover {
     background-color: alpha(#393f3f, 0.4);
 }
