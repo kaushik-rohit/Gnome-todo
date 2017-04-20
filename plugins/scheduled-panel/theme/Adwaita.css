@@ -5,7 +5,7 @@ label.date-scheduled {
 }
 
 label.date-overdue {
-    color: #cc0000;
+    color: #ee2222;
     font-size: 16px;
     font-weight: bold;
 }
