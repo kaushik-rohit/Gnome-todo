@@ -164,15 +164,8 @@ run_window (GtdApplication *application)
 
   priv = application->priv;
 
-  if (!priv->window)
-    {
-      priv->window = gtd_window_new (GTD_APPLICATION (application));
-
-      gtk_window_set_transient_for (GTK_WINDOW (priv->plugin_dialog),
-                                    GTK_WINDOW (priv->window));
-    }
-
   gtk_widget_show (priv->window);
+  gtk_window_present (GTK_WINDOW (priv->window));
 }
 
 /*
@@ -276,11 +269,18 @@ gtd_application_startup (GApplication *application)
 
   G_APPLICATION_CLASS (gtd_application_parent_class)->startup (application);
 
+  /* manager */
+  priv->manager = gtd_manager_get_default ();
+
+  /* window */
+  priv->window = gtd_window_new (GTD_APPLICATION (application));
+
   /* plugin dialog */
   priv->plugin_dialog = gtd_plugin_dialog_new ();
 
-  /* manager */
-  priv->manager = gtd_manager_get_default ();
+  gtk_window_set_transient_for (GTK_WINDOW (priv->plugin_dialog), GTK_WINDOW (priv->window));
+
+  /* Load the plugins */
   gtd_manager_load_plugins (priv->manager);
 }
 
