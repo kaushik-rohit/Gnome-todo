@@ -50,6 +50,14 @@ struct _GtdApplication
   GtdApplicationPrivate *priv;
 };
 
+static void           gtd_application_activate_action             (GSimpleAction        *simple,
+                                                                   GVariant             *parameter,
+                                                                   gpointer              user_data);
+
+static void           gtd_application_start_client                (GSimpleAction        *simple,
+                                                                   GVariant             *parameter,
+                                                                   gpointer              user_data);
+
 static void           gtd_application_show_extensions             (GSimpleAction        *simple,
                                                                    GVariant             *parameter,
                                                                    gpointer              user_data);
@@ -65,10 +73,32 @@ static void           gtd_application_quit                        (GSimpleAction
 G_DEFINE_TYPE_WITH_PRIVATE (GtdApplication, gtd_application, GTK_TYPE_APPLICATION)
 
 static const GActionEntry gtd_application_entries[] = {
+  { "activate", gtd_application_activate_action },
+  { "start-client", gtd_application_start_client },
   { "show-extensions",  gtd_application_show_extensions },
   { "about",  gtd_application_show_about },
   { "quit",   gtd_application_quit }
 };
+
+static void
+gtd_application_activate_action (GSimpleAction *simple,
+                                 GVariant      *parameter,
+                                 gpointer       user_data)
+{
+  GtdApplicationPrivate *priv = GTD_APPLICATION (user_data)->priv;
+
+  gtk_widget_show (priv->window);
+  gtk_window_present (GTK_WINDOW (priv->window));
+}
+
+static void
+gtd_application_start_client (GSimpleAction *simple,
+                              GVariant      *parameter,
+                              gpointer       user_data)
+{
+  /* TODO */
+  g_message ("Starting up client");
+}
 
 static void
 gtd_application_show_extensions (GSimpleAction *simple,
