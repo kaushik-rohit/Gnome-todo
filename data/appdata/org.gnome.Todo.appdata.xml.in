@@ -21,7 +21,7 @@
   <screenshots>
     <screenshot width="1200" height="675">
       <image>https://git.gnome.org/browse/gnome-todo/plain/data/appdata/dark-theme.png</image>
-      <_caption>GNOME To Do with the Dark theme variant</_caption>
+      <_caption>GNOME To Do with the dark theme variant</_caption>
     </screenshot>
     <screenshot width="1200" height="675">
       <image>https://git.gnome.org/browse/gnome-todo/plain/data/appdata/editing-tasklist.png</image>
@@ -58,7 +58,7 @@
           and improvements.
           <ul>
             <li>GNOME To Do now supports subtasks</li>
-            <li>Memory comsumption was optimized</li>
+            <li>Memory consumption was optimized</li>
             <li>The task editor panel received handy buttons to change the task’s due date</li>
             <li>An initial version of the API documentation was released</li>
             <li>All panels except the “List” panel are now plugins and, as such, they can be disabled</li>

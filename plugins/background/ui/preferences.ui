@@ -50,7 +50,7 @@
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="hexpand">True</property>
-                        <property name="label" translatable="yes">Run on startup</property>
+                        <property name="label" translatable="yes">Run on Startup</property>
                         <property name="xalign">0</property>
                       </object>
                       <packing>
@@ -63,7 +63,7 @@
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="hexpand">True</property>
-                        <property name="label" translatable="yes">Run To Do Automatically when you log in</property>
+                        <property name="label" translatable="yes">Run To Do automatically when you log in</property>
                         <property name="xalign">0</property>
                         <style>
                           <class name="dim-label"/>
