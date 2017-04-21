@@ -66,10 +66,15 @@ class UnscheduledPanel(Gtk.Box, Gtd.Panel):
 
         for tasklist in manager.get_task_lists():
             for task in tasklist.get_tasks():
-                if task.get_due_date() is None:
-                    current_tasks.append(task)
-                    if not task.get_complete():
-                        self.task_counter += 1
+
+                if not task.get_due_date() is None:
+                    continue
+
+                current_tasks.append(task)
+
+                # Update the counter
+                if not task.get_complete():
+                    self.task_counter += 1
 
         self.view.set_list(current_tasks)
 
