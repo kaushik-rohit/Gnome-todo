@@ -35,7 +35,6 @@
 
 typedef struct
 {
-  GtkCssProvider *provider;
   GtdManager     *manager;
 
   GtkWidget      *window;
@@ -212,38 +211,6 @@ run_initial_setup (GtdApplication *application)
 static void
 gtd_application_activate (GApplication *application)
 {
-  GtdApplicationPrivate *priv = GTD_APPLICATION (application)->priv;
-
-  if (!priv->provider)
-   {
-     GSettings *settings;
-     gchar *theme_name, *theme_uri;
-     GFile* css_file;
-
-     priv->provider = gtk_css_provider_new ();
-     gtk_style_context_add_provider_for_screen (gdk_screen_get_default (),
-                                                GTK_STYLE_PROVIDER (priv->provider),
-                                                GTK_STYLE_PROVIDER_PRIORITY_APPLICATION + 1);
-
-     settings = g_settings_new ("org.gnome.desktop.interface");
-
-     theme_name = g_settings_get_string (settings, "gtk-theme");
-     g_object_unref (settings);
-
-     theme_uri = g_strconcat ("resource:///org/gnome/todo/theme/", theme_name, ".css", NULL);
-     g_free (theme_name);
-
-     css_file = g_file_new_for_uri (theme_uri);
-     g_free (theme_uri);
-
-     if (g_file_query_exists (css_file, NULL))
-       gtk_css_provider_load_from_file (priv->provider, css_file, NULL);
-     else
-       gtk_css_provider_load_from_resource (priv->provider, "/org/gnome/todo/theme/Adwaita.css");
-
-     g_object_unref (css_file);
-   }
-
   /* FIXME: the initial setup is disabled for the 3.18 release because
    * we can't create tasklists on GOA accounts.
    */
@@ -259,7 +226,12 @@ gtd_application_finalize (GObject *object)
 static void
 gtd_application_startup (GApplication *application)
 {
-  GtdApplicationPrivate *priv = GTD_APPLICATION (application)->priv;
+  GtdApplicationPrivate *priv;
+  g_autoptr (GtkCssProvider) css_provider;
+  g_autoptr (GFile) css_file;
+  g_autofree gchar *theme_name, *theme_uri;
+
+  priv = GTD_APPLICATION (application)->priv;
 
   /* add actions */
   g_action_map_add_action_entries (G_ACTION_MAP (application),
@@ -274,6 +246,21 @@ gtd_application_startup (GApplication *application)
 
   /* window */
   priv->window = gtd_window_new (GTD_APPLICATION (application));
+
+  /* CSS provider */
+  css_provider = gtk_css_provider_new ();
+  gtk_style_context_add_provider_for_screen (gdk_screen_get_default (),
+                                             GTK_STYLE_PROVIDER (css_provider),
+                                             GTK_STYLE_PROVIDER_PRIORITY_APPLICATION + 1);
+
+  g_object_get (gtk_settings_get_default (), "gtk-theme-name", &theme_name, NULL);
+  theme_uri = g_strconcat ("resource:///org/gnome/todo/theme/", theme_name, ".css", NULL);
+  css_file = g_file_new_for_uri (theme_uri);
+
+  if (g_file_query_exists (css_file, NULL))
+    gtk_css_provider_load_from_file (css_provider, css_file, NULL);
+  else
+    gtk_css_provider_load_from_resource (css_provider, "/org/gnome/todo/theme/Adwaita.css");
 
   /* plugin dialog */
   priv->plugin_dialog = gtd_plugin_dialog_new ();
