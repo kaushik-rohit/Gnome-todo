@@ -15,7 +15,10 @@ data/org.gnome.todo.gschema.xml
 [type: gettext/glade]data/ui/provider-selector.ui
 [type: gettext/glade]data/ui/task-row.ui
 [type: gettext/glade]data/ui/window.ui
+[type: gettext/glade]plugins/background/ui/preferences.ui
 [type: gettext/glade]plugins/eds/edit-pane.ui
+plugins/background/gtd-plugin-background.c
+plugins/background/org.gnome.todo.background.gschema.xml
 plugins/eds/gtd-plugin-eds.c
 plugins/eds/gtd-provider-eds.c
 plugins/eds/gtd-provider-local.c
