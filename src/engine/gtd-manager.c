@@ -82,6 +82,7 @@ enum
 {
   PROP_0,
   PROP_DEFAULT_PROVIDER,
+  PROP_DEFAULT_TASKLIST,
   PROP_PLUGIN_MANAGER,
   LAST_PROP
 };
@@ -99,11 +100,7 @@ check_provider_is_default (GtdManager  *manager,
   default_provider = g_settings_get_string (priv->settings, "default-provider");
 
   if (g_strcmp0 (default_provider, gtd_provider_get_id (provider)) == 0)
-    {
-      g_set_object (&priv->default_provider, provider);
-
-      g_object_notify (G_OBJECT (manager), "default-provider");
-    }
+    gtd_manager_set_default_provider (manager, provider);
 
   g_free (default_provider);
 }
@@ -145,6 +142,10 @@ gtd_manager_get_property (GObject    *object,
       g_value_set_object (value, priv->default_provider);
       break;
 
+    case PROP_DEFAULT_TASKLIST:
+      g_value_set_object (value, gtd_provider_get_default_task_list (priv->default_provider));
+      break;
+
     case PROP_PLUGIN_MANAGER:
       g_value_set_object (value, priv->plugin_manager);
       break;
@@ -160,13 +161,21 @@ gtd_manager_set_property (GObject      *object,
                           const GValue *value,
                           GParamSpec   *pspec)
 {
-  GtdManagerPrivate *priv = gtd_manager_get_instance_private (GTD_MANAGER (object));
+  GtdManagerPrivate *priv;
+  GtdManager *self;
+
+  self = GTD_MANAGER (object);
+  priv = gtd_manager_get_instance_private (self);
 
   switch (prop_id)
     {
     case PROP_DEFAULT_PROVIDER:
       if (g_set_object (&priv->default_provider, g_value_get_object (value)))
         g_object_notify (object, "default-provider");
+      break;
+
+    case PROP_DEFAULT_TASKLIST:
+      gtd_manager_set_default_task_list (self, g_value_get_object (value));
       break;
 
     default:
@@ -195,6 +204,20 @@ gtd_manager_class_init (GtdManagerClass *klass)
                              "The default provider of the application",
                              "The default provider of the application",
                              GTD_TYPE_PROVIDER,
+                             G_PARAM_READWRITE));
+
+  /**
+   * GtdManager::default-task-list:
+   *
+   * The default provider.
+   */
+  g_object_class_install_property (
+        object_class,
+        PROP_DEFAULT_TASKLIST,
+        g_param_spec_object ("default-task-list",
+                             "The default task list of the application",
+                             "The default task list of the application",
+                             GTD_TYPE_TASK_LIST,
                              G_PARAM_READWRITE));
 
   /**
@@ -367,6 +390,14 @@ gtd_manager_class_init (GtdManagerClass *klass)
 }
 
 static void
+gtd_manager__default_list_changed_cb (GtdProvider *provider,
+                                      GParamSpec  *pspec,
+                                      GtdManager  *self)
+{
+  g_object_notify (G_OBJECT (self), "default-task-list");
+}
+
+static void
 gtd_manager__task_list_modified (GtdTaskList *list,
                                  GtdTask     *task,
                                  GtdManager  *self)
@@ -507,8 +538,13 @@ gtd_manager__provider_removed (GtdPluginManager *plugin_manager,
   for (l = lists; l != NULL; l = l->next)
     gtd_manager__list_removed (provider, l->data, self);
 
+  g_signal_handlers_disconnect_by_func (provider,
+                                        gtd_manager__default_list_changed_cb,
+                                        self);
+
   g_signal_emit (self, signals[PROVIDER_REMOVED], 0, provider);
 }
+
 static void
 gtd_manager_init (GtdManager *self)
 {
@@ -749,21 +785,23 @@ gtd_manager_get_default_provider (GtdManager *manager)
 }
 
 /**
- * gtd_manager_set_default_storage:
+ * gtd_manager_set_default_provider:
  * @manager: a #GtdManager
- * @default_storage: (nullable): the default storage location.
+ * @provider: (nullable): the default provider.
  *
- * Sets the default storage location id.
+ * Sets the provider.
  */
 void
 gtd_manager_set_default_provider (GtdManager  *manager,
                                   GtdProvider *provider)
 {
   GtdManagerPrivate *priv;
+  GtdProvider *previous;
 
   g_return_if_fail (GTD_IS_MANAGER (manager));
 
   priv = manager->priv;
+  previous = priv->default_provider;
 
   if (g_set_object (&priv->default_provider, provider))
     {
@@ -771,8 +809,76 @@ gtd_manager_set_default_provider (GtdManager  *manager,
                              "default-provider",
                              provider ? gtd_provider_get_id (provider) : "local");
 
+      /* Disconnect the previous provider... */
+      if (previous)
+        {
+          g_signal_handlers_disconnect_by_func (previous,
+                                                gtd_manager__default_list_changed_cb,
+                                                manager);
+        }
+
+      /* ... and connect the current one */
+      if (provider)
+        {
+          g_signal_connect (provider,
+                            "notify::default-task-list",
+                            G_CALLBACK (gtd_manager__default_list_changed_cb),
+                            manager);
+        }
+
       g_object_notify (G_OBJECT (manager), "default-provider");
+      g_object_notify (G_OBJECT (manager), "default-task-list");
     }
+}
+
+/**
+ * gtd_manager_get_default_task_list:
+ * @self: a #GtdManager
+ *
+ * Retrieves the default tasklist of the default provider.
+ *
+ * Returns: (transfer none)(nullable): a #GtdTaskList
+ */
+GtdTaskList*
+gtd_manager_get_default_task_list (GtdManager *self)
+{
+  GtdManagerPrivate *priv;
+
+  g_return_val_if_fail (GTD_IS_MANAGER (self), NULL);
+
+  priv = gtd_manager_get_instance_private (self);
+
+  if (!priv->default_provider)
+    return NULL;
+
+  return gtd_provider_get_default_task_list (priv->default_provider);
+}
+
+/**
+ * gtd_manager_set_default_task_list:
+ * @self: a #GtdManager
+ * @list: (nullable): a #GtdTaskList, or %NULL
+ *
+ * Sets the default task list of the application.
+ */
+void
+gtd_manager_set_default_task_list (GtdManager  *self,
+                                   GtdTaskList *list)
+{
+  g_return_if_fail (GTD_IS_MANAGER (self));
+  g_return_if_fail (GTD_IS_TASK_LIST (list));
+
+  if (list)
+    {
+      GtdProvider *provider;
+
+      provider = gtd_task_list_get_provider (list);
+
+      gtd_manager_set_default_provider (self, provider);
+      gtd_provider_set_default_task_list (provider, list);
+    }
+
+  g_object_notify (G_OBJECT (self), "default-task-list");
 }
 
 /**

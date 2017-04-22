@@ -66,6 +66,11 @@ GtdProvider*            gtd_manager_get_default_provider  (GtdManager           
 void                    gtd_manager_set_default_provider  (GtdManager           *manager,
                                                            GtdProvider          *provider);
 
+GtdTaskList*            gtd_manager_get_default_task_list (GtdManager           *self);
+
+void                    gtd_manager_set_default_task_list (GtdManager           *self,
+                                                           GtdTaskList          *list);
+
 GSettings*              gtd_manager_get_settings          (GtdManager           *manager);
 
 gboolean                gtd_manager_get_is_first_run      (GtdManager           *manager);
