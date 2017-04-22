@@ -72,6 +72,9 @@ struct _GtdProviderInterface
   GList*             (*get_task_lists)                           (GtdProvider        *provider);
 
   GtdTaskList*       (*get_default_task_list)                    (GtdProvider        *provider);
+
+  void               (*set_default_task_list)                    (GtdProvider        *provider,
+                                                                  GtdTaskList        *list);
 };
 
 const gchar*         gtd_provider_get_id                         (GtdProvider        *provider);
@@ -107,6 +110,9 @@ void                 gtd_provider_remove_task_list               (GtdProvider   
 GList*               gtd_provider_get_task_lists                 (GtdProvider        *provider);
 
 GtdTaskList*         gtd_provider_get_default_task_list          (GtdProvider        *provider);
+
+void                 gtd_provider_set_default_task_list          (GtdProvider        *provider,
+                                                                  GtdTaskList        *list);
 
 G_END_DECLS
 

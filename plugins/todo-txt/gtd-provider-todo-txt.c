@@ -52,11 +52,12 @@ G_DEFINE_TYPE_WITH_CODE (GtdProviderTodoTxt, gtd_provider_todo_txt, GTD_TYPE_OBJ
 
 enum {
   PROP_0,
+  PROP_DEFAULT_TASKLIST,
+  PROP_DESCRIPTION,
   PROP_ENABLED,
   PROP_ICON,
   PROP_ID,
   PROP_NAME,
-  PROP_DESCRIPTION,
   PROP_SOURCE,
   LAST_PROP
 };
@@ -999,6 +1000,13 @@ gtd_provider_todo_txt_get_default_task_list (GtdProvider *provider)
 }
 
 static void
+gtd_provider_todo_txt_set_default_task_list (GtdProvider *provider,
+                                             GtdTaskList *list)
+{
+  /* FIXME: implement me */
+}
+
+static void
 gtd_provider_iface_init (GtdProviderInterface *iface)
 {
   iface->get_id = gtd_provider_todo_txt_get_id;
@@ -1015,6 +1023,7 @@ gtd_provider_iface_init (GtdProviderInterface *iface)
   iface->remove_task_list = gtd_provider_todo_txt_remove_task_list;
   iface->get_task_lists = gtd_provider_todo_txt_get_task_lists;
   iface->get_default_task_list = gtd_provider_todo_txt_get_default_task_list;
+  iface->set_default_task_list = gtd_provider_todo_txt_set_default_task_list;
 }
 
 GtdProviderTodoTxt*
@@ -1115,6 +1124,7 @@ gtd_provider_todo_txt_class_init (GtdProviderTodoTxtClass *klass)
                                                          G_TYPE_OBJECT,
                                                         G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
 
+  g_object_class_override_property (object_class, PROP_DEFAULT_TASKLIST, "default-task-list");
   g_object_class_override_property (object_class, PROP_DESCRIPTION, "description");
   g_object_class_override_property (object_class, PROP_ENABLED, "enabled");
   g_object_class_override_property (object_class, PROP_ICON, "icon");

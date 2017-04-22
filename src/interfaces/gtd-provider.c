@@ -111,6 +111,18 @@ gtd_provider_default_init (GtdProviderInterface *iface)
                                                             G_PARAM_READABLE));
 
   /**
+   * GtdProvider::default-task-list:
+   *
+   * The default #GtdTaskList of the provider.
+   */
+  g_object_interface_install_property (iface,
+                                       g_param_spec_object ("default-task-list",
+                                                            "Default tasklist of the provider",
+                                                            "The default tasklist of the provider",
+                                                            GTD_TYPE_TASK_LIST,
+                                                            G_PARAM_READWRITE));
+
+  /**
    * GtdProvider::list-added:
    * @provider: a #GtdProvider
    * @list: a #GtdTaskList
@@ -398,4 +410,23 @@ gtd_provider_get_default_task_list (GtdProvider *provider)
   g_return_val_if_fail (GTD_PROVIDER_GET_IFACE (provider)->get_default_task_list, NULL);
 
   return GTD_PROVIDER_GET_IFACE (provider)->get_default_task_list (provider);
+}
+
+/**
+ * gtd_provider_set_default_task_list:
+ * @provider: a #GtdProvider
+ * @list: a #GtdTaskList
+ *
+ * Sets the default tasklist of @provider.
+ */
+void
+gtd_provider_set_default_task_list (GtdProvider *provider,
+                                    GtdTaskList *list)
+{
+  g_return_if_fail (GTD_IS_PROVIDER (provider));
+  g_return_if_fail (GTD_IS_TASK_LIST (provider));
+  g_return_if_fail (gtd_task_list_get_provider (list) == provider);
+  g_return_if_fail (GTD_PROVIDER_GET_IFACE (provider)->set_default_task_list);
+
+  return GTD_PROVIDER_GET_IFACE (provider)->set_default_task_list (provider, list);
 }

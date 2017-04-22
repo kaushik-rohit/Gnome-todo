@@ -38,10 +38,11 @@ G_DEFINE_TYPE_WITH_CODE (GtdProviderLocal, gtd_provider_local, GTD_TYPE_PROVIDER
 enum {
   PROP_0,
   PROP_ENABLED,
+  PROP_DEFAULT_TASKLIST,
+  PROP_DESCRIPTION,
   PROP_ICON,
   PROP_ID,
   PROP_NAME,
-  PROP_DESCRIPTION,
   LAST_PROP
 };
 
@@ -187,6 +188,13 @@ gtd_provider_local_get_default_task_list (GtdProvider *provider)
 }
 
 static void
+gtd_provider_local_set_default_task_list (GtdProvider *provider,
+                                          GtdTaskList *list)
+{
+  gtd_provider_eds_set_default_task_list (GTD_PROVIDER_EDS (provider), list);
+}
+
+static void
 gtd_provider_iface_init (GtdProviderInterface *iface)
 {
   iface->get_id = gtd_provider_local_get_id;
@@ -203,6 +211,7 @@ gtd_provider_iface_init (GtdProviderInterface *iface)
   iface->remove_task_list = gtd_provider_local_remove_task_list;
   iface->get_task_lists = gtd_provider_local_get_task_lists;
   iface->get_default_task_list = gtd_provider_local_get_default_task_list;
+  iface->set_default_task_list = gtd_provider_local_set_default_task_list;
 }
 
 GtdProviderLocal*
@@ -233,6 +242,10 @@ gtd_provider_local_get_property (GObject    *object,
 
   switch (prop_id)
     {
+    case PROP_DEFAULT_TASKLIST:
+      g_value_set_object (value, gtd_provider_local_get_default_task_list (provider));
+      break;
+
     case PROP_DESCRIPTION:
       g_value_set_string (value, gtd_provider_local_get_description (provider));
       break;
@@ -251,6 +264,25 @@ gtd_provider_local_get_property (GObject    *object,
 
     case PROP_NAME:
       g_value_set_string (value, gtd_provider_local_get_name (provider));
+      break;
+
+    default:
+      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+    }
+}
+
+static void
+gtd_provider_local_set_property (GObject      *object,
+                                 guint         prop_id,
+                                 const GValue *value,
+                                 GParamSpec   *pspec)
+{
+  GtdProvider *provider = GTD_PROVIDER (object);
+
+  switch (prop_id)
+    {
+    case PROP_DEFAULT_TASKLIST:
+      gtd_provider_local_set_default_task_list (provider, g_value_get_object (value));
       break;
 
     default:
@@ -278,7 +310,9 @@ gtd_provider_local_class_init (GtdProviderLocalClass *klass)
 
   object_class->finalize = gtd_provider_local_finalize;
   object_class->get_property = gtd_provider_local_get_property;
+  object_class->set_property = gtd_provider_local_set_property;
 
+  g_object_class_override_property (object_class, PROP_DEFAULT_TASKLIST, "default-task-list");
   g_object_class_override_property (object_class, PROP_DESCRIPTION, "description");
   g_object_class_override_property (object_class, PROP_ENABLED, "enabled");
   g_object_class_override_property (object_class, PROP_ICON, "icon");

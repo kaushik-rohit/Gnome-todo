@@ -64,6 +64,9 @@ GList*               gtd_provider_eds_get_task_lists             (GtdProviderEds
 
 GtdTaskList*         gtd_provider_eds_get_default_task_list      (GtdProviderEds     *provider);
 
+void                 gtd_provider_eds_set_default_task_list      (GtdProviderEds     *provider,
+                                                                  GtdTaskList        *list);
+
 G_END_DECLS
 
 #endif /* GTD_PROVIDER_EDS_H */

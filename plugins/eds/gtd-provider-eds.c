@@ -147,56 +147,21 @@ gtd_provider_eds_on_client_connected (GObject      *source_object,
 {
   GtdProviderEdsPrivate *priv;
   GtdProviderEds *self;
+  GtdTaskListEds *list;
   ECalClient *client;
+  TaskData *data;
+  ESource *default_source;
   ESource *source;
-  GError *error = NULL;
+  ESource *parent;
+  GError *error;
 
   self = GTD_PROVIDER_EDS (user_data);
   priv = gtd_provider_eds_get_instance_private (self);
+  error = NULL;
   source = e_client_get_source (E_CLIENT (source_object));
   client = E_CAL_CLIENT (e_cal_client_connect_finish (result, &error));
 
-  if (!error)
-    {
-      GtdTaskListEds *list;
-      TaskData *data;
-      ESource *parent;
-
-      /* parent source's display name is list's origin */
-      parent = e_source_registry_ref_source (priv->source_registry, e_source_get_parent (source));
-
-      /* creates a new task list */
-      list = gtd_task_list_eds_new (GTD_PROVIDER (self), source);
-
-      /* it's not ready until we fetch the list of tasks from client */
-      gtd_object_set_ready (GTD_OBJECT (list), FALSE);
-
-      /* async data */
-      data = task_data_new (user_data, (gpointer) list);
-
-      /* asyncronously fetch the task list */
-      e_cal_client_get_object_list_as_comps (client,
-                                             "contains? \"any\" \"\"",
-                                             NULL,
-                                             gtd_provider_eds_fill_task_list,
-                                             data);
-
-      priv->task_lists = g_list_append (priv->task_lists, list);
-
-      g_object_set_data (G_OBJECT (source), "task-list", list);
-      g_hash_table_insert (priv->clients, source, client);
-
-      /* Emit LIST_ADDED signal */
-      g_signal_emit_by_name (self, "list-added", list);
-
-      g_object_unref (parent);
-
-      g_debug ("%s: %s (%s)",
-               G_STRFUNC,
-               _("Task list source successfully connected"),
-               e_source_get_display_name (source));
-    }
-  else
+  if (error)
     {
       g_debug ("%s: %s (%s): %s",
                G_STRFUNC,
@@ -212,6 +177,47 @@ gtd_provider_eds_on_client_connected (GObject      *source_object,
       return;
     }
 
+  /* parent source's display name is list's origin */
+  parent = e_source_registry_ref_source (priv->source_registry, e_source_get_parent (source));
+
+  /* creates a new task list */
+  list = gtd_task_list_eds_new (GTD_PROVIDER (self), source);
+
+  /* it's not ready until we fetch the list of tasks from client */
+  gtd_object_set_ready (GTD_OBJECT (list), FALSE);
+
+  /* async data */
+  data = task_data_new (user_data, (gpointer) list);
+
+  /* asyncronously fetch the task list */
+  e_cal_client_get_object_list_as_comps (client,
+                                         "contains? \"any\" \"\"",
+                                         NULL,
+                                         gtd_provider_eds_fill_task_list,
+                                         data);
+
+  priv->task_lists = g_list_append (priv->task_lists, list);
+
+  g_object_set_data (G_OBJECT (source), "task-list", list);
+  g_hash_table_insert (priv->clients, source, client);
+
+  /* Check if the current list is the default one */
+  default_source = e_source_registry_ref_default_task_list (priv->source_registry);
+
+  if (default_source == source)
+    g_object_notify (G_OBJECT (self), "default-task-list");
+
+  g_clear_object (&default_source);
+
+  /* Emit LIST_ADDED signal */
+  g_signal_emit_by_name (self, "list-added", list);
+
+  g_object_unref (parent);
+
+  g_debug ("%s: %s (%s)",
+           G_STRFUNC,
+           _("Task list source successfully connected"),
+           e_source_get_display_name (source));
 }
 
 typedef struct
@@ -1039,8 +1045,26 @@ gtd_provider_eds_get_default_task_list (GtdProviderEds *provider)
 
   g_clear_object (&default_source);
 
-  if (gtd_task_list_get_provider (default_task_list) != GTD_PROVIDER (provider))
-    return NULL;
+  if (default_task_list &&
+      gtd_task_list_get_provider (default_task_list) != GTD_PROVIDER (provider))
+    {
+      return NULL;
+    }
 
   return default_task_list;
+}
+
+void
+gtd_provider_eds_set_default_task_list (GtdProviderEds *provider,
+                                        GtdTaskList    *list)
+{
+  GtdProviderEdsPrivate *priv;
+  ESource *source;
+
+  priv = gtd_provider_eds_get_instance_private (provider);
+  source = g_object_get_data (G_OBJECT (list), "task-list");
+
+  e_source_registry_set_default_task_list (priv->source_registry, source);
+
+  g_object_notify (G_OBJECT (provider), "default-task-list");
 }

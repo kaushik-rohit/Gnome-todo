@@ -40,11 +40,12 @@ G_DEFINE_TYPE_WITH_CODE (GtdProviderGoa, gtd_provider_goa, GTD_TYPE_PROVIDER_EDS
 enum {
   PROP_0,
   PROP_ACCOUNT,
+  PROP_DEFAULT_TASKLIST,
+  PROP_DESCRIPTION,
   PROP_ENABLED,
   PROP_ICON,
   PROP_ID,
   PROP_NAME,
-  PROP_DESCRIPTION,
   N_PROPS
 };
 
@@ -169,6 +170,13 @@ gtd_provider_goa_get_default_task_list (GtdProvider *provider)
 }
 
 static void
+gtd_provider_goa_set_default_task_list (GtdProvider *provider,
+                                        GtdTaskList *list)
+{
+  gtd_provider_eds_set_default_task_list (GTD_PROVIDER_EDS (provider), list);
+}
+
+static void
 gtd_provider_iface_init (GtdProviderInterface *iface)
 {
   iface->get_id = gtd_provider_goa_get_id;
@@ -185,6 +193,7 @@ gtd_provider_iface_init (GtdProviderInterface *iface)
   iface->remove_task_list = gtd_provider_goa_remove_task_list;
   iface->get_task_lists = gtd_provider_goa_get_task_lists;
   iface->get_default_task_list = gtd_provider_goa_get_default_task_list;
+  iface->set_default_task_list = gtd_provider_goa_set_default_task_list;
 }
 
 static void
@@ -248,6 +257,10 @@ gtd_provider_goa_get_property (GObject    *object,
       g_value_set_object (value, self->account);
       break;
 
+    case PROP_DEFAULT_TASKLIST:
+      g_value_set_object (value, gtd_provider_goa_get_default_task_list (provider));
+      break;
+
     case PROP_DESCRIPTION:
       g_value_set_string (value, gtd_provider_goa_get_description (provider));
       break;
@@ -285,6 +298,10 @@ gtd_provider_goa_set_property (GObject      *object,
     {
     case PROP_ACCOUNT:
       gtd_provider_goa_set_account (self, g_value_get_object (value));
+      break;
+
+    case PROP_DEFAULT_TASKLIST:
+      gtd_provider_goa_set_default_task_list (GTD_PROVIDER (self), g_value_get_object (value));
       break;
 
     default:
@@ -347,6 +364,7 @@ gtd_provider_goa_class_init (GtdProviderGoaClass *klass)
   object_class->get_property = gtd_provider_goa_get_property;
   object_class->set_property = gtd_provider_goa_set_property;
 
+  g_object_class_override_property (object_class, PROP_DEFAULT_TASKLIST, "default-task-list");
   g_object_class_override_property (object_class, PROP_DESCRIPTION, "description");
   g_object_class_override_property (object_class, PROP_ENABLED, "enabled");
   g_object_class_override_property (object_class, PROP_ICON, "icon");
