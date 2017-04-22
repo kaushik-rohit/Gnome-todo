@@ -121,7 +121,7 @@ today_button_clicked (GtkButton   *button,
 
   priv = self->priv;
 
-  new_dt = g_date_time_new_now_utc ();
+  new_dt = g_date_time_new_now_local ();
 
   gtd_task_set_due_date (priv->task, new_dt);
   gtd_edit_pane_update_date (self);
@@ -139,7 +139,7 @@ tomorrow_button_clicked (GtkButton   *button,
 
   priv = self->priv;
 
-  current_date = g_date_time_new_now_utc ();
+  current_date = g_date_time_new_now_local ();
   new_dt = g_date_time_add_days (current_date, 1);
 
   gtd_task_set_due_date (priv->task, new_dt);
@@ -159,7 +159,7 @@ next_week_button_clicked (GtkButton   *button,
 
   priv = self->priv;
 
-  current_date = g_date_time_new_now_utc ();
+  current_date = g_date_time_new_now_local ();
   new_dt = g_date_time_add_days (current_date, 7);
 
   gtd_task_set_due_date (priv->task, new_dt);
