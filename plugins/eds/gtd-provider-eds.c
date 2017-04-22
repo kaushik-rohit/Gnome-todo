@@ -408,12 +408,34 @@ gtd_provider_eds_credentials_required (ESourceRegistry          *registry,
     }
 }
 
+static void
+default_tasklist_changed_cb (ESourceRegistry *source_registry,
+                             GParamSpec      *pspec,
+                             GtdProviderEds  *self)
+{
+  GtdTaskList *list;
+  ESource *default_source;
+
+  default_source = e_source_registry_ref_default_task_list (source_registry);
+  list = g_object_get_data (G_OBJECT (default_source), "task-list");
+
+  /* The list might not be loaded yet */
+  if (!list)
+    goto out;
+
+  g_object_notify (G_OBJECT (self), "default-task-list");
+
+out:
+  g_clear_object (&default_source);
+}
 
 static void
 gtd_provider_eds_finalize (GObject *object)
 {
   GtdProviderEds *self = (GtdProviderEds *)object;
   GtdProviderEdsPrivate *priv = gtd_provider_eds_get_instance_private (self);
+
+  g_signal_handlers_disconnect_by_func (priv->source_registry, default_tasklist_changed_cb, self);
 
   g_clear_pointer (&priv->clients, g_hash_table_destroy);
   g_clear_object (&priv->credentials_prompter);
@@ -496,6 +518,11 @@ gtd_provider_eds_load_registry (GtdProviderEds  *provider)
   g_signal_connect (priv->source_registry,
                     "credentials-required",
                     G_CALLBACK (gtd_provider_eds_credentials_required),
+                    provider);
+
+  g_signal_connect (priv->source_registry,
+                    "notify::default-task-list",
+                    G_CALLBACK (default_tasklist_changed_cb),
                     provider);
 
   e_credentials_prompter_process_awaiting_credentials (priv->credentials_prompter);
@@ -681,6 +708,8 @@ task_list_removal_finished (GtdProvider *provider,
                             GError     **error)
 {
   gtd_object_set_ready (GTD_OBJECT (provider), TRUE);
+
+  g_object_notify (G_OBJECT (provider), "default-task-list");
 
   if (*error)
     {
