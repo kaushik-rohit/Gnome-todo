@@ -125,6 +125,7 @@ format_notification_body (GList *tasks,
       if (length > MAX_BODY_LENGTH)
         break;
 
+      /* Prepend comma */
       if (current_task > 0)
         g_string_append (aux, ", ");
 
@@ -152,7 +153,8 @@ format_notification_body (GList *tasks,
     }
   else
     {
-      /* Nothing to do, we were able to print all titles */
+      /* We were able to print all task titles */
+      g_string_append (string, aux->str);
     }
 
   g_string_free (aux, TRUE);
