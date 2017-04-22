@@ -194,6 +194,8 @@ set_active_row (GtdTaskListView *self,
         gtd_task_row_set_active (GTD_TASK_ROW (row), TRUE);
       else
         gtd_new_task_row_set_active (GTD_NEW_TASK_ROW (row), TRUE);
+
+      gtk_widget_grab_focus (row);
     }
 }
 
@@ -1663,7 +1665,7 @@ gtd_task_list_view_init (GtdTaskListView *self)
 
   gtk_widget_init_template (GTK_WIDGET (self));
 
-  self->priv->active_row = GTK_WIDGET (self->priv->new_task_row);
+  set_active_row (self, GTK_WIDGET (self->priv->new_task_row));
 
   gtk_drag_dest_set (GTK_WIDGET (self->priv->listbox),
                      0,
