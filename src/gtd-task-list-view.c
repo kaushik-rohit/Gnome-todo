@@ -106,7 +106,9 @@ typedef struct
   GtdTaskListViewSortFunc sort_func;
   gpointer                sort_user_data;
 
-  GtkWidget             *active_row;
+  GtkWidget              *active_row;
+  GtkSizeGroup           *due_date_sizegroup;
+  GtkSizeGroup           *tasklist_name_sizegroup;
 } GtdTaskListViewPrivate;
 
 struct _GtdTaskListView
@@ -927,6 +929,15 @@ insert_task (GtdTaskListView *self,
   gtk_list_box_insert (priv->listbox,
                        new_row,
                        0);
+
+  /*
+   * Setup a sizegroup to let all the tasklist labels have
+   * the same width.
+   */
+  gtd_task_row_set_sizegroups (GTD_TASK_ROW (new_row),
+                               priv->tasklist_name_sizegroup,
+                               priv->due_date_sizegroup);
+
   gtd_task_row_reveal (GTD_TASK_ROW (new_row));
 }
 
@@ -1631,6 +1642,7 @@ gtd_task_list_view_class_init (GtdTaskListViewClass *klass)
 
   gtk_widget_class_bind_template_child_private (widget_class, GtdTaskListView, arrow_frame);
   gtk_widget_class_bind_template_child_private (widget_class, GtdTaskListView, dnd_row);
+  gtk_widget_class_bind_template_child_private (widget_class, GtdTaskListView, due_date_sizegroup);
   gtk_widget_class_bind_template_child_private (widget_class, GtdTaskListView, edit_pane);
   gtk_widget_class_bind_template_child_private (widget_class, GtdTaskListView, edit_revealer);
   gtk_widget_class_bind_template_child_private (widget_class, GtdTaskListView, empty_box);
@@ -1639,6 +1651,7 @@ gtd_task_list_view_class_init (GtdTaskListViewClass *klass)
   gtk_widget_class_bind_template_child_private (widget_class, GtdTaskListView, done_image);
   gtk_widget_class_bind_template_child_private (widget_class, GtdTaskListView, done_label);
   gtk_widget_class_bind_template_child_private (widget_class, GtdTaskListView, new_task_row);
+  gtk_widget_class_bind_template_child_private (widget_class, GtdTaskListView, tasklist_name_sizegroup);
   gtk_widget_class_bind_template_child_private (widget_class, GtdTaskListView, viewport);
   gtk_widget_class_bind_template_child_private (widget_class, GtdTaskListView, scrolled_window);
 

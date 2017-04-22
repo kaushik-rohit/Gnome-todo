@@ -54,6 +54,10 @@ gboolean                  gtd_task_row_get_active               (GtdTaskRow     
 void                      gtd_task_row_set_active               (GtdTaskRow          *self,
                                                                  gboolean             active);
 
+void                      gtd_task_row_set_sizegroups           (GtdTaskRow          *self,
+                                                                 GtkSizeGroup        *name_group,
+                                                                 GtkSizeGroup        *date_group);
+
 G_END_DECLS
 
 #endif /* GTD_TASK_ROW_H */

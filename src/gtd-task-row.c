@@ -832,3 +832,12 @@ gtd_task_row_set_active (GtdTaskRow *self,
       gtk_stack_set_visible_child_name (self->task_stack, "label");
     }
 }
+
+void
+gtd_task_row_set_sizegroups (GtdTaskRow   *self,
+                             GtkSizeGroup *name_group,
+                             GtkSizeGroup *date_group)
+{
+  gtk_size_group_add_widget (name_group, GTK_WIDGET (self->task_list_label));
+  gtk_size_group_add_widget (name_group, GTK_WIDGET (self->task_date_label));
+}

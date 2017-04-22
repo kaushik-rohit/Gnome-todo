@@ -187,4 +187,10 @@
       </object>
     </child>
   </template>
+  <object class="GtkSizeGroup" id="tasklist_name_sizegroup">
+    <property name="mode">horizontal</property>
+  </object>
+  <object class="GtkSizeGroup" id="due_date_sizegroup">
+    <property name="mode">horizontal</property>
+  </object>
 </interface>
