@@ -34,6 +34,9 @@ gboolean             gtd_new_task_row_get_active                 (GtdNewTaskRow 
 void                 gtd_new_task_row_set_active                 (GtdNewTaskRow      *self,
                                                                   gboolean            active);
 
+void                 gtd_new_task_row_set_show_list_selector     (GtdNewTaskRow      *self,
+                                                                  gboolean            show_list_selector);
+
 G_END_DECLS
 
 #endif /* GTD_NEW_TASK_ROW_H */

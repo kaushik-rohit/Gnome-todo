@@ -1142,15 +1142,18 @@ gtd_task_list_view__task_added (GtdTaskList     *list,
 }
 
 static void
-gtd_task_list_view__create_task (GtdTaskRow *row,
-                                 GtdTask    *task,
-                                 gpointer    user_data)
+gtd_task_list_view__create_task (GtdTaskRow  *row,
+                                 GtdTask     *task,
+                                 GtdTaskList *list,
+                                 gpointer     user_data)
 {
   GtdTaskListViewPrivate *priv;
-  GtdTaskList *list;
 
   priv = GTD_TASK_LIST_VIEW (user_data)->priv;
-  list = priv->task_list;
+
+  /* If there's a task list set, always go for it */
+  if (priv->task_list)
+    list = priv->task_list;
 
   /*
    * If there is no current list set, use the default list from the
@@ -1834,6 +1837,8 @@ gtd_task_list_view_set_task_list (GtdTaskListView *view,
 
   if (priv->task_list == list)
     return;
+
+  gtd_new_task_row_set_show_list_selector (GTD_NEW_TASK_ROW (priv->new_task_row), list == NULL);
 
   /*
    * Disconnect the old GtdTaskList signals.

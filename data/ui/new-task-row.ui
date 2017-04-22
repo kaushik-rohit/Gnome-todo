@@ -47,10 +47,48 @@
               </packing>
             </child>
             <child>
-              <object class="GtkEntry" id="entry">
+              <object class="GtkBox">
                 <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <signal name="activate" handler="entry_activated_cb" object="GtdNewTaskRow" swapped="yes" />
+                <property name="can_focus">False</property>
+                <style>
+                  <class name="linked" />
+                </style>
+                <child>
+                  <object class="GtkEntry" id="entry">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="hexpand">True</property>
+                    <signal name="activate" handler="entry_activated_cb" object="GtdNewTaskRow" swapped="yes" />
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkMenuButton" id="list_selector_button">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="popover">tasklist_popover</property>
+                    <child>
+                      <object class="GtkBox">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="spacing">6</property>
+                        <child>
+                          <object class="GtkImage" id="list_color_icon">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkLabel" id="list_name_label">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="max_width_chars">20</property>
+                            <property name="ellipsize">end</property>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                  </object>
+                </child>
               </object>
               <packing>
                 <property name="name">entry</property>
@@ -62,4 +100,22 @@
       </object>
     </child>
   </template>
+  <object class="GtkPopover" id="tasklist_popover">
+    <property name="can_focus">False</property>
+    <child>
+      <object class="GtkListBox" id="tasklist_list">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="margin">12</property>
+        <property name="selection_mode">none</property>
+        <signal name="row-activated" handler="tasklist_selected_cb" object="GtdNewTaskRow" swapped="no" />
+        <style>
+          <class name="background" />
+        </style>
+      </object>
+    </child>
+  </object>
+  <object class="GtkSizeGroup" id="sizegroup">
+    <property name="mode">horizontal</property>
+  </object>
 </interface>
