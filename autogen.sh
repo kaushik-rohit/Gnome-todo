@@ -23,7 +23,6 @@ fi
 
 set -x
 aclocal --install || exit $?
-intltoolize --force --copy --automake || exit $?
 gtkdocize || exit 1
 autoreconf --verbose --force --install -Wno-portability || exit $?
 

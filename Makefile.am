@@ -5,23 +5,11 @@ ACLOCAL_AMFLAGS = --install -I m4 ${ACLOCAL_FLAGS}
 SUBDIRS = plugins src data po doc
 DIST_SUBDIRS = $(SUBDIRS)
 
-INTLTOOL_FILES = \
-	intltool-extract.in \
-	intltool-merge.in \
-	intltool-update.in
-
 EXTRA_DIST = \
-	$(INTLTOOL_FILES) \
 	README \
 	COPYING \
 	AUTHORS \
 	NEWS
-
-DISTCLEANFILES = \
-	intltool-extract \
-	intltool-merge \
-	intltool-update \
-	po/.intltool-merge-cache
 
 DISTCHECK_CONFIGURE_FLAGS = \
 	--enable-appstream-util \

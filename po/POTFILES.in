@@ -1,24 +1,24 @@
 # List of source files containing translatable strings.
 data/appdata/org.gnome.Todo.appdata.xml.in
-[type: gettext/glade]data/gtk/menus.ui
+data/gtk/menus.ui
 data/org.gnome.Todo.desktop.in
 data/org.gnome.todo.gschema.xml
-[type: gettext/glade]data/ui/edit-pane.ui
-[type: gettext/glade]data/ui/empty-list.ui
-[type: gettext/glade]data/ui/initial-setup.ui
-[type: gettext/glade]data/ui/list-selector-panel.ui
-[type: gettext/glade]data/ui/list-view.ui
-[type: gettext/glade]data/ui/new-task-row.ui
-[type: gettext/glade]data/ui/plugin-dialog.ui
-[type: gettext/glade]data/ui/provider-popover.ui
-[type: gettext/glade]data/ui/provider-row.ui
-[type: gettext/glade]data/ui/provider-selector.ui
-[type: gettext/glade]data/ui/task-row.ui
-[type: gettext/glade]data/ui/window.ui
-[type: gettext/glade]plugins/background/ui/preferences.ui
-[type: gettext/glade]plugins/eds/edit-pane.ui
+data/ui/edit-pane.ui
+data/ui/empty-list.ui
+data/ui/initial-setup.ui
+data/ui/list-selector-panel.ui
+data/ui/list-view.ui
+data/ui/new-task-row.ui
+data/ui/plugin-dialog.ui
+data/ui/provider-popover.ui
+data/ui/provider-row.ui
+data/ui/provider-selector.ui
+data/ui/task-row.ui
+data/ui/window.ui
 plugins/background/gtd-plugin-background.c
 plugins/background/org.gnome.todo.background.gschema.xml
+plugins/background/ui/preferences.ui
+plugins/eds/edit-pane.ui
 plugins/eds/gtd-plugin-eds.c
 plugins/eds/gtd-provider-eds.c
 plugins/eds/gtd-provider-local.c

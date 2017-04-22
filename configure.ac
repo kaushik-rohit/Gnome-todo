@@ -19,7 +19,6 @@ AC_CACHE_SAVE
 
 # We require additional macros later on
 AX_REQUIRE_DEFINED([APPSTREAM_XML])
-AX_REQUIRE_DEFINED([IT_PROG_INTLTOOL])
 
 # Add debug symbol
 AX_CHECK_ENABLE_DEBUG([yes], [GNOME_TODO_ENABLE_DEBUG])
@@ -45,14 +44,16 @@ GLIB_GSETTINGS
 dnl ***************************************************************************
 dnl Internationalization
 dnl ***************************************************************************
-IT_PROG_INTLTOOL([0.40.6])
-
 GETTEXT_PACKAGE=AC_PACKAGE_TARNAME
 AC_SUBST(GETTEXT_PACKAGE)
 AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE,"$GETTEXT_PACKAGE", [GETTEXT package name])
 
 AS_IF([test "x$USE_NLS" != "xno"],
       [AC_DEFINE([ENABLE_NLS], [1], [Native language support is enabled])])
+
+AM_GNU_GETTEXT_VERSION([0.19.8])
+AM_GNU_GETTEXT([external])
+
 
 dnl ================================================================
 dnl GObject introspection support
