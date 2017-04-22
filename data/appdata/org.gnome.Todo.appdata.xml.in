@@ -4,14 +4,14 @@
   <id>org.gnome.Todo.desktop</id>
   <metadata_license>CC0</metadata_license>
   <project_license>GPL-3.0+</project_license>
-  <_name>To Do</_name>
-  <_summary>Task manager for GNOME</_summary>
+  <name>To Do</name>
+  <summary>Task manager for GNOME</summary>
 
   <description>
-    <_p>
+    <p>
       GNOME To Do is a task management application designed to integrate with GNOME. It
       is extensible through plugins and supports custom task providers.
-    </_p>
+    </p>
   </description>
 
   <url type="homepage">https://wiki.gnome.org/Apps/Todo</url>
@@ -21,27 +21,27 @@
   <screenshots>
     <screenshot width="1200" height="675">
       <image>https://git.gnome.org/browse/gnome-todo/plain/data/appdata/dark-theme.png</image>
-      <_caption>GNOME To Do with the dark theme variant</_caption>
+      <caption>GNOME To Do with the dark theme variant</caption>
     </screenshot>
     <screenshot width="1200" height="675">
       <image>https://git.gnome.org/browse/gnome-todo/plain/data/appdata/editing-tasklist.png</image>
-      <_caption>Editing a tasklist with GNOME To Do</_caption>
+      <caption>Editing a tasklist with GNOME To Do</caption>
     </screenshot>
     <screenshot width="1200" height="675">
       <image>https://git.gnome.org/browse/gnome-todo/plain/data/appdata/grid-view.png</image>
-      <_caption>Task lists displayed on grid mode</_caption>
+      <caption>Task lists displayed on grid mode</caption>
     </screenshot>
     <screenshot width="1200" height="675">
       <image>https://git.gnome.org/browse/gnome-todo/plain/data/appdata/list-view.png</image>
-      <_caption>Task lists displayed on list mode</_caption>
+      <caption>Task lists displayed on list mode</caption>
     </screenshot>
     <screenshot width="1200" height="675">
       <image>https://git.gnome.org/browse/gnome-todo/plain/data/appdata/plugins.png</image>
-      <_caption>Available plugins for GNOME To Do</_caption>
+      <caption>Available plugins for GNOME To Do</caption>
     </screenshot>
     <screenshot width="1200" height="675">
       <image>https://git.gnome.org/browse/gnome-todo/plain/data/appdata/today-panel.png</image>
-      <_caption>Visualizing tasks for today on GNOME To Do’s Today panel</_caption>
+      <caption>Visualizing tasks for today on GNOME To Do’s Today panel</caption>
     </screenshot>
   </screenshots>
 
