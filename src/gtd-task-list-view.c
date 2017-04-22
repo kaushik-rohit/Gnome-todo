@@ -80,8 +80,9 @@ typedef struct
   /* internal */
   gboolean               can_toggle;
   gint                   complete_tasks;
-  gboolean               show_list_name;
-  gboolean               show_completed;
+  gboolean               show_completed : 1;
+  gboolean               show_due_date : 1;
+  gboolean               show_list_name : 1;
   gboolean               handle_subtasks : 1;
   GList                 *list;
   GtdTaskList           *task_list;
@@ -161,6 +162,7 @@ enum {
   PROP_HANDLE_SUBTASKS,
   PROP_SHOW_COMPLETED,
   PROP_SHOW_LIST_NAME,
+  PROP_SHOW_DUE_DATE,
   PROP_SHOW_NEW_TASK_ROW,
   LAST_PROP
 };
@@ -915,6 +917,7 @@ insert_task (GtdTaskListView *self,
                           G_BINDING_DEFAULT | G_BINDING_SYNC_CREATE);
 
   gtd_task_row_set_list_name_visible (GTD_TASK_ROW (new_row), priv->show_list_name);
+  gtd_task_row_set_due_date_visible (GTD_TASK_ROW (new_row), priv->show_due_date);
 
   g_signal_connect_swapped (new_row,
                             "enter",
@@ -1216,12 +1219,20 @@ gtd_task_list_view_get_property (GObject    *object,
 
   switch (prop_id)
     {
+    case PROP_COLOR:
+      g_value_set_boxed (value, self->priv->color);
+      break;
+
     case PROP_HANDLE_SUBTASKS:
       g_value_set_boolean (value, self->priv->handle_subtasks);
       break;
 
     case PROP_SHOW_COMPLETED:
       g_value_set_boolean (value, self->priv->show_completed);
+      break;
+
+    case PROP_SHOW_DUE_DATE:
+      g_value_set_boolean (value, self->priv->show_due_date);
       break;
 
     case PROP_SHOW_LIST_NAME:
@@ -1247,12 +1258,20 @@ gtd_task_list_view_set_property (GObject      *object,
 
   switch (prop_id)
     {
+    case PROP_COLOR:
+      gtd_task_list_view_set_color (self, g_value_get_boxed (value));
+      break;
+
     case PROP_HANDLE_SUBTASKS:
       gtd_task_list_view_set_handle_subtasks (self, g_value_get_boolean (value));
       break;
 
     case PROP_SHOW_COMPLETED:
       gtd_task_list_view_set_show_completed (self, g_value_get_boolean (value));
+      break;
+
+    case PROP_SHOW_DUE_DATE:
+      gtd_task_list_view_set_show_due_date (self, g_value_get_boolean (value));
       break;
 
     case PROP_SHOW_LIST_NAME:
@@ -1638,6 +1657,20 @@ gtd_task_list_view_class_init (GtdTaskListViewClass *klass)
                               FALSE,
                               G_PARAM_READWRITE));
 
+  /**
+   * GtdTaskListView::show-due-date:
+   *
+   * Whether due dates of the tasks are shown.
+   */
+  g_object_class_install_property (
+        object_class,
+        PROP_SHOW_DUE_DATE,
+        g_param_spec_boolean ("show-due-date",
+                              "Whether due dates are shown",
+                              "Whether due dates of the tasks are visible or not",
+                              TRUE,
+                              G_PARAM_READWRITE));
+
   gtk_widget_class_set_template_from_resource (widget_class, "/org/gnome/todo/ui/list-view.ui");
 
   gtk_widget_class_bind_template_child_private (widget_class, GtdTaskListView, arrow_frame);
@@ -1675,6 +1708,7 @@ gtd_task_list_view_init (GtdTaskListView *self)
   self->priv = gtd_task_list_view_get_instance_private (self);
   self->priv->can_toggle = TRUE;
   self->priv->handle_subtasks = TRUE;
+  self->priv->show_due_date = TRUE;
 
   gtk_widget_init_template (GTK_WIDGET (self));
 
@@ -1975,6 +2009,62 @@ gtd_task_list_view_set_show_list_name (GtdTaskListView *view,
 
       g_object_notify (G_OBJECT (view), "show-list-name");
     }
+}
+
+/**
+ * gtd_task_list_view_get_show_due_date:
+ * @self: a #GtdTaskListView
+ *
+ * Retrieves whether the @self is showing the due dates of the tasks
+ * or not.
+ *
+ * Returns: %TRUE if due dates are visible, %FALSE otherwise.
+ */
+gboolean
+gtd_task_list_view_get_show_due_date (GtdTaskListView *self)
+{
+  g_return_val_if_fail (GTD_IS_TASK_LIST_VIEW (self), FALSE);
+
+  return self->priv->show_due_date;
+}
+
+/**
+ * gtd_task_list_view_set_show_due_date:
+ * @self: a #GtdTaskListView
+ * @show_due_date: %TRUE to show due dates, %FALSE otherwise
+ *
+ * Sets whether @self shows the due dates of the tasks or not.
+ */
+void
+gtd_task_list_view_set_show_due_date (GtdTaskListView *self,
+                                      gboolean         show_due_date)
+{
+  GtdTaskListViewPrivate *priv;
+  GList *children;
+  GList *l;
+
+  g_return_if_fail (GTD_IS_TASK_LIST_VIEW (self));
+
+  priv = gtd_task_list_view_get_instance_private (self);
+
+  if (priv->show_due_date == show_due_date)
+    return;
+
+  priv->show_due_date = show_due_date;
+
+  children = gtk_container_get_children (GTK_CONTAINER (priv->listbox));
+
+  for (l = children; l != NULL; l = l->next)
+    {
+      if (!GTD_IS_TASK_ROW (l->data))
+        continue;
+
+      gtd_task_row_set_due_date_visible (l->data, show_due_date);
+    }
+
+  g_list_free (children);
+
+  g_object_notify (G_OBJECT (self), "show-due-date");
 }
 
 /**

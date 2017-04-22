@@ -735,6 +735,22 @@ gtd_task_row_set_list_name_visible (GtdTaskRow *row,
 }
 
 /**
+ * gtd_task_row_set_due_date_visible:
+ * @row: a #GtdTaskRow
+ * @show_due_date: %TRUE to show the due, %FALSE to hide it
+ *
+ * Sets @row's due date label visibility to @show_due_date.
+ */
+void
+gtd_task_row_set_due_date_visible (GtdTaskRow *row,
+                                   gboolean    show_due_date)
+{
+  g_return_if_fail (GTD_IS_TASK_ROW (row));
+
+  gtk_widget_set_visible (GTK_WIDGET (row->task_date_label), show_due_date);
+}
+
+/**
  * gtd_task_row_reveal:
  * @row: a #GtdTaskRow
  *

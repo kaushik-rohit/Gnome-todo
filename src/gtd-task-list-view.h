@@ -78,6 +78,11 @@ gboolean                  gtd_task_list_view_get_show_list_name (GtdTaskListView
 void                      gtd_task_list_view_set_show_list_name (GtdTaskListView        *view,
                                                                  gboolean                show_list_name);
 
+gboolean                  gtd_task_list_view_get_show_due_date  (GtdTaskListView        *self);
+
+void                      gtd_task_list_view_set_show_due_date  (GtdTaskListView        *self,
+                                                                 gboolean                show_due_date);
+
 gboolean                  gtd_task_list_view_get_show_completed (GtdTaskListView        *view);
 
 void                      gtd_task_list_view_set_show_completed (GtdTaskListView        *view,
