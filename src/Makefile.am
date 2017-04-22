@@ -103,7 +103,6 @@ gnome_todo_LDFLAGS = \
 	-Wl,--undefined=gtd_plugin_dark_theme_register_types \
 	-Wl,--undefined=gtd_plugin_scheduled_panel_register_types \
 	-Wl,--undefined=gtd_plugin_today_panel_register_types \
-	-Wl,--undefined=gtd_plugin_todo_txt_register_types \
 	-lm \
 	$(GNOME_TODO_WARN_LDFLAGS)
 
@@ -113,7 +112,6 @@ gnome_todo_LDADD = \
 	$(top_builddir)/plugins/dark-theme/libdarktheme.la \
 	$(top_builddir)/plugins/scheduled-panel/libscheduledpanel.la \
 	$(top_builddir)/plugins/today-panel/libtodaypanel.la \
-	$(top_builddir)/plugins/todo-txt/libtodotxt.la \
 	$(GNOME_TODO_LIBS)
 
 gnome_todo_DEPENDENCIES = \
@@ -121,7 +119,13 @@ gnome_todo_DEPENDENCIES = \
 	$(top_builddir)/plugins/dark-theme/libdarktheme.la \
 	$(top_builddir)/plugins/scheduled-panel/libscheduledpanel.la \
 	$(top_builddir)/plugins/today-panel/libtodaypanel.la \
-        $(top_builddir)/plugins/todo-txt/libtodotxt.la
+	$(NULL)
+
+if BUILD_TODO_TXT_PLUGIN
+gnome_todo_LDFLAGS += -Wl,--undefined=gtd_plugin_todo_txt_register_types
+gnome_todo_LDADD += $(top_builddir)/plugins/todo-txt/libtodotxt.la
+gnome_todo_DEPENDENCIES += $(top_builddir)/plugins/todo-txt/libtodotxt.la
+endif
 
 #
 # Export headers to [PREFIX]/include/gnome-todo

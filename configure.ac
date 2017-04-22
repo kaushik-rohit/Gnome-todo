@@ -94,7 +94,7 @@ GNOME_TODO_ADD_PLUGIN([scheduled-panel], [Scheduled Panel], [yes])
 GNOME_TODO_ADD_PLUGIN([score], [Score], [yes])
 GNOME_TODO_ADD_PLUGIN([today-panel], [Today Panel], [yes])
 GNOME_TODO_ADD_PLUGIN([unscheduled-panel], [Unscheduled Tasks Panel], [yes])
-GNOME_TODO_ADD_PLUGIN([todo-txt], [Todo.Txt], [yes])
+GNOME_TODO_ADD_PLUGIN([todo-txt], [Todo.Txt], [no])
 
 
 dnl ***********************************************************************
