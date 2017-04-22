@@ -196,9 +196,8 @@ get_tasks_for_today (guint *n_events)
 
           due_date = gtd_task_get_due_date (t->data);
 
-          if (!due_date || !is_today (now, due_date))
+          if (!due_date || !is_today (now, due_date) || gtd_task_get_complete (t->data))
             continue;
-
 
           n_tasks += 1;
           result = g_list_prepend (result, t->data);
