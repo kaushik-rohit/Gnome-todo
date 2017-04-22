@@ -512,6 +512,7 @@ gtd_panel_scheduled_init (GtdPanelScheduled *self)
   self->view = gtd_task_list_view_new ();
   gtd_task_list_view_set_handle_subtasks (GTD_TASK_LIST_VIEW (self->view), FALSE);
   gtd_task_list_view_set_show_list_name (GTD_TASK_LIST_VIEW (self->view), TRUE);
+  gtd_task_list_view_set_show_due_date (GTD_TASK_LIST_VIEW (self->view), FALSE);
 
   gtk_widget_set_hexpand (self->view, TRUE);
   gtk_widget_set_vexpand (self->view, TRUE);
