@@ -147,40 +147,6 @@ gtd_panel_today_count_tasks (GtdPanelToday *panel)
   g_list_free (tasklists);
 }
 
-static gboolean
-gtd_panel_today_update_today_timeout_cb (GtdPanelToday *panel)
-{
-  GDateTime *tomorrow;
-  GDateTime *today;
-  GDateTime *now;
-  gint seconds;
-
-  now = g_date_time_new_now_local ();
-  today = g_date_time_new_local (g_date_time_get_year (now),
-                                 g_date_time_get_month (now),
-                                 g_date_time_get_day_of_month (now),
-                                 0,
-                                 0,
-                                 0);
-  tomorrow = g_date_time_add_days (today, 1);
-  seconds = g_date_time_difference (now, tomorrow) / G_TIME_SPAN_SECOND;
-
-  /* Recount tasks */
-  gtd_panel_today_count_tasks (panel);
-
-  panel->day_change_callback_id = g_timeout_add_seconds (seconds,
-                                                         (GSourceFunc) gtd_panel_today_update_today_timeout_cb,
-                                                         panel);
-
-  gtd_task_list_view_set_default_date (GTD_TASK_LIST_VIEW (panel->view), now);
-
-  g_clear_pointer (&tomorrow, g_date_time_unref);
-  g_clear_pointer (&today, g_date_time_unref);
-  g_clear_pointer (&now, g_date_time_unref);
-
-  return G_SOURCE_REMOVE;
-}
-
 /**********************
  * GtdPanel iface init
  **********************/
@@ -327,7 +293,10 @@ gtd_panel_today_init (GtdPanelToday *self)
   gtk_widget_show_all (GTK_WIDGET (self));
 
   /* Start timer */
-  gtd_panel_today_update_today_timeout_cb (self);
+  g_signal_connect_swapped (gtd_manager_get_timer (manager),
+                            "update",
+                            G_CALLBACK (gtd_panel_today_count_tasks),
+                            self);
 
   g_clear_pointer (&now, g_date_time_unref);
 }

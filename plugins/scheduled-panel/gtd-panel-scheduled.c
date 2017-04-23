@@ -499,6 +499,11 @@ gtd_panel_scheduled_init (GtdPanelScheduled *self)
                             G_CALLBACK (gtd_panel_scheduled_count_tasks),
                             self);
 
+  g_signal_connect_swapped (gtd_manager_get_timer (manager),
+                            "update",
+                            G_CALLBACK (gtd_panel_scheduled_count_tasks),
+                            self);
+
   /* Setup a title */
   self->title = g_strdup (_("Scheduled"));
 

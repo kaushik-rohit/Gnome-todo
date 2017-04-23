@@ -212,27 +212,16 @@ get_tasks_for_today (guint *n_events)
   return result;
 }
 
-/*
- * Callbacks
- */
 static void
-on_startup_changed (GSettings           *settings,
-                    const gchar         *key,
-                    GtdPluginBackground *self)
-{
-  set_autostart_enabled (self, g_settings_get_boolean (settings, key));
-}
-
-static gboolean
-on_startup_timeout_cb (GtdPluginBackground *self)
+send_notification (GtdPluginBackground *self)
 {
   GNotification *notification;
   GApplication *app;
   GtdWindow *window;
+  guint n_tasks;
   GList *tasks;
   gchar *title;
   gchar *body;
-  guint n_tasks;
 
   window = get_window ();
 
@@ -241,17 +230,18 @@ on_startup_timeout_cb (GtdPluginBackground *self)
    * notify about the number of tasks.
    */
   if (gtk_window_is_active (GTK_WINDOW (window)))
-    goto out;
+    return;
 
   /* The user don't want to be bothered with notifications */
   if (!g_settings_get_boolean (self->settings, "show-notifications"))
-    goto out;
+    return;
 
   app = g_application_get_default ();
   tasks = get_tasks_for_today (&n_tasks);
 
+  /* If n_tasks == 0, tasks == NULL, thus we don't need to free it */
   if (n_tasks == 0)
-    goto out;
+    return;
 
   title = g_strdup_printf (g_dngettext (GETTEXT_PACKAGE,
                                         "You have %d task for today",
@@ -270,8 +260,24 @@ on_startup_timeout_cb (GtdPluginBackground *self)
 
   g_clear_pointer (&tasks, g_list_free);
   g_clear_object (&notification);
+}
 
-out:
+/*
+ * Callbacks
+ */
+static void
+on_startup_changed (GSettings           *settings,
+                    const gchar         *key,
+                    GtdPluginBackground *self)
+{
+  set_autostart_enabled (self, g_settings_get_boolean (settings, key));
+}
+
+static gboolean
+on_startup_timeout_cb (GtdPluginBackground *self)
+{
+  send_notification (self);
+
   self->startup_notification_timeout_id = 0;
 
   g_signal_handlers_disconnect_by_func (gtd_manager_get_default (),
@@ -314,6 +320,11 @@ watch_manager_for_new_lists (GtdPluginBackground *self)
   g_signal_connect_swapped (manager,
                             "list-removed",
                             G_CALLBACK (on_tasklist_notified),
+                            self);
+
+  g_signal_connect_swapped (gtd_manager_get_timer (manager),
+                            "update",
+                            G_CALLBACK (send_notification),
                             self);
 }
 
@@ -365,6 +376,10 @@ gtd_plugin_background_deactivate (GtdActivatable *activatable)
 
   g_signal_handlers_disconnect_by_func (manager,
                                         on_tasklist_notified,
+                                        self);
+
+  g_signal_handlers_disconnect_by_func (gtd_manager_get_timer (manager),
+                                        send_notification,
                                         self);
 
   /* Deactivate the timeout */
