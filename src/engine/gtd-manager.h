@@ -82,6 +82,8 @@ void                    gtd_manager_emit_error_message    (GtdManager           
                                                            const gchar          *primary_message,
                                                            const gchar          *secondary_message);
 
+GtdTimer*               gtd_manager_get_timer             (GtdManager           *self);
+
 G_END_DECLS
 
 #endif /* GTD_MANAGER_H */

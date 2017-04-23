@@ -23,6 +23,7 @@
 #include "gtd-plugin-manager.h"
 #include "gtd-task.h"
 #include "gtd-task-list.h"
+#include "gtd-timer.h"
 
 #include <glib/gi18n.h>
 
@@ -50,6 +51,7 @@ typedef struct
   GList                 *providers;
   GList                 *panels;
   GtdProvider           *default_provider;
+  GtdTimer              *timer;
 } GtdManagerPrivate;
 
 struct _GtdManager
@@ -83,6 +85,7 @@ enum
   PROP_0,
   PROP_DEFAULT_PROVIDER,
   PROP_DEFAULT_TASKLIST,
+  PROP_TIMER,
   PROP_PLUGIN_MANAGER,
   LAST_PROP
 };
@@ -124,6 +127,7 @@ gtd_manager_finalize (GObject *object)
 
   g_clear_object (&self->priv->plugin_manager);
   g_clear_object (&self->priv->settings);
+  g_clear_object (&self->priv->timer);
 
   G_OBJECT_CLASS (gtd_manager_parent_class)->finalize (object);
 }
@@ -144,6 +148,10 @@ gtd_manager_get_property (GObject    *object,
 
     case PROP_DEFAULT_TASKLIST:
       g_value_set_object (value, gtd_provider_get_default_task_list (priv->default_provider));
+      break;
+
+    case PROP_TIMER:
+      g_value_set_object (value, priv->timer);
       break;
 
     case PROP_PLUGIN_MANAGER:
@@ -219,6 +227,20 @@ gtd_manager_class_init (GtdManagerClass *klass)
                              "The default task list of the application",
                              GTD_TYPE_TASK_LIST,
                              G_PARAM_READWRITE));
+
+  /**
+   * GtdManager::timer:
+   *
+   * The underlying timer of GNOME To DO.
+   */
+  g_object_class_install_property (
+        object_class,
+        PROP_TIMER,
+        g_param_spec_object ("timer",
+                             "The timer",
+                             "The timer of the application",
+                             GTD_TYPE_TIMER,
+                             G_PARAM_READABLE));
 
   /**
    * GtdManager::plugin-manager:
@@ -551,6 +573,7 @@ gtd_manager_init (GtdManager *self)
   self->priv = gtd_manager_get_instance_private (self);
   self->priv->settings = g_settings_new ("org.gnome.todo");
   self->priv->plugin_manager = gtd_plugin_manager_new ();
+  self->priv->timer = gtd_timer_new ();
 }
 
 /**
@@ -941,6 +964,27 @@ gtd_manager_emit_error_message (GtdManager  *manager,
   emit_show_error_message (manager,
                            primary_message,
                            secondary_message);
+}
+
+/**
+ * gtd_manager_get_timer:
+ * @self: a #GtdManager
+ *
+ * Retrieves the #GtdTimer from @self. You can use the
+ * timer to know when your code should be updated.
+ *
+ * Returns: (transfer none): a #GtdTimer
+ */
+GtdTimer*
+gtd_manager_get_timer (GtdManager *self)
+{
+  GtdManagerPrivate *priv;
+
+  g_return_val_if_fail (GTD_IS_MANAGER (self), NULL);
+
+  priv = gtd_manager_get_instance_private (self);
+
+  return priv->timer;
 }
 
 void

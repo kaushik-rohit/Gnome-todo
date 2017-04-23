@@ -87,6 +87,8 @@ gnome_todo_SOURCES = \
 	gtd-task-list-view.h \
 	gtd-task-row.c \
 	gtd-task-row.h \
+	gtd-timer.c \
+	gtd-timer.h \
 	gtd-types.h \
 	gtd-window.c \
 	gtd-window.h \
@@ -142,6 +144,7 @@ nobase_gnome_todo_include_HEADERS = \
 	gtd-task.h \
 	gtd-task-list.h \
 	gtd-task-list-view.h \
+	gtd-timer.h \
 	gtd-window.h \
 	gtd-types.h \
 	gnome-todo.h
@@ -223,6 +226,8 @@ introspection_sources = \
 	gtd-task-list.h \
 	gtd-task-list-view.c \
 	gtd-task-list-view.h \
+	gtd-timer.c \
+	gtd-timer.h \
 	gtd-window.c \
 	gtd-window.h \
 	gtd-types.h \
