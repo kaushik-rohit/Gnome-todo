@@ -26,6 +26,8 @@ struct _GtdTimer
 
   guint               update_timeout_id;
 
+  GDateTime          *current_day;
+
   GDBusProxy         *logind;
   GCancellable       *cancellable;
 };
@@ -45,6 +47,24 @@ static guint signals[N_SIGNALS] = { 0, };
 /*
  * Auxiliary methods
  */
+
+static void
+update_current_day (GtdTimer *self)
+{
+  g_autoptr (GDateTime) now;
+
+  now = g_date_time_new_now_local ();
+
+  if (g_date_time_get_year (now) != g_date_time_get_year (self->current_day) ||
+      g_date_time_get_month (now) != g_date_time_get_month (self->current_day) ||
+      g_date_time_get_day_of_month (now) != g_date_time_get_day_of_month (self->current_day))
+    {
+      g_clear_pointer (&self->current_day, g_date_time_unref);
+      self->current_day = g_date_time_ref (now);
+
+      g_signal_emit (self, signals[UPDATE], 0);
+    }
+}
 
 static void
 schedule_update_for_day_change (GtdTimer *self)
@@ -93,9 +113,8 @@ logind_signal_received_cb (GDBusProxy  *logind,
   /* Only emit :update when resuming */
   if (resuming)
     {
-      g_signal_emit (self, signals[UPDATE], 0);
-
       /* Reschedule the daily timeout */
+      update_current_day (self);
       schedule_update_for_day_change (self);
     }
 
@@ -131,12 +150,11 @@ update_for_day_change (gpointer user_data)
   /* Remove it first */
   self->update_timeout_id = 0;
 
-  g_signal_emit (self, signals[UPDATE], 0);
-
   /*
    * Because we can't rely on the current timeout,
    * reschedule it entirely.
    */
+  update_current_day (self);
   schedule_update_for_day_change (self);
 
   return G_SOURCE_REMOVE;
@@ -157,6 +175,8 @@ gtd_timer_finalize (GObject *object)
       g_source_remove (self->update_timeout_id);
       self->update_timeout_id = 0;
     }
+
+  g_clear_pointer (&self->current_day, g_date_time_unref);
 
   g_clear_object (&self->cancellable);
   g_clear_object (&self->logind);
@@ -210,6 +230,7 @@ gtd_timer_init (GtdTimer *self)
 {
   gtd_object_set_ready (GTD_OBJECT (self), FALSE);
 
+  self->current_day = g_date_time_new_now_local ();
   self->cancellable = g_cancellable_new ();
 
   g_dbus_proxy_new_for_bus (G_BUS_TYPE_SYSTEM,
