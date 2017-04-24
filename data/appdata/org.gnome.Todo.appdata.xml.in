@@ -51,6 +51,24 @@
   </kudos>
 
   <releases>
+    <release date="2017-4-24" version="3.24.0">
+      <description>
+        <p>
+          This is the first stable release for GNOME 3.24, and adds many new features
+          and improvements.
+          <ul>
+            <li>GNOME To Do can run when you startup and notify you about your tasks</li>
+            <li>Memory consumption was optimized</li>
+            <li>An experimental Todo.txt plugin was added, but disabled by default</li>
+            <li>An initial version of the API documentation was released</li>
+            <li>You can select the tasklist where the task will be created in Today and Scheduled panels</li>
+          </ul>
+        </p>
+        <p>This release also updates translations, and adds new translations.</p>
+        <p>Thanks to all the contributors that worked on GNOME To Do!</p>
+      </description>
+    </release>
+
     <release date="2016-11-1" version="3.22.0">
       <description>
         <p>

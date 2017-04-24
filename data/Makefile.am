@@ -37,6 +37,7 @@ service_in_files = org.gnome.Todo.service.in
 
 EXTRA_DIST=                     \
   appdata/org.gnome.Todo.appdata.xml \
+  org.gnome.Todo.Autostart.desktop \
   org.gnome.Todo.desktop \
   todo.gresource.xml \
   gnome-todo.pc.in \
@@ -60,7 +61,6 @@ EXTRA_DIST=                     \
   $(appdata_in_files) \
   $(desktop_in_files) \
   $(gsettings_SCHEMAS) \
-  $(autostartdir) \
   $(service_in_files)
 
 CLEANFILES =                    \

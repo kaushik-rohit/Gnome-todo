@@ -1,4 +1,54 @@
 ===============
+Version 3.24.0
+===============
+
+Project:
+        * Add a new plugin to run To Do in background
+        * A new experimental Todo.txt plugin was created, but disabled by default (Rohit Kaushik)
+        * Properly update panels when day changes (Aeden McClain, Georges Basile Stavracas Neto)
+        * Fix crash on various classes (Victor Toso)
+        * Add 'todo' keyword to the desktop file (Jehan)
+        * Fix tasklist thumbnails on HiDPI monitors (Kevin Lopez)
+        * Drop Intltool usage
+        * Add accelerators to Edit pane (djb)
+        * Improve CSS loading (Iñigo Martínez)
+        * Fix drag n' drop (Jens Sauer)
+        * Fix many memory leaks (Mohammed Sadiq, Victor Toso)
+        * Add tasklist selector in New Task row on tasklist-less panels
+
+Translations:
+        * Basque (Inaki Larranaga Murgoitio)
+        * Brazilian Portuguese (Enrico Nicoletto, Rafael Fontenelle)
+        * Catalan (Jordi Mas)
+        * Chinese (simplified) (Mandy Wang)
+        * Chinese (Taiwan) (Chao-Hsiung Liao)
+        * Danish (Ask Hjorth Larsen, Alan Mortensen)
+        * Dutch (Hannie Dumoleyn)
+        * Czech (Marek Černocký)
+        * Finnish (Jiri Grönroos)
+        * French (Charles Monzat, Claude Paroz)
+        * Friulian (Fabio Tomat)
+        * Galician (Fran Dieguez)
+        * German (Mario Blättermann, Christian Kirbach, Bernd Homuth)
+        * Hungarian (Baláz Meskó, Gábor Kelemen)
+        * Indonesian (Kukuh Syafaat)
+        * Italian (Gianvito Cavasoli)
+        * Japanese (sujiniku)
+        * Kazakh (Baurzhan Muftakhidinov)
+        * Korean (Seong-ho Cho)
+        * Latvian (Rūdolfs Mazurs)
+        * Lithuanian (Aurimas Černius)
+        * Norwegian bokmål (Kjartan Maraas)
+        * Polish (Piotr Drąg)
+        * Russian (Yuri Myasoedov, Stas Solovey)
+        * Serbian (Мирослав Николић, Марко М. Костић)
+        * Slovak (Dušan Kazik)
+        * Spanish (Daniel Mustieles)
+        * Swedish (Anders Jonsson)
+        * Turkish (Çağatay Yiğit Şahin)
+        * Ukrainian (Daniel Korostil)
+
+===============
 Version 3.22.0
 ===============
 
