@@ -90,7 +90,7 @@ msgstr "Kişisel görevlerinizi yönetin"
 
 #: ../data/org.gnome.Todo.desktop.in.in.h:3
 msgid "Task;Productivity;Todo;"
-msgstr "Görev;Verimlilik;Yapılacaklar"
+msgstr "Görev;Verimlilik;Yapılacaklar;"
 
 #: ../data/org.gnome.todo.gschema.xml.h:1
 msgid "Window maximized"
