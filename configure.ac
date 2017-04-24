@@ -1,6 +1,6 @@
 dnl -*- mode: m4 -*-
 AC_PREREQ([2.69])
-AC_INIT([gnome-todo],[3.24.0],[https://bugzilla.gnome.org/enter_bug.cgi?product=gnome-todo],[gnome-todo])
+AC_INIT([gnome-todo],[3.25.1],[https://bugzilla.gnome.org/enter_bug.cgi?product=gnome-todo],[gnome-todo])
 
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_SRCDIR([src/main.c])
@@ -95,7 +95,7 @@ GNOME_TODO_ADD_PLUGIN([scheduled-panel], [Scheduled Panel], [yes])
 GNOME_TODO_ADD_PLUGIN([score], [Score], [yes])
 GNOME_TODO_ADD_PLUGIN([today-panel], [Today Panel], [yes])
 GNOME_TODO_ADD_PLUGIN([unscheduled-panel], [Unscheduled Tasks Panel], [yes])
-GNOME_TODO_ADD_PLUGIN([todo-txt], [Todo.Txt], [no])
+GNOME_TODO_ADD_PLUGIN([todo-txt], [Todo.Txt], [yes])
 
 
 dnl ***********************************************************************
