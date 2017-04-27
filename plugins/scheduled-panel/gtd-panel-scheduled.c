@@ -60,7 +60,7 @@ get_date_offset (GDateTime *dt,
   GDateTime *today;
   GDateTime *next_year;
 
-  now = g_date_time_new_now_utc ();
+  now = g_date_time_new_now_local ();
 
   today = g_date_time_new_utc (g_date_time_get_year (now),
                                g_date_time_get_month (now),
