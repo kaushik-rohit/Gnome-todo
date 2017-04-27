@@ -340,11 +340,16 @@ gtd_list_selector_grid_item__button_press_event_cb (GtkWidget *widget,
 {
   GtdListSelectorGridItem *item;
   GdkEventButton *button_ev;
+  gboolean right_click;
+  gboolean left_click_with_ctrl;
 
   item = GTD_LIST_SELECTOR_GRID_ITEM (user_data);
   button_ev = (GdkEventButton*) event;
 
-  if (button_ev->button == 3)
+  right_click = button_ev->button == 3;
+  left_click_with_ctrl = button_ev->button == 1 && button_ev->state & GDK_CONTROL_MASK;
+
+  if (right_click || left_click_with_ctrl)
     {
       if (item->mode == GTD_WINDOW_MODE_NORMAL)
         {
