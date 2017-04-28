@@ -31,6 +31,8 @@ struct _GtdListSelectorList
   gchar              *search_query;
 
   GtdWindowMode       mode;
+
+  gboolean            ctrl_pressed;
 };
 
 static void          gtd_list_selector_iface_init                (GtdListSelectorInterface *iface);
@@ -64,6 +66,14 @@ on_row_selected (GtdListSelectorItem *item,
 
 }
 
+static gboolean
+on_click (GtdListSelectorList  *selector,
+          GdkEventButton       *event)
+{
+  selector->ctrl_pressed = event->button == 1 && event->state & GDK_CONTROL_MASK;
+  return GDK_EVENT_PROPAGATE;
+}
+
 static void
 gtd_list_selector_list_list_added (GtdManager          *manager,
                                    GtdTaskList         *list,
@@ -79,11 +89,13 @@ gtd_list_selector_list_list_added (GtdManager          *manager,
                           "mode",
                           G_BINDING_BIDIRECTIONAL | G_BINDING_SYNC_CREATE);
 
-  /* Different than the GRID view, on LIST view we have
-   * 2 ways to select an item:
+  /*
+   * Different than the GRID view, on LIST view we have
+   * 3 ways to select an item:
    *
    * - Clicking in the row when in selection mode
    * - Toggling the selection checkbox
+   * - Control + left-click on a row
    *
    * Because of that, we have to also track the ::selected
    * state of each row, since they may change through the
@@ -93,6 +105,16 @@ gtd_list_selector_list_list_added (GtdManager          *manager,
                     "notify::selected",
                     G_CALLBACK (on_row_selected),
                     selector);
+
+  /*
+   * In order to determine if a user held control when left-clicking
+   * a list item we capture the button event here and check for
+   * the control mask. The event is always propagated.
+   */
+  g_signal_connect (selector,
+                    "button-press-event",
+                    G_CALLBACK (on_click),
+                    NULL);
 
   gtk_widget_show (item);
 
@@ -380,7 +402,11 @@ gtd_list_selector_list_row_activated (GtkListBox    *listbox,
 
   item = GTD_LIST_SELECTOR_ITEM (row);
 
-  /* We only mark the item as selected when we're in selection mode */
+  /* Enter select mode if this is a ctrl-click */
+  if (self->ctrl_pressed)
+    gtd_list_selector_set_mode (GTD_LIST_SELECTOR (self), GTD_WINDOW_MODE_SELECTION);
+
+  /* Select the item if we are in select mode */
   if (self->mode == GTD_WINDOW_MODE_SELECTION)
     gtd_list_selector_item_set_selected (item, !gtd_list_selector_item_get_selected (item));
 
