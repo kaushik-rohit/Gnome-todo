@@ -132,7 +132,9 @@ emit_generic_error (GError *error)
 
   gtd_manager_emit_error_message (gtd_manager_get_default (),
                                   _("Error while opening Todo.txt"),
-                                  error->message);
+                                  error->message,
+                                  NULL,
+                                  NULL);
 }
 
 static void
@@ -318,7 +320,9 @@ gtd_provider_todo_txt_load_source (GtdProviderTodoTxt *self)
 
           gtd_manager_emit_error_message (gtd_manager_get_default (),
                                           _("Error while reading a line from Todo.txt"),
-                                          line_read_error->message);
+                                          line_read_error->message,
+                                          NULL,
+                                          NULL);
           g_error_free (line_read_error);
 
           return;
@@ -404,7 +408,9 @@ gtd_provider_todo_txt_create_task (GtdProvider *provider,
 
       gtd_manager_emit_error_message (gtd_manager_get_default (),
                                       _("Error while adding a task to Todo.txt"),
-                                      write_error->message);
+                                      write_error->message,
+                                      NULL,
+                                      NULL);
       g_error_free (write_error);
 
       goto out;
@@ -492,7 +498,9 @@ gtd_provider_todo_txt_update_task (GtdProvider *provider,
 
           gtd_manager_emit_error_message (gtd_manager_get_default (),
                                           _("Error while reading tasks from Todo.txt"),
-                                          line_read_error->message);
+                                          line_read_error->message,
+                                          NULL,
+                                          NULL);
           g_error_free (line_read_error);
         }
 
@@ -626,7 +634,9 @@ gtd_provider_todo_txt_remove_task (GtdProvider *provider,
 
           gtd_manager_emit_error_message (gtd_manager_get_default (),
                                           _("Error while reading tasks from Todo.txt"),
-                                          line_read_error->message);
+                                          line_read_error->message,
+                                          NULL,
+                                          NULL);
           g_error_free (line_read_error);
           return;
         }
@@ -722,7 +732,9 @@ gtd_provider_todo_txt_create_task_list (GtdProvider *provider,
 
       gtd_manager_emit_error_message (gtd_manager_get_default (),
                                       _("Error while creating a Todo.txt list"),
-                                      write_error->message);
+                                      write_error->message,
+                                      NULL,
+                                      NULL);
       g_error_free (write_error);
       goto out;
     }
@@ -807,7 +819,9 @@ gtd_provider_todo_txt_update_task_list (GtdProvider *provider,
 
           gtd_manager_emit_error_message (gtd_manager_get_default (),
                                          _("Error while reading tasks from Todo.txt"),
-                                           line_read_error->message);
+                                           line_read_error->message,
+                                           NULL,
+                                           NULL);
           g_error_free (line_read_error);
           continue;
         }
@@ -943,7 +957,9 @@ gtd_provider_todo_txt_remove_task_list (GtdProvider *provider,
 
           gtd_manager_emit_error_message (gtd_manager_get_default (),
                                           _("Error while reading task lists from Todo.txt"),
-                                          line_read_error->message);
+                                          line_read_error->message,
+                                          NULL,
+                                          NULL);
           g_error_free (line_read_error);
         }
 

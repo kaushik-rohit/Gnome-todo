@@ -245,7 +245,9 @@ gtd_plugin_eds_goa_client_finish_cb (GObject      *client,
 
       gtd_manager_emit_error_message (gtd_manager_get_default (),
                                       _("Error loading GNOME Online Accounts"),
-                                      error->message);
+                                      error->message,
+                                      NULL,
+                                      NULL);
       g_clear_error (&error);
     }
 }

@@ -109,15 +109,19 @@ check_provider_is_default (GtdManager  *manager,
 }
 
 static void
-emit_show_error_message (GtdManager  *manager,
-                         const gchar *primary_text,
-                         const gchar *secondary_text)
+emit_show_error_message (GtdManager                *manager,
+                         const gchar               *primary_text,
+                         const gchar               *secondary_text,
+                         GtdNotificationActionFunc  action,
+                         gpointer                   user_data)
 {
   g_signal_emit (manager,
                  signals[SHOW_ERROR_MESSAGE],
                  0,
                  primary_text,
-                 secondary_text);
+                 secondary_text,
+                 action,
+                 user_data);
 }
 
 static void
@@ -317,7 +321,9 @@ gtd_manager_class_init (GtdManagerClass *klass)
    * GtdManager::show-error-message:
    * @manager: a #GtdManager
    * @primary_text: the primary message
-   * @secondary_text: the detailed explanation of the error
+   * @secondary_text: the detailed explanation of the error or the text to the notification button.
+   * @action : optionally action of type GtdNotificationActionFunc ignored if it's null.
+   * @user_data : user data passed to the action.
    *
    * Notifies about errors, and sends the error message for widgets
    * to display.
@@ -330,9 +336,11 @@ gtd_manager_class_init (GtdManagerClass *klass)
                                               NULL,
                                               NULL,
                                               G_TYPE_NONE,
-                                              2,
+                                              4,
                                               G_TYPE_STRING,
-                                              G_TYPE_STRING);
+                                              G_TYPE_STRING,
+                                              G_TYPE_POINTER,
+                                              G_TYPE_POINTER);
 
   /**
    * GtdManager::panel-added:
@@ -955,15 +963,19 @@ gtd_manager_set_is_first_run (GtdManager *manager,
 }
 
 void
-gtd_manager_emit_error_message (GtdManager  *manager,
-                                const gchar *primary_message,
-                                const gchar *secondary_message)
+gtd_manager_emit_error_message (GtdManager                *manager,
+                                const gchar               *primary_message,
+                                const gchar               *secondary_message,
+                                GtdNotificationActionFunc  function,
+                                gpointer                   user_data)
 {
   g_return_if_fail (GTD_IS_MANAGER (manager));
 
   emit_show_error_message (manager,
                            primary_message,
-                           secondary_message);
+                           secondary_message,
+                           function,
+                           user_data);
 }
 
 /**

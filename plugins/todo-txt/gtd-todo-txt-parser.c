@@ -343,7 +343,9 @@ gtd_todo_txt_parser_validate_token_format (GList *tokens)
             {
               gtd_manager_emit_error_message (gtd_manager_get_default (),
                                              _("Incorrect date"),
-                                             _("Please make sure the date in Todo.txt is valid."));
+                                             _("Please make sure the date in Todo.txt is valid."),
+                                             NULL,
+                                             NULL);
               return FALSE;
             }
 
@@ -373,7 +375,9 @@ gtd_todo_txt_parser_validate_token_format (GList *tokens)
         default:
           gtd_manager_emit_error_message (gtd_manager_get_default (),
                                           _("Unrecognized token in a Todo.txt line"),
-                                          _("To Do cannot recognize some tags in your Todo.txt file. Some tasks may not be loaded"));
+                                          _("To Do cannot recognize some tags in your Todo.txt file. Some tasks may not be loaded"),
+                                          NULL,
+                                          NULL);
           return FALSE;
           break;
         }
@@ -383,7 +387,9 @@ gtd_todo_txt_parser_validate_token_format (GList *tokens)
     {
       gtd_manager_emit_error_message (gtd_manager_get_default (),
                                       _("No task list found for some tasks"),
-                                      _("Some of the tasks in your Todo.txt file do not have a task list. To Do supports tasks with a task list. Please add a list to all your tasks"));
+                                      _("Some of the tasks in your Todo.txt file do not have a task list. To Do supports tasks with a task list. Please add a list to all your tasks"),
+                                      NULL,
+                                      NULL);
       return FALSE;
     }
 

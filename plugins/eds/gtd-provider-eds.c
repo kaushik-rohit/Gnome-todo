@@ -134,7 +134,9 @@ gtd_provider_eds_fill_task_list (GObject      *client,
 
       gtd_manager_emit_error_message (gtd_manager_get_default (),
                                       _("Error fetching tasks from list"),
-                                      error->message);
+                                      error->message,
+                                      NULL,
+                                      NULL);
       g_error_free (error);
       return;
     }
@@ -171,7 +173,9 @@ gtd_provider_eds_on_client_connected (GObject      *source_object,
 
       gtd_manager_emit_error_message (gtd_manager_get_default (),
                                       _("Failed to connect to task list"),
-                                      error->message);
+                                      error->message,
+                                      NULL,
+                                      NULL);
 
       g_error_free (error);
       return;
@@ -589,7 +593,9 @@ gtd_provider_eds_create_task_finished (GObject      *client,
       /* Display a notification */
       gtd_manager_emit_error_message (gtd_manager_get_default (),
                                       _("Error creating task"),
-                                      error->message);
+                                      error->message,
+                                      NULL,
+                                      NULL);
 
       g_error_free (error);
     }
@@ -633,7 +639,9 @@ gtd_provider_eds_update_task_finished (GObject      *client,
 
       gtd_manager_emit_error_message (gtd_manager_get_default (),
                                       _("Error updating task"),
-                                      error->message);
+                                      error->message,
+                                      NULL,
+                                      NULL);
 
       g_error_free (error);
     }
@@ -669,7 +677,9 @@ gtd_provider_eds_remove_task_finished (GObject      *client,
 
       gtd_manager_emit_error_message (gtd_manager_get_default (),
                                       _("Error removing task"),
-                                      error->message);
+                                      error->message,
+                                      NULL,
+                                      NULL);
       g_error_free (error);
       return;
     }
@@ -697,7 +707,9 @@ gtd_provider_eds_remote_create_source_finished (GObject      *source,
 
       gtd_manager_emit_error_message (gtd_manager_get_default (),
                                       _("Error creating task list"),
-                                      error->message);
+                                      error->message,
+                                      NULL,
+                                      NULL);
       g_clear_error (&error);
     }
 }
@@ -720,7 +732,9 @@ task_list_removal_finished (GtdProvider *provider,
 
       gtd_manager_emit_error_message (gtd_manager_get_default (),
                                       _("Error removing task list"),
-                                      (*error)->message);
+                                      (*error)->message,
+                                      NULL,
+                                      NULL);
       g_clear_error (error);
     }
 }
@@ -781,7 +795,9 @@ gtd_provider_eds_commit_source_finished (GObject      *registry,
 
       gtd_manager_emit_error_message (gtd_manager_get_default (),
                                       _("Error saving task list"),
-                                      error->message);
+                                      error->message,
+                                      NULL,
+                                      NULL);
       g_error_free (error);
       return;
     }

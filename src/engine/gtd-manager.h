@@ -30,59 +30,66 @@ G_BEGIN_DECLS
 
 G_DECLARE_FINAL_TYPE (GtdManager, gtd_manager, GTD, MANAGER, GtdObject)
 
+
+typedef void (*GtdNotificationActionFunc) (GtdNotification *notification,
+                                           gpointer         user_data);
+
+
 GtdManager*             gtd_manager_new                   (void);
 
 GtdManager*             gtd_manager_get_default           (void);
 
-GList*                  gtd_manager_get_task_lists        (GtdManager           *manager);
+GList*                  gtd_manager_get_task_lists        (GtdManager                *manager);
 
-GList*                  gtd_manager_get_providers         (GtdManager           *manager);
+GList*                  gtd_manager_get_providers         (GtdManager                *manager);
 
-GList*                  gtd_manager_get_panels            (GtdManager           *manager);
+GList*                  gtd_manager_get_panels            (GtdManager                *manager);
 
 /* Task lists */
-void                    gtd_manager_create_task_list      (GtdManager           *manager,
-                                                           GtdTaskList          *list);
+void                    gtd_manager_create_task_list      (GtdManager                *manager,
+                                                           GtdTaskList               *list);
 
-void                    gtd_manager_remove_task_list      (GtdManager           *manager,
-                                                           GtdTaskList          *list);
+void                    gtd_manager_remove_task_list      (GtdManager                *manager,
+                                                           GtdTaskList               *list);
 
-void                    gtd_manager_save_task_list        (GtdManager           *manager,
-                                                           GtdTaskList          *list);
+void                    gtd_manager_save_task_list        (GtdManager                *manager,
+                                                           GtdTaskList               *list);
 
 /* Tasks */
-void                    gtd_manager_create_task           (GtdManager           *manager,
-                                                           GtdTask              *task);
+void                    gtd_manager_create_task           (GtdManager                *manager,
+                                                           GtdTask                   *task);
 
-void                    gtd_manager_remove_task           (GtdManager           *manager,
-                                                           GtdTask              *task);
+void                    gtd_manager_remove_task           (GtdManager                *manager,
+                                                           GtdTask                   *task);
 
-void                    gtd_manager_update_task           (GtdManager           *manager,
-                                                           GtdTask              *task);
+void                    gtd_manager_update_task           (GtdManager                *manager,
+                                                           GtdTask                   *task);
 
 /* Settings */
-GtdProvider*            gtd_manager_get_default_provider  (GtdManager           *manager);
+GtdProvider*            gtd_manager_get_default_provider  (GtdManager                *manager);
 
-void                    gtd_manager_set_default_provider  (GtdManager           *manager,
-                                                           GtdProvider          *provider);
+void                    gtd_manager_set_default_provider  (GtdManager                *manager,
+                                                           GtdProvider               *provider);
 
-GtdTaskList*            gtd_manager_get_default_task_list (GtdManager           *self);
+GtdTaskList*            gtd_manager_get_default_task_list (GtdManager                *self);
 
-void                    gtd_manager_set_default_task_list (GtdManager           *self,
-                                                           GtdTaskList          *list);
+void                    gtd_manager_set_default_task_list (GtdManager                *self,
+                                                           GtdTaskList               *list);
 
-GSettings*              gtd_manager_get_settings          (GtdManager           *manager);
+GSettings*              gtd_manager_get_settings          (GtdManager                *manager);
 
-gboolean                gtd_manager_get_is_first_run      (GtdManager           *manager);
+gboolean                gtd_manager_get_is_first_run      (GtdManager                *manager);
 
-void                    gtd_manager_set_is_first_run      (GtdManager           *manager,
-                                                           gboolean              is_first_run);
+void                    gtd_manager_set_is_first_run      (GtdManager                *manager,
+                                                           gboolean                   is_first_run);
 
-void                    gtd_manager_emit_error_message    (GtdManager           *manager,
-                                                           const gchar          *primary_message,
-                                                           const gchar          *secondary_message);
+void                    gtd_manager_emit_error_message    (GtdManager                *manager,
+                                                           const gchar               *primary_message,
+                                                           const gchar               *secondary_message,
+                                                           GtdNotificationActionFunc  function,
+                                                           gpointer                   user_data);
 
-GtdTimer*               gtd_manager_get_timer             (GtdManager           *self);
+GtdTimer*               gtd_manager_get_timer             (GtdManager                *self);
 
 G_END_DECLS
 

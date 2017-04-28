@@ -520,10 +520,12 @@ gtd_window__manager_ready_changed (GObject    *source,
 }
 
 static void
-gtd_window__show_error_message (GtdManager  *manager,
-                                const gchar *primary_text,
-                                const gchar *secondary_text,
-                                GtdWindow   *window)
+gtd_window__show_error_message (GtdManager                *manager,
+                                const gchar               *primary_text,
+                                const gchar               *secondary_text,
+                                GtdNotificationActionFunc  function,
+                                gpointer                   user_data,
+                                GtdWindow                 *window)
 {
   GtdNotification *notification;
   ErrorData *error_data;
@@ -538,10 +540,18 @@ gtd_window__show_error_message (GtdManager  *manager,
   gtd_notification_set_primary_action (notification,
                                        error_message_notification_primary_action,
                                        error_data);
-  gtd_notification_set_secondary_action (notification,
-                                         _("Details"),
-                                         error_message_notification_secondary_action,
-                                         error_data);
+
+  if (function == NULL)
+    gtd_notification_set_secondary_action (notification,
+                                           _("Details"),
+                                           error_message_notification_secondary_action,
+                                           error_data);
+  else
+    gtd_notification_set_secondary_action (notification,
+                                           secondary_text,
+                                           function,
+                                           user_data);
+
 
   gtd_window_notify (window, notification);
 }

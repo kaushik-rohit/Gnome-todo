@@ -136,7 +136,9 @@ gtd_provider_local_create_task_list (GtdProvider *provider,
 
       gtd_manager_emit_error_message (gtd_manager_get_default (),
                                       _("Error creating new task list"),
-                                      error->message);
+                                      error->message,
+                                      NULL,
+                                      NULL);
 
       g_clear_error (&error);
       return;

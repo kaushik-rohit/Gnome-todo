@@ -90,7 +90,9 @@ gtd_plugin_todo_txt_monitor_source (GFileMonitor      *monitor,
         {
           gtd_manager_emit_error_message (gtd_manager_get_default (),
                                           _("Cannot create Todo.txt file"),
-                                          error->message);
+                                          error->message,
+                                          NULL,
+                                          NULL);
 
           g_clear_error (&error);
           return;
@@ -117,7 +119,9 @@ gtd_plugin_todo_txt_load_source_monitor (GtdPluginTodoTxt *self)
     {
       gtd_manager_emit_error_message (gtd_manager_get_default (),
                                       _("Error while opening the file monitor. Todo.txt will not be monitored"),
-                                      file_monitor->message);
+                                      file_monitor->message,
+                                      NULL,
+                                      NULL);
       g_clear_error (&file_monitor);
     }
   else
@@ -151,7 +155,9 @@ gtd_plugin_todo_txt_set_default_source (GtdPluginTodoTxt *self)
     {
       gtd_manager_emit_error_message (gtd_manager_get_default (),
                                       _("Cannot create Todo.txt file"),
-                                      error->message);
+                                      error->message,
+                                      NULL,
+                                      NULL);
 
       g_clear_error (&error);
       return FALSE;
@@ -195,7 +201,9 @@ gtd_plugin_todo_txt_activate (GtdActivatable *activatable)
         {
           gtd_manager_emit_error_message (gtd_manager_get_default (),
                                           _("Cannot create Todo.txt file"),
-                                          error->message);
+                                          error->message,
+                                          NULL,
+                                          NULL);
 
           g_clear_error (&error);
           return;
@@ -296,7 +304,9 @@ gtd_plugin_todo_txt_source_changed_finished_cb (GtdPluginTodoTxt *self)
         {
           gtd_manager_emit_error_message (gtd_manager_get_default (),
                                           _("Cannot create Todo.txt file"),
-                                          error->message);
+                                          error->message,
+                                          NULL,
+                                          NULL);
 
           g_clear_error (&error);
           return;
