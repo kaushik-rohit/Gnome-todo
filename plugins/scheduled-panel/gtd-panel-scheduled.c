@@ -56,9 +56,7 @@ get_date_offset (GDateTime *dt,
                  gint* days_diff,
                  gint* next_year_diff)
 {
-  GDateTime *now;
-  GDateTime *today;
-  GDateTime *next_year;
+  g_autoptr (GDateTime) now, today, next_year;
 
   now = g_date_time_new_now_local ();
 
@@ -73,20 +71,10 @@ get_date_offset (GDateTime *dt,
                                    0, 0, 0);
 
   if (days_diff)
-    {
-      *days_diff = g_date_time_difference (dt, today) / G_TIME_SPAN_DAY;
-    }
+    *days_diff = g_date_time_difference (dt, today) / G_TIME_SPAN_DAY;
 
   if (next_year_diff)
-    {
-      *next_year_diff = g_date_time_difference (next_year, today) / G_TIME_SPAN_DAY;
-    }
-
-  g_clear_pointer (&next_year, g_date_time_unref);
-  g_clear_pointer (&today, g_date_time_unref);
-  g_clear_pointer (&now, g_date_time_unref);
-
-  return;
+    *next_year_diff = g_date_time_difference (next_year, today) / G_TIME_SPAN_DAY;
 }
 
 static gchar*
