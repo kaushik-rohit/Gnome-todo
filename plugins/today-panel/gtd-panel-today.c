@@ -54,24 +54,18 @@ enum {
 };
 
 static gboolean
-is_today (GDateTime *dt)
+is_today (GDateTime *today,
+          GDateTime *dt)
 {
-  GDateTime *today;
-
   if (!dt)
     return FALSE;
-
-  today = g_date_time_new_now_local ();
 
   if (g_date_time_get_year (dt) == g_date_time_get_year (today) &&
       g_date_time_get_month (dt) == g_date_time_get_month (today) &&
       g_date_time_get_day_of_month (dt) == g_date_time_get_day_of_month (today))
     {
-      g_date_time_unref (today);
       return TRUE;
     }
-
-  g_date_time_unref (today);
 
   return FALSE;
 }
@@ -79,11 +73,13 @@ is_today (GDateTime *dt)
 static void
 gtd_panel_today_count_tasks (GtdPanelToday *panel)
 {
+  g_autoptr (GDateTime) now;
   GtdManager *manager;
   GList *tasklists;
   GList *l;
   guint number_of_tasks;
 
+  now = g_date_time_new_now_local ();
   manager = gtd_manager_get_default ();
   tasklists = gtd_manager_get_task_lists (manager);
   number_of_tasks = 0;
@@ -104,7 +100,7 @@ gtd_panel_today_count_tasks (GtdPanelToday *panel)
 
           task_dt = gtd_task_get_due_date (t->data);
 
-          if (!is_today (task_dt))
+          if (!is_today (now, task_dt))
             {
               g_clear_pointer (&task_dt, g_date_time_unref);
               continue;
@@ -123,6 +119,7 @@ gtd_panel_today_count_tasks (GtdPanelToday *panel)
 
   /* Add the tasks to the view */
   gtd_task_list_view_set_list (GTD_TASK_LIST_VIEW (panel->view), panel->task_list);
+  gtd_task_list_view_set_default_date (GTD_TASK_LIST_VIEW (panel->view), now);
 
   if (number_of_tasks != panel->number_of_tasks)
     {

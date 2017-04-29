@@ -297,11 +297,13 @@ gtd_panel_scheduled_sort_func (GtkListBoxRow     *row1,
 static void
 gtd_panel_scheduled_count_tasks (GtdPanelScheduled *panel)
 {
+  g_autoptr (GDateTime) now;
   GtdManager *manager;
   GList *tasklists;
   GList *l;
   guint number_of_tasks;
 
+  now = g_date_time_new_now_local ();
   manager = gtd_manager_get_default ();
   tasklists = gtd_manager_get_task_lists (manager);
   number_of_tasks = 0;
@@ -342,6 +344,7 @@ gtd_panel_scheduled_count_tasks (GtdPanelScheduled *panel)
 
   /* Add the tasks to the view */
   gtd_task_list_view_set_list (GTD_TASK_LIST_VIEW (panel->view), panel->task_list);
+  gtd_task_list_view_set_default_date (GTD_TASK_LIST_VIEW (panel->view), now);
 
   if (number_of_tasks != panel->number_of_tasks)
     {
