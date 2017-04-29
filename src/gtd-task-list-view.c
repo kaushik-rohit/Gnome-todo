@@ -2289,6 +2289,9 @@ gtd_task_list_view_set_default_date   (GtdTaskListView *self,
     {
       g_clear_pointer (&priv->default_date, g_date_time_unref);
       priv->default_date = default_date ? g_date_time_ref (default_date) : NULL;
+
+      gtk_list_box_invalidate_headers (priv->listbox);
+      gtk_list_box_invalidate_sort (priv->listbox);
     }
 }
 
