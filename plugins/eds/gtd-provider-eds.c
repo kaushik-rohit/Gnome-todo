@@ -78,13 +78,17 @@ gtd_provider_eds_set_default (GtdProviderEds *self,
                               GtdTaskList    *list)
 {
   GtdProviderEdsPrivate *priv;
+  GtdManager *manager;
   ESource *source;
 
   priv = gtd_provider_eds_get_instance_private (self);
   source = gtd_task_list_eds_get_source (GTD_TASK_LIST_EDS (list));
+  manager = gtd_manager_get_default ();
 
-  gtd_manager_set_default_provider (gtd_manager_get_default (), GTD_PROVIDER (self));
   e_source_registry_set_default_task_list (priv->source_registry, source);
+
+  if (gtd_manager_get_default_provider (manager) != (GtdProvider*) self)
+    gtd_manager_set_default_provider (manager, GTD_PROVIDER (self));
 }
 
 static void
@@ -424,7 +428,7 @@ default_tasklist_changed_cb (ESourceRegistry *source_registry,
   list = g_object_get_data (G_OBJECT (default_source), "task-list");
 
   /* The list might not be loaded yet */
-  if (!list)
+  if (!list || gtd_task_list_get_provider (list) != (GtdProvider*) self)
     goto out;
 
   g_object_notify (G_OBJECT (self), "default-task-list");
