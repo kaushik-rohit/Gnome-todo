@@ -532,22 +532,6 @@ gtd_provider_eds_load_registry (GtdProviderEds  *provider)
   e_credentials_prompter_process_awaiting_credentials (priv->credentials_prompter);
 }
 
-static gboolean
-gtd_provider_eds_try_load (GtdProviderEds *provider)
-{
-  GtdProviderEdsPrivate *priv = gtd_provider_eds_get_instance_private (provider);
-
-  if (gtd_object_get_ready (GTD_OBJECT (provider)))
-    {
-      gtd_provider_eds_load_registry (provider);
-      priv->lazy_load_id = 0;
-
-      return G_SOURCE_REMOVE;
-    }
-
-  return G_SOURCE_CONTINUE;
-}
-
 static void
 gtd_provider_eds_set_registry (GtdProviderEds  *provider,
                                ESourceRegistry *registry)
@@ -556,9 +540,7 @@ gtd_provider_eds_set_registry (GtdProviderEds  *provider,
 
   g_set_object (&priv->source_registry, registry);
 
-  priv->lazy_load_id = g_timeout_add (250,
-                                      (GSourceFunc) gtd_provider_eds_try_load,
-                                      provider);
+  gtd_provider_eds_load_registry (provider);
 }
 
 
