@@ -275,6 +275,7 @@ gtd_application_startup (GApplication *application)
   priv->manager = gtd_manager_get_default ();
 
   /* window */
+  gtk_window_set_default_icon_name ("org.gnome.Todo");
   priv->window = gtd_window_new (GTD_APPLICATION (application));
 
   /* CSS provider */
