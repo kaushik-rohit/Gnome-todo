@@ -131,12 +131,14 @@ plugin_loaded (GtdPluginManager *manager,
 
   for (l = children; l != NULL; l = l->next)
     {
-      if (gtd_plugin_dialog_row_get_info (l->data) == info)
-        {
-          gtd_plugin_dialog_row_set_plugin (l->data, activatable);
-          contains_plugin = TRUE;
-          break;
-        }
+      GtdPluginDialogRow *row = l->data;
+
+      if (!GTD_IS_PLUGIN_DIALOG_ROW (row) || gtd_plugin_dialog_row_get_info (row) != info)
+        continue;
+
+      gtd_plugin_dialog_row_set_plugin (l->data, activatable);
+      contains_plugin = TRUE;
+      break;
     }
 
   g_list_free (children);
@@ -165,11 +167,13 @@ plugin_unloaded (GtdPluginManager *manager,
 
   for (l = children; l != NULL; l = l->next)
     {
-      if (gtd_plugin_dialog_row_get_info (l->data) == info)
-        {
-          gtd_plugin_dialog_row_set_plugin (l->data, NULL);
-          break;
-        }
+      GtdPluginDialogRow *row = l->data;
+
+      if (!GTD_IS_PLUGIN_DIALOG_ROW (row) || gtd_plugin_dialog_row_get_info (row) != info)
+        continue;
+
+      gtd_plugin_dialog_row_set_plugin (l->data, NULL);
+      break;
     }
 
   g_list_free (children);
