@@ -353,6 +353,29 @@ gtd_provider_todo_txt_load_source (GtdProviderTodoTxt *self)
 }
 
 static void
+gtd_provider_todo_txt_load_source_monitor (GtdProviderTodoTxt *self)
+{
+  GError *file_monitor = NULL;
+
+  self->monitor = g_file_monitor_file (self->source_file,
+                                       G_FILE_MONITOR_WATCH_MOVES,
+                                       NULL,
+                                       &file_monitor);
+
+  if (file_monitor)
+    {
+      gtd_manager_emit_error_message (gtd_manager_get_default (),
+                                      _("Error while opening the file monitor. Todo.txt will not be monitored"),
+                                      file_monitor->message);
+      g_clear_error (&file_monitor);
+    }
+  else
+    {
+      g_signal_connect (self->monitor, "changed", G_CALLBACK (gtd_provider_todo_txt_reload), self);
+    }
+}
+
+static void
 gtd_provider_todo_txt_create_task (GtdProvider *provider,
                                    GtdTask     *task)
 {
@@ -1116,6 +1139,7 @@ gtd_provider_todo_txt_set_property (GObject      *object,
     case PROP_SOURCE:
       self->source_file = g_value_dup_object (value);
       gtd_provider_todo_txt_load_source (self);
+      gtd_provider_todo_txt_load_source_monitor (self);
       break;
 
     default:
@@ -1159,13 +1183,4 @@ gtd_provider_todo_txt_init (GtdProviderTodoTxt *self)
 
   /* icon */
   self->icon = G_ICON (g_themed_icon_new_with_default_fallbacks ("computer-symbolic"));
-}
-
-void
-gtd_provider_todo_txt_set_monitor (GtdProviderTodoTxt *self,
-                                   GFileMonitor       *monitor)
-{
-  g_return_if_fail (GTD_IS_PROVIDER_TODO_TXT (self));
-
-  self->monitor = monitor;
 }
