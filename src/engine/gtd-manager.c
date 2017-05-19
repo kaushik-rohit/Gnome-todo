@@ -568,8 +568,22 @@ gtd_manager__provider_removed (GtdPluginManager *plugin_manager,
   for (l = lists; l != NULL; l = l->next)
     gtd_manager__list_removed (provider, l->data, self);
 
+  /* Disconnect old signals */
+  
   g_signal_handlers_disconnect_by_func (provider,
                                         gtd_manager__default_list_changed_cb,
+                                        self);
+
+  g_signal_handlers_disconnect_by_func (provider,
+                                        gtd_manager__list_added,
+                                        self);
+
+  g_signal_handlers_disconnect_by_func (provider,
+                                        gtd_manager__list_changed,
+                                        self);
+
+  g_signal_handlers_disconnect_by_func (provider,
+                                        gtd_manager__list_removed,
                                         self);
 
   g_signal_emit (self, signals[PROVIDER_REMOVED], 0, provider);
