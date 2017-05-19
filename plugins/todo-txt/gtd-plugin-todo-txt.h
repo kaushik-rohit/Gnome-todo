@@ -30,7 +30,6 @@ G_DECLARE_FINAL_TYPE (GtdPluginTodoTxt, gtd_plugin_todo_txt, GTD, PLUGIN_TODO_TX
 
 G_MODULE_EXPORT void  gtd_plugin_todo_txt_register_types         (PeasObjectModule   *module);
 
-
 G_END_DECLS
 
 #endif /* GTD_TODO_TXT_PLUGIN_H */

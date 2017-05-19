@@ -58,92 +58,13 @@ G_DEFINE_DYNAMIC_TYPE_EXTENDED (GtdPluginTodoTxt, gtd_plugin_todo_txt, PEAS_TYPE
                                 G_IMPLEMENT_INTERFACE_DYNAMIC (GTD_TYPE_ACTIVATABLE,
                                                                gtd_activatable_iface_init))
 
-static gboolean
-gtd_plugin_todo_txt_set_default_source (GtdPluginTodoTxt *self)
-{
-  g_autofree gchar *default_file;
-  GError *error;
-
-  error = NULL;
-  default_file = g_build_filename (g_get_user_special_dir (G_USER_DIRECTORY_DOCUMENTS),
-                                   "todo.txt",
-                                   NULL);
-  self->source_file = g_file_new_for_path (default_file);
-
-  if (g_file_query_exists (self->source_file, NULL))
-    return TRUE;
-
-  g_file_create (self->source_file,
-                     G_FILE_CREATE_NONE,
-                     NULL,
-                     &error);
-
-  if (error)
-    {
-      gtd_manager_emit_error_message (gtd_manager_get_default (),
-                                      _("Cannot create Todo.txt file"),
-                                      error->message,
-                                      NULL,
-                                      NULL);
-
-      g_clear_error (&error);
-      return FALSE;
-    }
-
-  return TRUE;
-}
-
 /*
  * GtdActivatable interface implementation
  */
 static void
 gtd_plugin_todo_txt_activate (GtdActivatable *activatable)
 {
-  GtdPluginTodoTxt *self;
-  GtdProviderTodoTxt *provider;
-  gchar *source;
-  GError *error = NULL;
-
-  self = GTD_PLUGIN_TODO_TXT (activatable);
-  source = g_settings_get_string (self->settings, "file");
-
-  if (!source || source[0] == '\0')
-    {
-      if (!gtd_plugin_todo_txt_set_default_source (self))
-        return;
-    }
-  else
-    {
-      self->source_file = g_file_new_for_uri (source);
-    }
-
-  if (!g_file_query_exists (self->source_file, NULL))
-    {
-      g_file_create (self->source_file,
-                     G_FILE_CREATE_NONE,
-                     NULL,
-                     &error);
-
-      if (error)
-        {
-          gtd_manager_emit_error_message (gtd_manager_get_default (),
-                                          _("Cannot create Todo.txt file"),
-                                          error->message,
-                                          NULL,
-                                          NULL);
-
-          g_clear_error (&error);
-          return;
-        }
-    }
-
-  provider = gtd_provider_todo_txt_new (self->source_file);
-
-  self->providers = g_list_append (self->providers, provider);
-  g_signal_emit_by_name (self, "provider-added", provider);
-
-  g_free (source);
-  g_clear_error (&error);
+  ;
 }
 
 static void
@@ -196,22 +117,54 @@ gtd_activatable_iface_init (GtdActivatableInterface *iface)
  * Init
  */
 
-static void
-gtd_plugin_todo_txt_source_changed_finished_cb (GtdPluginTodoTxt *self)
+static gboolean
+gtd_plugin_todo_txt_set_default_source (GtdPluginTodoTxt *self)
 {
-  GtdProviderTodoTxt *provider;
-  gchar *source;
-  GError *error = NULL;
+  g_autofree gchar *default_file;
+  GError *error;
 
+  error = NULL;
+  default_file = g_build_filename (g_get_user_special_dir (G_USER_DIRECTORY_DOCUMENTS),
+                                   "todo.txt",
+                                   NULL);
+  self->source_file = g_file_new_for_path (default_file);
+
+  if (g_file_query_exists (self->source_file, NULL))
+    return TRUE;
+
+  g_file_create (self->source_file,
+                     G_FILE_CREATE_NONE,
+                     NULL,
+                     &error);
+
+  if (error)
+    {
+      gtd_manager_emit_error_message (gtd_manager_get_default (),
+                                      _("Cannot create Todo.txt file"),
+                                      error->message,
+                                      NULL,
+                                      NULL);
+
+      g_clear_error (&error);
+      return FALSE;
+    }
+
+  return TRUE;
+}
+
+static gboolean
+gtd_plugin_todo_txt_set_source (GtdPluginTodoTxt *self)
+{
+  GError *error;
+  gchar  *source;
+
+  error = NULL;
   source = g_settings_get_string (self->settings, "file");
 
   if (!source || source[0] == '\0')
     {
-      gboolean set;
-      set = gtd_plugin_todo_txt_set_default_source (self);
-
-      if(!set)
-        return;
+      if (!gtd_plugin_todo_txt_set_default_source (self))
+        return FALSE;
     }
   else
     {
@@ -234,17 +187,26 @@ gtd_plugin_todo_txt_source_changed_finished_cb (GtdPluginTodoTxt *self)
                                           NULL);
 
           g_clear_error (&error);
-          return;
+          return FALSE;
         }
     }
+  return TRUE;
+}
+
+static void
+gtd_plugin_todo_txt_source_changed_finished_cb (GtdPluginTodoTxt *self)
+{
+  GtdProviderTodoTxt *provider;
+  gboolean set;
+
+  set = gtd_plugin_todo_txt_set_source (self);
+  if (!set)
+    return;
 
   provider = gtd_provider_todo_txt_new (self->source_file);
   self->providers = g_list_append (self->providers, provider);
 
   g_signal_emit_by_name (self, "provider-added", provider);
-
-  g_free (source);
-  g_clear_error (&error);
 }
 
 static void
@@ -322,10 +284,18 @@ gtd_plugin_todo_txt_class_init (GtdPluginTodoTxtClass *klass)
 static void
 gtd_plugin_todo_txt_init (GtdPluginTodoTxt *self)
 {
+  GtdProviderTodoTxt *provider;
   GtkWidget *label;
-
+  gboolean   set;
   self->settings = g_settings_new ("org.gnome.todo.plugins.todo-txt");
+  set = gtd_plugin_todo_txt_set_source (self);
   self->providers = NULL;
+
+  if (set)
+    {
+      provider = gtd_provider_todo_txt_new (self->source_file);
+      self->providers = g_list_append (self->providers, provider);
+    }
 
   /* Preferences */
   self->preferences_box = g_object_new (GTK_TYPE_BOX,
