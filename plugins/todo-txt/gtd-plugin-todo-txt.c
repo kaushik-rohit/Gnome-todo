@@ -34,7 +34,6 @@ struct _GtdPluginTodoTxt
   PeasExtensionBase   parent;
 
   GFile              *source_file;
-  GFileMonitor       *monitor;
 
   GSettings          *settings;
 
@@ -58,78 +57,6 @@ G_DEFINE_DYNAMIC_TYPE_EXTENDED (GtdPluginTodoTxt, gtd_plugin_todo_txt, PEAS_TYPE
                                 0,
                                 G_IMPLEMENT_INTERFACE_DYNAMIC (GTD_TYPE_ACTIVATABLE,
                                                                gtd_activatable_iface_init))
-
-void
-gtd_plugin_todo_txt_monitor_source (GFileMonitor      *monitor,
-                                    GFile             *first,
-                                    GFile             *second,
-                                    GFileMonitorEvent  event,
-                                    gpointer           data)
-{
-  GtdProviderTodoTxt *provider;
-  GtdPluginTodoTxt *self;
-  GError *error = NULL;
-
-  self = data;
-
-  provider = self->providers->data;
-
-  g_list_free_full (self->providers, g_object_unref);
-  self->providers = NULL;
-
-  g_signal_emit_by_name (self, "provider-removed", provider);
-
-  if (event == G_FILE_MONITOR_EVENT_DELETED)
-    {
-      g_file_create (self->source_file,
-                     G_FILE_CREATE_NONE,
-                     NULL,
-                     &error);
-
-      if (error)
-        {
-          gtd_manager_emit_error_message (gtd_manager_get_default (),
-                                          _("Cannot create Todo.txt file"),
-                                          error->message,
-                                          NULL,
-                                          NULL);
-
-          g_clear_error (&error);
-          return;
-        }
-    }
-
-  provider = gtd_provider_todo_txt_new (self->source_file);
-
-  self->providers = g_list_append (self->providers, provider);
-  g_signal_emit_by_name (self, "provider-added", provider);
-}
-
-static void
-gtd_plugin_todo_txt_load_source_monitor (GtdPluginTodoTxt *self)
-{
-  GError *file_monitor = NULL;
-
-  self->monitor = g_file_monitor_file (self->source_file,
-                                       G_FILE_MONITOR_WATCH_MOVES,
-                                       NULL,
-                                       &file_monitor);
-
-  if (file_monitor)
-    {
-      gtd_manager_emit_error_message (gtd_manager_get_default (),
-                                      _("Error while opening the file monitor. Todo.txt will not be monitored"),
-                                      file_monitor->message,
-                                      NULL,
-                                      NULL);
-      g_clear_error (&file_monitor);
-    }
-  else
-    {
-      gtd_provider_todo_txt_set_monitor (self->providers->data, self->monitor);
-      g_signal_connect (self->monitor, "changed", G_CALLBACK (gtd_plugin_todo_txt_monitor_source), self);
-    }
-}
 
 static gboolean
 gtd_plugin_todo_txt_set_default_source (GtdPluginTodoTxt *self)
@@ -214,8 +141,6 @@ gtd_plugin_todo_txt_activate (GtdActivatable *activatable)
 
   self->providers = g_list_append (self->providers, provider);
   g_signal_emit_by_name (self, "provider-added", provider);
-
-  gtd_plugin_todo_txt_load_source_monitor (self);
 
   g_free (source);
   g_clear_error (&error);
@@ -316,8 +241,6 @@ gtd_plugin_todo_txt_source_changed_finished_cb (GtdPluginTodoTxt *self)
   provider = gtd_provider_todo_txt_new (self->source_file);
   self->providers = g_list_append (self->providers, provider);
 
-  gtd_plugin_todo_txt_load_source_monitor (self);
-
   g_signal_emit_by_name (self, "provider-added", provider);
 
   g_free (source);
@@ -333,7 +256,6 @@ gtd_plugin_todo_txt_source_changed_cb (GtkWidget *preference_panel,
 
   self = GTD_PLUGIN_TODO_TXT (user_data);
 
-  g_clear_object (&self->monitor);
   g_clear_object (&self->source_file);
 
   g_settings_set_string (self->settings,
@@ -359,7 +281,6 @@ gtd_plugin_todo_txt_finalize (GObject *object)
 {
   GtdPluginTodoTxt *self = (GtdPluginTodoTxt *) object;
 
-  g_clear_object (&self->monitor);
   g_clear_object (&self->source_file);
   g_list_free_full (self->providers, g_object_unref);
   self->providers = NULL;
