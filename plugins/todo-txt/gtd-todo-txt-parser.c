@@ -18,6 +18,7 @@
 
 #include <glib/gi18n.h>
 #include <gtd-todo-txt-parser.h>
+#include <gtd-provider-todo-txt.h>
 
 struct _GtdTodoTxtParser
 {
@@ -36,32 +37,6 @@ enum {
 
 G_DEFINE_TYPE (GtdTodoTxtParser, gtd_todo_txt_parser, GTD_TYPE_OBJECT);
 
-struct _TaskData
-{
-  gchar                   *root_task_name;
-  gchar                   *task_list_name;
-  gchar                   *title;
-
-  GDateTime               *creation_date;
-  GDateTime               *completion_date;
-  GDateTime               *due_date;
-
-  gboolean                 is_subtask;
-  gboolean                 is_task_completed;
-  gint                     priority;
-
-};
-
-static TaskData*
-task_data_new (void)
-{
-  TaskData *tdata;
-
-  tdata = g_new0 (TaskData, 1);
-
-  return tdata;
-}
-
 gint
 gtd_todo_txt_parser_get_priority (gchar *token)
 {
@@ -69,15 +44,12 @@ gtd_todo_txt_parser_get_priority (gchar *token)
     {
     case 'A':
       return 3;
-      break;
 
     case 'B':
       return 2;
-      break;
 
     case 'C':
       return 1;
-      break;
 
     default:
       return 0;
@@ -89,28 +61,27 @@ gtd_todo_txt_parser_get_priority (gchar *token)
 GDateTime*
 gtd_todo_txt_parser_get_date (gchar *token)
 {
-  GDate     *date = NULL;
-  GDateTime *dt = NULL;
-  gint       year;
-  gint       month;
-  gint       day;
+  GDateTime *dt;
+  GDate date;
+  gint year;
+  gint month;
+  gint day;
 
-  date = g_date_new ();
+  dt = NULL;
+  g_date_clear (&date, 1);
+  g_date_set_parse (&date, token);
 
-  g_date_set_parse (date, token);
-
-  if (!g_date_valid (date))
+  if (!g_date_valid (&date))
     return NULL;
 
-  year = g_date_get_year (date);
-  month = g_date_get_month (date);
-  day = g_date_get_day (date);
+  year = g_date_get_year (&date);
+  month = g_date_get_month (&date);
+  day = g_date_get_day (&date);
 
   dt = g_date_time_new_utc (year,
                             month,
                             day,
                             0, 0, 0);
-  g_date_free (date);
 
   return dt;
 }
@@ -118,7 +89,7 @@ gtd_todo_txt_parser_get_date (gchar *token)
 gboolean
 gtd_todo_txt_parser_is_date (gchar *dt)
 {
-  GDate  date;
+  GDate date;
 
   g_date_clear (&date, 1);
   g_date_set_parse (&date, dt);
@@ -154,140 +125,133 @@ gtd_todo_txt_parser_get_token_id (gchar *token,
   if (!g_strcmp0 (token, "x"))
     return TASK_COMPLETE;
 
-  if (token_length == 3)
-    {
-      if (token[0] == '(' && token[2] == ')')
-        return TASK_PRIORITY;
-    }
+  if (token_length == 3 && token[0] == '(' && token[2] == ')')
+    return TASK_PRIORITY;
 
-  if (!g_str_has_prefix (token , "due:") &&
-      gtd_todo_txt_parser_is_date (token))
+  if (!g_str_has_prefix (token , "due:") && gtd_todo_txt_parser_is_date (token))
     return TASK_DATE;
-
 
   if (gtd_todo_txt_parser_is_word (token) &&
       (last_read == TASK_DATE ||
        last_read == TASK_PRIORITY ||
        last_read == TASK_COMPLETE||
        last_read == TASK_TITLE))
-    return TASK_TITLE;
-
-  if (token_length > 1)
     {
-      if (token[0] == '@')
-        return TASK_LIST_NAME;
+      return TASK_TITLE;
     }
 
-  if (token_length > 1)
-    {
-      if (token[0] == '+')
-        return ROOT_TASK_NAME;
-    }
-
-  if (gtd_todo_txt_parser_is_word (token) &&
-      last_read == TASK_LIST_NAME)
+  if (token_length > 1 && token[0] == '@')
     return TASK_LIST_NAME;
 
-  if (gtd_todo_txt_parser_is_word (token) &&
-      last_read == ROOT_TASK_NAME)
+  if (token_length > 1 && token[0] == '+')
+    return ROOT_TASK_NAME;
+
+  if (gtd_todo_txt_parser_is_word (token) && last_read == TASK_LIST_NAME)
+    return TASK_LIST_NAME;
+
+  if (gtd_todo_txt_parser_is_word (token) && last_read == ROOT_TASK_NAME)
     return ROOT_TASK_NAME;
 
   if (g_str_has_prefix (token , "due:"))
     return TASK_DUE_DATE;
 
-
-
   return -1;
 }
 
-TaskData*
-gtd_todo_txt_parser_parse_tokens (GList *tk)
+GtdTask*
+gtd_todo_txt_parser_parse_tokens (GList *tokens)
 {
+  GtdTask *task;
   GDateTime *dt;
-  TaskData *td;
-  GList *it;
+  GString *list_name;
+  GString *title;
+  GString *root_task_name;
+  gboolean is_subtask;
+
+  GList *l;
   gint last_read_token;
   gint token_id;
 
   dt = NULL;
-  it = NULL;
-  td = task_data_new ();
+  l = NULL;
+  task = create_task ();
+  list_name = g_string_new (NULL);
+  title = g_string_new (NULL);
+  root_task_name = g_string_new (NULL);
+  is_subtask = FALSE;
 
   last_read_token = TASK_COMPLETE;
 
-  for (it = tk; it != NULL; it = it->next)
+  for (l = tokens; l != NULL; l = l->next)
     {
+
       gchar *str;
 
-      str = it->data;
-      token_id = gtd_todo_txt_parser_get_token_id (it->data, last_read_token);
+      g_strstrip (l->data);
+      str = l->data;
+      token_id = gtd_todo_txt_parser_get_token_id (l->data, last_read_token);
 
       switch (token_id)
         {
         case TASK_COMPLETE:
           last_read_token = TASK_COMPLETE;
-          td->is_task_completed = TRUE;
+          gtd_task_set_complete (task, TRUE);
           break;
 
         case TASK_PRIORITY:
           last_read_token = TASK_PRIORITY;
-          td->priority = gtd_todo_txt_parser_get_priority (it->data);
+          gtd_task_set_priority (task, gtd_todo_txt_parser_get_priority (l->data));
           break;
 
         case TASK_DATE:
           last_read_token = TASK_DATE;
-          dt = gtd_todo_txt_parser_get_date (it->data);
-          td->creation_date = dt;
+          dt = gtd_todo_txt_parser_get_date (l->data);
           break;
 
         case TASK_TITLE:
           last_read_token = TASK_TITLE;
-          if (td->title == NULL)
-            td->title = g_strdup (it->data);
-          else
-            {
-              char *temp = td->title;
-              td->title = g_strconcat (td->title, " ",it->data, NULL);
-              g_free (temp);
-            }
+          g_string_append (title, l->data);
+          g_string_append (title, " ");
           break;
 
         case TASK_LIST_NAME:
           last_read_token = TASK_LIST_NAME;
-          if (td->task_list_name == NULL)
-            td->task_list_name = g_strdup (&str[1]);
-          else
-            {
-              gchar *temp = td->task_list_name;
-              td->task_list_name = g_strconcat (td->task_list_name, " ",it->data, NULL);
-              g_free (temp);
-            }
+          g_string_append (list_name, l->data);
+          g_string_append (list_name, " ");
           break;
 
         case ROOT_TASK_NAME:
           last_read_token = ROOT_TASK_NAME;
-          if (td->root_task_name == NULL)
-            td->root_task_name = g_strdup (&str[1]);
-          else
-            {
-              gchar *temp = td->root_task_name;
-              td->root_task_name = g_strconcat (td->root_task_name, " ",it->data, NULL);
-              g_free (temp);
-            }
-          td->is_subtask = TRUE;
+          is_subtask = TRUE;
+          g_string_append (root_task_name, l->data);
+          g_string_append (root_task_name, " ");
           break;
 
         case TASK_DUE_DATE:
           last_read_token = TASK_DUE_DATE;
           dt = gtd_todo_txt_parser_get_date (&str[4]);
-          td->due_date = dt;
+          gtd_task_set_due_date (task, dt);
           break;
 
         default:
           return NULL;
         }
     }
-  return td;
+
+  g_strstrip (title->str);
+  g_strstrip (list_name->str);
+  g_strstrip (root_task_name->str);
+  gtd_task_set_title (task, title->str);
+  g_object_set_data_full (G_OBJECT (task), "list_name", g_strdup (list_name->str + 1), g_free);
+
+  if (is_subtask)
+    g_object_set_data_full (G_OBJECT (task), "root_task_name", g_strdup (root_task_name->str + 1), g_free);
+
+  g_string_free (root_task_name, TRUE);
+  g_string_free (list_name, TRUE);
+  g_string_free (title, TRUE);
+
+  return task;
 }
 
 gboolean
@@ -416,53 +380,36 @@ gtd_todo_txt_parser_tokenize (const gchar *line)
   return tokens;
 }
 
-GList*
-gtd_todo_txt_parser_get_list_updated_token (GtdTaskList *list,
-                                            gchar       *line)
+gchar*
+gtd_todo_txt_parser_serialize_list (GtdTaskList *list)
 {
-  gint last_read_token = TASK_COMPLETE;
-  gboolean list_name_updated = FALSE;
-  GList *tokens = NULL;
-  GList *it = NULL;
+  GString *description;
+  const gchar   *list_name;
 
-  tokens = gtd_todo_txt_parser_tokenize (line);
+  description = g_string_new (NULL);
+  list_name = gtd_task_list_get_name (list);
 
-  for (it = tokens; it != NULL; it = it->next)
-    {
-      gint token_id;
+  g_string_append (description, "@");
+  g_string_append (description, list_name);
 
-      token_id = gtd_todo_txt_parser_get_token_id (it->data, last_read_token);
-      last_read_token = token_id;
-      if (token_id == TASK_LIST_NAME)
-        {
-          if (list_name_updated)
-            {
-              it = g_list_remove (tokens, it->data);
-              last_read_token = TASK_COMPLETE;
-            }
+  g_string_append (description, "\n");
 
-          else
-            {
-              it->data = g_strconcat ("@", gtd_task_list_get_name(list), NULL);
-              list_name_updated = TRUE;
-            }
-        }
-    }
-
-  return tokens;
+  return g_string_free (description, FALSE);
 }
 
-GList*
-gtd_todo_txt_parser_get_task_line (GtdTask *task)
+gchar*
+gtd_todo_txt_parser_serialize_task (GtdTask *task)
 {
   GtdTaskList *list;
   GDateTime   *dt;
-  GtdTask *parent;
-  GList *tokens = NULL;
-  gint priority;
-  gboolean is_complete;
+  GtdTask     *parent;
+  GString     *description;
   const gchar *list_name;
   const gchar *title;
+  gint priority;
+  gboolean is_complete;
+
+  description = g_string_new (NULL);
 
   is_complete = gtd_task_get_complete (task);
   title = gtd_task_get_title (task);
@@ -474,72 +421,41 @@ gtd_todo_txt_parser_get_task_line (GtdTask *task)
   list_name = gtd_task_list_get_name (list);
 
   if (is_complete)
-    tokens = g_list_append (tokens, g_strdup ("x"));
+    g_string_append (description, "x ");
 
   if (priority)
     {
       if (priority == 1)
-        tokens = g_list_append (tokens, g_strdup ("(C)"));
+        g_string_append (description, "(C) ");
       else if (priority == 2)
-        tokens = g_list_append (tokens, g_strdup ("(B)"));
+        g_string_append (description, "(B) ");
       else if (priority == 3)
-        tokens = g_list_append (tokens, g_strdup ("(A)"));
+        g_string_append (description, "(A) ");
     }
 
-  tokens = g_list_append (tokens, g_strdup (title));
-  tokens = g_list_append (tokens, g_strconcat ("@", list_name, NULL));
+  g_string_append (description, title);
+  g_string_append (description, " @");
+  g_string_append (description, list_name);
 
   if (parent)
-    tokens = g_list_append (tokens, g_strconcat ("+", gtd_task_get_title (parent), NULL));
+    {
+      g_string_append (description, " +");
+      g_string_append (description, gtd_task_get_title (parent));
+    }
 
   if (dt)
-    tokens = g_list_append (tokens, g_strconcat ("due:",g_date_time_format (dt, "%F"),NULL));
+    {
+      g_autofree gchar *formatted_time;
 
-  return tokens;
-}
+      formatted_time = g_date_time_format (dt, "%F");
 
-/* Accessor Methods for the TaskData Structure */
+      g_string_append (description, " due:");
+      g_string_append (description, formatted_time);
+    }
 
-gchar*
-gtd_todo_txt_parser_task_data_get_root_task_name (TaskData *td)
-{
-  return td->root_task_name;
-}
+  g_string_append (description, "\n");
 
-gchar*
-gtd_todo_txt_parser_task_data_get_task_list_name (TaskData *td)
-{
-  return td->task_list_name;
-}
-
-gchar*
-gtd_todo_txt_parser_task_data_get_title (TaskData *td)
-{
-  return td->title;
-}
-
-GDateTime*
-gtd_todo_txt_parser_task_data_get_due_date (TaskData *td)
-{
-  return td->due_date;
-}
-
-gboolean
-gtd_todo_txt_parser_task_data_is_subtask (TaskData *td)
-{
-  return td->is_subtask;
-}
-
-gboolean
-gtd_todo_txt_parser_task_data_is_task_completed (TaskData *td)
-{
-  return td->is_task_completed;
-}
-
-gint
-gtd_todo_txt_parser_task_data_get_priority (TaskData *td)
-{
-  return td->priority;
+  return g_string_free (description, FALSE);
 }
 
 static void

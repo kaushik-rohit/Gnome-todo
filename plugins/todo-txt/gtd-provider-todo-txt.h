@@ -31,6 +31,8 @@ G_DECLARE_FINAL_TYPE (GtdProviderTodoTxt, gtd_provider_todo_txt, GTD, PROVIDER_T
 
 GtdProviderTodoTxt*    gtd_provider_todo_txt_new                     (GFile         *source_file);
 
+GtdTask* create_task (void);
+
 G_END_DECLS
 
 #endif /* GTD_PROVIDER_TODO_TXT_H */
