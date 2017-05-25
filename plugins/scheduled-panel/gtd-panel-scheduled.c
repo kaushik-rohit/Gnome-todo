@@ -53,28 +53,31 @@ enum {
 
 static void
 get_date_offset (GDateTime *dt,
-                 gint* days_diff,
-                 gint* next_year_diff)
+                 gint      *days_diff,
+                 gint      *next_year_diff)
 {
-  g_autoptr (GDateTime) now, today, next_year;
+  g_autoptr (GDateTime) now, next_year;
 
   now = g_date_time_new_now_local ();
-
-  today = g_date_time_new_utc (g_date_time_get_year (now),
-                               g_date_time_get_month (now),
-                               g_date_time_get_day_of_month (now),
-                               0, 0, 0);
 
   next_year = g_date_time_new_utc (g_date_time_get_year (now) + 1,
                                    G_DATE_JANUARY,
                                    1,
                                    0, 0, 0);
 
-  if (days_diff)
-    *days_diff = g_date_time_difference (dt, today) / G_TIME_SPAN_DAY;
+  if (g_date_time_get_year (dt) == g_date_time_get_year (now))
+    {
+      if (days_diff)
+        *days_diff = g_date_time_get_day_of_year (dt) - g_date_time_get_day_of_year (now);
+    }
+  else
+    {
+      if (next_year_diff)
+        *next_year_diff = g_date_time_difference (dt, now) / G_TIME_SPAN_DAY;
+    }
 
   if (next_year_diff)
-    *next_year_diff = g_date_time_difference (next_year, today) / G_TIME_SPAN_DAY;
+    *next_year_diff = g_date_time_difference (next_year, now) / G_TIME_SPAN_DAY;
 }
 
 static gchar*
@@ -153,6 +156,16 @@ create_label (const gchar *text,
   return box;
 }
 
+static gint
+compare_by_date (GDateTime *d1,
+                 GDateTime *d2)
+{
+  if (g_date_time_get_year (d1) != g_date_time_get_year (d2))
+    return g_date_time_get_year (d1) - g_date_time_get_year (d2);
+
+  return g_date_time_get_day_of_year (d1) - g_date_time_get_day_of_year (d2);
+}
+
 static void
 gtd_panel_scheduled_header_func (GtkListBoxRow     *row,
                                  GtdTask           *row_task,
@@ -179,21 +192,16 @@ gtd_panel_scheduled_header_func (GtkListBoxRow     *row,
   else
     {
       GDateTime *before_dt;
-      gint before_diff;
-      gint new_diff;
+      gint diff;
 
       before_dt = gtd_task_get_due_date (before_task);
+      diff = compare_by_date (before_dt, dt);
 
-      get_date_offset(before_dt, &before_diff, NULL);
-      get_date_offset(dt, &new_diff, NULL);
-
-      if (new_diff - before_diff != 0)
+      if (diff != 0)
         {
           text = get_string_for_date (dt, &span);
 
-          gtk_list_box_row_set_header (row, create_label (text,
-                                                          span,
-                                                          FALSE));
+          gtk_list_box_row_set_header (row, create_label (text, span, FALSE));
 
           g_free (text);
         }
@@ -239,7 +247,7 @@ gtd_panel_scheduled_sort_func (GtkListBoxRow     *row1,
   else if (!dt2)
     retval = -1;
   else
-    retval = g_date_time_compare (dt1, dt2);
+    retval = compare_by_date (dt1, dt2);
 
   g_clear_pointer (&dt1, g_date_time_unref);
   g_clear_pointer (&dt2, g_date_time_unref);
@@ -248,15 +256,13 @@ gtd_panel_scheduled_sort_func (GtkListBoxRow     *row1,
     return retval;
 
   /* Second, compare by ::complete. */
-  retval = gtd_task_get_complete (row1_task) -
-           gtd_task_get_complete (row2_task);
+  retval = gtd_task_get_complete (row1_task) - gtd_task_get_complete (row2_task);
 
   if (retval != 0)
     return retval;
 
-  /* Third, compare by ::priority. */
-  retval = gtd_task_get_priority (row1_task) -
-           gtd_task_get_priority (row2_task);
+  /* Third, compare by ::priority. Inversely to the  */
+  retval = gtd_task_get_priority (row2_task) - gtd_task_get_priority (row1_task);
 
   if (retval != 0)
     return retval;
