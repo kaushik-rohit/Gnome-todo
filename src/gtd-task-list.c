@@ -503,6 +503,7 @@ gtd_task_list_set_name (GtdTaskList *list,
 
   if (g_strcmp0 (priv->name, name) != 0)
     {
+      g_free (priv->name);
       priv->name = g_strdup (name);
 
       g_object_notify (G_OBJECT (list), "name");
