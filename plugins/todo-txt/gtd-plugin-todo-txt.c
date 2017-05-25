@@ -58,6 +58,64 @@ G_DEFINE_DYNAMIC_TYPE_EXTENDED (GtdPluginTodoTxt, gtd_plugin_todo_txt, PEAS_TYPE
                                 G_IMPLEMENT_INTERFACE_DYNAMIC (GTD_TYPE_ACTIVATABLE,
                                                                gtd_activatable_iface_init))
 
+/*
+ * GtdActivatable interface implementation
+ */
+static void
+gtd_plugin_todo_txt_activate (GtdActivatable *activatable)
+{
+  ;
+}
+
+static void
+gtd_plugin_todo_txt_deactivate (GtdActivatable *activatable)
+{
+  ;
+}
+
+static GList*
+gtd_plugin_todo_txt_get_header_widgets (GtdActivatable *activatable)
+{
+  return NULL;
+}
+
+static GtkWidget*
+gtd_plugin_todo_txt_get_preferences_panel (GtdActivatable *activatable)
+{
+  GtdPluginTodoTxt *plugin = GTD_PLUGIN_TODO_TXT (activatable);
+
+  return plugin->preferences_box;
+
+}
+
+static GList*
+gtd_plugin_todo_txt_get_panels (GtdActivatable *activatable)
+{
+  return NULL;
+}
+
+static GList*
+gtd_plugin_todo_txt_get_providers (GtdActivatable *activatable)
+{
+  GtdPluginTodoTxt *plugin = GTD_PLUGIN_TODO_TXT (activatable);
+  return plugin->providers;
+}
+
+static void
+gtd_activatable_iface_init (GtdActivatableInterface *iface)
+{
+  iface->activate = gtd_plugin_todo_txt_activate;
+  iface->deactivate = gtd_plugin_todo_txt_deactivate;
+  iface->get_header_widgets = gtd_plugin_todo_txt_get_header_widgets;
+  iface->get_preferences_panel = gtd_plugin_todo_txt_get_preferences_panel;
+  iface->get_panels = gtd_plugin_todo_txt_get_panels;
+  iface->get_providers = gtd_plugin_todo_txt_get_providers;
+}
+
+/*
+ * Init
+ */
+
 static gboolean
 gtd_plugin_todo_txt_set_default_source (GtdPluginTodoTxt *self)
 {
@@ -93,24 +151,19 @@ gtd_plugin_todo_txt_set_default_source (GtdPluginTodoTxt *self)
   return TRUE;
 }
 
-/*
- * GtdActivatable interface implementation
- */
-static void
-gtd_plugin_todo_txt_activate (GtdActivatable *activatable)
+static gboolean
+gtd_plugin_todo_txt_set_source (GtdPluginTodoTxt *self)
 {
-  GtdPluginTodoTxt *self;
-  GtdProviderTodoTxt *provider;
-  gchar *source;
-  GError *error = NULL;
+  GError *error;
+  gchar  *source;
 
-  self = GTD_PLUGIN_TODO_TXT (activatable);
+  error = NULL;
   source = g_settings_get_string (self->settings, "file");
 
   if (!source || source[0] == '\0')
     {
       if (!gtd_plugin_todo_txt_set_default_source (self))
-        return;
+        return FALSE;
     }
   else
     {
@@ -133,118 +186,28 @@ gtd_plugin_todo_txt_activate (GtdActivatable *activatable)
                                           NULL);
 
           g_clear_error (&error);
-          return;
+          return FALSE;
         }
     }
 
-  provider = gtd_provider_todo_txt_new (self->source_file);
-
-  self->providers = g_list_append (self->providers, provider);
-  g_signal_emit_by_name (self, "provider-added", provider);
-
-  g_free (source);
-  g_clear_error (&error);
+  return TRUE;
 }
-
-static void
-gtd_plugin_todo_txt_deactivate (GtdActivatable *activatable)
-{
-  ;
-}
-
-static GList*
-gtd_plugin_todo_txt_get_header_widgets (GtdActivatable *activatable)
-{
-  return NULL;
-}
-
-static GtkWidget*
-gtd_plugin_todo_txt_get_preferences_panel (GtdActivatable *activatable)
-{
-  GtdPluginTodoTxt *plugin = GTD_PLUGIN_TODO_TXT (activatable);
-
-  return plugin->preferences_box;
-
-}
-
-static GList*
-gtd_plugin_todo_txt_get_panels (GtdActivatable *activatable)
-{
-  return NULL;
-}
-
-static GList*
-gtd_plugin_todo_txt_get_providers (GtdActivatable *activatable)
-{
-  GtdPluginTodoTxt *plugin = GTD_PLUGIN_TODO_TXT (activatable);
-
-  return plugin->providers;
-}
-
-static void
-gtd_activatable_iface_init (GtdActivatableInterface *iface)
-{
-  iface->activate = gtd_plugin_todo_txt_activate;
-  iface->deactivate = gtd_plugin_todo_txt_deactivate;
-  iface->get_header_widgets = gtd_plugin_todo_txt_get_header_widgets;
-  iface->get_preferences_panel = gtd_plugin_todo_txt_get_preferences_panel;
-  iface->get_panels = gtd_plugin_todo_txt_get_panels;
-  iface->get_providers = gtd_plugin_todo_txt_get_providers;
-}
-
-/*
- * Init
- */
 
 static void
 gtd_plugin_todo_txt_source_changed_finished_cb (GtdPluginTodoTxt *self)
 {
   GtdProviderTodoTxt *provider;
-  gchar *source;
-  GError *error = NULL;
+  gboolean set;
 
-  source = g_settings_get_string (self->settings, "file");
+  set = gtd_plugin_todo_txt_set_source (self);
 
-  if (!source || source[0] == '\0')
-    {
-      gboolean set;
-      set = gtd_plugin_todo_txt_set_default_source (self);
-
-      if(!set)
-        return;
-    }
-  else
-    {
-      self->source_file = g_file_new_for_uri (source);
-    }
-
-  if (!g_file_query_exists (self->source_file, NULL))
-    {
-      g_file_create (self->source_file,
-                     G_FILE_CREATE_NONE,
-                     NULL,
-                     &error);
-
-      if (error)
-        {
-          gtd_manager_emit_error_message (gtd_manager_get_default (),
-                                          _("Cannot create Todo.txt file"),
-                                          error->message,
-                                          NULL,
-                                          NULL);
-
-          g_clear_error (&error);
-          return;
-        }
-    }
+  if (!set)
+    return;
 
   provider = gtd_provider_todo_txt_new (self->source_file);
   self->providers = g_list_append (self->providers, provider);
 
   g_signal_emit_by_name (self, "provider-added", provider);
-
-  g_free (source);
-  g_clear_error (&error);
 }
 
 static void
@@ -275,13 +238,11 @@ gtd_plugin_todo_txt_source_changed_cb (GtkWidget *preference_panel,
   gtd_plugin_todo_txt_source_changed_finished_cb (self);
 }
 
-
 static void
 gtd_plugin_todo_txt_finalize (GObject *object)
 {
   GtdPluginTodoTxt *self = (GtdPluginTodoTxt *) object;
 
-  g_clear_object (&self->source_file);
   g_list_free_full (self->providers, g_object_unref);
   self->providers = NULL;
 
@@ -322,10 +283,19 @@ gtd_plugin_todo_txt_class_init (GtdPluginTodoTxtClass *klass)
 static void
 gtd_plugin_todo_txt_init (GtdPluginTodoTxt *self)
 {
+  GtdProviderTodoTxt *provider;
   GtkWidget *label;
+  gboolean   set;
 
   self->settings = g_settings_new ("org.gnome.todo.plugins.todo-txt");
+  set = gtd_plugin_todo_txt_set_source (self);
   self->providers = NULL;
+
+  if (set)
+    {
+      provider = gtd_provider_todo_txt_new (self->source_file);
+      self->providers = g_list_append (self->providers, provider);
+    }
 
   /* Preferences */
   self->preferences_box = g_object_new (GTK_TYPE_BOX,
