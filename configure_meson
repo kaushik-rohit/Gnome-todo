@@ -91,6 +91,7 @@ declare -A default_options=(
     ['today-panel-plugin']=true
     ['unscheduled-panel-plugin']=true
     ['todo-txt-plugin']=true
+    ['todoist-plugin']=true
     ['introspection']=true
 )
 
@@ -176,6 +177,7 @@ echo "
         Today panel ............. $(echooption today-panel-plugin)
         Unscheduled panel ....... $(echooption unscheduled-panel-plugin)
         Todo.txt ................ $(echooption todo-txt-plugin)
+        Todoist ................. $(echooption todoist-plugin)
 
         Now type '${NINJA} -C ${builddir}' to build
 "

@@ -1,0 +1,13 @@
+[Plugin]
+Name = Todoist
+Module = todoist
+Description = Todoist integration for GNOME To Do
+Version = @VERSION@
+Authors = Rohit Kaushik <kaushikrohit325@gmail.com>
+Copyright = Copyleft © The To Do maintainers
+Website = https://wiki.gnome.org/Apps/Todo
+Builtin = true
+License = GPL
+Loader = C
+Embedded = gtd_plugin_todoist_register_types
+Depends =

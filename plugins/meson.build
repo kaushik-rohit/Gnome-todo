@@ -34,3 +34,7 @@ endif
 if get_option('enable-todo-txt-plugin')
   subdir('todo-txt')
 endif
+
+if get_option('enable-todoist-plugin')
+  subdir('todoist')
+endif

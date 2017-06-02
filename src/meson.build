@@ -165,6 +165,11 @@ if get_option('enable-todo-txt-plugin')
   gnome_todo_libs += [libtodotxt_lib]
 endif
 
+if get_option('enable-todoist-plugin')
+  ldflags += ['-Wl,--undefined=gtd_plugin_todoist_register_types']
+  gnome_todo_libs += [libtodoist_lib]
+endif
+
 gnome_todo_ldflags = []
 
 if host_machine.system().contains('linux')

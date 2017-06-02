@@ -129,6 +129,12 @@ gnome_todo_LDADD += $(top_builddir)/plugins/todo-txt/libtodotxt.la
 gnome_todo_DEPENDENCIES += $(top_builddir)/plugins/todo-txt/libtodotxt.la
 endif
 
+if BUILD_TODOIST_PLUGIN
+gnome_todo_LDFLAGS += -Wl,--undefined=gtd_plugin_todoist_register_types
+gnome_todo_LDADD += $(top_builddir)/plugins/todoist/libtodoist.la
+gnome_todo_DEPENDENCIES += $(top_builddir)/plugins/todoist/libtodoist.la
+endif
+
 #
 # Export headers to [PREFIX]/include/gnome-todo
 #

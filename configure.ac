@@ -96,6 +96,7 @@ GNOME_TODO_ADD_PLUGIN([score], [Score], [yes])
 GNOME_TODO_ADD_PLUGIN([today-panel], [Today Panel], [yes])
 GNOME_TODO_ADD_PLUGIN([unscheduled-panel], [Unscheduled Tasks Panel], [yes])
 GNOME_TODO_ADD_PLUGIN([todo-txt], [Todo.Txt], [yes])
+GNOME_TODO_ADD_PLUGIN([todoist], [Todoist], [yes])
 
 
 dnl ***********************************************************************
@@ -146,6 +147,7 @@ echo "
         Today panel ............. ${enable_today_panel_plugin}
         Unscheduled panel ....... ${enable_unscheduled_panel_plugin}
         Todo.txt ................ ${enable_todo_txt_plugin}
+        Todoist ................. ${enable_todoist_plugin}
 
         Now type 'make' to build $PACKAGE
 "

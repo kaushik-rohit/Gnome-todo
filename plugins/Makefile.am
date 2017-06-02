@@ -28,4 +28,8 @@ if BUILD_TODO_TXT_PLUGIN
 SUBDIRS += todo-txt
 endif
 
+if BUILD_TODOIST_PLUGIN
+SUBDIRS += todoist
+endif
+
 MAINTAINERCLEANFILES = Makefile.in
