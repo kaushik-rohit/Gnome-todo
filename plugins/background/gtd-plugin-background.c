@@ -452,6 +452,7 @@ gtd_plugin_background_get_property (GObject    *object,
     {
     case PROP_PREFERENCES_PANEL:
       g_value_set_object (value, self->preferences_panel);
+      break;
 
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);

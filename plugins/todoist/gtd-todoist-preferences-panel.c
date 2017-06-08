@@ -162,7 +162,7 @@ on_goa_account_removed (GoaClient                   *client,
   GoaAccount *goa_account;
   GList *child;
   GList *l;
-  gchar *provider;
+  const gchar *provider;
 
   goa_account = goa_object_get_account (object);
   provider = goa_account_get_provider_name (goa_account);
