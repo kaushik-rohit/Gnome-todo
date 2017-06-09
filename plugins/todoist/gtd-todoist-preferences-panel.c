@@ -127,10 +127,12 @@ on_goa_account_added (GoaClient                   *client,
   GtkWidget *box;
   GtkWidget *logo;
   GtkWidget *desc;
+  GList *child;
   const gchar *provider_name;
   const gchar *identity;
   goa_account = goa_object_get_account (object);
 
+  child = NULL;
   provider_name = goa_account_get_provider_name (goa_account);
 
   if (g_strcmp0 (provider_name, "Todoist") != 0)
@@ -151,7 +153,18 @@ on_goa_account_added (GoaClient                   *client,
   gtk_container_add (GTK_CONTAINER (row), box);
 
   gtk_widget_show_all (row);
+
+  child = gtk_container_get_children (GTK_CONTAINER (self->accounts_listbox));
+
+  /* If List Box was empty before this addition, the preferences
+   * panel should change to accounts_page.
+   */
+  if (!child)
+    gtk_stack_set_visible_child (GTK_STACK (self), self->accounts_page);
+
   gtk_list_box_insert (GTK_LIST_BOX (self->accounts_listbox), GTK_WIDGET (row), -1);
+
+  g_list_free (child);
 }
 
 static void
@@ -163,6 +176,7 @@ on_goa_account_removed (GoaClient                   *client,
   GList *child;
   GList *l;
   const gchar *provider;
+  guint todoist_accounts;
 
   goa_account = goa_object_get_account (object);
   provider = goa_account_get_provider_name (goa_account);
@@ -173,6 +187,7 @@ on_goa_account_removed (GoaClient                   *client,
     return;
 
   child = gtk_container_get_children (GTK_CONTAINER (self->accounts_listbox));
+  todoist_accounts = g_list_length (child);
 
   for (l = child; l != NULL; l = l->next)
     {
@@ -183,10 +198,19 @@ on_goa_account_removed (GoaClient                   *client,
       if (row_account == object)
         {
           gtk_container_remove (GTK_CONTAINER (self->accounts_listbox),l->data);
-
+          todoist_accounts--;
           break;
         }
     }
+
+  /* Check if ListBox becomes empty after this removal.
+   * If true change to empty_page of preference panel.
+   */
+
+  if (!todoist_accounts)
+    gtk_stack_set_visible_child (GTK_STACK (self), self->empty_page);
+
+  g_list_free (child);
 }
 
 void
@@ -262,7 +286,9 @@ gtd_todoist_preferences_panel_init (GtdTodoistPreferencesPanel *self)
 
   gtk_widget_init_template (GTK_WIDGET (self));
 
+  /* Set Empty Page as the default initial preferences page */
   gtk_stack_set_visible_child (GTK_STACK (self), self->empty_page);
+
   label = gtk_label_new ("No Todoist account configured");
   gtk_widget_show (label);
   gtk_list_box_set_placeholder (GTK_LIST_BOX (self->accounts_listbox), GTK_WIDGET (label));
