@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: gnome-todo master\n"
 "Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "todo&keywords=I18N+L10N&component=General\n"
-"POT-Creation-Date: 2017-04-22 19:33+0000\n"
-"PO-Revision-Date: 2017-04-25 10:21+0700\n"
+"POT-Creation-Date: 2017-06-09 19:13+0000\n"
+"PO-Revision-Date: 2017-06-10 11:24+0700\n"
 "Last-Translator: Kukuh Syafaat <syafaatkukuh@gmail.com>\n"
 "Language-Team: Indonesian\n"
 "Language: id\n"
@@ -22,7 +22,7 @@ msgstr ""
 
 #: data/appdata/org.gnome.Todo.appdata.xml.in:7
 #: data/org.gnome.Todo.desktop.in:3 src/gtd-application.c:152
-#: src/gtd-application.c:178 src/gtd-window.c:940
+#: src/gtd-application.c:178 src/gtd-window.c:950
 msgid "To Do"
 msgstr "To Do"
 
@@ -157,7 +157,7 @@ msgctxt "taskdate"
 msgid "None"
 msgstr "Nihil"
 
-#: data/ui/edit-pane.ui:94 plugins/eds/edit-pane.ui:43 src/gtd-window.c:542
+#: data/ui/edit-pane.ui:94 plugins/eds/edit-pane.ui:43 src/gtd-window.c:546
 msgid "Details"
 msgstr "Rincian"
 
@@ -247,8 +247,8 @@ msgstr "Daftar B_aru"
 msgid "Show or hide completed tasks"
 msgstr "Tampilkan atau sembunyikan tugas selesai"
 
-#: data/ui/list-view.ui:137 src/gtd-task-list-view.c:780
-#: src/gtd-task-list-view.c:785
+#: data/ui/list-view.ui:137 src/gtd-task-list-view.c:784
+#: src/gtd-task-list-view.c:789
 msgid "Done"
 msgstr "Berhasil"
 
@@ -304,13 +304,13 @@ msgstr "Microsoft Exchange"
 msgid "Or you can just store your tasks on this computer"
 msgstr "Atau Anda bisa menyimpan tugas Anda pada komputer ini"
 
-#: plugins/background/gtd-plugin-background.c:147
+#: plugins/background/gtd-plugin-background.c:148
 #, c-format
 msgid "%1$s and one more task"
 msgid_plural "%1$s and %2$d other tasks"
 msgstr[0] "%1$s dan %2$d tugas lainnya"
 
-#: plugins/background/gtd-plugin-background.c:255
+#: plugins/background/gtd-plugin-background.c:247
 #, c-format
 msgid "You have %d task for today"
 msgid_plural "You have %d tasks for today"
@@ -368,55 +368,55 @@ msgstr "Hapus"
 msgid "Error loading GNOME Online Accounts"
 msgstr "Galat saat memuat Akun Daring GNOME"
 
-#: plugins/eds/gtd-plugin-eds.c:272
+#: plugins/eds/gtd-plugin-eds.c:274
 msgid "Error loading Evolution-Data-Server backend"
 msgstr "Kesalahan saat memuat backend Evolution-Data-Server"
 
-#: plugins/eds/gtd-provider-eds.c:132 plugins/eds/gtd-provider-eds.c:136
+#: plugins/eds/gtd-provider-eds.c:136 plugins/eds/gtd-provider-eds.c:140
 msgid "Error fetching tasks from list"
 msgstr "Galat mengambil tugas dari daftar"
 
-#: plugins/eds/gtd-provider-eds.c:168 plugins/eds/gtd-provider-eds.c:173
+#: plugins/eds/gtd-provider-eds.c:174 plugins/eds/gtd-provider-eds.c:179
 msgid "Failed to connect to task list"
 msgstr "Gagal terhubung ke daftar tugas"
 
-#: plugins/eds/gtd-provider-eds.c:219
+#: plugins/eds/gtd-provider-eds.c:227
 msgid "Task list source successfully connected"
 msgstr "Berhasil terhubung dengan sumber daftar tugas"
 
-#: plugins/eds/gtd-provider-eds.c:328
+#: plugins/eds/gtd-provider-eds.c:336
 msgid "Failed to prompt for credentials"
 msgstr "Gagal meminta kredensial"
 
-#: plugins/eds/gtd-provider-eds.c:351
+#: plugins/eds/gtd-provider-eds.c:359
 msgid "Failed to prompt for credentials for"
 msgstr "Gagal meminta kredensial untuk"
 
-#: plugins/eds/gtd-provider-eds.c:405
+#: plugins/eds/gtd-provider-eds.c:413
 msgid "Authentication failure"
 msgstr "Otentikasi gagal"
 
-#: plugins/eds/gtd-provider-eds.c:479
+#: plugins/eds/gtd-provider-eds.c:487
 msgid "Error loading task manager"
 msgstr "Galat memuat pengelola tugas"
 
-#: plugins/eds/gtd-provider-eds.c:583 plugins/eds/gtd-provider-eds.c:591
+#: plugins/eds/gtd-provider-eds.c:573 plugins/eds/gtd-provider-eds.c:581
 msgid "Error creating task"
 msgstr "Galat membuat tugas"
 
-#: plugins/eds/gtd-provider-eds.c:631 plugins/eds/gtd-provider-eds.c:635
+#: plugins/eds/gtd-provider-eds.c:623 plugins/eds/gtd-provider-eds.c:627
 msgid "Error updating task"
 msgstr "Galat memutakhirkan tugas"
 
-#: plugins/eds/gtd-provider-eds.c:667 plugins/eds/gtd-provider-eds.c:671
+#: plugins/eds/gtd-provider-eds.c:661 plugins/eds/gtd-provider-eds.c:665
 msgid "Error removing task"
 msgstr "Galat menghapus tugas"
 
-#: plugins/eds/gtd-provider-eds.c:695 plugins/eds/gtd-provider-eds.c:699
+#: plugins/eds/gtd-provider-eds.c:691 plugins/eds/gtd-provider-eds.c:695
 msgid "Error creating task list"
 msgstr "Galat saat membuat daftar tugas"
 
-#: plugins/eds/gtd-provider-eds.c:718 plugins/eds/gtd-provider-eds.c:722
+#: plugins/eds/gtd-provider-eds.c:716 plugins/eds/gtd-provider-eds.c:720
 msgid "Error removing task list"
 msgstr "Galat menghapus daftar tugas"
 
@@ -437,38 +437,38 @@ msgstr "Pada Komputer Ini"
 msgid "Error creating new task list"
 msgstr "Galat membuat daftar tugas baru"
 
-#: plugins/scheduled-panel/gtd-panel-scheduled.c:102 src/gtd-edit-pane.c:217
+#: plugins/scheduled-panel/gtd-panel-scheduled.c:93 src/gtd-edit-pane.c:217
 #: src/gtd-task-row.c:374
 msgid "No date set"
 msgstr "Tidak ada tanggal ditentukan"
 
-#: plugins/scheduled-panel/gtd-panel-scheduled.c:108 src/gtd-task-row.c:352
+#: plugins/scheduled-panel/gtd-panel-scheduled.c:101 src/gtd-task-row.c:352
 #, c-format
 msgid "Yesterday"
 msgid_plural "%d days ago"
 msgstr[0] "%d hari yang lalu"
 
 #. Setup a title
-#: plugins/scheduled-panel/gtd-panel-scheduled.c:112
-#: plugins/score/score/__init__.py:95 plugins/today-panel/gtd-panel-today.c:135
-#: plugins/today-panel/gtd-panel-today.c:140
-#: plugins/today-panel/gtd-panel-today.c:308 src/gtd-task-row.c:344
+#: plugins/scheduled-panel/gtd-panel-scheduled.c:105
+#: plugins/score/score/__init__.py:95 plugins/today-panel/gtd-panel-today.c:132
+#: plugins/today-panel/gtd-panel-today.c:137
+#: plugins/today-panel/gtd-panel-today.c:271 src/gtd-task-row.c:344
 msgid "Today"
 msgstr "Hari Ini"
 
-#: plugins/scheduled-panel/gtd-panel-scheduled.c:116 src/gtd-task-row.c:348
+#: plugins/scheduled-panel/gtd-panel-scheduled.c:109 src/gtd-task-row.c:348
 msgid "Tomorrow"
 msgstr "Besok"
 
 #. Setup a title
-#: plugins/scheduled-panel/gtd-panel-scheduled.c:366
-#: plugins/scheduled-panel/gtd-panel-scheduled.c:371
-#: plugins/scheduled-panel/gtd-panel-scheduled.c:503
+#: plugins/scheduled-panel/gtd-panel-scheduled.c:365
+#: plugins/scheduled-panel/gtd-panel-scheduled.c:370
+#: plugins/scheduled-panel/gtd-panel-scheduled.c:507
 msgid "Scheduled"
 msgstr "Terjadwal"
 
-#: plugins/scheduled-panel/gtd-panel-scheduled.c:508
-#: plugins/today-panel/gtd-panel-today.c:313
+#: plugins/scheduled-panel/gtd-panel-scheduled.c:512
+#: plugins/today-panel/gtd-panel-today.c:276
 #: plugins/unscheduled-panel/unscheduled-panel/__init__.py:52
 #: src/views/gtd-list-selector-panel.c:716
 msgid "Clear completed tasks…"
@@ -478,80 +478,70 @@ msgstr "Bersihkan tugas yang telah selesai…"
 msgid "No task completed today"
 msgstr "Tidak ada tugas yang diselesaikan hari ini"
 
-#: plugins/todo-txt/gtd-plugin-todo-txt.c:92
-#: plugins/todo-txt/gtd-plugin-todo-txt.c:153
-#: plugins/todo-txt/gtd-plugin-todo-txt.c:197
-#: plugins/todo-txt/gtd-plugin-todo-txt.c:298
+#: plugins/todoist/gtd-provider-todoist.c:67
+msgid "Todoist"
+msgstr "Todoist"
+
+#: plugins/todoist/gtd-provider-todoist.c:73
+msgid "Todoist Plugin for GNOME To Do"
+msgstr "Pengaya Todoist untuk GNOME To Do"
+
+#: plugins/todoist/ui/preferences.ui:80
+msgid "No Todoist accounts found"
+msgstr "Tidak ada akun Todoist yang ditemukan"
+
+#: plugins/todoist/ui/preferences.ui:89
+msgid "Add a Todoist account"
+msgstr "Tambah akun Todoist"
+
+#: plugins/todo-txt/gtd-plugin-todo-txt.c:142
+#: plugins/todo-txt/gtd-plugin-todo-txt.c:183
 msgid "Cannot create Todo.txt file"
 msgstr "Tidak dapat membuat berkas Todo.txt"
 
-#: plugins/todo-txt/gtd-plugin-todo-txt.c:119
-msgid "Error while opening the file monitor. Todo.txt will not be monitored"
-msgstr "Galat saat membuka monitor berkas. Todo.txt tidak akan dipantau"
-
-#: plugins/todo-txt/gtd-plugin-todo-txt.c:406
+#: plugins/todo-txt/gtd-plugin-todo-txt.c:307
 msgid "Select a Todo.txt-formatted file:"
 msgstr "Pilih berkas Todo.txt-diformat:"
 
-#: plugins/todo-txt/gtd-plugin-todo-txt.c:407
+#: plugins/todo-txt/gtd-plugin-todo-txt.c:308
 msgid "Select a file"
 msgstr "Pilih berkas"
 
-#: plugins/todo-txt/gtd-provider-todo-txt.c:77
+#: plugins/todo-txt/gtd-provider-todo-txt.c:75
 msgid "Todo.txt"
 msgstr "Todo.txt"
 
-#: plugins/todo-txt/gtd-provider-todo-txt.c:83
+#: plugins/todo-txt/gtd-provider-todo-txt.c:81
 msgid "On the Todo.txt file"
 msgstr "Pada berkas Todo.txt"
 
-#: plugins/todo-txt/gtd-provider-todo-txt.c:130
-#: plugins/todo-txt/gtd-provider-todo-txt.c:134
+#: plugins/todo-txt/gtd-provider-todo-txt.c:112
+#: plugins/todo-txt/gtd-provider-todo-txt.c:116
 msgid "Error while opening Todo.txt"
 msgstr "Galat saat membuka Todo.txt"
 
-#: plugins/todo-txt/gtd-provider-todo-txt.c:316
-#: plugins/todo-txt/gtd-provider-todo-txt.c:320
+#: plugins/todo-txt/gtd-provider-todo-txt.c:263
+#: plugins/todo-txt/gtd-provider-todo-txt.c:267
 msgid "Error while reading a line from Todo.txt"
 msgstr "Galat saat membaca baris dari Todo.txt"
 
-#: plugins/todo-txt/gtd-provider-todo-txt.c:402
-#: plugins/todo-txt/gtd-provider-todo-txt.c:406
-msgid "Error while adding a task to Todo.txt"
-msgstr "Galat saat menambahkan tugas untuk Todo.txt"
+#: plugins/todo-txt/gtd-provider-todo-txt.c:384
+msgid "Error while opening the file monitor. Todo.txt will not be monitored"
+msgstr "Galat saat membuka monitor berkas. Todo.txt tidak akan dipantau"
 
-#: plugins/todo-txt/gtd-provider-todo-txt.c:490
-#: plugins/todo-txt/gtd-provider-todo-txt.c:494
-#: plugins/todo-txt/gtd-provider-todo-txt.c:624
-#: plugins/todo-txt/gtd-provider-todo-txt.c:628
-#: plugins/todo-txt/gtd-provider-todo-txt.c:805
-#: plugins/todo-txt/gtd-provider-todo-txt.c:809
-msgid "Error while reading tasks from Todo.txt"
-msgstr "Galat saat membaca tugas dari Todo.txt"
-
-#: plugins/todo-txt/gtd-provider-todo-txt.c:720
-#: plugins/todo-txt/gtd-provider-todo-txt.c:724
-msgid "Error while creating a Todo.txt list"
-msgstr "Galat saat membuat daftar Todo.txt"
-
-#: plugins/todo-txt/gtd-provider-todo-txt.c:941
-#: plugins/todo-txt/gtd-provider-todo-txt.c:945
-msgid "Error while reading task lists from Todo.txt"
-msgstr "Galat saat membaca daftar tugas dari Todo.txt"
-
-#: plugins/todo-txt/gtd-todo-txt-parser.c:345
+#: plugins/todo-txt/gtd-todo-txt-parser.c:309
 msgid "Incorrect date"
 msgstr "Tanggal yang salah"
 
-#: plugins/todo-txt/gtd-todo-txt-parser.c:346
+#: plugins/todo-txt/gtd-todo-txt-parser.c:310
 msgid "Please make sure the date in Todo.txt is valid."
 msgstr "Pastikan tanggal di Todo.txt valid."
 
-#: plugins/todo-txt/gtd-todo-txt-parser.c:375
+#: plugins/todo-txt/gtd-todo-txt-parser.c:341
 msgid "Unrecognized token in a Todo.txt line"
 msgstr "Token tidak dikenal dalam baris Todo.txt"
 
-#: plugins/todo-txt/gtd-todo-txt-parser.c:376
+#: plugins/todo-txt/gtd-todo-txt-parser.c:342
 msgid ""
 "To Do cannot recognize some tags in your Todo.txt file. Some tasks may not "
 "be loaded"
@@ -559,11 +549,11 @@ msgstr ""
 "To Do tidak dapat mengenali beberapa tag dalam berkas Todo.txt Anda. "
 "Beberapa tugas mungkin tidak dimuat"
 
-#: plugins/todo-txt/gtd-todo-txt-parser.c:385
+#: plugins/todo-txt/gtd-todo-txt-parser.c:353
 msgid "No task list found for some tasks"
 msgstr "Tidak ada daftar tugas yang ditemukan untuk beberapa tugas"
 
-#: plugins/todo-txt/gtd-todo-txt-parser.c:386
+#: plugins/todo-txt/gtd-todo-txt-parser.c:354
 msgid ""
 "Some of the tasks in your Todo.txt file do not have a task list. To Do "
 "supports tasks with a task list. Please add a list to all your tasks"
@@ -661,36 +651,36 @@ msgstr "Galat memuat pengaya"
 msgid "Error unloading plugin"
 msgstr "Galat membongkar pengaya"
 
-#: src/gtd-task-list-view.c:608
+#: src/gtd-task-list-view.c:612
 msgid "Removing this task will also remove its subtasks. Remove anyway?"
 msgstr "Menghapus tugas ini juga akan menghapus sub-tugas tersebut. Hapus?"
 
-#: src/gtd-task-list-view.c:611
+#: src/gtd-task-list-view.c:615
 msgid "Once removed, the tasks cannot be recovered."
 msgstr "Setelah dihapus, tugas tidak dapat dipulihkan."
 
-#: src/gtd-task-list-view.c:614 src/views/gtd-list-selector-panel.c:391
+#: src/gtd-task-list-view.c:618 src/views/gtd-list-selector-panel.c:391
 msgid "Cancel"
 msgstr "Batal"
 
-#: src/gtd-task-list-view.c:616
+#: src/gtd-task-list-view.c:620
 msgid "Remove"
 msgstr "Hapus"
 
-#: src/gtd-task-list-view.c:665
+#: src/gtd-task-list-view.c:669
 #, c-format
 msgid "Task <b>%s</b> removed"
 msgstr "Tugas <b>%s</b> dihapus"
 
-#: src/gtd-task-list-view.c:695
+#: src/gtd-task-list-view.c:699
 msgid "Undo"
 msgstr "Undo"
 
-#: src/gtd-window.c:808
+#: src/gtd-window.c:818
 msgid "Loading your task lists…"
 msgstr "Memuat daftar tugas Anda…"
 
-#: src/gtd-window.c:934
+#: src/gtd-window.c:944
 msgid "Click a task list to select"
 msgstr "Klik sebuah daftar tugas untuk memilih"
 
@@ -713,6 +703,18 @@ msgstr "Jika dihapus, daftar tugas tidak bisa dikembalikan."
 #: src/views/gtd-list-selector-panel.c:399
 msgid "Remove task lists"
 msgstr "Hapus daftar tugas"
+
+#~ msgid "Error while adding a task to Todo.txt"
+#~ msgstr "Galat saat menambahkan tugas untuk Todo.txt"
+
+#~ msgid "Error while reading tasks from Todo.txt"
+#~ msgstr "Galat saat membaca tugas dari Todo.txt"
+
+#~ msgid "Error while creating a Todo.txt list"
+#~ msgstr "Galat saat membuat daftar Todo.txt"
+
+#~ msgid "Error while reading task lists from Todo.txt"
+#~ msgstr "Galat saat membaca daftar tugas dari Todo.txt"
 
 #~ msgid "Change default storage location…"
 #~ msgstr "Ubah lokasi penyimpanan baku"
