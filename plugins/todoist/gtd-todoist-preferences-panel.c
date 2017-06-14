@@ -106,6 +106,8 @@ spawn_goa_with_args (const gchar *action,
 static void
 add_account_button_clicked (GtdTodoistPreferencesPanel *self)
 {
+  g_return_if_fail (GOA_IS_CLIENT (self->client));
+
   spawn_goa_with_args (NULL, NULL);
 }
 
@@ -293,5 +295,5 @@ gtd_todoist_preferences_panel_init (GtdTodoistPreferencesPanel *self)
   gtk_widget_show (label);
   gtk_list_box_set_placeholder (GTK_LIST_BOX (self->accounts_listbox), GTK_WIDGET (label));
 
-  g_signal_connect (self->add_button, "clicked", G_CALLBACK (add_account_button_clicked), self);
+  g_signal_connect_swapped (self->add_button, "clicked", G_CALLBACK (add_account_button_clicked), self);
 }
