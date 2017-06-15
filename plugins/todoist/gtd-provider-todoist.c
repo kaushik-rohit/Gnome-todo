@@ -52,6 +52,32 @@ enum {
   LAST_PROP
 };
 
+static const gchar *colormap[] =
+{
+  "#95ef63",
+  "#ff8581",
+  "#ffc471",
+  "#f9ec75",
+  "#a8c8e4",
+  "#d2b8a3",
+  "#e2a8e4",
+  "#cccccc",
+  "#fb886e",
+  "#ffcc00",
+  "#74e8d3",
+  "#3bd5fb",
+  "#dc4fad",
+  "#ac193d",
+  "#d24726",
+  "#82ba00",
+  "#03b3b2",
+  "#008299",
+  "#5db2ff",
+  "#0072c6",
+  "#000000",
+  "#777777"
+};
+
 /*
  * GtdProviderInterface implementation
  */
@@ -101,6 +127,65 @@ gtd_provider_todoist_get_goa_object (GtdProviderTodoist  *self)
 {
   return self->account_object;
 }
+
+static gint
+optimized_eucledian_color_distance (GdkRGBA *color1,
+                                    GdkRGBA *color2)
+{
+  gdouble red_diff;
+  gdouble green_diff;
+  gdouble blue_diff;
+  gdouble red_mean_level;
+
+  red_mean_level = (color1->red + color2->red) / 2;
+  red_diff = color1->red - color2->red;
+  green_diff = color1->green - color2->green;
+  blue_diff = color1->blue - color2->blue;
+
+  return (red_diff * red_diff * (2 + red_mean_level) +
+          green_diff * green_diff * 4 +
+          blue_diff * blue_diff * ((1 - red_mean_level) + 2));
+}
+
+static GdkRGBA*
+convert_color_code (gint index)
+{
+  GdkRGBA rgba;
+
+  gdk_rgba_parse (&rgba, colormap [index]);
+
+  return gdk_rgba_copy (&rgba);
+}
+
+static gint
+get_color_code_index (GdkRGBA *rgba)
+{
+  guint nearest_color_index;
+  guint min_color_diff;
+  guint i;
+
+  nearest_color_index = 0;
+  min_color_diff = G_MAXUINT;
+
+  for (i = 0; i < G_N_ELEMENTS (colormap); i++)
+    {
+      GdkRGBA color;
+      guint distance;
+
+      gdk_rgba_parse (&color, colormap [i]);
+
+      distance = optimized_eucledian_color_distance (rgba, &color);
+
+      if (min_color_diff > distance)
+        {
+          min_color_diff = distance;
+          nearest_color_index = i;
+        }
+    }
+
+  return nearest_color_index;
+}
+
 static void
 gtd_provider_todoist_create_task (GtdProvider *provider,
                                    GtdTask     *task)
