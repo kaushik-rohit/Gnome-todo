@@ -1,4 +1,34 @@
 ===============
+Version 3.25.3
+===============
+
+Project:
+	* Improve Scheduled panel's date headers
+	* Allow pass an emit-error-message callback (Kevin Lopez)
+	* Allow control-click for selection mode (Linus Probert)
+	* Many improvements to Todo.txt plugin (Rohit Kaushik)
+	* Add Meson build system files (Iñigo Martínez)
+	* Plug memory leaks (Mohammed Sadiq)
+	* Add skeleton for Todoist plugin (Rohit Kaushik)
+
+Translations:
+	* Belarussian (Yuras Shumovich)
+	* Brazilian Portuguese (Rafael Fontenelle)
+	* Friulian (Fabio Tomat)
+	* German (Christian Stadelmann, Mario Blättermann)
+	* Hungarian (Balázs Meskó)
+	* Indonesian (Kukuh Syafaat)
+	* Italian (Gianvito Cavasoli)
+	* Kazakh (Baurzhan Muftakhidinov)
+	* Lithuanian (Aurimas Černius)
+	* Norwegian bokmål (Kjartan Maraas)
+	* Polish (Piotr Drąg)
+	* Slovak (Dušan Kazik)
+	* Spanish (Daniel Mustieles)
+	* Swedish (Anders Jonsson)
+	* Turkish (Emin Tufan Çetin)
+
+===============
 Version 3.25.1
 ===============
 

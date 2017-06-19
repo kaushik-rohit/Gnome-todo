@@ -8,7 +8,7 @@ libtodoist_la_SOURCES = \
 	gtd-provider-todoist.c \
 	gtd-provider-todoist.h \
 	gtd-todoist-preferences-panel.c \
-	gtd-todoist_preferences_panel.h
+	gtd-todoist-preferences-panel.h
 
 libtodoist_la_CFLAGS = \
 	$(GNOME_TODO_PLUGIN_CFLAGS) \

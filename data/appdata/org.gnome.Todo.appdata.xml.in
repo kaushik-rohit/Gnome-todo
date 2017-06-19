@@ -51,6 +51,18 @@
   </kudos>
 
   <releases>
+    <release date="2017-06-19" version="3.25.3">
+      <description>
+        <p>
+          This is the first unstable release for GNOME 3.26 series, and adds many new features
+          and improvements. The major addition was the new Todoist plugin skeleton by Rohit
+          Kaushik, and many other smaller improvements and bugfixes.
+        </p>
+        <p>This release also updates translations, and adds new translations.</p>
+        <p>Thanks to all the contributors that worked on GNOME To Do!</p>
+      </description>
+    </release>
+
     <release date="2017-04-24" version="3.24.0">
       <description>
         <p>
