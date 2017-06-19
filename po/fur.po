@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: gnome-todo master\n"
 "Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "todo&keywords=I18N+L10N&component=General\n"
-"POT-Creation-Date: 2017-06-09 19:13+0000\n"
-"PO-Revision-Date: 2017-06-10 19:52+0200\n"
+"POT-Creation-Date: 2017-06-10 17:54+0000\n"
+"PO-Revision-Date: 2017-06-19 11:48+0200\n"
 "Last-Translator: Fabio Tomat <f.t.public@gmail.com>\n"
 "Language-Team: Friulian <fur@li.org>\n"
 "Language: fur\n"
@@ -23,7 +23,7 @@ msgstr ""
 #: data/org.gnome.Todo.desktop.in:3 src/gtd-application.c:152
 #: src/gtd-application.c:178 src/gtd-window.c:950
 msgid "To Do"
-msgstr "Ce Fâ"
+msgstr "Di fâ"
 
 #: data/appdata/org.gnome.Todo.appdata.xml.in:8
 msgid "Task manager for GNOME"
@@ -35,17 +35,17 @@ msgid ""
 "GNOME To Do is a task management application designed to integrate with "
 "GNOME. It is extensible through plugins and supports custom task providers."
 msgstr ""
-"Ce Fâ di GNOME e je une aplicazion di gjestion des ativitâts progjetade par "
-"integrâsi cun GNOME. Si pues estindi cun plugin e al supuarte furnidôrs di "
+"GNOME Di fâ e je une aplicazion di gjestion des ativitâts, progjetade par "
+"integrâsi cun GNOME. Si pues estindile cun plugin e e supuarte furnidôrs di "
 "ativitâts personalizâts."
 
 #: data/appdata/org.gnome.Todo.appdata.xml.in:24
 msgid "GNOME To Do with the dark theme variant"
-msgstr "GNOME Ce Fâ cun la variant dal teme scûr"
+msgstr "GNOME Di fâ cun la variant dal teme scûr"
 
 #: data/appdata/org.gnome.Todo.appdata.xml.in:28
 msgid "Editing a tasklist with GNOME To Do"
-msgstr "Daûr a modificâ une liste di ativitâts cun Ce Fâ di GNOME"
+msgstr "Daûr a modificâ une liste di ativitâts cun GNOME Di fâ"
 
 #: data/appdata/org.gnome.Todo.appdata.xml.in:32
 msgid "Task lists displayed on grid mode"
@@ -57,11 +57,11 @@ msgstr "Listis des ativitâts mostradis te modalitât liste"
 
 #: data/appdata/org.gnome.Todo.appdata.xml.in:40
 msgid "Available plugins for GNOME To Do"
-msgstr "Plugin disponibii par Ce Fâ di GNOME"
+msgstr "Plugin disponibii par GNOME Di fâ"
 
 #: data/appdata/org.gnome.Todo.appdata.xml.in:44
 msgid "Visualizing tasks for today on GNOME To Do’s Today panel"
-msgstr "Daûr a visualizâ lis ativitâts par vuê sul panel Ce Fâ di GNOME"
+msgstr "Daûr a visualizâ lis ativitâts par vuê sul panel GNOME Di fâ"
 
 #: data/gtk/menus.ui:7
 msgid "New List…"
@@ -91,7 +91,7 @@ msgstr "org.gnome.Todo"
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
 #: data/org.gnome.Todo.desktop.in:13
 msgid "Task;Productivity;Todo;"
-msgstr "Ativitât;Produtivitât;Ce fâ;"
+msgstr "Ativitât;Produtivitât;Di fâ;"
 
 #: data/org.gnome.todo.gschema.xml:6
 msgid "Window maximized"
@@ -119,14 +119,14 @@ msgstr "La posizion dal barcon (x e y)."
 
 #: data/org.gnome.todo.gschema.xml:21
 msgid "First run of GNOME To Do"
-msgstr "Prime esecuzion di Ce Fâ di GNOME"
+msgstr "Prime esecuzion di GNOME Di fâ"
 
 #: data/org.gnome.todo.gschema.xml:22
 msgid ""
 "Whether it’s the first run of GNOME To Do (to run the initial setup) or not"
 msgstr ""
-"Indiche se e je la prime volte che al ven inviât Ce Fâ di GNOME (par eseguî "
-"la configurazion iniziâl)"
+"Indiche se e je la prime volte che al ven inviât GNOME Di fâ (par eseguî la "
+"configurazion iniziâl)"
 
 #: data/org.gnome.todo.gschema.xml:26
 msgid "Default provider to add new lists to"
@@ -320,11 +320,11 @@ msgstr[1] "Tu âs %d ativitâts par vuê"
 
 #: plugins/background/org.gnome.todo.background.gschema.xml:6
 msgid "Run To Do on startup"
-msgstr "Eseguìs Ce Fâ al inviament"
+msgstr "Eseguìs Di fâ al inviament"
 
 #: plugins/background/org.gnome.todo.background.gschema.xml:7
 msgid "Whether GNOME To Do should run on startup"
-msgstr "Indiche se GNOME Ce Fâ al à di partî al inviament"
+msgstr "Indiche se GNOME Di fâ al à di partî al inviament"
 
 #: plugins/background/org.gnome.todo.background.gschema.xml:11
 msgid "Show notifications on startup"
@@ -332,7 +332,7 @@ msgstr "Mostre notifichis al inviament"
 
 #: plugins/background/org.gnome.todo.background.gschema.xml:12
 msgid "Whether GNOME To Do should show notifications or not"
-msgstr "Indiche se GNOME Ce Fâ al à di mostrâ notifichis o no"
+msgstr "Indiche se GNOME Di fâ al à di mostrâ notifichis o no"
 
 #: plugins/background/ui/preferences.ui:53
 msgid "Run on Startup"
@@ -340,7 +340,7 @@ msgstr "Eseguìs al inviament"
 
 #: plugins/background/ui/preferences.ui:66
 msgid "Run To Do automatically when you log in"
-msgstr "Eseguìs Ce Fâ in automatic cuant che si eseguìs l'acès"
+msgstr "Eseguìs Di fâ in automatic cuant che si eseguìs l'acès"
 
 #: plugins/background/ui/preferences.ui:122
 msgid "Show Notifications"
@@ -348,7 +348,7 @@ msgstr "Mostre notifichis"
 
 #: plugins/background/ui/preferences.ui:135
 msgid "When To Do runs, show a startup notification"
-msgstr "Cuant che Ce Fâ al è in esecuzion, mostre une notifiche di inviament"
+msgstr "Cuant che Di fâ al è in esecuzion, mostre une notifiche di inviament"
 
 #: plugins/eds/edit-pane.ui:76
 msgid "Notes"
@@ -482,13 +482,12 @@ msgid "No task completed today"
 msgstr "Nissune ativitât completade vuê"
 
 #: plugins/todoist/gtd-provider-todoist.c:67
-#| msgid "Todo.txt"
 msgid "Todoist"
 msgstr "Todoist"
 
 #: plugins/todoist/gtd-provider-todoist.c:73
 msgid "Todoist Plugin for GNOME To Do"
-msgstr "Plugin Todoist par Ce Fâ di GNOME"
+msgstr "Plugin Todoist par GNOME Di fâ"
 
 #: plugins/todoist/ui/preferences.ui:80
 msgid "No Todoist accounts found"
@@ -550,7 +549,7 @@ msgid ""
 "To Do cannot recognize some tags in your Todo.txt file. Some tasks may not "
 "be loaded"
 msgstr ""
-"Ce Fâ nol rive a ricognossi cualchi etichete tal to file Todo.txt. Cualchi "
+"Di fâ nol rive a ricognossi cualchi etichete tal to file Todo.txt. Cualchi "
 "ativitât e podarès no jessi cjariade"
 
 #: plugins/todo-txt/gtd-todo-txt-parser.c:353
@@ -562,7 +561,7 @@ msgid ""
 "Some of the tasks in your Todo.txt file do not have a task list. To Do "
 "supports tasks with a task list. Please add a list to all your tasks"
 msgstr ""
-"Cualchi ativitât intal to file Todo.txt no à une liste di ativitâts. Ce Fâ "
+"Cualchi ativitât intal to file Todo.txt no à une liste di ativitâts. Di fâ "
 "al supuarte ativitâts cuntune liste di ativitâts. Zonte une liste a dutis "
 "lis tôs ativitâts"
 
@@ -589,12 +588,12 @@ msgstr "No programâts (%d)"
 #: src/gtd-application.c:142
 #, c-format
 msgid "Copyright © %d The To Do authors"
-msgstr "Copyright © %d i autôrs di Ce Fâ"
+msgstr "Copyright © %d i autôrs di Di fâ"
 
 #: src/gtd-application.c:147
 #, c-format
 msgid "Copyright © %d–%d The To Do authors"
-msgstr "Copyright © %d–%d i autôrs di Ce Fâ"
+msgstr "Copyright © %d–%d i autôrs di Di fâ"
 
 #: src/gtd-application.c:159
 msgid "translator-credits"
