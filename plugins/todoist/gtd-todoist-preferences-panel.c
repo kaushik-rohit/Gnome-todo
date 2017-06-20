@@ -180,7 +180,7 @@ on_goa_account_removed (GoaClient                   *client,
     {
       GoaObject *row_account;
 
-      row_account = GOA_OBJECT (g_object_get_data (G_OBJECT (l->data), "account"));
+      row_account = GOA_OBJECT (g_object_get_data (G_OBJECT (l->data), "goa-object"));
 
       if (row_account == object)
         {
@@ -195,7 +195,18 @@ void
 gtd_todoist_preferences_panel_set_client (GtdTodoistPreferencesPanel *self,
                                           GoaClient                  *client)
 {
+  GList *accounts;
+  GList *l;
+
+  accounts = NULL;
+  l = NULL;
+
   self->client = client;
+
+  accounts = goa_client_get_accounts (self->client);
+
+  for (l = accounts; l != NULL; l = l->next)
+    on_goa_account_added (self->client, l->data, self);
 
   g_signal_connect (self->client,
                     "account-added",
@@ -206,6 +217,8 @@ gtd_todoist_preferences_panel_set_client (GtdTodoistPreferencesPanel *self,
                     "account-removed",
                     G_CALLBACK (on_goa_account_removed),
                     self);
+
+  g_list_free_full (accounts,  g_object_unref);
 }
 
 static void
