@@ -1,27 +1,26 @@
 plugin_name = 'background'
 
-sources = [
-  'gtd-plugin-background.c',
-  'gtd-plugin-background.h'
-]
+plugins_ldflags += ['-Wl,--undefined=gtd_plugin_background_register_types']
 
-libbackground_lib = static_library(
+plugins_libs += static_library(
   plugin_name,
-  sources: sources,
-  include_directories: plugins_inc,
-  dependencies: gnome_todo_dep,
+  sources: 'gtd-plugin-' + plugin_name + '.c',
+  include_directories: plugins_incs,
+  dependencies: gnome_todo_deps,
   c_args: common_flags + [
     '-DPACKAGE_DATA_DIR="@0@"'.format(gnome_todo_pkgdatadir)
   ]
 )
 
 install_data(
-  'org.gnome.todo.background.gschema.xml',
+  'org.gnome.todo.' + plugin_name + '.gschema.xml',
   install_dir: gnome_todo_schemadir
 )
 
-plugins_files += configure_file(
-  input: '@0@.plugin.in'.format(plugin_name),
-  output: '@0@.plugin'.format(plugin_name),
+plugin_data = plugin_name + '.plugin'
+
+plugins_confs += configure_file(
+  input: plugin_data + '.in',
+  output: plugin_data,
   configuration: plugins_conf
 )

@@ -1,26 +1,27 @@
 plugin_name = 'todoist'
 
-sources = [
-  'gtd-plugin-todoist.c',
-  'gtd-plugin-todoist.h',
-  'gtd-provider-todoist.c',
-  'gtd-provider-todoist.h',
-  'gtd-todoist-preferences-panel.c',
-  'gtd-todoist-preferences-panel.h'
-]
+plugins_ldflags += ['-Wl,--undefined=gtd_plugin_todoist_register_types']
 
-libtodoist_lib = static_library(
-  'todoist',
+sources = files(
+  'gtd-plugin-' + plugin_name + '.c',
+  'gtd-provider-' + plugin_name + '.c',
+  'gtd-' + plugin_name + '-preferences-panel.c'
+)
+
+plugins_libs += static_library(
+  plugin_name,
   sources: sources,
-  include_directories: plugins_inc,
-  dependencies: gnome_todo_dep,
+  include_directories: plugins_incs,
+  dependencies: gnome_todo_deps,
   c_args: common_flags + [
     '-DPACKAGE_DATA_DIR="@0@"'.format(gnome_todo_pkgdatadir)
   ]
 )
 
-plugins_files += configure_file(
-  input: '@0@.plugin.in'.format(plugin_name),
-  output: '@0@.plugin'.format(plugin_name),
+plugin_data = plugin_name + '.plugin'
+
+plugins_confs += configure_file(
+  input: plugin_data + '.in',
+  output: plugin_data,
   configuration: plugins_conf
 )

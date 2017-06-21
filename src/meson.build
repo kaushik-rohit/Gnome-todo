@@ -1,34 +1,25 @@
-engine_headers = [
-  join_paths('engine', 'gtd-manager.h')
-]
-
 install_headers(
-  engine_headers,
+  'engine/gtd-manager.h',
   subdir: join_paths(gnome_todo_pkgincludedir, 'engine')
 )
 
-interfaces_headers = [
-  join_paths('interfaces', 'gtd-activatable.h'),
-  join_paths('interfaces', 'gtd-panel.h'),
-  join_paths('interfaces', 'gtd-provider.h')
-]
+interfaces_headers = files(
+  'interfaces/gtd-activatable.h',
+  'interfaces/gtd-panel.h',
+  'interfaces/gtd-provider.h'
+)
 
 install_headers(
   interfaces_headers,
   subdir: join_paths(gnome_todo_pkgincludedir, 'interfaces')
 )
 
-notification_headers = [
-  join_paths('notification', 'gtd-notification.h')
-]
-
 install_headers(
-  notification_headers,
+  'notification/gtd-notification.h',
   subdir: join_paths(gnome_todo_pkgincludedir, 'notification')
 )
 
-headers = [
-  'gtd-enums.h',
+headers = files(
   'gtd-object.h',
   'gtd-task.h',
   'gtd-task-list.h',
@@ -37,58 +28,35 @@ headers = [
   'gtd-types.h',
   'gtd-window.h',
   'gnome-todo.h'
-]
+)
+
+enum_headers = files(
+  'gtd-enums.h'
+)
 
 install_headers(
-  headers,
+  headers + enum_headers,
   subdir: gnome_todo_pkgincludedir
 )
 
-private_headers = [
-  join_paths('engine', 'gtd-manager-protected.h'),
-  join_paths('engine', 'gtd-plugin-manager.h'),
-  join_paths('notification', 'gtd-notification-widget.h'),
-  join_paths('provider', 'gtd-provider-popover.h'),
-  join_paths('provider', 'gtd-provider-row.h'),
-  join_paths('provider', 'gtd-provider-selector.h'),
-  join_paths('views', 'gtd-list-selector.h'),
-  join_paths('views', 'gtd-list-selector-grid.h'),
-  join_paths('views', 'gtd-list-selector-grid-item.h'),
-  join_paths('views', 'gtd-list-selector-item.h'),
-  join_paths('views', 'gtd-list-selector-list.h'),
-  join_paths('views', 'gtd-list-selector-list-item.h'),
-  join_paths('views', 'gtd-list-selector-panel.h'),
-  'gtd-application.h',
-  'gtd-arrow-frame.h',
-  'gtd-dnd-row.h',
-  'gtd-edit-pane.h',
-  'gtd-empty-list-widget.h',
-  'gtd-initial-setup-window.h',
-  'gtd-new-task-row.h',
-  'gtd-plugin-dialog.h',
-  'gtd-plugin-dialog-row.h',
-  'gtd-task-row.h',
-  'main.c'
-]
-
-sources = [
-  join_paths('engine', 'gtd-manager.c'),
-  join_paths('engine', 'gtd-plugin-manager.c'),
-  join_paths('interfaces', 'gtd-activatable.c'),
-  join_paths('interfaces', 'gtd-panel.c'),
-  join_paths('interfaces', 'gtd-provider.c'),
-  join_paths('notification', 'gtd-notification.c'),
-  join_paths('notification', 'gtd-notification-widget.c'),
-  join_paths('provider', 'gtd-provider-popover.c'),
-  join_paths('provider', 'gtd-provider-row.c'),
-  join_paths('provider', 'gtd-provider-selector.c'),
-  join_paths('views', 'gtd-list-selector.c'),
-  join_paths('views', 'gtd-list-selector-grid.c'),
-  join_paths('views', 'gtd-list-selector-grid-item.c'),
-  join_paths('views', 'gtd-list-selector-item.c'),
-  join_paths('views', 'gtd-list-selector-list.c'),
-  join_paths('views', 'gtd-list-selector-list-item.c'),
-  join_paths('views', 'gtd-list-selector-panel.c'),
+sources = files(
+  'engine/gtd-manager.c',
+  'engine/gtd-plugin-manager.c',
+  'interfaces/gtd-activatable.c',
+  'interfaces/gtd-panel.c',
+  'interfaces/gtd-provider.c',
+  'notification/gtd-notification.c',
+  'notification/gtd-notification-widget.c',
+  'provider/gtd-provider-popover.c',
+  'provider/gtd-provider-row.c',
+  'provider/gtd-provider-selector.c',
+  'views/gtd-list-selector.c',
+  'views/gtd-list-selector-grid.c',
+  'views/gtd-list-selector-grid-item.c',
+  'views/gtd-list-selector-item.c',
+  'views/gtd-list-selector-list.c',
+  'views/gtd-list-selector-list-item.c',
+  'views/gtd-list-selector-panel.c',
   'gtd-application.c',
   'gtd-arrow-frame.c',
   'gtd-dnd-row.c',
@@ -106,14 +74,14 @@ sources = [
   'gtd-timer.c',
   'gtd-window.c',
   'main.c'
-]
+)
 
 data_dir = join_paths(meson.source_root(), 'data')
 
 sources += gnome.compile_resources(
   'gtd-resources',
   join_paths(data_dir, 'todo.gresource.xml'),
-  dependencies: plugins_files,
+  dependencies: plugins_confs,
   export: true,
   source_dir: [
     data_dir,
@@ -126,68 +94,12 @@ enum = 'gtd-enum-types'
 
 sources += gnome.mkenums(
   enum,
-  sources: 'gtd-enums.h',
-  c_template: '@0@.c.template'.format(enum),
-  h_template: '@0@.h.template'.format(enum),
+  sources: enum_headers,
+  c_template: enum + '.c.template',
+  h_template: enum + '.h.template',
 )
 
-ldflags = [
-  '-Wl,--export-dynamic',
-  '-Wl,--undefined=gtd_plugin_eds_register_types'
-]
-
-gnome_todo_libs = [
-  libeds_lib
-]
-
-if get_option('enable-background-plugin')
-  ldflags += ['-Wl,--undefined=gtd_plugin_background_register_types']
-  gnome_todo_libs += [libbackground_lib]
-endif
-
-if get_option('enable-dark-theme-plugin')
-  ldflags += ['-Wl,--undefined=gtd_plugin_dark_theme_register_types']
-  gnome_todo_libs += [libdarktheme_lib]
-endif
-
-if get_option('enable-scheduled-panel-plugin')
-  ldflags += ['-Wl,--undefined=gtd_plugin_scheduled_panel_register_types']
-  gnome_todo_libs += [libscheduledpanel_lib]
-endif
-
-if get_option('enable-today-panel-plugin')
-  ldflags += ['-Wl,--undefined=gtd_plugin_today_panel_register_types']
-  gnome_todo_libs += [libtodaypanel_lib]
-endif
-
-if get_option('enable-todo-txt-plugin')
-  ldflags += ['-Wl,--undefined=gtd_plugin_todo_txt_register_types']
-  gnome_todo_libs += [libtodotxt_lib]
-endif
-
-if get_option('enable-todoist-plugin')
-  ldflags += ['-Wl,--undefined=gtd_plugin_todoist_register_types']
-  gnome_todo_libs += [libtodoist_lib]
-endif
-
-gnome_todo_ldflags = []
-
-if host_machine.system().contains('linux')
-  foreach ldflag: ldflags
-    if cc.has_argument(ldflag)
-      gnome_todo_ldflags += ldflag
-    endif
-  endforeach
-endif
-
-gnome_todo_cflags = common_flags + [
-  '-DPACKAGE_LOCALE_DIR="@0@"'.format(gnome_todo_localedir),
-  '-DPACKAGE_DATA_DIR="@0@"'.format(gnome_todo_pkgdatadir),
-  '-DPACKAGE_LIB_DIR="@0@"'.format(gnome_todo_pkglibdir),
-  '-DUI_DATA_DIR="@0@"'.format(join_paths(gnome_todo_pkgdatadir, 'style'))
-]
-
-gnome_todo_inc = [
+gnome_todo_incs = [
   top_inc,
   include_directories(
     'engine',
@@ -198,50 +110,76 @@ gnome_todo_inc = [
   )
 ]
 
+gnome_todo_cflags = common_flags + [
+  '-DPACKAGE_LOCALE_DIR="@0@"'.format(gnome_todo_localedir),
+  '-DPACKAGE_DATA_DIR="@0@"'.format(gnome_todo_pkgdatadir),
+  '-DPACKAGE_LIB_DIR="@0@"'.format(gnome_todo_pkglibdir),
+  '-DUI_DATA_DIR="@0@"'.format(join_paths(gnome_todo_pkgdatadir, 'style'))
+]
+
+gnome_todo_ldflags = []
+
+if host_machine.system().contains('linux')
+  foreach ldflag: plugins_ldflags
+    if cc.has_argument(ldflag)
+      gnome_todo_ldflags += ldflag
+    endif
+  endforeach
+endif
+
 gnome_todo = executable(
-  'gnome-todo',
-  sources + headers + private_headers,
-  include_directories: gnome_todo_inc,
-  dependencies: gnome_todo_dep,
+  meson.project_name(),
+  sources,
+  include_directories: gnome_todo_incs,
+  dependencies: gnome_todo_deps,
   c_args: gnome_todo_cflags,
-  link_with: gnome_todo_libs,
+  link_with: plugins_libs,
   link_args: gnome_todo_ldflags,
   install: true,
   install_dir: gnome_todo_bindir
 )
 
-gtd_ldflags = [
-  '-Wl,--export-dynamic'
-]
-
-libgtd_lib = shared_library(
+libgtd = shared_library(
   'gtd',
-  sources: sources + headers + private_headers,
-  include_directories: gnome_todo_inc,
-  dependencies: gnome_todo_dep,
-  c_args: gnome_todo_cflags,
-  link_args: gtd_ldflags
+  sources: sources,
+  version: libversion,
+  soversion: soversion,
+  include_directories: gnome_todo_incs,
+  dependencies: gnome_todo_deps,
+  c_args: gnome_todo_cflags
 )
 
-libgtd_inc = include_directories('.')
 libgtd_dep = declare_dependency(
-  link_with: libgtd_lib,
-  include_directories: libgtd_inc,
-  dependencies: gnome_todo_dep
+  link_with: libgtd,
+  include_directories: include_directories('.'),
+  dependencies: gnome_todo_deps
+)
+
+pkg.generate(
+  libraries: libgtd,
+  version: gnome_todo_version,
+  name: 'Gnome To Do',
+  description: 'Header and path for Gnome Todo Plugins',
+  filebase: meson.project_name(),
+  subdirs: gnome_todo_pkgincludedir,
+  variables: [
+    'exec_prefix=${prefix}'
+  ],
+  install_dir: join_paths(gnome_todo_libdir, 'pkgconfig')
 )
 
 if get_option('enable-introspection')
-  gir_sources = [
-    join_paths('engine', 'gtd-manager.c'),
-    join_paths('engine', 'gtd-manager.h'),
-    join_paths('interfaces', 'gtd-activatable.c'),
-    join_paths('interfaces', 'gtd-activatable.h'),
-    join_paths('interfaces', 'gtd-panel.c'),
-    join_paths('interfaces', 'gtd-panel.h'),
-    join_paths('interfaces', 'gtd-provider.c'),
-    join_paths('interfaces', 'gtd-provider.h'),
-    join_paths('notification', 'gtd-notification.c'),
-    join_paths('notification', 'gtd-notification.h'),
+  gir_sources = files(
+    'engine/gtd-manager.c',
+    'engine/gtd-manager.h',
+    'interfaces/gtd-activatable.c',
+    'interfaces/gtd-activatable.h',
+    'interfaces/gtd-panel.c',
+    'interfaces/gtd-panel.h',
+    'interfaces/gtd-provider.c',
+    'interfaces/gtd-provider.h',
+    'notification/gtd-notification.c',
+    'notification/gtd-notification.h',
     'gtd-enums.h',
     'gtd-object.c',
     'gtd-object.h',
@@ -256,9 +194,9 @@ if get_option('enable-introspection')
     'gtd-window.c',
     'gtd-window.h',
     'gtd-types.h'
-  ]
+  )
 
-  gir_inc = [
+  gir_incs = [
     'Gio-2.0',
     'GObject-2.0',
     'Gtk-3.0'
@@ -274,12 +212,12 @@ if get_option('enable-introspection')
   gnome.generate_gir(
     gnome_todo,
     sources: gir_sources,
-    namespace: gnome_todo_gir_ns,
+    namespace: gnome_todo_gir_namespace,
     nsversion: gnome_todo_gir_version,
-    identifier_prefix: gnome_todo_gir_ns,
-    symbol_prefix: gnome_todo_gir_ns.to_lower(),
-    includes: gir_inc,
-    include_directories: gnome_todo_inc,
+    identifier_prefix: gnome_todo_gir_namespace,
+    symbol_prefix: gnome_todo_gir_namespace.to_lower(),
+    includes: gir_incs,
+    include_directories: gnome_todo_incs,
     install: true,
     install_dir_gir: gir_dir,
     install_dir_typelib: typelib_dir,

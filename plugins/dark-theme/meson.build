@@ -1,19 +1,18 @@
 plugin_name = 'dark-theme'
 
-sources = [
-  'gtd-plugin-dark-theme.c',
-  'gtd-plugin-dark-theme.h'
-]
+plugins_ldflags += ['-Wl,--undefined=gtd_plugin_dark_theme_register_types']
 
-libdarktheme_lib = static_library(
+plugins_libs += static_library(
   'darktheme',
-  sources: sources,
-  include_directories: plugins_inc,
-  dependencies: gnome_todo_dep,
+  sources: 'gtd-plugin-' + plugin_name + '.c',
+  include_directories: plugins_incs,
+  dependencies: gnome_todo_deps
 )
 
-plugins_files += configure_file(
-  input: '@0@.plugin.in'.format(plugin_name),
-  output: '@0@.plugin'.format(plugin_name),
+plugin_data = plugin_name + '.plugin'
+
+plugins_confs += configure_file(
+  input: plugin_data + '.in',
+  output: plugin_data,
   configuration: plugins_conf
 )

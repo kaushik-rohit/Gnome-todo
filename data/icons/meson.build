@@ -4,19 +4,13 @@ icon_sizes = [
   '32x32',
   '48x48',
   '256x256',
-  '512x512'
+  '512x512',
+  'symbolic'
 ]
 
 foreach icon_size: icon_sizes
-  install_data(
-    join_paths('hicolor', icon_size, 'apps', 'org.gnome.Todo.png'),
-    install_dir: join_paths(gnome_todo_datadir, 'icons', 'hicolor', icon_size, 'apps')
+  install_subdir(
+    'hicolor/' + icon_size,
+    install_dir: join_paths(gnome_todo_datadir, 'icons', 'hicolor')
   )
 endforeach
-
-install_data(
-  join_paths('hicolor', 'symbolic', 'apps', 'org.gnome.Todo-symbolic.svg'),
-  install_dir: join_paths(gnome_todo_datadir, 'icons', 'hicolor', 'symbolic', 'apps')
-)
-
-meson.add_install_script('meson_post_install.py')

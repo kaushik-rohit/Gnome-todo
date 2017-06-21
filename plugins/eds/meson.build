@@ -1,27 +1,26 @@
 plugin_name = 'eds'
 
-sources = [
-  'gtd-plugin-eds.c',
-  'gtd-plugin-eds.h',
-  'gtd-provider-eds.c',
-  'gtd-provider-eds.h',
-  'gtd-provider-goa.c',
-  'gtd-provider-goa.h',
-  'gtd-provider-local.c',
-  'gtd-provider-local.h',
-  'gtd-task-list-eds.c',
-  'gtd-task-list-eds.h'
-]
+plugins_ldflags += ['-Wl,--undefined=gtd_plugin_eds_register_types']
 
-libeds_lib = static_library(
-  plugin_name,
-  sources: sources,
-  include_directories: plugins_inc,
-  dependencies: gnome_todo_dep,
+sources = files(
+  'gtd-plugin-' + plugin_name + '.c',
+  'gtd-provider-' + plugin_name + '.c',
+  'gtd-provider-goa.c',
+  'gtd-provider-local.c',
+  'gtd-task-list-' + plugin_name + '.c'
 )
 
-plugins_files += configure_file(
-  input: '@0@.plugin.in'.format(plugin_name),
-  output: '@0@.plugin'.format(plugin_name),
+plugins_libs += static_library(
+  plugin_name,
+  sources: sources,
+  include_directories: plugins_incs,
+  dependencies: gnome_todo_deps
+)
+
+plugin_data = plugin_name + '.plugin'
+
+plugins_confs += configure_file(
+  input: plugin_data + '.in',
+  output: plugin_data,
   configuration: plugins_conf
 )

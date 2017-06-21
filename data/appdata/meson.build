@@ -1,10 +1,10 @@
-appdata = 'org.gnome.Todo.appdata.xml'
+info = 'org.gnome.Todo.metainfo.xml'
 
-custom_target(
-  appdata,
-  input: '@0@.in'.format(appdata),
-  output: appdata,
-  command: [msgfmt, '--xml', '--template', '@INPUT@', '-d', po_dir, '-o', '@OUTPUT@'],
+i18n.merge_file(
+  info,
+  input: 'org.gnome.Todo.appdata.xml.in',
+  output: info,
+  po_dir: po_dir,
   install: true,
-  install_dir: join_paths(gnome_todo_datadir, 'appdata')
+  install_dir: join_paths(gnome_todo_datadir, 'metainfo')
 )

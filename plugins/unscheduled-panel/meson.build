@@ -1,16 +1,18 @@
 plugin_name = 'unscheduled-panel'
 
-install_dir = join_paths(plugins_install_dir, plugin_name)
+plugin_dir = join_paths(gnome_todo_pluginsdir, plugin_name)
 
 install_data(
   join_paths(plugin_name, '__init__.py'),
-  install_dir: join_paths(install_dir, plugin_name)
+  install_dir: join_paths(plugin_dir, plugin_name)
 )
 
-configure_file(
-  input: '@0@.plugin.in'.format(plugin_name),
-  output: '@0@.plugin'.format(plugin_name),
+plugin_data = plugin_name + '.plugin'
+
+plugins_confs += configure_file(
+  input: plugin_data + '.in',
+  output: plugin_data,
   install: true,
-  install_dir: install_dir,
+  install_dir: plugin_dir,
   configuration: plugins_conf
 )

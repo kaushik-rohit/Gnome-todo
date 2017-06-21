@@ -5,4 +5,3 @@
 <!ENTITY package_tarname @PACKAGE_TARNAME@>
 <!ENTITY package_url @PACKAGE_URL@>
 <!ENTITY package_version @PACKAGE_VERSION@>
-<!ENTITY package_api_version @PACKAGE_API_VERSION@>

@@ -82,7 +82,6 @@ sanitycheck MESONTEST 'mesontest'
 sanitycheck NINJA 'ninja' 'ninja-build'
 
 declare -A default_options=(
-    ['nls']=true
     ['gtk-doc']=false
     ['dark-theme-plugin']=true
     ['background-plugin']=true
@@ -166,7 +165,6 @@ echo "
         prefix:        ${prefix}
         compiler:      ${CC}
         global flags:  ${CFLAGS} ${CPPFLAGS} ${LDFLAGS}
-        nls:           $(echooption nls)
         documentation: $(echooption gtk-doc)
 
     Plugins:

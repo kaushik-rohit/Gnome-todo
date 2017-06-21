@@ -1,6 +1,8 @@
-plugins_install_dir = join_paths(gnome_todo_pkglibdir, 'plugins')
-plugins_inc = [top_inc, src_inc]
-plugins_files = []
+plugins_incs = [top_inc, src_inc]
+
+plugins_ldflags = []
+plugins_libs = []
+plugins_confs = []
 
 plugins_conf = configuration_data()
 plugins_conf.set('VERSION', gnome_todo_version)

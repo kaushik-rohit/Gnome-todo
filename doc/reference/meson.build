@@ -30,31 +30,31 @@ private_headers = [
 ]
 
 html_images = [
-  join_paths('images', 'notification.png')
+  'images/notification.png'
 ]
 
 version_conf = configuration_data()
 version_conf.set('VERSION', gnome_todo_version)
 
-version = 'version.xml'
+version_xml = 'version.xml'
 
-version_xml = configure_file(
-  input: '@0@.in'.format(version),
-  output: version,
+configure_file(
+  input: version_xml + '.in',
+  output: version_xml,
   configuration: version_conf
 )
 
-gtk_prefix = gtk_dep.get_pkgconfig_variable('prefix')
-gtk_doc_path = join_paths(gtk_prefix, 'share', 'gtk-doc', 'html')
-
 glib_prefix = glib_dep.get_pkgconfig_variable('prefix')
 glib_doc_path = join_paths(glib_prefix, 'share', 'gtk-doc', 'html')
+
+gtk_prefix = gtk_dep.get_pkgconfig_variable('prefix')
+gtk_doc_path = join_paths(gtk_prefix, 'share', 'gtk-doc', 'html')
 
 doc_path = join_paths(gnome_todo_datadir, 'gtk-doc', 'html', meson.project_name())
 
 gnome.gtkdoc(
   meson.project_name(),
-  main_sgml: '@0@-docs.sgml'.format(meson.project_name()),
+  main_sgml: meson.project_name() + '-docs.sgml',
   src_dir: [
     join_paths(meson.source_root(), 'src'),
     join_paths(meson.build_root(), 'src')
@@ -68,7 +68,7 @@ gnome.gtkdoc(
     '--sgml-mode',
     '--output-format=xml'
   ],
-  gobject_typesfile: '@0@.types'.format(meson.project_name()),
+  gobject_typesfile: meson.project_name() + '.types',
   fixxref_args: [
     '--extra-dir=@0@'.format(join_paths(glib_doc_path, 'glib')),
     '--extra-dir=@0@'.format(join_paths(glib_doc_path, 'gmodule')),

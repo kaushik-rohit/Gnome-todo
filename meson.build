@@ -1,13 +1,13 @@
 project(
   'gnome-todo', 'c',
-  version: '3.25.1',
+  version: '3.25.3',
   license: 'GPL3+',
   default_options: [
     'buildtype=debugoptimized',
     'c_std=gnu99',
     'warning_level=1'
   ],
-  meson_version: '>= 0.38.1'
+  meson_version: '>= 0.41.0'
 )
 
 gnome_todo_version = meson.project_version()
@@ -16,7 +16,7 @@ gnome_todo_major_version = version_array[0].to_int()
 gnome_todo_minor_version = version_array[1].to_int()
 gnome_todo_micro_version = version_array[2].to_int()
 
-gnome_todo_gir_ns = 'Gtd'
+gnome_todo_gir_namespace = 'Gtd'
 gnome_todo_gir_version = '1.0'
 
 gnome_todo_prefix = get_option('prefix')
@@ -30,104 +30,95 @@ gnome_todo_pkglibdir = join_paths(gnome_todo_libdir, meson.project_name())
 gnome_todo_pkgdatadir = join_paths(gnome_todo_datadir, meson.project_name())
 gnome_todo_pkgincludedir = join_paths(gnome_todo_includedir, meson.project_name())
 
+gnome_todo_pluginsdir = join_paths(gnome_todo_pkglibdir, 'plugins')
 gnome_todo_schemadir = join_paths(gnome_todo_datadir, 'glib-2.0', 'schemas')
+
+soversion = 0
+current = 0
+revision = 0
+libversion = '@0@.@1@.@2@'.format(soversion, current, revision)
 
 cc = meson.get_compiler('c')
 
-conf = configuration_data()
+config_h = configuration_data()
 
-conf.set('ENABLE_NLS', get_option('enable-nls'))
-conf.set_quoted('GETTEXT_PACKAGE', meson.project_name())
+config_h.set_quoted('GETTEXT_PACKAGE', meson.project_name())
 
 # debug options
-conf.set('GNOME_TODO_ENABLE_DEBUG', get_option('buildtype') != 'release')
-conf.set('NDEBUG', get_option('buildtype') == 'release')
+config_h.set('GNOME_TODO_ENABLE_DEBUG', get_option('buildtype') != 'release')
+config_h.set('NDEBUG', get_option('buildtype') == 'release')
 
 # package
-conf.set_quoted('PACKAGE', meson.project_name())
-conf.set_quoted('PACKAGE_BUGREPORT', 'https://bugzilla.gnome.org/enter_bug.cgi?product=gnome-todo')
-conf.set_quoted('PACKAGE_NAME', meson.project_name())
-conf.set_quoted('PACKAGE_STRING', '@0@-@1@'.format(meson.project_name(), gnome_todo_version))
-conf.set_quoted('PACKAGE_TARNAME', gnome_todo_version)
-conf.set_quoted('PACKAGE_URL', '')
-conf.set_quoted('PACKAGE_VERSION', gnome_todo_version)
-conf.set_quoted('PACKAGE_API_VERSION', gnome_todo_version)
-conf.set_quoted('VERSION', gnome_todo_version)
+config_h.set_quoted('PACKAGE', meson.project_name())
+config_h.set_quoted('PACKAGE_BUGREPORT', 'https://bugzilla.gnome.org/enter_bug.cgi?product=gnome-todo')
+config_h.set_quoted('PACKAGE_NAME', meson.project_name())
+config_h.set_quoted('PACKAGE_STRING', '@0@ @1@'.format(meson.project_name(), gnome_todo_version))
+config_h.set_quoted('PACKAGE_TARNAME', gnome_todo_version)
+config_h.set_quoted('PACKAGE_URL', 'https://wiki.gnome.org/Apps/Todo')
+config_h.set_quoted('PACKAGE_VERSION', gnome_todo_version)
+config_h.set_quoted('VERSION', gnome_todo_version)
 
 # headers
-conf.set('HAVE_DLFCN_H', cc.has_header('dlfcn.h'))
-conf.set('HAVE_INTTYPES_H', cc.has_header('inttypes.h'))
-conf.set('HAVE_MATH_H', cc.has_header('math.h'))
-conf.set('HAVE_MEMORY_H', cc.has_header('memory.h'))
-conf.set('HAVE_STDINT_H', cc.has_header('stdint.h'))
-conf.set('HAVE_STDLIB_H', cc.has_header('stdlib.h'))
-conf.set('HAVE_STRINGS_H', cc.has_header('strings.h'))
-conf.set('HAVE_STRING_H', cc.has_header('string.h'))
-conf.set('HAVE_SYS_STAT_H', cc.has_header('sys/stat.h'))
-conf.set('HAVE_SYS_TYPES_H', cc.has_header('sys/types.h'))
-conf.set('HAVE_UNISTD_H', cc.has_header('unistd.h'))
+config_h.set('HAVE_DLFCN_H', cc.has_header('dlfcn.h'))
+config_h.set('HAVE_INTTYPES_H', cc.has_header('inttypes.h'))
+config_h.set('HAVE_MATH_H', cc.has_header('math.h'))
+config_h.set('HAVE_MEMORY_H', cc.has_header('memory.h'))
+config_h.set('HAVE_STDINT_H', cc.has_header('stdint.h'))
+config_h.set('HAVE_STDLIB_H', cc.has_header('stdlib.h'))
+config_h.set('HAVE_STRINGS_H', cc.has_header('strings.h'))
+config_h.set('HAVE_STRING_H', cc.has_header('string.h'))
+config_h.set('HAVE_SYS_STAT_H', cc.has_header('sys/stat.h'))
+config_h.set('HAVE_SYS_TYPES_H', cc.has_header('sys/types.h'))
+config_h.set('HAVE_UNISTD_H', cc.has_header('unistd.h'))
 
 # functions
-conf.set('HAVE_DCGETTEXT', cc.has_function('dcgettext'))
-conf.set('HAVE_GETTEXT', cc.has_function('gettext'))
-conf.set('HAVE_ICONV', cc.has_function('iconv'))
+config_h.set('HAVE_DCGETTEXT', cc.has_function('dcgettext'))
+config_h.set('HAVE_GETTEXT', cc.has_function('gettext'))
+config_h.set('HAVE_ICONV', cc.has_function('iconv'))
 
-# Compiler flags
-test_cflags = [
-  '-fno-strict-aliasing',
-  '-Wall',
-  '-Warray-bounds',
-  '-Wcast-align',
-  '-Wdeclaration-after-statement',
-  '-Wextra',
-  '-Wformat-nonliteral',
-  '-Wformat-security',
-  '-Wformat=2',
-  '-Wimplicit-function-declaration',
-  '-Winit-self',
-  '-Winline',
-  '-Wmissing-declarations',
-  '-Wmissing-format-attribute',
-  '-Wmissing-include-dirs',
-  '-Wmissing-noreturn',
-  '-Wmissing-prototypes',
-  '-Wnested-externs',
-  '-Wno-error=missing-field-initializers',
-  '-Wno-error=unused-parameter',
-  '-Wno-missing-field-initializers',
-  '-Wno-unused-parameter',
-  '-Wold-style-definition',
-  '-Wpacked',
-  '-Wpointer-arith',
-  '-Wredundant-decls',
-  '-Wreturn-type',
-  '-Wshadow',
-  '-Wsign-compare',
-  '-Wstrict-aliasing',
-  '-Wstrict-prototypes',
-  '-Wswitch-default',
-  '-Wswitch-enum',
-  '-Wundef',
-  '-Wunused-but-set-variable',
-  '-Wwrite-strings'
-]
+# compiler flags
+common_flags = ['-DHAVE_CONFIG_H']
 
-common_flags = [
-  '-DHAVE_CONFIG_H'
-]
+buildtype = get_option('buildtype')
+if buildtype == 'debug' or buildtype == 'debugoptimized'
+  test_cflags = [
+    '-ffast-math',
+    '-fstrict-aliasing',
+    '-Wcast-align',
+    '-Werror=implicit',
+    '-Werror=init-self',
+    '-Werror=main',
+    '-Werror=missing-braces',
+    '-Werror=return-type',
+    '-Werror=array-bounds',
+    '-Werror=write-strings',
+    '-Wformat=2',
+    '-Wlogical-op',
+    '-Wmissing-declarations',
+    '-Wmissing-format-attribute',
+    '-Wmissing-noreturn',
+    '-Wmissing-prototypes',
+    '-Wnested-externs',
+    '-Wno-unused-local-typedefs',
+    '-Wold-style-definition',
+    '-Wredundant-decls',
+    '-Wshadow',
+    '-Wstrict-prototypes'
+  ]
 
-foreach cflag: test_cflags
-  if cc.has_argument(cflag)
-    common_flags += [cflag]
-  endif
-endforeach
+  foreach cflag: test_cflags
+    if cc.has_argument(cflag)
+      common_flags += [cflag]
+    endif
+  endforeach
 
-add_global_arguments(common_flags, language: 'c')
+  add_project_arguments(common_flags, language: 'c')
+endif
 
-glib_dep =  dependency('glib-2.0', version: '>= 2.43.4')
+glib_dep = dependency('glib-2.0', version: '>= 2.43.4')
 gtk_dep = dependency('gtk+-3.0', version: '>= 3.22.0')
 
-gnome_todo_dep = [
+gnome_todo_deps = [
   dependency('gmodule-export-2.0'),
   dependency('gio-2.0', version: '>= 2.43.4'),
   glib_dep,
@@ -142,26 +133,26 @@ gnome_todo_dep = [
 ]
 
 configure_file(
-  output : 'config.h',
-  configuration : conf
+  output: 'config.h',
+  configuration: config_h
 )
 
 gnome = import('gnome')
+i18n = import('i18n')
 pkg = import('pkgconfig')
 
 top_inc = include_directories('.')
 src_inc = include_directories('src')
 
+po_dir = join_paths(meson.source_root(), 'po')
+
 subdir('plugins')
 subdir('src')
 subdir('data')
+subdir('po')
 
 if get_option('enable-gtk-doc')
   subdir('doc')
 endif
 
-if get_option('enable-nls')
-  i18n = import('i18n')
-
-  subdir('po')
-endif
+meson.add_install_script('meson_post_install.py')
