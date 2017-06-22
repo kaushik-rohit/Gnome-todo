@@ -1,15 +1,15 @@
 # Vietnamese translations for gnome-todo package
 # Bản dịch Tiếng Việt dành cho gói gnome-todo.
 # This file is distributed under the same license as the gnome-todo package.
-# Trần Ngọc Quân <vnwildman@gmail.com>, 2015, 2016.
+# Trần Ngọc Quân <vnwildman@gmail.com>, 2015, 2016, 2017.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-todo master\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
+"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "todo&keywords=I18N+L10N&component=General\n"
-"POT-Creation-Date: 2016-09-04 04:26+0000\n"
-"PO-Revision-Date: 2016-09-08 15:02+0700\n"
+"POT-Creation-Date: 2017-06-20 14:43+0000\n"
+"PO-Revision-Date: 2017-06-22 07:48+0700\n"
 "Last-Translator: Trần Ngọc Quân <vnwildman@gmail.com>\n"
 "Language-Team: Vietnamese <gnome-vi-list@gnome.org>\n"
 "Language: vi\n"
@@ -19,460 +19,705 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Gtranslator 2.91.7\n"
 
-#: ../data/appdata/org.gnome.Todo.appdata.xml.in.h:1
-#: ../data/org.gnome.Todo.desktop.in.in.h:1 ../src/gtd-application.c:123
-#: ../src/gtd-application.c:149 ../src/gtd-window.c:955
+#: data/appdata/org.gnome.Todo.appdata.xml.in:7
+#: data/org.gnome.Todo.desktop.in:3 src/gtd-application.c:152
+#: src/gtd-application.c:178 src/gtd-window.c:950
 msgid "To Do"
 msgstr "Việc cần làm"
 
-#: ../data/appdata/org.gnome.Todo.appdata.xml.in.h:2
+#: data/appdata/org.gnome.Todo.appdata.xml.in:8
 msgid "Task manager for GNOME"
 msgstr "Ứng dụng quản lý các nhiệm vụ dành cho môi trường GNOME"
 
-#: ../data/appdata/org.gnome.Todo.appdata.xml.in.h:3
+#: data/appdata/org.gnome.Todo.appdata.xml.in:11
 msgid ""
-"GNOME To Do is a simple task management application designed to integrate "
-"with GNOME."
+"GNOME To Do is a task management application designed to integrate with "
+"GNOME. It is extensible through plugins and supports custom task providers."
 msgstr ""
 "GNOME Todo là ứng dụng quản lý nhiệm vụ đơn giản được thiết kế để hợp nhất "
-"với GNOME."
+"với GNOME. Nó được mở rộng thông qua các phần bổ sung và hỗ trợ từ các nhà "
+"cung cấp nhiệm vụ tùy chỉnh."
 
-#: ../data/gtk/menus.ui.h:1
+#: data/appdata/org.gnome.Todo.appdata.xml.in:24
+msgid "GNOME To Do with the dark theme variant"
+msgstr "Việc cần làm GNOME với biến thể chủ đề tối"
+
+#: data/appdata/org.gnome.Todo.appdata.xml.in:28
+msgid "Editing a tasklist with GNOME To Do"
+msgstr "Sửa một danh sách nhiệm vụ với Việc cần làm GNOME"
+
+#: data/appdata/org.gnome.Todo.appdata.xml.in:32
+msgid "Task lists displayed on grid mode"
+msgstr "Danh sách được hiển thị ở chế độ lưới"
+
+#: data/appdata/org.gnome.Todo.appdata.xml.in:36
+msgid "Task lists displayed on list mode"
+msgstr "Danh sách được hiển thị ở chế độ danh sách liệt kê"
+
+#: data/appdata/org.gnome.Todo.appdata.xml.in:40
+msgid "Available plugins for GNOME To Do"
+msgstr "Các phần bổ sung sẵn có cho Việc cần làm GNOME"
+
+#: data/appdata/org.gnome.Todo.appdata.xml.in:44
+msgid "Visualizing tasks for today on GNOME To Do’s Today panel"
+msgstr ""
+"Hiển thị các nhiệm vụ cho hôm nay trên bảng điều khiển Hôm nay của Việc cần "
+"làm GNOME"
+
+#: data/gtk/menus.ui:7
 msgid "New List…"
 msgstr "Danh sách mới…"
 
-#: ../data/gtk/menus.ui.h:2
-msgid "Change default storage location…"
-msgstr "Đổi vị trí lưu trữ mặc định…"
-
-#: ../data/gtk/menus.ui.h:3 ../data/ui/plugin-dialog.ui.h:1
+#: data/gtk/menus.ui:20 data/ui/plugin-dialog.ui:75
 msgid "Extensions"
 msgstr "Phần mở rộng"
 
-#: ../data/gtk/menus.ui.h:4
+#: data/gtk/menus.ui:27
 msgid "_About"
 msgstr "_Giới thiệu"
 
-#: ../data/gtk/menus.ui.h:5
+#: data/gtk/menus.ui:31
 msgid "_Quit"
 msgstr "_Thoát"
 
-#: ../data/org.gnome.Todo.desktop.in.in.h:2
+#: data/org.gnome.Todo.desktop.in:4
 msgid "Manage your personal tasks"
 msgstr "Quản lý các nhiệm vụ cá nhân của bạn"
 
-#: ../data/org.gnome.Todo.desktop.in.in.h:3
-msgid "Task;Productivity;"
-msgstr "Task;nhiệm vụ;công tác;tác vụ;Productivity;năng suất;"
+#. Translators: Do NOT translate or transliterate this text (this is an icon file name)!
+#: data/org.gnome.Todo.desktop.in:7
+msgid "org.gnome.Todo"
+msgstr "org.gnome.Todo"
 
-#: ../data/org.gnome.todo.gschema.xml.h:1
+#. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
+#: data/org.gnome.Todo.desktop.in:13
+msgid "Task;Productivity;Todo;"
+msgstr "Task;nhiệm vụ;công tác;tác vụ;Productivity;năng suất;cần làm;can lam;"
+
+#: data/org.gnome.todo.gschema.xml:6
 msgid "Window maximized"
 msgstr "Cửa sổ phóng to"
 
-#: ../data/org.gnome.todo.gschema.xml.h:2
+#: data/org.gnome.todo.gschema.xml:7
 msgid "Window maximized state"
 msgstr "Cửa sổ ở trạng thái phóng to hết cỡ"
 
-#: ../data/org.gnome.todo.gschema.xml.h:3
+#: data/org.gnome.todo.gschema.xml:11
 msgid "Window size"
 msgstr "Kích cỡ cửa sổ"
 
-#: ../data/org.gnome.todo.gschema.xml.h:4
+#: data/org.gnome.todo.gschema.xml:12
 msgid "Window size (width and height)."
 msgstr "Kích thước cửa sổ (rộng và cao)."
 
-#: ../data/org.gnome.todo.gschema.xml.h:5
+#: data/org.gnome.todo.gschema.xml:16
 msgid "Window position"
 msgstr "Vị trí cửa sổ"
 
-#: ../data/org.gnome.todo.gschema.xml.h:6
+#: data/org.gnome.todo.gschema.xml:17
 msgid "Window position (x and y)."
 msgstr "Vị trí cửa sổ (x và y)."
 
-#: ../data/org.gnome.todo.gschema.xml.h:7
+#: data/org.gnome.todo.gschema.xml:21
 msgid "First run of GNOME To Do"
-msgstr "Lần đầu chạy GNOME To Do"
+msgstr "Lần đầu chạy Việc cần làm GNOME"
 
-#: ../data/org.gnome.todo.gschema.xml.h:8
+#: data/org.gnome.todo.gschema.xml:22
 msgid ""
-"Whether it's the first run of GNOME To Do (to run the initial setup) or not"
+"Whether it’s the first run of GNOME To Do (to run the initial setup) or not"
 msgstr ""
-"Hoặc đây là lần đầu chạy GNOME To Do (để chạy cài đặt lần đầu) hoặc không"
+"Có nên đặt đây là lần đầu chạy Việc cần làm GNOME (để chạy cài đặt lần đầu) "
+"hay không"
 
-#: ../data/org.gnome.todo.gschema.xml.h:9
+#: data/org.gnome.todo.gschema.xml:26
 msgid "Default provider to add new lists to"
 msgstr "Nhà cung cấp mặc định để thêm các danh sách mới vào"
 
-#: ../data/org.gnome.todo.gschema.xml.h:10
+#: data/org.gnome.todo.gschema.xml:27
 msgid "The identifier of the default provider to add new lists to"
 msgstr "Định danh của nhà cung cấp mặc định để thêm các danh sách mới vào"
 
-#: ../data/org.gnome.todo.gschema.xml.h:11
+#: data/org.gnome.todo.gschema.xml:31
 msgid "List of active extensions"
 msgstr "Liệt kê các phần mở rộng đang hoạt động"
 
-#: ../data/org.gnome.todo.gschema.xml.h:12
+#: data/org.gnome.todo.gschema.xml:32
 msgid "The list of active extensions"
 msgstr "Danh sách của các phần mở rộng đang hoạt động"
 
-#: ../data/org.gnome.todo.gschema.xml.h:13
+#: data/org.gnome.todo.gschema.xml:36
 msgid "The current list selector"
 msgstr "Bộ chọn danh sách hiện tại"
 
-#: ../data/org.gnome.todo.gschema.xml.h:14
-msgid "The current list selector. Can be 'grid' or 'list'."
+#: data/org.gnome.todo.gschema.xml:37
+msgid "The current list selector. Can be “grid” or “list”."
 msgstr "Bộ chọn danh sách hiện tại. Có thể là “grid” hoặc “list”."
 
-#: ../data/ui/edit-pane.ui.h:1 ../plugins/eds/edit-pane.ui.h:1
-#: ../src/gtd-window.c:553
-msgid "Details"
-msgstr "Chi tiết"
-
-#: ../data/ui/edit-pane.ui.h:2 ../plugins/eds/edit-pane.ui.h:2
-msgid "Notes"
-msgstr "Ghi chú"
-
-#: ../data/ui/edit-pane.ui.h:3 ../plugins/eds/edit-pane.ui.h:3
-msgid "Due Date"
-msgstr "Ngày tới hạn"
-
-#: ../data/ui/edit-pane.ui.h:4 ../plugins/eds/edit-pane.ui.h:4
-msgid "Priority"
-msgstr "Độ ưu tiên"
-
-#: ../data/ui/edit-pane.ui.h:5 ../plugins/eds/edit-pane.ui.h:5
-msgctxt "taskpriority"
-msgid "None"
-msgstr "Không"
-
-#: ../data/ui/edit-pane.ui.h:6 ../plugins/eds/edit-pane.ui.h:6
-msgid "Low"
-msgstr "Thấp"
-
-#: ../data/ui/edit-pane.ui.h:7 ../plugins/eds/edit-pane.ui.h:7
-msgid "Medium"
-msgstr "Trung bình"
-
-#: ../data/ui/edit-pane.ui.h:8 ../plugins/eds/edit-pane.ui.h:8
-msgid "High"
-msgstr "Cao"
-
-#: ../data/ui/edit-pane.ui.h:9 ../data/ui/list-selector-panel.ui.h:2
-#: ../plugins/eds/edit-pane.ui.h:9
-msgid "Delete"
-msgstr "Xóa"
-
-#: ../data/ui/edit-pane.ui.h:10 ../plugins/eds/edit-pane.ui.h:10
+#: data/ui/edit-pane.ui:24 plugins/eds/edit-pane.ui:259
 msgctxt "taskdate"
 msgid "None"
 msgstr "Không "
 
-#: ../data/ui/initial-setup.ui.h:1
+#: data/ui/edit-pane.ui:94 plugins/eds/edit-pane.ui:43 src/gtd-window.c:546
+msgid "Details"
+msgstr "Chi tiết"
+
+#: data/ui/edit-pane.ui:125
+msgid "_Notes"
+msgstr "_Ghi chú"
+
+#: data/ui/edit-pane.ui:168
+msgid "D_ue Date"
+msgstr "N_gày đến hạn"
+
+#: data/ui/edit-pane.ui:188
+msgid "_Priority"
+msgstr "Độ ư_u tiên"
+
+#: data/ui/edit-pane.ui:208 plugins/eds/edit-pane.ui:195
+msgctxt "taskpriority"
+msgid "None"
+msgstr "Không"
+
+#: data/ui/edit-pane.ui:209 plugins/eds/edit-pane.ui:196
+msgid "Low"
+msgstr "Thấp"
+
+#: data/ui/edit-pane.ui:210 plugins/eds/edit-pane.ui:197
+msgid "Medium"
+msgstr "Trung bình"
+
+#: data/ui/edit-pane.ui:211 plugins/eds/edit-pane.ui:198
+msgid "High"
+msgstr "Cao"
+
+#: data/ui/edit-pane.ui:222 data/ui/list-selector-panel.ui:93
+msgid "_Delete"
+msgstr "_Xóa bỏ"
+
+#: data/ui/edit-pane.ui:246
+msgid "_Today"
+msgstr "Hô_m nay"
+
+#: data/ui/edit-pane.ui:257
+msgid "To_morrow"
+msgstr "Ngày _mai"
+
+#: data/ui/edit-pane.ui:268
+msgid "Next _Week"
+msgstr "_Tuần tới"
+
+#: data/ui/initial-setup.ui:25
 msgid "Welcome"
 msgstr "Chào mừng"
 
-#: ../data/ui/initial-setup.ui.h:2
-msgid "Login to online accounts to access your tasks"
-msgstr ""
-"Đăng nhập vào các tài khoản trực tuyến để truy cập các công tác của bạn"
+#: data/ui/initial-setup.ui:40
+msgid "Log in to online accounts to access your tasks"
+msgstr "Đăng nhập vào các tài khoản trực tuyến để truy cập nhiệm vụ của bạn"
 
-#: ../data/ui/initial-setup.ui.h:3 ../data/ui/provider-popover.ui.h:2
-#: ../data/ui/window.ui.h:1 ../src/views/gtd-list-selector-panel.c:386
-msgid "Cancel"
-msgstr "Thôi"
+#: data/ui/initial-setup.ui:70 data/ui/provider-popover.ui:43
+#: data/ui/window.ui:71
+msgid "_Cancel"
+msgstr "T_hôi"
 
-#: ../data/ui/initial-setup.ui.h:4 ../data/ui/list-view.ui.h:4
-#: ../src/gtd-task-list-view.c:434
-msgid "Done"
-msgstr "Xong"
+#: data/ui/initial-setup.ui:80
+msgid "_Done"
+msgstr "_Xong"
 
-#: ../data/ui/list-selector-panel.ui.h:1
-msgid "Rename"
-msgstr "Đổi tên"
+#: data/ui/list-selector-panel.ui:79 data/ui/list-selector-panel.ui:173
+msgid "_Rename"
+msgstr "Đổ_i tên"
 
-#: ../data/ui/list-selector-panel.ui.h:3
-#: ../src/views/gtd-list-selector-panel.c:465
+#: data/ui/list-selector-panel.ui:119 src/views/gtd-list-selector-panel.c:470
 msgid "Lists"
 msgstr "Danh sách"
 
-#: ../data/ui/list-selector-panel.ui.h:4
+#: data/ui/list-selector-panel.ui:129
 msgid "Tasks"
 msgstr "Nhiệm vụ"
 
-#: ../data/ui/list-selector-panel.ui.h:5
+#: data/ui/list-selector-panel.ui:147
 msgid "Name of the task list"
 msgstr "Tên của danh sách nhiệm vụ"
 
-#: ../data/ui/list-selector-panel.ui.h:6
-msgid "New List"
-msgstr "Danh sách mới"
+#: data/ui/list-selector-panel.ui:263
+msgid "_New List"
+msgstr "Danh sách _mới"
 
-#: ../data/ui/list-view.ui.h:1
-msgid "No tasks found"
-msgstr "Không tìm thấy nhiệm vụ nào"
-
-#: ../data/ui/list-view.ui.h:2
-msgid "You can add tasks to lists in the <b>Lists</b> view"
-msgstr ""
-"Bạn có thể thêm các nhiệm vụ vào danh sách trong phần trình bày <b>Danh "
-"sách</b>"
-
-#: ../data/ui/list-view.ui.h:3
+#: data/ui/list-view.ui:111
 msgid "Show or hide completed tasks"
 msgstr "Hiện hay ẩn các nhiệm vụ đã hoàn thành"
 
-#: ../data/ui/plugin-dialog.ui.h:2
-msgid "No extensions found"
-msgstr "Không tìm thấy phần mở rộng nào"
+#: data/ui/list-view.ui:137 src/gtd-task-list-view.c:784
+#: src/gtd-task-list-view.c:789
+msgid "Done"
+msgstr "Xong"
 
-#: ../data/ui/provider-dialog.ui.h:1
-msgid "Select the default storage location to create task lists:"
-msgstr "Chọn vị trí lưu mặc định để tạo danh sách nhiệm vụ:"
-
-#: ../data/ui/provider-dialog.ui.h:2
-msgid "Default storage location"
-msgstr "Vị trí lưu mặc định"
-
-#: ../data/ui/provider-popover.ui.h:1
-msgid "Create"
-msgstr "Tạo"
-
-#: ../data/ui/provider-popover.ui.h:3
-msgid "List Name"
-msgstr "Tên danh sách"
-
-#: ../data/ui/provider-popover.ui.h:4
-msgid "Select a storage location"
-msgstr "Chọn vị trí lưu trữ"
-
-#: ../data/ui/provider-row.ui.h:1
-msgid "Off"
-msgstr "Tắt"
-
-#: ../data/ui/provider-selector.ui.h:1
-msgid "Click to add a new Google account"
-msgstr "Bấm vào để thêm tài khoản Google mới"
-
-#: ../data/ui/provider-selector.ui.h:2
-msgid "Google"
-msgstr "Google"
-
-#: ../data/ui/provider-selector.ui.h:3
-msgid "Click to add a new ownCloud account"
-msgstr "Bấm vào để thêm tài khoản ownCloud mới"
-
-#: ../data/ui/provider-selector.ui.h:4
-msgid "ownCloud"
-msgstr "ownCloud"
-
-#: ../data/ui/provider-selector.ui.h:5
-msgid "Click to add a new Microsoft Exchange account"
-msgstr "Bấm vào để thêm tài khoản Microsoft Exchange mới"
-
-#: ../data/ui/provider-selector.ui.h:6
-msgid "Microsoft Exchange"
-msgstr "Microsoft Exchange"
-
-#: ../data/ui/provider-selector.ui.h:7
-msgid "Or you can just store your tasks on this computer"
-msgstr "Hoặc là bạn chỉ lưu các nhiệm vụ trên máy tính này"
-
-#: ../data/ui/task-row.ui.h:1
+#: data/ui/new-task-row.ui:39
 msgid "New task…"
 msgstr "Nhiệm vụ mới…"
 
-#: ../plugins/eds/gtd-panel-scheduled.c:67 ../src/gtd-edit-pane.c:147
-#: ../src/gtd-task-row.c:170
+#: data/ui/plugin-dialog.ui:118
+msgid "No extensions found"
+msgstr "Không tìm thấy phần mở rộng nào"
+
+#: data/ui/provider-popover.ui:25
+msgid "Create _List"
+msgstr "Tạo _danh sách"
+
+#: data/ui/provider-popover.ui:59
+msgid "List Name"
+msgstr "Tên danh sách"
+
+#: data/ui/provider-popover.ui:155
+msgid "Select a storage location"
+msgstr "Chọn vị trí lưu trữ"
+
+#: data/ui/provider-row.ui:70
+msgid "Off"
+msgstr "Tắt"
+
+#: data/ui/provider-selector.ui:27
+msgid "Click to add a new Google account"
+msgstr "Bấm vào để thêm tài khoản Google mới"
+
+#: data/ui/provider-selector.ui:51
+msgid "Google"
+msgstr "Google"
+
+#: data/ui/provider-selector.ui:67
+msgid "Click to add a new ownCloud account"
+msgstr "Bấm vào để thêm tài khoản ownCloud mới"
+
+#: data/ui/provider-selector.ui:91
+msgid "ownCloud"
+msgstr "ownCloud"
+
+#: data/ui/provider-selector.ui:107
+msgid "Click to add a new Microsoft Exchange account"
+msgstr "Bấm vào để thêm tài khoản Microsoft Exchange mới"
+
+#: data/ui/provider-selector.ui:131
+msgid "Microsoft Exchange"
+msgstr "Microsoft Exchange"
+
+#: data/ui/provider-selector.ui:154
+msgid "Or you can just store your tasks on this computer"
+msgstr "Hoặc là bạn chỉ lưu các nhiệm vụ trên máy tính này"
+
+#: plugins/background/gtd-plugin-background.c:148
+#, c-format
+msgid "%1$s and one more task"
+msgid_plural "%1$s and %2$d other tasks"
+msgstr[0] "%1$s và %2$d nhiệm vụ nữa"
+
+#: plugins/background/gtd-plugin-background.c:247
+#, c-format
+msgid "You have %d task for today"
+msgid_plural "You have %d tasks for today"
+msgstr[0] "Hôm nay bạn có %d nhiệm vụ cần làm"
+
+#: plugins/background/org.gnome.todo.background.gschema.xml:6
+msgid "Run To Do on startup"
+msgstr "Chạy Việc cần làm khi khởi động"
+
+#: plugins/background/org.gnome.todo.background.gschema.xml:7
+msgid "Whether GNOME To Do should run on startup"
+msgstr "Có nên để Việc cần làm GNOME khởi động cùng hệ điều hành hay không"
+
+#: plugins/background/org.gnome.todo.background.gschema.xml:11
+msgid "Show notifications on startup"
+msgstr "Hiển thị cảnh báo khi khởi động"
+
+#: plugins/background/org.gnome.todo.background.gschema.xml:12
+msgid "Whether GNOME To Do should show notifications or not"
+msgstr "Việc làm GNOME có nên cảnh báo hay không"
+
+#: plugins/background/ui/preferences.ui:53
+msgid "Run on Startup"
+msgstr "Chạy lúc khởi động"
+
+#: plugins/background/ui/preferences.ui:66
+msgid "Run To Do automatically when you log in"
+msgstr "Chạy Việc cần làm một cách tự động khi bạn đăng nhập hệ thống"
+
+#: plugins/background/ui/preferences.ui:122
+msgid "Show Notifications"
+msgstr "Hiện thông báo"
+
+#: plugins/background/ui/preferences.ui:135
+msgid "When To Do runs, show a startup notification"
+msgstr "Khi Việc cần làm được chạy, hiển thị thông báo khởi động"
+
+#: plugins/eds/edit-pane.ui:76
+msgid "Notes"
+msgstr "Ghi chú"
+
+#: plugins/eds/edit-pane.ui:117
+msgid "Due Date"
+msgstr "Ngày tới hạn"
+
+#: plugins/eds/edit-pane.ui:177
+msgid "Priority"
+msgstr "Độ ưu tiên"
+
+#: plugins/eds/edit-pane.ui:209
+msgid "Delete"
+msgstr "Xóa"
+
+#: plugins/eds/gtd-plugin-eds.c:243 plugins/eds/gtd-plugin-eds.c:247
+msgid "Error loading GNOME Online Accounts"
+msgstr "Có lỗi khi tải ứng dụng Tài khoản trực tuyến GNOME"
+
+#: plugins/eds/gtd-plugin-eds.c:274
+msgid "Error loading Evolution-Data-Server backend"
+msgstr "Gặp lỗi khi tải phần ứng dụng chạy phía sau Evolution-Data-Server"
+
+#: plugins/eds/gtd-provider-eds.c:136 plugins/eds/gtd-provider-eds.c:140
+msgid "Error fetching tasks from list"
+msgstr "Gặp lỗi khi lấy các nhiệm vụ từ danh sách"
+
+#: plugins/eds/gtd-provider-eds.c:174 plugins/eds/gtd-provider-eds.c:179
+msgid "Failed to connect to task list"
+msgstr "Gặp lỗi khi kết nối đến danh sách nhiệm vụ"
+
+#: plugins/eds/gtd-provider-eds.c:227
+msgid "Task list source successfully connected"
+msgstr "Việc kết nối nguồn danh sách nhiệm vụ đã thành công"
+
+#: plugins/eds/gtd-provider-eds.c:336
+msgid "Failed to prompt for credentials"
+msgstr "Gặp lỗi khi hỏi đáp cho chứng thư"
+
+#: plugins/eds/gtd-provider-eds.c:359
+msgid "Failed to prompt for credentials for"
+msgstr "Gặp lỗi khi hỏi đáp cho chứng thư cho"
+
+#: plugins/eds/gtd-provider-eds.c:413
+msgid "Authentication failure"
+msgstr "Việc xác thực gặp lỗi nghiêm trọng"
+
+#: plugins/eds/gtd-provider-eds.c:487
+msgid "Error loading task manager"
+msgstr "Có lỗi xảy ra khi đang tải bộ quản lý nhiệm vụ"
+
+#: plugins/eds/gtd-provider-eds.c:573 plugins/eds/gtd-provider-eds.c:581
+msgid "Error creating task"
+msgstr "Có lỗi khi tạo nhiệm vụ"
+
+#: plugins/eds/gtd-provider-eds.c:623 plugins/eds/gtd-provider-eds.c:627
+msgid "Error updating task"
+msgstr "Có lỗi khi cập nhật nhiệm vụ"
+
+#: plugins/eds/gtd-provider-eds.c:661 plugins/eds/gtd-provider-eds.c:665
+msgid "Error removing task"
+msgstr "Có lỗi khi xóa bỏ nhiệm vụ"
+
+#: plugins/eds/gtd-provider-eds.c:691 plugins/eds/gtd-provider-eds.c:695
+msgid "Error creating task list"
+msgstr "Có lỗi khi tạo danh sách nhiệm vụ"
+
+#: plugins/eds/gtd-provider-eds.c:716 plugins/eds/gtd-provider-eds.c:720
+msgid "Error removing task list"
+msgstr "Có lỗi khi gỡ bỏ danh sách nhiệm vụ"
+
+#: plugins/eds/gtd-provider-eds.c:779 plugins/eds/gtd-provider-eds.c:783
+#: plugins/eds/gtd-task-list-eds.c:69
+msgid "Error saving task list"
+msgstr "Có lỗi khi ghi danh sách nhiệm vụ"
+
+#: plugins/eds/gtd-provider-local.c:61
+msgid "Local"
+msgstr "Nội bộ"
+
+#: plugins/eds/gtd-provider-local.c:67
+msgid "On This Computer"
+msgstr "Trên máy tính này"
+
+#: plugins/eds/gtd-provider-local.c:134 plugins/eds/gtd-provider-local.c:138
+msgid "Error creating new task list"
+msgstr "Có lỗi xảy ra khi đang tạo danh sách nhiệm vụ"
+
+#: plugins/scheduled-panel/gtd-panel-scheduled.c:93 src/gtd-edit-pane.c:217
+#: src/gtd-task-row.c:374
 msgid "No date set"
 msgstr "Chưa đặt ngày"
 
-#: ../plugins/eds/gtd-panel-scheduled.c:83 ../src/gtd-task-row.c:148
+#: plugins/scheduled-panel/gtd-panel-scheduled.c:101 src/gtd-task-row.c:352
 #, c-format
 msgid "Yesterday"
 msgid_plural "%d days ago"
 msgstr[0] "%d hôm trước"
 
 #. Setup a title
-#: ../plugins/eds/gtd-panel-scheduled.c:87 ../plugins/eds/gtd-panel-today.c:147
-#: ../plugins/eds/gtd-panel-today.c:152 ../plugins/eds/gtd-panel-today.c:314
-#: ../plugins/score/score/__init__.py:95 ../src/gtd-task-row.c:140
+#: plugins/scheduled-panel/gtd-panel-scheduled.c:105
+#: plugins/score/score/__init__.py:95 plugins/today-panel/gtd-panel-today.c:132
+#: plugins/today-panel/gtd-panel-today.c:137
+#: plugins/today-panel/gtd-panel-today.c:271 src/gtd-task-row.c:344
 msgid "Today"
 msgstr "Hôm nay"
 
-#: ../plugins/eds/gtd-panel-scheduled.c:91 ../src/gtd-task-row.c:144
+#: plugins/scheduled-panel/gtd-panel-scheduled.c:109 src/gtd-task-row.c:348
 msgid "Tomorrow"
 msgstr "Ngày mai"
 
 #. Setup a title
-#: ../plugins/eds/gtd-panel-scheduled.c:354
-#: ../plugins/eds/gtd-panel-scheduled.c:359
-#: ../plugins/eds/gtd-panel-scheduled.c:489
+#: plugins/scheduled-panel/gtd-panel-scheduled.c:365
+#: plugins/scheduled-panel/gtd-panel-scheduled.c:370
+#: plugins/scheduled-panel/gtd-panel-scheduled.c:507
 msgid "Scheduled"
 msgstr "Lịch trình"
 
-#: ../plugins/eds/gtd-panel-scheduled.c:497
-#: ../plugins/eds/gtd-panel-today.c:322
-#: ../src/views/gtd-list-selector-panel.c:700
+#: plugins/scheduled-panel/gtd-panel-scheduled.c:512
+#: plugins/today-panel/gtd-panel-today.c:276
+#: plugins/unscheduled-panel/unscheduled-panel/__init__.py:52
+#: src/views/gtd-list-selector-panel.c:716
 msgid "Clear completed tasks…"
 msgstr "Xóa các nhiệm vụ đã hoàn tất…"
 
-#: ../plugins/eds/gtd-plugin-eds.c:249 ../plugins/eds/gtd-plugin-eds.c:253
-msgid "Error loading GNOME Online Accounts"
-msgstr "Có lỗi khi tải ứng dụng Tài khoản trực tuyến GNOME"
-
-#: ../plugins/eds/gtd-plugin-eds.c:278
-msgid "Error loading Evolution-Data-Server backend"
-msgstr "Gặp lỗi khi tải phần ứng dụng chạy phía sau Evolution-Data-Server"
-
-#: ../plugins/eds/gtd-plugin-eds.c:371 ../src/gtd-application.c:243
-msgid "Error loading CSS from resource"
-msgstr "Có lỗi khi đang tải CSS từ nguồn"
-
-#: ../plugins/eds/gtd-provider-eds.c:118 ../plugins/eds/gtd-provider-eds.c:122
-msgid "Error fetching tasks from list"
-msgstr "Gặp lỗi khi lấy các nhiệm vụ từ danh sách"
-
-#: ../plugins/eds/gtd-provider-eds.c:182
-msgid "Task list source successfully connected"
-msgstr "Việc kết nối nguồn danh sách nhiệm vụ đã thành công"
-
-#: ../plugins/eds/gtd-provider-eds.c:189 ../plugins/eds/gtd-provider-eds.c:194
-msgid "Failed to connect to task list source"
-msgstr "Gặp lỗi khi kết nối đến nguồn danh sách nhiệm vụ"
-
-#: ../plugins/eds/gtd-provider-eds.c:306
-msgid "Failed to prompt for credentials"
-msgstr "Gặp lỗi khi hỏi đáp cho chứng thư"
-
-#: ../plugins/eds/gtd-provider-eds.c:329
-msgid "Failed to prompt for credentials for"
-msgstr "Gặp lỗi khi hỏi đáp cho chứng thư cho"
-
-#: ../plugins/eds/gtd-provider-eds.c:383
-msgid "Authentication failure"
-msgstr "Việc xác thực gặp lỗi nghiêm trọng"
-
-#: ../plugins/eds/gtd-provider-eds.c:435
-msgid "Error loading task manager"
-msgstr "Có lỗi xảy ra khi đang tải bộ quản lý nhiệm vụ"
-
-#: ../plugins/eds/gtd-provider-eds.c:532 ../plugins/eds/gtd-provider-eds.c:536
-msgid "Error creating task"
-msgstr "Có lỗi khi tạo nhiệm vụ"
-
-#: ../plugins/eds/gtd-provider-eds.c:575 ../plugins/eds/gtd-provider-eds.c:579
-msgid "Error updating task"
-msgstr "Có lỗi khi cập nhật nhiệm vụ"
-
-#: ../plugins/eds/gtd-provider-eds.c:611 ../plugins/eds/gtd-provider-eds.c:615
-msgid "Error removing task"
-msgstr "Có lỗi khi xóa bỏ nhiệm vụ"
-
-#: ../plugins/eds/gtd-provider-eds.c:639 ../plugins/eds/gtd-provider-eds.c:643
-msgid "Error creating task list"
-msgstr "Có lỗi khi tạo danh sách nhiệm vụ"
-
-#: ../plugins/eds/gtd-provider-eds.c:660 ../plugins/eds/gtd-provider-eds.c:664
-msgid "Error removing task list"
-msgstr "Có lỗi khi gỡ bỏ danh sách nhiệm vụ"
-
-#: ../plugins/eds/gtd-provider-eds.c:721 ../plugins/eds/gtd-provider-eds.c:725
-#: ../plugins/eds/gtd-task-list-eds.c:69
-msgid "Error saving task list"
-msgstr "Có lỗi khi ghi danh sách nhiệm vụ"
-
-#: ../plugins/eds/gtd-provider-local.c:60
-msgid "Local"
-msgstr "Nội bộ"
-
-#: ../plugins/eds/gtd-provider-local.c:66
-msgid "On This Computer"
-msgstr "Trên máy tính này"
-
-#: ../plugins/eds/gtd-provider-local.c:133
-#: ../plugins/eds/gtd-provider-local.c:137
-msgid "Error creating new task list"
-msgstr "Có lỗi xảy ra khi đang tạo danh sách nhiệm vụ"
-
-#: ../plugins/score/score/__init__.py:84
+#: plugins/score/score/__init__.py:84
 msgid "No task completed today"
 msgstr "Hôm nay không có nhiệm vụ nào"
 
-#: ../plugins/unscheduled-panel/unscheduled-panel/__init__.py:33
-msgid "unscheduled-panel"
-msgstr "bảng-chưa-đặt-lịch"
+#: plugins/todoist/gtd-provider-todoist.c:67
+msgid "Todoist"
+msgstr "Todoist"
 
-#: ../plugins/unscheduled-panel/unscheduled-panel/__init__.py:34
-#: ../plugins/unscheduled-panel/unscheduled-panel/__init__.py:85
+#: plugins/todoist/gtd-provider-todoist.c:73
+msgid "Todoist Plugin for GNOME To Do"
+msgstr "Todoist là phần bổ sung cho Việc cần làm GNOMETo Do"
+
+#: plugins/todoist/ui/preferences.ui:80
+msgid "No Todoist accounts found"
+msgstr "Không tìm thấy tài khoản Todoist nào"
+
+#: plugins/todoist/ui/preferences.ui:89
+msgid "Add a Todoist account"
+msgstr "Thêm một tài khoản Todoist"
+
+#: plugins/todo-txt/gtd-plugin-todo-txt.c:142
+#: plugins/todo-txt/gtd-plugin-todo-txt.c:183
+msgid "Cannot create Todo.txt file"
+msgstr "Không thể tạo tập tin Todo.txt"
+
+#: plugins/todo-txt/gtd-plugin-todo-txt.c:307
+msgid "Select a Todo.txt-formatted file:"
+msgstr "Chọn một tập tin đã được định dạng Todo.txt:"
+
+#: plugins/todo-txt/gtd-plugin-todo-txt.c:308
+msgid "Select a file"
+msgstr "Chọn một tập tin"
+
+#: plugins/todo-txt/gtd-provider-todo-txt.c:75
+msgid "Todo.txt"
+msgstr "Todo.txt"
+
+#: plugins/todo-txt/gtd-provider-todo-txt.c:81
+msgid "On the Todo.txt file"
+msgstr "Trên tập tin Todo.txt"
+
+#: plugins/todo-txt/gtd-provider-todo-txt.c:112
+#: plugins/todo-txt/gtd-provider-todo-txt.c:116
+msgid "Error while opening Todo.txt"
+msgstr "Gặp lỗi khi đang mở Todo.txt"
+
+#: plugins/todo-txt/gtd-provider-todo-txt.c:263
+#: plugins/todo-txt/gtd-provider-todo-txt.c:267
+msgid "Error while reading a line from Todo.txt"
+msgstr "Lỗi trong khi đọc dòng từ Todo.txt"
+
+#: plugins/todo-txt/gtd-provider-todo-txt.c:384
+msgid "Error while opening the file monitor. Todo.txt will not be monitored"
+msgstr "Gặp lỗi khi mở bộ theo dõi tập tin. Todo.txt sẽ không được theo dõi"
+
+#: plugins/todo-txt/gtd-todo-txt-parser.c:309
+msgid "Incorrect date"
+msgstr "Ngày tháng không hợp lệ"
+
+#: plugins/todo-txt/gtd-todo-txt-parser.c:310
+msgid "Please make sure the date in Todo.txt is valid."
+msgstr "Vui lòng đảm bảo rằng ngày tháng trong Todo.txt là hợp lệ."
+
+#: plugins/todo-txt/gtd-todo-txt-parser.c:341
+msgid "Unrecognized token in a Todo.txt line"
+msgstr "Không nhận ra thẻ bải trong một dòng Todo.txt"
+
+#: plugins/todo-txt/gtd-todo-txt-parser.c:342
+msgid ""
+"To Do cannot recognize some tags in your Todo.txt file. Some tasks may not "
+"be loaded"
+msgstr ""
+"Việc cần làm không thể nhận ra một số thẻ trong tập tin Todo.txt của bạn. "
+"Một số nhiệm vụ có thể không được tải"
+
+#: plugins/todo-txt/gtd-todo-txt-parser.c:353
+msgid "No task list found for some tasks"
+msgstr "Không tìm thấy danh sách nhiệm vụ cho một số nhiệm vụ"
+
+#: plugins/todo-txt/gtd-todo-txt-parser.c:354
+msgid ""
+"Some of the tasks in your Todo.txt file do not have a task list. To Do "
+"supports tasks with a task list. Please add a list to all your tasks"
+msgstr ""
+"Một số nhiệm vụ trong tập tin Todo.txt của bạn không có một danh sách nhiệm "
+"vụ. Việc cần lam hỗ trợ các nhiệm vụ với một danh sách nhiệm vụ. Vui lòng "
+"thêm một danh dách vào tất cả các nhiệm vụ của bạn"
+
+#: plugins/todo-txt/org.gnome.todo.txt.gschema.xml:6
+msgid "Todo.txt File"
+msgstr "Tập tin Todo.txt"
+
+#: plugins/todo-txt/org.gnome.todo.txt.gschema.xml:7
+msgid "Source of the Todo.txt file"
+msgstr "Nguồn của tập tin Todo.txt"
+
+#. Translators: 'Unscheduled' as in 'Unscheduled tasks'
+#: plugins/unscheduled-panel/unscheduled-panel/__init__.py:34
+#: plugins/unscheduled-panel/unscheduled-panel/__init__.py:96
 msgid "Unscheduled"
 msgstr "Chưa đặt lịch"
 
-#: ../plugins/unscheduled-panel/unscheduled-panel/__init__.py:87
+#. Translators: 'Unscheduled' as in 'Unscheduled tasks'
+#: plugins/unscheduled-panel/unscheduled-panel/__init__.py:99
 #, python-format
 msgid "Unscheduled (%d)"
 msgstr "Chưa đặt lịch (%d)"
 
-#: ../src/gtd-application.c:113
+#: src/gtd-application.c:142
 #, c-format
 msgid "Copyright © %d The To Do authors"
 msgstr "Tác quyền © %d Các tác giả To Do"
 
-#: ../src/gtd-application.c:118
+#: src/gtd-application.c:147
 #, c-format
 msgid "Copyright © %d–%d The To Do authors"
 msgstr "Tác quyền © %d–%d Các tác giả To Do"
 
-#: ../src/gtd-application.c:130
+#: src/gtd-application.c:159
 msgid "translator-credits"
 msgstr "Nhóm Việt hóa GNOME <gnome-vi-list@gnome.org>"
 
-#: ../src/gtd-plugin-dialog-row.c:95
+#: src/gtd-empty-list-widget.c:49
+msgid "No more tasks left"
+msgstr "Không còn lại nhiệm vụ nào"
+
+#: src/gtd-empty-list-widget.c:50
+msgid "Nothing else to do here"
+msgstr "Không cần làm gì ở đây nữa."
+
+#: src/gtd-empty-list-widget.c:51
+msgid "You made it!"
+msgstr "Bạn đã làm được!"
+
+#: src/gtd-empty-list-widget.c:52
+msgid "Looks like there’s nothing else left here"
+msgstr "Xem ra ở đây không còn có gì còn cần làm nữa"
+
+#: src/gtd-empty-list-widget.c:57
+msgid "Get some rest now"
+msgstr "Giờ hãy thảnh thơi"
+
+#: src/gtd-empty-list-widget.c:58
+msgid "Enjoy the rest of your day"
+msgstr "Tận hưởng sự nghỉ ngơi của ngày của bạn"
+
+#: src/gtd-empty-list-widget.c:59
+msgid "Good job!"
+msgstr "Làm tốt lắm!"
+
+#: src/gtd-empty-list-widget.c:60
+msgid "Meanwhile, spread the love"
+msgstr "Trong khi ấy, bồi đắp tình yêu"
+
+#: src/gtd-empty-list-widget.c:61
+msgid "Working hard is always rewarded"
+msgstr "Làm việc vất vả luôn được thưởng công"
+
+#: src/gtd-empty-list-widget.c:72
+msgid "No tasks found"
+msgstr "Không tìm thấy nhiệm vụ nào"
+
+#: src/gtd-empty-list-widget.c:73
+msgid "You can add tasks using the <b>+</b> above"
+msgstr "Bạn có thể thêm các nhiệm vụ mới dùng <b>+</b> ở phía trên"
+
+#: src/gtd-plugin-dialog-row.c:95
 msgid "Error loading plugin"
 msgstr "Có lỗi xảy ra khi đang tải phần bổ sung"
 
-#: ../src/gtd-plugin-dialog-row.c:95
+#: src/gtd-plugin-dialog-row.c:95
 msgid "Error unloading plugin"
 msgstr "Có lỗi xảy ra khi thôi tải phần bổ sung"
 
-#: ../src/gtd-task-list-view.c:334
+#: src/gtd-task-list-view.c:612
+msgid "Removing this task will also remove its subtasks. Remove anyway?"
+msgstr ""
+"Việc xóa bỏ nhiệm vụ này cũng sẽ đồng thời xóa bỏ các nhiệm vụ con. Vẫn tiếp "
+"tục chứ?"
+
+#: src/gtd-task-list-view.c:615
+msgid "Once removed, the tasks cannot be recovered."
+msgstr "Một khi đã xóa, nhiệm vụ sẽ không thể phục hồi được."
+
+#: src/gtd-task-list-view.c:618 src/views/gtd-list-selector-panel.c:391
+msgid "Cancel"
+msgstr "Thôi"
+
+#: src/gtd-task-list-view.c:620
+msgid "Remove"
+msgstr "Xóa bỏ"
+
+#: src/gtd-task-list-view.c:669
 #, c-format
 msgid "Task <b>%s</b> removed"
 msgstr "Nhiệm vụ <b>%s</b> đã bị xóa bỏ"
 
-#: ../src/gtd-task-list-view.c:365
+#: src/gtd-task-list-view.c:699
 msgid "Undo"
 msgstr "Hoàn lại"
 
-#: ../src/gtd-window.c:817
+#: src/gtd-window.c:818
 msgid "Loading your task lists…"
 msgstr "Đang tải các danh sách nhiệm vụ…"
 
-#: ../src/gtd-window.c:949
+#: src/gtd-window.c:944
 msgid "Click a task list to select"
 msgstr "Bấm vào danh sách nhiệm vụ để chọn"
 
-#: ../src/views/gtd-list-selector-grid-item.c:233
+#: src/views/gtd-list-selector-grid-item.c:234
 msgid "No tasks"
 msgstr "Không có nhiệm vụ nào"
 
-#: ../src/views/gtd-list-selector-panel.c:185
+#: src/views/gtd-list-selector-panel.c:185
 msgid "Setting new color for task list"
 msgstr "Cài đặt màu mới cho danh sách nhiệm vụ"
 
-#: ../src/views/gtd-list-selector-panel.c:379
+#: src/views/gtd-list-selector-panel.c:384
 msgid "Remove the selected task lists?"
 msgstr "Xóa bỏ các danh sách nhiệm vụ đã chọn?"
 
-#: ../src/views/gtd-list-selector-panel.c:382
+#: src/views/gtd-list-selector-panel.c:387
 msgid "Once removed, the task lists cannot be recovered."
 msgstr "Một khi đã xóa, danh sách nhiệm vụ sẽ không thể phục hồi được."
 
-#: ../src/views/gtd-list-selector-panel.c:394
+#: src/views/gtd-list-selector-panel.c:399
 msgid "Remove task lists"
 msgstr "Xóa bỏ danh sách nhiệm vụ"
 
-#~ msgid "Todo"
-#~ msgstr "Cần làm"
+#~ msgid "Change default storage location…"
+#~ msgstr "Đổi vị trí lưu trữ mặc định…"
+
+#~ msgid "Error loading CSS from resource"
+#~ msgstr "Có lỗi khi đang tải CSS từ nguồn"
+
+#~ msgid "Select the default storage location to create task lists:"
+#~ msgstr "Chọn vị trí lưu mặc định để tạo danh sách nhiệm vụ:"
+
+#~ msgid "Default storage location"
+#~ msgstr "Vị trí lưu mặc định"
+
+#~ msgid "unscheduled-panel"
+#~ msgstr "bảng-chưa-đặt-lịch"
 
 #~ msgid "Skipping already loaded task list "
 #~ msgstr "Bỏ qua danh sách nhiệm vụ đã được tải"
