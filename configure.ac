@@ -79,7 +79,9 @@ PKG_CHECK_MODULES(GNOME_TODO,
                   libedataserver-1.2 >= 3.17.1
                   libedataserverui-1.2 >= 3.17.1
                   libical >= 0.43
-                  libpeas-1.0 >= 1.17)
+                  libpeas-1.0 >= 1.17
+                  rest-0.7
+                  json-glib-1.0)
 
 APPSTREAM_XML
 
