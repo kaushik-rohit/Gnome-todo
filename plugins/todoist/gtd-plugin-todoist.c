@@ -174,8 +174,29 @@ goa_client_ready (GObject           *source,
                   GtdPluginTodoist  *self)
 {
   GoaClient *client;
+  GList *accounts;
+  GList *l;
 
   client = goa_client_new_finish (res, NULL);
+  accounts = goa_client_get_accounts (client);
+
+  for (l = accounts; l != NULL; l = l->next)
+    {
+      GoaAccount *account;
+      const gchar *provider_type;
+
+      account = goa_object_get_account (l->data);
+      provider_type = goa_account_get_provider_type (account);
+
+      if (g_strcmp0 (provider_type, "todoist") == 0)
+        {
+          gtd_plugin_todoist_account_added (GTD_TODOIST_PREFERENCES_PANEL (self->preferences),
+                                            l->data,
+                                            self);
+        }
+
+      g_object_unref (account);
+    }
 
   /* Connect signals */
   g_signal_connect (client, "account-added", G_CALLBACK (gtd_plugin_todoist_account_added), self);
@@ -183,6 +204,8 @@ goa_client_ready (GObject           *source,
   g_signal_connect (client, "account-changed", G_CALLBACK (gtd_plugin_todoist_account_changed), self);
 
   gtd_todoist_preferences_panel_set_client (GTD_TODOIST_PREFERENCES_PANEL (self->preferences), client);
+
+  g_list_free_full (accounts,  g_object_unref);
 }
 
 static void
