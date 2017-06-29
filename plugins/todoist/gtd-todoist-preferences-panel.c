@@ -129,12 +129,10 @@ on_goa_account_added (GoaClient                   *client,
   GtkWidget *box;
   GtkWidget *logo;
   GtkWidget *desc;
-  GList *child;
   const gchar *provider_name;
   const gchar *identity;
-  goa_account = goa_object_get_account (object);
 
-  child = NULL;
+  goa_account = goa_object_get_account (object);
   provider_name = goa_account_get_provider_name (goa_account);
 
   if (g_strcmp0 (provider_name, "Todoist") != 0)
@@ -156,17 +154,9 @@ on_goa_account_added (GoaClient                   *client,
 
   gtk_widget_show_all (row);
 
-  child = gtk_container_get_children (GTK_CONTAINER (self->accounts_listbox));
-
-  /* If List Box was empty before this addition, the preferences
-   * panel should change to accounts_page.
-   */
-  if (!child)
-    gtk_stack_set_visible_child (GTK_STACK (self), self->accounts_page);
+  gtk_stack_set_visible_child (GTK_STACK (self), self->accounts_page);
 
   gtk_list_box_insert (GTK_LIST_BOX (self->accounts_listbox), GTK_WIDGET (row), -1);
-
-  g_list_free (child);
 }
 
 static void
@@ -205,10 +195,7 @@ on_goa_account_removed (GoaClient                   *client,
         }
     }
 
-  /* Check if ListBox becomes empty after this removal.
-   * If true change to empty_page of preference panel.
-   */
-
+  /* Change to empty_page if the listbox becomes empty after this removal */
   if (!todoist_accounts)
     gtk_stack_set_visible_child (GTK_STACK (self), self->empty_page);
 
