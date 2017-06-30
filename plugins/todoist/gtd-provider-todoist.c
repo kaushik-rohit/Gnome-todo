@@ -229,9 +229,9 @@ parse_array_to_list (GtdProviderTodoist *self,
       gchar *uid;
       guint32 id;
       guint color_index;
+      guint is_deleted;
 
       object = json_node_get_object (l->data);
-      list = gtd_task_list_new (GTD_PROVIDER (self));
 
       if (json_object_has_member (object, "name"))
         name = json_object_get_string_member (object, "name");
@@ -242,13 +242,31 @@ parse_array_to_list (GtdProviderTodoist *self,
       if (json_object_has_member (object, "id"))
         id = json_object_get_int_member (object, "id");
 
+      if (json_object_has_member (object, "is_deleted"))
+        is_deleted = json_object_get_int_member (object, "is_deleted");
+
+      if (is_deleted)
+        {
+          list = g_hash_table_lookup (self->lists, GUINT_TO_POINTER (id));
+          g_hash_table_remove (self->lists, GUINT_TO_POINTER (id));
+
+          g_signal_emit_by_name (self, "list-removed", list);
+
+          continue;
+        }
+
       uid = g_strdup_printf ("%u", id);
+
+      if (g_hash_table_contains (self->lists, GUINT_TO_POINTER (id)))
+          list = g_hash_table_lookup (self->lists, GUINT_TO_POINTER (id));
+      else
+          list = gtd_task_list_new (GTD_PROVIDER (self));
 
       gtd_task_list_set_name (list, name);
       gtd_task_list_set_color (list, convert_color_code (color_index));
       gtd_object_set_uid (GTD_OBJECT (list), uid);
       g_hash_table_insert (self->lists, GUINT_TO_POINTER(id), list);
-
+      g_signal_emit_by_name (self, "list-changed", list);
       g_free (uid);
     }
 }
@@ -275,6 +293,7 @@ parse_array_to_task (GtdProviderTodoist *self,
       gchar *uid;
       guint id;
       guint32 project_id;
+      guint is_deleted;
       gint priority;
 
       component = e_cal_component_new ();
@@ -296,6 +315,9 @@ parse_array_to_task (GtdProviderTodoist *self,
 
       if (json_object_has_member (object, "project_id"))
         project_id = json_object_get_int_member (object, "project_id");
+
+      if (json_object_has_member (object, "is_deleted"))
+        is_deleted = json_object_get_int_member (object, "priority");
 
       list = g_hash_table_lookup (self->lists, GUINT_TO_POINTER(project_id));
       uid = g_strdup_printf ("%d", id);
@@ -371,7 +393,7 @@ gtd_provider_todoist_sync_call (GtdProviderTodoist *self)
 
   payload = rest_proxy_call_get_payload (call);
   payload_length = rest_proxy_call_get_payload_length (call);
-
+g_message ("%s\n\n", payload);
   if (!json_parser_load_from_data (parser, payload, payload_length, &parse_error))
     {
       emit_generic_error (parse_error);
@@ -393,7 +415,7 @@ out:
   return object;
 }
 
-static void
+static gboolean
 load_tasks (GtdProviderTodoist *self)
 {
   JsonObject *object;
@@ -409,6 +431,8 @@ load_tasks (GtdProviderTodoist *self)
 
   parse_array_to_list (self, projects);
   parse_array_to_task (self, items);
+
+  return TRUE;
 }
 
 static void
@@ -622,6 +646,8 @@ gtd_provider_todoist_init (GtdProviderTodoist *self)
   gtd_object_set_ready (GTD_OBJECT (self), TRUE);
 
   self->lists = g_hash_table_new (g_direct_hash, g_direct_equal);
+
+  g_timeout_add (5000, (GSourceFunc) load_tasks, self);
 
   /* icon */
   self->icon = G_ICON (g_themed_icon_new_with_default_fallbacks ("computer-symbolic"));
