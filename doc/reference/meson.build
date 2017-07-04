@@ -55,10 +55,7 @@ doc_path = join_paths(gnome_todo_datadir, 'gtk-doc', 'html', meson.project_name(
 gnome.gtkdoc(
   meson.project_name(),
   main_sgml: meson.project_name() + '-docs.sgml',
-  src_dir: [
-    join_paths(meson.source_root(), 'src'),
-    join_paths(meson.build_root(), 'src')
-  ],
+  src_dir: src_inc,
   dependencies: libgtd_dep,
   scan_args: [
     '--rebuild-types',

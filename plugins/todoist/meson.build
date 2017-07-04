@@ -12,10 +12,7 @@ plugins_libs += static_library(
   plugin_name,
   sources: sources,
   include_directories: plugins_incs,
-  dependencies: gnome_todo_deps,
-  c_args: common_flags + [
-    '-DPACKAGE_DATA_DIR="@0@"'.format(gnome_todo_pkgdatadir)
-  ]
+  dependencies: gnome_todo_deps
 )
 
 plugin_data = plugin_name + '.plugin'

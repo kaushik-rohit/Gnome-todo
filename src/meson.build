@@ -1,6 +1,8 @@
+src_inc = include_directories('.')
+
 install_headers(
   'engine/gtd-manager.h',
-  subdir: join_paths(gnome_todo_pkgincludedir, 'engine')
+  subdir: join_paths(meson.project_name(), 'engine')
 )
 
 interfaces_headers = files(
@@ -11,15 +13,19 @@ interfaces_headers = files(
 
 install_headers(
   interfaces_headers,
-  subdir: join_paths(gnome_todo_pkgincludedir, 'interfaces')
+  subdir: join_paths(meson.project_name(), 'interfaces')
 )
 
 install_headers(
   'notification/gtd-notification.h',
-  subdir: join_paths(gnome_todo_pkgincludedir, 'notification')
+  subdir: join_paths(meson.project_name(), 'notification')
 )
 
-headers = files(
+enum_headers = files(
+  'gtd-enums.h'
+)
+
+headers = enum_headers + files(
   'gtd-object.h',
   'gtd-task.h',
   'gtd-task-list.h',
@@ -30,13 +36,9 @@ headers = files(
   'gnome-todo.h'
 )
 
-enum_headers = files(
-  'gtd-enums.h'
-)
-
 install_headers(
-  headers + enum_headers,
-  subdir: gnome_todo_pkgincludedir
+  headers,
+  subdir: meson.project_name()
 )
 
 sources = files(
@@ -96,7 +98,7 @@ sources += gnome.mkenums(
   enum,
   sources: enum_headers,
   c_template: enum + '.c.template',
-  h_template: enum + '.h.template',
+  h_template: enum + '.h.template'
 )
 
 gnome_todo_incs = [
@@ -110,7 +112,7 @@ gnome_todo_incs = [
   )
 ]
 
-gnome_todo_cflags = common_flags + [
+gnome_todo_cflags = [
   '-DPACKAGE_LOCALE_DIR="@0@"'.format(gnome_todo_localedir),
   '-DPACKAGE_DATA_DIR="@0@"'.format(gnome_todo_pkgdatadir),
   '-DPACKAGE_LIB_DIR="@0@"'.format(gnome_todo_pkglibdir),
@@ -151,7 +153,7 @@ libgtd = shared_library(
 
 libgtd_dep = declare_dependency(
   link_with: libgtd,
-  include_directories: include_directories('.'),
+  include_directories: src_inc,
   dependencies: gnome_todo_deps
 )
 
@@ -161,7 +163,7 @@ pkg.generate(
   name: 'Gnome To Do',
   description: 'Header and path for Gnome Todo Plugins',
   filebase: meson.project_name(),
-  subdirs: gnome_todo_pkgincludedir,
+  subdirs: meson.project_name(),
   variables: [
     'exec_prefix=${prefix}'
   ],

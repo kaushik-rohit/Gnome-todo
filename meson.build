@@ -82,28 +82,31 @@ common_flags = ['-DHAVE_CONFIG_H']
 buildtype = get_option('buildtype')
 if buildtype == 'debug' or buildtype == 'debugoptimized'
   test_cflags = [
-    '-ffast-math',
-    '-fstrict-aliasing',
+    '-fno-strict-aliasing',
     '-Wcast-align',
-    '-Werror=implicit',
-    '-Werror=init-self',
-    '-Werror=main',
-    '-Werror=missing-braces',
-    '-Werror=return-type',
-    '-Werror=array-bounds',
-    '-Werror=write-strings',
+    '-Wdeclaration-after-statement',
     '-Wformat=2',
-    '-Wlogical-op',
+    '-Winit-self',
+    '-Winline',
     '-Wmissing-declarations',
     '-Wmissing-format-attribute',
+    '-Wmissing-include-dirs',
     '-Wmissing-noreturn',
     '-Wmissing-prototypes',
     '-Wnested-externs',
-    '-Wno-unused-local-typedefs',
+    '-Wno-error=unused-parameter',
+    '-Wno-error=missing-field-initializers',
+    '-Wno-missing-field-initializers',
+    '-Wno-unused-parameter',
     '-Wold-style-definition',
+    '-Wpacked',
     '-Wredundant-decls',
     '-Wshadow',
-    '-Wstrict-prototypes'
+    '-Wstrict-prototypes',
+    '-Wswitch-enum',
+    '-Wundef',
+    '-Wunused-but-set-variable',
+    '-Wwrite-strings'
   ]
 
   foreach cflag: test_cflags
@@ -111,9 +114,9 @@ if buildtype == 'debug' or buildtype == 'debugoptimized'
       common_flags += [cflag]
     endif
   endforeach
-
-  add_project_arguments(common_flags, language: 'c')
 endif
+
+add_project_arguments(common_flags, language: 'c')
 
 glib_dep = dependency('glib-2.0', version: '>= 2.43.4')
 gtk_dep = dependency('gtk+-3.0', version: '>= 3.22.0')
@@ -152,7 +155,7 @@ subdir('data')
 subdir('po')
 
 if get_option('enable-gtk-doc')
-  subdir('doc')
+  subdir('doc/reference')
 endif
 
 meson.add_install_script('meson_post_install.py')
