@@ -982,6 +982,7 @@ gtd_window_set_custom_title (GtdWindow   *window,
     }
   else
     {
+      gtk_header_bar_set_title (priv->headerbar, _("To Do"));
       gtk_header_bar_set_custom_title (priv->headerbar, GTK_WIDGET (priv->stack_switcher));
     }
 }
