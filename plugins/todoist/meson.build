@@ -8,11 +8,16 @@ sources = files(
   'gtd-' + plugin_name + '-preferences-panel.c'
 )
 
+todoist_deps = [
+  dependency('rest-0.7'),
+  dependency('json-glib-1.0')
+]
+
 plugins_libs += static_library(
   plugin_name,
   sources: sources,
   include_directories: plugins_incs,
-  dependencies: gnome_todo_deps
+  dependencies: [gnome_todo_deps, todoist_deps]
 )
 
 plugin_data = plugin_name + '.plugin'
