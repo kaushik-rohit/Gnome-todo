@@ -351,27 +351,22 @@ load_tasks (GtdProviderTodoist *self,
   parse_array_to_task (self, items);
 }
 
-static void
-synchronize_call_cb (RestProxyCall      *call,
-                     const GError       *error,
-                     GObject            *weak_object,
-                     GtdProviderTodoist *self)
+static gboolean
+check_post_response_for_errors (RestProxyCall *call,
+                                JsonParser    *parser,
+                                const GError  *error)
 {
-  JsonObject *object;
-  JsonParser *parser;
   GError *parse_error;
   const gchar *payload;
   guint status_code;
   gsize payload_length;
 
-  parse_error = NULL;
   status_code = rest_proxy_call_get_status_code (call);
-  parser = json_parser_new ();
 
   if (error)
     {
       emit_generic_error (error);
-      goto out;
+      return TRUE;
     }
 
   if (status_code != 200)
@@ -386,7 +381,7 @@ synchronize_call_cb (RestProxyCall      *call,
                                       NULL,
                                       NULL);
       g_free (error_message);
-      goto out;
+      return TRUE;
     }
 
   payload = rest_proxy_call_get_payload (call);
@@ -396,16 +391,81 @@ synchronize_call_cb (RestProxyCall      *call,
     {
       emit_generic_error (parse_error);
       g_clear_error (&parse_error);
+      return TRUE;
+    }
+
+  return FALSE;
+}
+
+static void
+post (JsonObject                 *params,
+      RestProxyCallAsyncCallback  callback,
+      gpointer                    user_data)
+{
+  RestProxy *proxy;
+  RestProxyCall *call;
+  GList *param;
+  GList *l;
+  GError *error;
+
+  error = NULL;
+  proxy = rest_proxy_new (TODOIST_URL, FALSE);
+  call = rest_proxy_new_call (proxy);
+  param = json_object_get_members (params);
+
+  rest_proxy_call_set_method (call, "POST");
+  rest_proxy_call_add_header (call,
+                              "content-type",
+                              "application/x-www-form-urlencoded");
+
+  for (l = param; l != NULL; l = l->next)
+    {
+      JsonNode *node;
+      const gchar *value;
+
+      node = json_object_get_member (params, l->data);
+      value = json_node_get_string (node);
+
+      rest_proxy_call_add_param (call, l->data, value);
+    }
+
+  if (!rest_proxy_call_async (call,
+                              callback,
+                              NULL,
+                              user_data,
+                              &error))
+    {
+      emit_generic_error (error);
+      g_clear_error (&error);
       goto out;
     }
 
-  object = json_node_dup_object (json_parser_get_root (parser));
+out:
+  g_object_unref (proxy);
+  g_object_unref (call);
+  g_list_free (param);
+}
+
+static void
+synchronize_call_cb (RestProxyCall      *call,
+                     const GError       *error,
+                     GObject            *weak_object,
+                     GtdProviderTodoist *self)
+{
+  JsonObject *object;
+  JsonParser *parser;
+
+  parser = json_parser_new ();
+
+  if (check_post_response_for_errors (call, parser, error))
+    goto out;
+
+  object = json_node_get_object (json_parser_get_root (parser));
 
   if (json_object_has_member (object, "sync_token"))
     self->sync_token = g_strdup (json_object_get_string_member (object, "sync_token"));
 
   load_tasks (self, object);
-  json_object_unref (object);
 
 out:
   g_object_unref (parser);
@@ -414,17 +474,15 @@ out:
 static void
 synchronize_call (GtdProviderTodoist *self)
 {
-  RestProxy     *proxy;
-  RestProxyCall *call;
   GoaOAuth2Based *o_auth2;
+  JsonObject *params;
   GError *error;
   gchar *access_token;
 
   error = NULL;
   access_token = NULL;
   o_auth2 = goa_object_get_oauth2_based (self->account_object);
-  proxy = rest_proxy_new (TODOIST_URL, FALSE);
-  call = rest_proxy_new_call (proxy);
+  params = json_object_new ();
 
   if (!goa_oauth2_based_call_get_access_token_sync (o_auth2, &access_token, NULL, NULL, &error))
     {
@@ -433,33 +491,15 @@ synchronize_call (GtdProviderTodoist *self)
       goto out;
     }
 
-  rest_proxy_call_set_method (call, "POST");
-  rest_proxy_call_add_header (call, "content-type", "application/x-www-form-urlencoded");
-  rest_proxy_call_add_param (call, "token", access_token);
+  json_object_set_string_member (params, "token", access_token);
+  json_object_set_string_member (params, "sync_token", self->sync_token);
+  json_object_set_string_member (params, "resource_types", "[\"all\"]");
 
-  if (self->sync_token)
-    rest_proxy_call_add_param (call, "sync_token", self->sync_token);
-  else
-    rest_proxy_call_add_param (call, "sync_token", "*");
-
-  rest_proxy_call_add_param (call, "resource_types", "[\"all\"]");
-
-  if (!rest_proxy_call_async (call,
-                              (RestProxyCallAsyncCallback) synchronize_call_cb,
-                              NULL,
-                              self,
-                              &error))
-    {
-      emit_generic_error (error);
-      g_clear_error (&error);
-      goto out;
-    }
-
+  post (params, (RestProxyCallAsyncCallback) synchronize_call_cb, self);
 
 out:
   g_object_unref (o_auth2);
-  g_object_unref (proxy);
-  g_object_unref (call);
+  json_object_unref (params);
 }
 
 static void
@@ -674,6 +714,7 @@ gtd_provider_todoist_init (GtdProviderTodoist *self)
 
   self->lists = g_hash_table_new (g_direct_hash, g_direct_equal);
   self->tasks = g_hash_table_new (g_direct_hash, g_direct_equal);
+  self->sync_token = g_strdup ("*");
 
   /* icon */
   self->icon = G_ICON (g_themed_icon_new_with_default_fallbacks ("computer-symbolic"));
