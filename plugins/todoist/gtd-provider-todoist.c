@@ -425,7 +425,6 @@ post (JsonObject                 *params,
 
       node = json_object_get_member (params, l->data);
       value = json_node_get_string (node);
-
       rest_proxy_call_add_param (call, l->data, value);
     }
 
@@ -472,12 +471,35 @@ out:
 }
 
 static void
+post_generic_cb (RestProxyCall      *call,
+                 const GError       *error,
+                 GObject            *weak_object,
+                 GtdProviderTodoist *self)
+{
+  JsonObject *object;
+  JsonParser *parser;
+
+  parser = json_parser_new ();
+
+  if (check_post_response_for_errors (call, parser, error))
+    goto out;
+
+  object = json_node_get_object (json_parser_get_root (parser));
+
+  if (json_object_has_member (object, "sync_token"))
+    self->sync_token = g_strdup (json_object_get_string_member (object, "sync_token"));
+
+out:
+  g_object_unref (parser);
+}
+
+static void
 synchronize_call (GtdProviderTodoist *self)
 {
   GoaOAuth2Based *o_auth2;
   JsonObject *params;
   GError *error;
-  gchar *access_token;
+  g_autofree gchar *access_token;
 
   error = NULL;
   access_token = NULL;
@@ -511,16 +533,120 @@ gtd_provider_todoist_create_task (GtdProvider *provider,
 
 static void
 gtd_provider_todoist_update_task (GtdProvider *provider,
-                                   GtdTask     *task)
+                                  GtdTask     *task)
 {
+  GtdProviderTodoist *self;
+  GoaOAuth2Based *o_auth2;
+  JsonObject *params;
+  GtdTask *parent;
+  GDateTime *due_date;
+  GError *error;
+  g_autofree gchar *access_token;
+  g_autofree gchar *command;
+  g_autofree gchar *command_uuid;
+  g_autofree gchar *due_dt;
+  const gchar *task_uid;
+  const gchar *title;
+  const gchar *parent_id;
+  gint priority;
+  gint indent;
+  gint checked;
 
+  error = NULL;
+  due_dt = command = command_uuid = access_token = NULL;
+  self = GTD_PROVIDER_TODOIST (provider);
+  o_auth2 = goa_object_get_oauth2_based (self->account_object);
+  params = json_object_new ();
+  task_uid = gtd_object_get_uid (GTD_OBJECT (task));
+  title = gtd_task_get_title (task);
+  priority = gtd_task_get_priority (task);
+  parent = gtd_task_get_parent (task);
+  indent = gtd_task_get_depth (task) + 1;
+  checked =  gtd_task_get_complete (task);
+  parent_id = parent ? gtd_object_get_uid (GTD_OBJECT (parent)) : "null";
+  due_date = gtd_task_get_due_date (task);
+
+  if (due_date)
+    {
+      g_autofree gchar *date_format;
+
+      date_format = g_date_time_format (due_date, "%FT%R");
+      due_dt = g_strdup_printf ("\"%s\"", date_format);
+    }
+  else
+    {
+      due_dt = g_strdup ("null");
+    }
+
+
+  if (!goa_oauth2_based_call_get_access_token_sync (o_auth2, &access_token, NULL, NULL, &error))
+    {
+      emit_generic_error (error);
+      g_clear_error (&error);
+      return;
+    }
+
+  command_uuid = g_uuid_string_random ();
+  command = g_strdup_printf ("[{\"type\": \"item_update\", \"uuid\": \"%s\", "
+                             "\"args\": {\"id\": %s, \"content\": \"%s\", "
+                             "\"priority\": %d, \"parent_id\": %s, "
+                             "\"indent\": %d, \"checked\": %d, "
+                             "\"due_date_utc\": %s}}]",
+                             command_uuid,
+                             task_uid,
+                             title,
+                             priority,
+                             parent_id,
+                             indent,
+                             checked,
+                             due_dt);
+
+  json_object_set_string_member (params, "token", access_token);
+  json_object_set_string_member (params, "commands", command);
+
+  post (params, (RestProxyCallAsyncCallback) post_generic_cb, self);
+
+  g_clear_pointer (&due_date, g_date_time_unref);
 }
 
 static void
 gtd_provider_todoist_remove_task (GtdProvider *provider,
                                    GtdTask     *task)
 {
+  GtdProviderTodoist *self;
+  GoaOAuth2Based *o_auth2;
+  JsonObject *params;
+  GError *error;
+  g_autofree gchar *access_token;
+  g_autofree gchar *command;
+  g_autofree gchar *command_uuid;
+  const gchar *task_uid;
 
+  error = NULL;
+  access_token = NULL;
+  command = command_uuid = NULL;
+  self = GTD_PROVIDER_TODOIST (provider);
+  o_auth2 = goa_object_get_oauth2_based (self->account_object);
+  params = json_object_new ();
+  task_uid = gtd_object_get_uid (GTD_OBJECT (task));
+
+  if (!goa_oauth2_based_call_get_access_token_sync (o_auth2, &access_token, NULL, NULL, &error))
+    {
+      emit_generic_error (error);
+      g_clear_error (&error);
+      return;
+    }
+
+  command_uuid = g_uuid_string_random ();
+  command = g_strdup_printf ("[{\"type\": \"item_delete\", \"uuid\": \"%s\", "
+                             "\"args\": {\"ids\": [%s]}}]",
+                             command_uuid,
+                             task_uid);
+
+  json_object_set_string_member (params, "token", access_token);
+  json_object_set_string_member (params, "commands", command);
+
+  post (params, (RestProxyCallAsyncCallback) post_generic_cb, self);
 }
 
 static void
@@ -534,14 +660,90 @@ static void
 gtd_provider_todoist_update_task_list (GtdProvider *provider,
                                         GtdTaskList *list)
 {
+  GtdProviderTodoist *self;
+  GoaOAuth2Based *o_auth2;
+  JsonObject *params;
+  GdkRGBA *list_color;
+  GError *error;
+  g_autofree gchar *access_token;
+  g_autofree gchar *command;
+  g_autofree gchar *command_uuid;
+  const gchar *list_uid;
+  const gchar *list_name;
+  gint color_index;
 
+  error = NULL;
+  access_token = NULL;
+  command = command_uuid = NULL;
+  self = GTD_PROVIDER_TODOIST (provider);
+  o_auth2 = goa_object_get_oauth2_based (self->account_object);
+  params = json_object_new ();
+  list_uid = gtd_object_get_uid (GTD_OBJECT (list));
+  list_name = gtd_task_list_get_name (list);
+  list_color = gtd_task_list_get_color (list);
+  color_index = get_color_code_index (list_color);
+
+  if (!goa_oauth2_based_call_get_access_token_sync (o_auth2, &access_token, NULL, NULL, &error))
+    {
+      emit_generic_error (error);
+      g_clear_error (&error);
+      return;
+    }
+
+  command_uuid = g_uuid_string_random ();
+  command = g_strdup_printf ("[{\"type\": \"project_update\", \"uuid\": \"%s\", "
+                             "\"args\": {\"id\": %s, \"name\": \"%s\", \"color\": %d}}]",
+                             command_uuid,
+                             list_uid,
+                             list_name,
+                             color_index);
+
+  json_object_set_string_member (params, "token", access_token);
+  json_object_set_string_member (params, "commands", command);
+
+  post (params, (RestProxyCallAsyncCallback) post_generic_cb, self);
+
+  gdk_rgba_free (list_color);
 }
 
 static void
 gtd_provider_todoist_remove_task_list (GtdProvider *provider,
-                                        GtdTaskList *list)
+                                       GtdTaskList *list)
 {
+  GtdProviderTodoist *self;
+  GoaOAuth2Based *o_auth2;
+  JsonObject *params;
+  GError *error;
+  g_autofree gchar *access_token;
+  g_autofree gchar *command;
+  g_autofree gchar *command_uuid;
+  const gchar *list_uid;
 
+  error = NULL;
+  access_token = NULL;
+  command = command_uuid = NULL;
+  self = GTD_PROVIDER_TODOIST (provider);
+  o_auth2 = goa_object_get_oauth2_based (self->account_object);
+  params = json_object_new ();
+  list_uid = gtd_object_get_uid (GTD_OBJECT (list));
+
+  if (!goa_oauth2_based_call_get_access_token_sync (o_auth2, &access_token, NULL, NULL, &error))
+    {
+      emit_generic_error (error);
+      g_clear_error (&error);
+      return;
+    }
+
+  command_uuid = g_uuid_string_random ();
+  command = g_strdup_printf ("[{\"type\": \"project_delete\", \"uuid\": \"%s\", "
+                             "\"args\": {\"ids\": [%s]}}]",
+                             command_uuid,
+                             list_uid);
+
+  json_object_set_string_member (params, "token", access_token);
+  json_object_set_string_member (params, "commands", command);
+
+  post (params, (RestProxyCallAsyncCallback) post_generic_cb, self);
 }
 
 static GList*
