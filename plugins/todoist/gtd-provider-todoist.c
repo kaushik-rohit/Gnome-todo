@@ -15,7 +15,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 #define _XOPEN_SOURCE
+
 #include "gtd-provider-todoist.h"
 #include "gtd-plugin-todoist.h"
 #include <rest/oauth2-proxy.h>
@@ -29,7 +31,7 @@
 
 struct _GtdProviderTodoist
 {
-  GtdObject          parent;
+  GtdObject           parent;
 
   GoaObject          *account_object;
 
@@ -193,7 +195,7 @@ emit_access_token_error (void)
              "Unable to get access token from gnome-online-accounts");
 
   gtd_manager_emit_error_message (gtd_manager_get_default (),
-                                  _("To Do cannot fetch Todoist account access_token"),
+                                  _("Error fetching Todoist account key"),
                                   _("Please ensure that Todoist account is correctly configured."),
                                   NULL,
                                   NULL);
@@ -308,9 +310,6 @@ parse_array_to_task (GtdProviderTodoist *self,
   GList *lists;
   GList *l;
 
-  lists = NULL;
-  l = NULL;
-
   lists = json_array_get_elements (items);
 
   for (l = lists; l != NULL; l = l->next)
@@ -319,21 +318,17 @@ parse_array_to_task (GtdProviderTodoist *self,
       GtdTaskList *list;
       ECalComponent *component;
       GtdTask *task;
-      GtdTask *parent_task;
       const gchar *title;
       const gchar *due_date;
       gchar *uid;
       guint32 id;
       guint32 project_id;
-      guint32 parent_id;
       gint priority;
       guint is_complete;
 
       component = e_cal_component_new ();
       e_cal_component_set_new_vtype (component, E_CAL_COMPONENT_TODO);
       e_cal_component_set_uid (component, e_cal_component_gen_uid ());
-
-      task = gtd_task_new (component);
 
       object = json_node_get_object (l->data);
 
@@ -346,19 +341,28 @@ parse_array_to_task (GtdProviderTodoist *self,
 
       list = g_hash_table_lookup (self->lists, GUINT_TO_POINTER (project_id));
       uid = g_strdup_printf ("%u", id);
+
+      /* Setup the task */
+      task = gtd_task_new (component);
       gtd_object_set_uid (GTD_OBJECT (task), uid);
       gtd_task_set_title (task, title);
       gtd_task_set_list (task, list);
       gtd_task_set_priority (task, priority);
       gtd_task_set_complete (task, is_complete);
 
+      /* Setup the parent task */
       if (!json_object_get_null_member (object, "parent_id"))
         {
+          GtdTask *parent_task;
+          guint32 parent_id;
+
           parent_id = json_object_get_int_member (object, "parent_id");
           parent_task = g_hash_table_lookup (self->tasks, GUINT_TO_POINTER (parent_id));
+
           gtd_task_add_subtask (parent_task, task);
         }
 
+      /* Due date */
       if (due_date)
         gtd_task_set_due_date (task, parse_due_date (due_date));
 
@@ -457,6 +461,7 @@ post (JsonObject                 *params,
 
       node = json_object_get_member (params, l->data);
       value = json_node_get_string (node);
+
       rest_proxy_call_add_param (call, l->data, value);
     }
 
@@ -494,7 +499,10 @@ synchronize_call_cb (RestProxyCall      *call,
   object = json_node_get_object (json_parser_get_root (parser));
 
   if (json_object_has_member (object, "sync_token"))
-    self->sync_token = g_strdup (json_object_get_string_member (object, "sync_token"));
+    {
+      g_clear_pointer (&self->sync_token, g_free);
+      self->sync_token = g_strdup (json_object_get_string_member (object, "sync_token"));
+    }
 
   load_tasks (self, object);
 
@@ -519,7 +527,10 @@ post_generic_cb (RestProxyCall      *call,
   object = json_node_get_object (json_parser_get_root (parser));
 
   if (json_object_has_member (object, "sync_token"))
-    self->sync_token = g_strdup (json_object_get_string_member (object, "sync_token"));
+    {
+      g_clear_pointer (&self->sync_token, g_free);
+      self->sync_token = g_strdup (json_object_get_string_member (object, "sync_token"));
+    }
 
 out:
   g_object_unref (parser);
@@ -549,7 +560,7 @@ synchronize_call (GtdProviderTodoist *self)
 
 static void
 gtd_provider_todoist_create_task (GtdProvider *provider,
-                                   GtdTask     *task)
+                                  GtdTask     *task)
 {
 
 }
@@ -565,12 +576,6 @@ gtd_provider_todoist_update_task (GtdProvider *provider,
   g_autofree gchar *command;
   g_autofree gchar *command_uuid;
   g_autofree gchar *due_dt;
-  const gchar *task_uid;
-  const gchar *title;
-  const gchar *parent_id;
-  gint priority;
-  gint indent;
-  gint checked;
 
   self = GTD_PROVIDER_TODOIST (provider);
   due_dt = command = command_uuid = NULL;
@@ -582,13 +587,7 @@ gtd_provider_todoist_update_task (GtdProvider *provider,
     }
 
   params = json_object_new ();
-  task_uid = gtd_object_get_uid (GTD_OBJECT (task));
-  title = gtd_task_get_title (task);
-  priority = gtd_task_get_priority (task);
   parent = gtd_task_get_parent (task);
-  indent = gtd_task_get_depth (task) + 1;
-  checked =  gtd_task_get_complete (task);
-  parent_id = parent ? gtd_object_get_uid (GTD_OBJECT (parent)) : "null";
   due_date = gtd_task_get_due_date (task);
 
   if (due_date)
@@ -610,12 +609,12 @@ gtd_provider_todoist_update_task (GtdProvider *provider,
                              "\"indent\": %d, \"checked\": %d, "
                              "\"due_date_utc\": %s}}]",
                              command_uuid,
-                             task_uid,
-                             title,
-                             priority,
-                             parent_id,
-                             indent,
-                             checked,
+                             gtd_object_get_uid (GTD_OBJECT (task)),
+                             gtd_task_get_title (task),
+                             gtd_task_get_priority (task),
+                             parent ? gtd_object_get_uid (GTD_OBJECT (parent)) : "null",
+                             gtd_task_get_depth (task) + 1,
+                             gtd_task_get_complete (task),
                              due_dt);
 
   json_object_set_string_member (params, "token", self->access_token);
@@ -628,13 +627,12 @@ gtd_provider_todoist_update_task (GtdProvider *provider,
 
 static void
 gtd_provider_todoist_remove_task (GtdProvider *provider,
-                                   GtdTask     *task)
+                                  GtdTask     *task)
 {
   GtdProviderTodoist *self;
   JsonObject *params;
   g_autofree gchar *command;
   g_autofree gchar *command_uuid;
-  const gchar *task_uid;
 
   self = GTD_PROVIDER_TODOIST (provider);
   command = command_uuid = NULL;
@@ -646,13 +644,12 @@ gtd_provider_todoist_remove_task (GtdProvider *provider,
     }
 
   params = json_object_new ();
-  task_uid = gtd_object_get_uid (GTD_OBJECT (task));
 
   command_uuid = g_uuid_string_random ();
   command = g_strdup_printf ("[{\"type\": \"item_delete\", \"uuid\": \"%s\", "
                              "\"args\": {\"ids\": [%s]}}]",
                              command_uuid,
-                             task_uid);
+                             gtd_object_get_uid (GTD_OBJECT (task)));
 
   json_object_set_string_member (params, "token", self->access_token);
   json_object_set_string_member (params, "commands", command);
@@ -676,9 +673,6 @@ gtd_provider_todoist_update_task_list (GtdProvider *provider,
   GdkRGBA *list_color;
   g_autofree gchar *command;
   g_autofree gchar *command_uuid;
-  const gchar *list_uid;
-  const gchar *list_name;
-  gint color_index;
 
   self = GTD_PROVIDER_TODOIST (provider);
   command = command_uuid = NULL;
@@ -690,18 +684,15 @@ gtd_provider_todoist_update_task_list (GtdProvider *provider,
     }
 
   params = json_object_new ();
-  list_uid = gtd_object_get_uid (GTD_OBJECT (list));
-  list_name = gtd_task_list_get_name (list);
   list_color = gtd_task_list_get_color (list);
-  color_index = get_color_code_index (list_color);
 
   command_uuid = g_uuid_string_random ();
   command = g_strdup_printf ("[{\"type\": \"project_update\", \"uuid\": \"%s\", "
                              "\"args\": {\"id\": %s, \"name\": \"%s\", \"color\": %d}}]",
                              command_uuid,
-                             list_uid,
-                             list_name,
-                             color_index);
+                             gtd_object_get_uid (GTD_OBJECT (list)),
+                             gtd_task_list_get_name (list),
+                             get_color_code_index (list_color));
 
   json_object_set_string_member (params, "token", self->access_token);
   json_object_set_string_member (params, "commands", command);
@@ -719,7 +710,6 @@ gtd_provider_todoist_remove_task_list (GtdProvider *provider,
   JsonObject *params;
   g_autofree gchar *command;
   g_autofree gchar *command_uuid;
-  const gchar *list_uid;
 
   self = GTD_PROVIDER_TODOIST (provider);
   command = command_uuid = NULL;
@@ -731,13 +721,12 @@ gtd_provider_todoist_remove_task_list (GtdProvider *provider,
     }
 
   params = json_object_new ();
-  list_uid = gtd_object_get_uid (GTD_OBJECT (list));
 
   command_uuid = g_uuid_string_random ();
   command = g_strdup_printf ("[{\"type\": \"project_delete\", \"uuid\": \"%s\", "
                              "\"args\": {\"ids\": [%s]}}]",
                              command_uuid,
-                             list_uid);
+                             gtd_object_get_uid (GTD_OBJECT (list)));
 
   json_object_set_string_member (params, "token", self->access_token);
   json_object_set_string_member (params, "commands", command);
@@ -874,10 +863,17 @@ gtd_provider_todoist_set_property (GObject      *object,
     {
     case PROP_GOA_OBJECT:
       self->account_object = GOA_OBJECT (g_value_dup_object (value));
+
+      /* Setup a nice user visible description */
       update_description (self);
+
+      /* Retrieve the store the session token from the account */
       store_access_token (self);
+
+      /* Only synchronize if we have an access token */
       if (self->access_token)
         synchronize_call (self);
+
       break;
 
     default:
@@ -915,8 +911,13 @@ gtd_provider_todoist_init (GtdProviderTodoist *self)
 {
   gtd_object_set_ready (GTD_OBJECT (self), TRUE);
 
+  /* Project id → GtdTaskList */
   self->lists = g_hash_table_new (g_direct_hash, g_direct_equal);
+
+  /* Task id → GtdTask */
   self->tasks = g_hash_table_new (g_direct_hash, g_direct_equal);
+
+  /* Session token from GOA */
   self->sync_token = g_strdup ("*");
 
   /* icon */

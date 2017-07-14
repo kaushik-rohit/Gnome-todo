@@ -31,9 +31,9 @@ G_BEGIN_DECLS
 
 G_DECLARE_FINAL_TYPE (GtdProviderTodoist, gtd_provider_todoist, GTD, PROVIDER_TODOIST, GtdObject)
 
-GtdProviderTodoist*    gtd_provider_todoist_new                     (GoaObject *account_object);
+GtdProviderTodoist*  gtd_provider_todoist_new                    (GoaObject          *account_object);
 
-GoaObject*             gtd_provider_todoist_get_goa_object          (GtdProviderTodoist  *self);
+GoaObject*           gtd_provider_todoist_get_goa_object         (GtdProviderTodoist *self);
 
 G_END_DECLS
 
